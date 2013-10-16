@@ -244,6 +244,13 @@
                             <input class="input-xlarge focused" id="opentime" name="opentime" type="text"><span class="help-inline"></span>
                         </div>
                     </div>
+					<div class="control-group">
+                        <label class="control-label">推荐白天或晚上</label>
+                        <div class="controls">
+                            <input type="radio" name="dayornight" value = "1" >白天<br>
+                            <input type="radio" name="dayornight" value = "0" >晚上<br>
+                        </div>
+                    </div>
                     <div class="control-group">
                         <label class="control-label" for="website">网址</label>
                         <div class="controls">
@@ -365,6 +372,18 @@
                         <label class="control-label" for="opentime">开放时间</label>
                         <div class="controls">
                             <input class="input-xlarge focused" id="opentime" name="opentime" type="text" value="{{opentime}}"><span class="help-inline"></span>
+                        </div>
+                    </div>
+					<div class="control-group">
+                        <label class="control-label">推荐白天或晚上</label>
+                        <div class="controls">
+                            {{#ifCond dayornight '1'}}
+                                <input type="radio" name="dayornight" value = "1" checked>白天<br>
+                                <input type="radio" name="dayornight" value = "0" >晚上<br>
+                            {{else}}
+                            <input type="radio" name="dayornight" value = "1" >白天<br>
+                            <input type="radio" name="dayornight" value = "0" checked>晚上<br>
+                            {{/ifCond}}
                         </div>
                     </div>
                     <div class="control-group">
