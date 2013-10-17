@@ -30,6 +30,7 @@ exports.saveAttractions = function (req, res) {
     data.checkFlag = '1';
     data.createPreson = 'weego';
     data.random = Math.random();
+
     attractionsProvider.insert(data, {safe:true}, function (err, result) {
         if (err) {
             console.log("AttractionsProvider.insert err: ", err);
@@ -381,6 +382,7 @@ exports.updateAttractions = function (req, res) {
         address:req.body.address,
         price:req.body.price,
         opentime:req.body.opentime,
+		dayornight:req.body.dayornight,
         website:req.body.website,
         telno:req.body.telno,
         attractions:req.body.attractions,
@@ -505,4 +507,5 @@ exports.addSubLabelToAttractions = function(req,res){
         });
     });
 }
+
 

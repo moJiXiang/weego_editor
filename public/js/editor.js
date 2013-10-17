@@ -251,7 +251,8 @@ $(weego.init());
                 array_label.push($('.labels').eq(i).attr('data-value'));
             }
             var newAttractions = new weego.AttractionsModel({cityname:$("#cityname").val(), attractions_en:$("#attractions_en").val(),
-                address:$('#address').val(), price:$('#price').val(), opentime:$('#opentime').val(), website:$("#website").val(), telno:$("#telno").val(),
+                address:$('#address').val(), price:$('#price').val(), opentime:$('#opentime').val(), 
+				dayornight:$('input:radio[name="dayornight"]:checked').val(),website:$("#website").val(), telno:$("#telno").val(),
                 attractions:$("#attractions").val(), introduce:$("#introduce").val(), short_introduce:$("#short_introduce").val(),
                 recommand_flag:$('input:radio[name="recommand_flag"]:checked').val(), show_flag:$('input:radio[name="show_flag"]:checked').val(),
                 masterLabel:$("#masterLabel").attr('data-value'), subLabel:array_label, latitude:$("#latitude").val(), longitude:$("#longitude").val()});
@@ -401,7 +402,7 @@ $(weego.init());
             for (var i = 0; i < $('.labels').length; i++) {
                 array_label.push($('.labels').eq(i).attr('data-value'));
             }
-            _this.model.save({cityname:$("#cityname").val(), attractions_en:$("#attractions_en").val(), attractions:$("#attractions").val(), address:$('#address').val(), price:$('#price').val(), opentime:$('#opentime').val(),
+            _this.model.save({cityname:$("#cityname").val(), attractions_en:$("#attractions_en").val(), attractions:$("#attractions").val(), address:$('#address').val(), price:$('#price').val(), opentime:$('#opentime').val(),dayornight:$('input:radio[name="dayornight"]:checked').val(),
                 website:$("#website").val(), telno:$("#telno").val(), introduce:$("#introduce").val(), short_introduce:$("#short_introduce").val(), recommand_flag:$('input:radio[name="recommand_flag"]:checked').val(),
                 show_flag:$('input:radio[name="show_flag"]:checked').val(), masterLabel:$("#masterLabel").attr('data-value'), subLabel:array_label,
                 latitude:$("#latitude").val(), longitude:$("#longitude").val()}, {
