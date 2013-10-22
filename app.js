@@ -94,6 +94,15 @@ app.get('/getUserByPage/:pageLimit/:pageIndex', routes.editUser.getUserByPage);
 app.post('/addMasterLabelToCities',routes.city.addMasterLabelToCities);
 app.post('/addSubLabelToCities',routes.city.addSubLabelToCities);
 
+//hotel
+app.get('/hotel/:hotelId', routes.hotel.get);
+app.del('/hotel/:hotelId', routes.hotel.remove);
+app.put('/hotel/:hotelId', routes.hotel.update);
+app.post('/hotel', routes.hotel.addNewHotel);
+app.get('/hotel/image/:fileName', routes.hotel.getImage);
+app.post('/hotel/image/:hotelId', routes.hotel.uploadImage);
+app.get('/hotels/:pageLimit/:pageIndex', routes.hotel.getHotelByPage);
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });

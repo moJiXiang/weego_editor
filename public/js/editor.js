@@ -19,6 +19,10 @@ $(weego.init());
             "city/:name/:pageno":"city_attractions", //
             "attractions/:pageno":"list_attractions",
             "attractions":"list_attractions",
+            "hotel/new":"showHotelDetailView",
+            "hotel/:id":"showHotelDetailView",
+            "hotels":"showHotelListView",
+            "hotels/:page":"showHotelListView",
             "label":'list_label',
 
             "login":'login',
@@ -31,7 +35,8 @@ $(weego.init());
         },
         before:function (route) {
             $('#app').off();
-            if (!weego_user.loginFlag && route != 'login'&&route!='logout') {
+//            if (!weego_user.loginFlag && route != 'login'&&route!='logout') {
+            if (false && route != 'login'&&route!='logout') {
                 weego.globalCurrentUrl = window.location.hash;
                 self.location = "#login";
                 return false;
@@ -95,6 +100,39 @@ $(weego.init());
             weego.currentPage = (pageno == null ? 1 : pageno);
             weego.defaultView = new weego.AppView();
             weego.defaultView.getData(weego.currentPage, weego.name)
+        },
+        showHotelDetailView: function(id){
+            $('#app').off();
+            $('#app').empty();
+
+            if(id == null)
+                (new HotelView({model: new HotelModel()})).render().$el.appendTo($('#app'));
+            else{
+                var hotelModel = new HotelModel();
+                hotelModel.set('_id', id);
+                hotelModel.fetch({success: function(){
+                    console.log(hotelModel);
+                    (new HotelView({model: hotelModel}).render().$el.appendTo($('#app')));
+                }});
+            }
+        },
+        showHotelListView: function(page){
+            $('#app').off();
+            $('#app').empty();
+            if(page == null){
+                var hotelListView = new HotelListView();
+                hotelListView.render().showFirstPage();
+                hotelListView.$el.appendTo($('#app'));
+            }
+            if(page != null){
+                var hotelListView = new HotelListView();
+                hotelListView.render();
+                hotelListView.showByPage(page);
+                hotelListView.$el.appendTo($('#app'));
+            }
+            $('#tab-hotels')
+                .addClass('active')
+                .siblings().removeClass('active');
         }
     });
     weego.currentPage = 1;
@@ -130,6 +168,16 @@ $(weego.init());
         }
         return options.inverse(this);
     });
+    Handlebars.registerHelper('ifHas', function(collection, value, options){
+        var exist = false;
+        _.each(collection, function(v){
+            if(v == value)
+                exist = true;
+        });
+        if(exist)
+            return options.fn(this);
+        return options.inverse(this);
+    })
     //add city view
     weego.AttractionsDetailView = Backbone.View.extend({
         tagName:"div",
