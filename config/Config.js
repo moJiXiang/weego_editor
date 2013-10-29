@@ -41,10 +41,12 @@ global.imgpathA4 = '/srv/weego/attractions/imgsizeA4/';
 global.imgpathA5 = '/srv/weego/attractions/imgsizeA5/';
 
 global.imgpathCO = '/srv/weego/city/origin/';
-//global.imgpathC1 = '/srv/weego/city/imgsizeC1/';
-global.imgpathC1 = 'c:/weego/imgpathC1/';
+global.imgpathC1 = '/srv/weego/city/imgsizeC1/';
 global.imgpathC2 = '/srv/weego/city/imgsizeC2/';
 global.imgpathC3 = '/srv/weego/city/imgsizeC3/';
+
+//global.imgpathD0 = '/srv/weego/hotels/imgpathD0/';//生产：
+global.imgpathD0 = 'c:/weego/imgpathD0/';  //测试
 
 global.imIdentifyPath = "/usr/bin/identify";
 global.imConvertPath = "/usr/bin/convert";

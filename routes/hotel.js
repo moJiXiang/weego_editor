@@ -70,7 +70,7 @@ exports.remove = function(req, res){
 exports.getImage = function(req, res){
     var imageID = req.params.fileName;
     if (imageID != 'undefined') {
-        var path = global.imgpathC1 + imageID;
+        var path = global.imgpathD0 + imageID;
         fs.exists(path, function (exists) {
             if (exists) {
                 fs.readFile(path, "binary", function (err, data) {
@@ -103,7 +103,7 @@ exports.uploadImage = function(req, res){
         var tmp_upload_path = tmp_upload.path;
         var tmp_upload_type = tmp_upload.type;
         target_upload_name = validPic(tmp_upload_type);
-        var target_upload_path = global.imgpathC1 + target_upload_name;
+        var target_upload_path = global.imgpathD0 + target_upload_name;
         console.log(target_upload_path);
         makeImageFile(tmp_upload_path, target_upload_path, function () {
             hotelProvider.update({_id:new ObjectID(req.body._id)}, {$push:{ 'images':target_upload_name}}, {safe:true}, function (err) {
