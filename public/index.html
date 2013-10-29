@@ -9,6 +9,9 @@
     <link href="stylesheets/jquery.fileupload-ui.css" rel="stylesheet">
     <link href="javascripts/jquery-ui/css/jquery-ui-1.8.18.custom.css" rel="stylesheet">
     <link href="stylesheets/style.css" rel="stylesheet">
+    <script type="text/javascript" src="libs/pagedown/Markdown.Converter.js"></script>
+    <script type="text/javascript" src="libs/pagedown/Markdown.Sanitizer.js"></script>
+    <script type="text/javascript" src="libs/pagedown/Markdown.Editor.js"></script>
 
     <script id="loginTemplate" type="text/x-handlebars-template">
         <div class="container">
@@ -235,6 +238,12 @@
                 </div>
             </div>
             <div class="control-group">
+                <label class="control-label" for="hotel-continents">洲际</label>
+                <div class="controls">
+                    <input type="text" id="hotel-continents" placeholder="必填" value="{{continents}}">
+                </div>
+            </div>
+            <div class="control-group">
                 <label class="control-label" for="hotel-state">省份</label>
                 <div class="controls">
                     <input type="text" id="hotel-state" placeholder="必填" value="{{state}}">
@@ -278,6 +287,81 @@
                         </textarea>
                     </div>
                 </div>
+
+                <div class="control-group hotel-room-group">
+                    <label class="control-label" for="label">酒店概述</label>
+                    <div class="controls">
+                        <div class="wmd-panel">
+                            <div id="wmd-button-bar-desc"></div>
+                            <div><textarea class="wmd-input" id="wmd-input-desc" rows="4">{{hotel_desc}}</textarea>
+                                <div id="show_hotel_desc" style:"display:none"><a>预览</a></div>
+                            </div>
+                        </div>
+                        <div id="wmd-preview-desc" class="wmd-panel wmd-preview"></div>
+                    </div>
+                </div>
+
+                <div class="control-group hotel-room-group">
+                    <label class="control-label" for="label">房间介绍</label>
+                    <div class="controls">
+                        <div class="wmd-panel">
+                            <div id="wmd-button-bar-room"></div>
+                            <div><textarea class="wmd-input" id="wmd-input-room" rows="4">{{hotel_desc}}</textarea>
+                                <div id="show_hotel_room" style:"display:none"><a>预览</a></div>
+                            </div>
+                        </div>
+                        <div id="wmd-preview-room" class="wmd-panel wmd-preview"></div>
+                    </div>
+                </div>
+                <div class="control-group hotel-service-group">
+                    <label class="control-label" for="label">酒店服务</label>
+                    <div class="controls">
+                        <div class="wmd-panel">
+                            <div id="wmd-button-bar-service"></div>
+                            <div><textarea class="wmd-input" id="wmd-input-service" rows="4">{{hotel_service}}</textarea>
+                                <div id="show_hotel_service" style:"display:none"><a>预览</a></div>
+                            </div>
+                        </div>
+                        <div id="wmd-preview-service" class="wmd-panel wmd-preview"></div>
+                    </div>
+                </div>
+                <div class="control-group hotel-hot-group">
+                    <label class="control-label" for="label">周边热点</label>
+                    <div class="controls">
+                        <div class="wmd-panel">
+                            <div id="wmd-button-bar-hot"></div>
+                            <div><textarea class="wmd-input" id="wmd-input-hot" rows="4">{{hotel_hot}}</textarea>
+                                <div id="show_hotel_hot" style:"display:none"><a>预览</a></div>
+                            </div>
+                        </div>
+                        <div id="wmd-preview-hot" class="wmd-panel wmd-preview"></div>
+                    </div>
+                </div>
+                <div class="control-group hotel-appraise-group">
+                    <label class="control-label" for="label">旅客评价</label>
+                    <div class="controls">
+                        <div class="wmd-panel">
+                            <div id="wmd-button-bar-appraise"></div>
+                            <div><textarea class="wmd-input" id="wmd-input-appraise" rows="4">{{hotel_appraise}}</textarea>
+                                <div id="show_hotel_appraise" style:"display:none"><a>预览</a></div>
+                            </div>
+                        </div>
+                        <div id="wmd-preview-appraise" class="wmd-panel wmd-preview"></div>
+                    </div>
+                </div>
+                <div class="control-group hotel-traffic-group">
+                    <label class="control-label" for="label">位置交通</label>
+                    <div class="controls">
+                        <div class="wmd-panel">
+                            <div id="wmd-button-bar-traffic"></div>
+                            <div><textarea class="wmd-input" id="wmd-input-traffic" rows="4">{{hotel_traffic}}</textarea>
+                                <div id="show_hotel_traffic" style:"display:none"><a>预览</a></div>
+                            </div>
+                        </div>
+                        <div id="wmd-preview-traffic" class="wmd-panel wmd-preview"></div>
+                    </div>
+                </div>
+
                 <div class="control-group">
                     <label class="control-label" for="hotel-area-description">周围环境</label>
                     <div class="controls">
@@ -319,6 +403,20 @@
                         </label>
                     </div>
                 </div>
+
+                <div class="control-group">
+                    <label class="control-label">推荐到首页</label>
+                    <div class="controls">
+                        {{#ifCond isviewindex '1'}}
+                            <input type="radio" name="isviewindex" value = "1" checked>推荐<br>
+                            <input type="radio" name="isviewindex" value = "0" >不推荐<br>
+                        {{else}}
+                        <input type="radio" name="isviewindex" value = "1" >推荐<br>
+                        <input type="radio" name="isviewindex" value = "0" checked>不推荐<br>
+                        {{/ifCond}}
+                    </div>
+                </div>
+
             </fieldset>
             <fieldset>
                 <legend>服务设施</legend>
@@ -1298,6 +1396,7 @@
     </script>
 </head>
 <body>
+
 <div id="logout" style="float: right"><a href="#logout">退出</a></div>
     <div class="show-nav">
     <ul class="nav nav-tabs">

@@ -112,7 +112,9 @@ $(weego.init());
                 hotelModel.set('_id', id);
                 hotelModel.fetch({success: function(){
                     console.log(hotelModel);
-                    (new HotelView({model: hotelModel}).render().$el.appendTo($('#app')));
+                     var hotelView = new HotelView({model: hotelModel});
+                     hotelView.render().$el.appendTo($('#app'));
+                     hotelView.initMarkDown();  //初始化markdown
                 }});
             }
         },

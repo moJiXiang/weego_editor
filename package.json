@@ -8,7 +8,8 @@
   "dependencies": {
     "express": "3.1.0",
     "jade": "*",
-      "mongodb":"1.1.11",
-      "imagemagick":"*"
+    "mongodb":"1.1.11",
+    "imagemagick":"*",
+    "node-markdown": "0.1.0"
   }
 }
