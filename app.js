@@ -103,6 +103,8 @@ app.get('/hotel/image/:fileName', routes.hotel.getImage);
 app.post('/hotel/image/:hotelId', routes.hotel.uploadImage);
 app.get('/hotels/:pageLimit/:pageIndex', routes.hotel.getHotelByPage);
 
+app.get('/upyun', routes.upyun.UPYun);
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
