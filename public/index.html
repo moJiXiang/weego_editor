@@ -133,7 +133,8 @@
 
     <script id="uploadImageView" type="text/x-handlebars-template">
         <a class="btn-remove" title="Remove" style="display: inline;">X</a>
-        <img src="/attractionsimage/{{this}}">
+        <!--<img src="/attractionsimage/{{this}}">-->
+        <img src="http://weegotest.b0.upaiyun.com/attractions/origin/{{this}}">
         <input type="hidden" class="uploadImageId" name="uploadImageId" value="{{this}}">
         <input type="button" class="setCoverImg" value="设置成为封面图片">
     </script>
@@ -565,7 +566,7 @@
             {{#each images}}
             <li class="span2">
                 <a class="thumbnail">
-                    <img src="/hotel/image/{{this}}" alt="">
+                <img src="http://weegotest.b0.upaiyun.com/hotel/origin/{{this}}" alt="">
                 </a> 
                 <a class="btn cover {{#ifCond ../imgCover this}}disabled btn-success{{/ifCond}}">封面</a>
                 <a class="btn btn-danger img-remove">删除</a>
@@ -891,7 +892,7 @@
 
     <script id="cityUploadImageView" type="text/x-handlebars-template">
         <a class="btn-remove" title="Remove" style="display: inline;">X</a>
-        <img src="/cityBackimage/{{this}}">
+        <img src="http://weegotest.b0.upaiyun.com/city/imgsizeC1/{{this}}">
         <input type="hidden" class="uploadImageId" name="uploadImageId" value="{{this}}">
     </script>
     <script id="manageBackgroundImageView" type="text/x-handlebars-template">
@@ -913,7 +914,8 @@
     </script>
     <script id="uploadCoverImageView" type="text/x-handlebars-template">
         <a class="btn-remove" title="Remove" style="display: inline;">X</a>
-        <img src="/cityCoverimage/{{this}}">
+        <!--<img src="/cityCoverimage/{{this}}">-->
+        <img src="http://weegotest.b0.upaiyun.com/city/imgsizeC2/{{this}}">
         <input type="hidden" class="uploadImageId" name="uploadImageId" value="{{this}}">
         <input type="button" class="setCoverImg" value="设置成为封面图片">
     </script>

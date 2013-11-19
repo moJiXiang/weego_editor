@@ -15,6 +15,8 @@ fs = require('fs');
 var im = require('imagemagick');
 im.identify.path = global.imIdentifyPath;
 im.convert.path = global.imConvertPath;
+var upyunClient = require('./upyun/upyunClient');
+
 exports.getAllCity = function (req, res) {
 
     cityProvider.find({}, {}, function (err, result) {
@@ -185,42 +187,51 @@ function copyCoverImage(globalpath, strpath, despath, callback) {
 exports.setCityCoverImg = function (req, res) {
     var imageName = req.params.imageName;
     var _id = req.params._id;
-    cityProvider.findOne({_id:new ObjectID(_id), 'coverImageName':{$exists:true}}, {}, function (err, result) {
+    cityProvider.update({_id:new ObjectID(_id)}, {$set:{'coverImageName':imageName, "imgFlag":true}}, {safe:true}, function (err) {
         if (err) {
             throw err;
         } else {
-            if (result) {
-                copyCoverImage(global.imgpathCO, imageName, result.coverImageName, function () {
-                        copyCoverImage(global.imgpathC2, imageName, result.coverImageName, function () {
-                            copyCoverImage(global.imgpathC3, imageName, result.coverImageName, function () {
-                                res.setHeader("Content-Type", "application/json");
-                                res.json(result.coverImageId);
-                                res.end();
-                            });
-                        });
-                });
-            } else {
-                var suffix = imageName.split(".")[1];
-                var cover_id = new ObjectID();
-                var cover_name = cover_id + '.' + suffix;
-                copyCoverImage(global.imgpathCO, imageName, cover_name, function () {
-                        copyCoverImage(global.imgpathC2, imageName, cover_name, function () {
-                            copyCoverImage(global.imgpathC3, imageName, cover_name, function () {
-                                cityProvider.update({_id:new ObjectID(_id)}, {$set:{'coverImageName':cover_name, "imgFlag":true}}, {safe:true}, function (err) {
-                                    if (err) {
-                                        throw err;
-                                    } else {
-                                        res.setHeader("Content-Type", "application/json");
-                                        res.json(cover_name);
-                                        res.end();
-                                    }
-                                });
-                            });
-                        });
-                    });
-            }
+            res.setHeader("Content-Type", "application/json");
+            res.json(imageName);
+            res.end();
         }
     });
+    // cityProvider.findOne({_id:new ObjectID(_id), 'coverImageName':{$exists:true}}, {}, function (err, result) {
+    //     if (err) {
+    //         throw err;
+    //     } else {
+    //         if (result) {
+    //             copyCoverImage(global.imgpathCO, imageName, result.coverImageName, function () {
+    //                     copyCoverImage(global.imgpathC2, imageName, result.coverImageName, function () {
+    //                         copyCoverImage(global.imgpathC3, imageName, result.coverImageName, function () {
+    //                             res.setHeader("Content-Type", "application/json");
+    //                             res.json(result.coverImageId);
+    //                             res.end();
+    //                         });
+    //                     });
+    //             });
+    //         } else {
+    //             var suffix = imageName.split(".")[1];
+    //             var cover_id = new ObjectID();
+    //             var cover_name = cover_id + '.' + suffix;
+    //             copyCoverImage(global.imgpathCO, imageName, cover_name, function () {
+    //                     copyCoverImage(global.imgpathC2, imageName, cover_name, function () {
+    //                         copyCoverImage(global.imgpathC3, imageName, cover_name, function () {
+    //                             cityProvider.update({_id:new ObjectID(_id)}, {$set:{'coverImageName':cover_name, "imgFlag":true}}, {safe:true}, function (err) {
+    //                                 if (err) {
+    //                                     throw err;
+    //                                 } else {
+    //                                     res.setHeader("Content-Type", "application/json");
+    //                                     res.json(cover_name);
+    //                                     res.end();
+    //                                 }
+    //                             });
+    //                         });
+    //                     });
+    //                 });
+    //         }
+    //     }
+    // });
 };
 //上传封面图片
 exports.upload = function (req, res) {
@@ -235,14 +246,17 @@ exports.upload = function (req, res) {
         var filePathC2 = global.imgpathC2 + target_upload_name;
         var filePathC3 = global.imgpathC3 + target_upload_name;
         changeImageSize(req, tmp_upload_path, target_upload_path, filePathC2, filePathC3, function () {
-            cityProvider.update({_id:new ObjectID(req.body._id)}, {$push:{ 'image':target_upload_name}}, {safe:true}, function (err) {
-                if (err) {
-                    throw err;
-                } else {
-                    res.setHeader("Content-Type", "application/json");
-                    res.json(target_upload_name);
-                    res.end();
-                }
+            upyunClient.upCityToYun(target_upload_name,function(err,data){
+                if(err) throw err;
+                cityProvider.update({_id:new ObjectID(req.body._id)}, {$push:{ 'image':target_upload_name}}, {safe:true}, function (err) {
+                    if (err) {
+                        throw err;
+                    } else {
+                        res.setHeader("Content-Type", "application/json");
+                        res.json(target_upload_name);
+                        res.end();
+                    }
+                });
             });
         });
     } else {
@@ -259,7 +273,7 @@ function changeImageSize(req, tmp_path, target_path,target_path_middle, target_p
                     if (err) throw err;
                     im.crop({srcPath:target_path,dstPath:target_path_small,width:global.imgsizeC3.width,height:global.imgsizeC3.height,quality:1,gravity:'Center'}, function (err, metadata) {
                         if (err) throw err;
-                        callback();
+                        process.nextTick(callback);
                     });
                 });
         });
@@ -271,11 +285,14 @@ exports.delCoverImage = function (req, res) {
     fs.unlink(global.imgpathCO + imageName, function () {
         fs.unlink(global.imgpathC2 + imageName, function () {
             fs.unlink(global.imgpathC3 + imageName, function () {
-        cityProvider.update({_id:new ObjectID(_id)}, {$pull:{ 'image':imageName}}, {safe:true}, function (err) {
-            if (err) throw err;
-            res.send({'status':'success'});
-               });
-             });
+                cityProvider.update({_id:new ObjectID(_id)}, {$pull:{ 'image':imageName}}, {safe:true}, function (err) {
+                    if (err) throw err;
+                    upyunClient.delCityFromYun(imageName,function(err,data){
+                        if(err) res.send({'status':'fail'});
+                        res.send({'status':'success'});
+                    });
+                });
+            });
         });
     });
 };
@@ -290,14 +307,16 @@ exports.upload_background_img = function (req, res) {
         target_upload_name = validPic(tmp_upload_type);
         var target_upload_path = global.imgpathC1 + target_upload_name;
         makeImageFile(tmp_upload_path, target_upload_path, function () {
-            cityProvider.update({_id:new ObjectID(req.body._id)}, {$push:{ 'backgroundimage':target_upload_name}}, {safe:true}, function (err) {
-                if (err) {
-                    throw err;
-                } else {
-                    res.setHeader("Content-Type", "application/json");
-                    res.json(target_upload_name);
-                    res.end();
-                }
+            upyunClient.upCityBgToYun(target_upload_name,function(err,data){
+                cityProvider.update({_id:new ObjectID(req.body._id)}, {$push:{ 'backgroundimage':target_upload_name}}, {safe:true}, function (err) {
+                    if (err) {
+                        throw err;
+                    } else {
+                        res.setHeader("Content-Type", "application/json");
+                        res.json(target_upload_name);
+                        res.end();
+                    }
+                });
             });
         });
     } else {
@@ -311,7 +330,9 @@ exports.delBackgroundImage = function (req, res) {
     fs.unlink(global.imgpathC1 + imageName, function () {
         cityProvider.update({_id:new ObjectID(_id)}, {$pull:{ 'backgroundimage':imageName}}, {safe:true}, function (err) {
             if (err) throw err;
-            res.send({'status':'success'});
+            upyunClient.delCityBgFromYun(imageName,function(err,data){
+                res.send({'status':'success'});
+            });
         });
     });
 };
@@ -328,7 +349,7 @@ function validPic(type) {
     var _id = new ObjectID();
     return  _id + '.' + suffix;
 }
-// 上传前台页面左边大图
+// 上传前台页面左边大图 废弃
 exports.upload_left_img = function (req, res) {
     var city_id = req.query.city_id;
     var imageID = new ObjectID();
@@ -364,7 +385,7 @@ exports.upload_left_img = function (req, res) {
     });
 };
 
-// 上传前台页面小图
+// 上传前台页面小图 废弃
 exports.upload_small_img = function (req, res) {
     var city_id = req.query.city_id;
     var imageID = new ObjectID();
@@ -400,7 +421,7 @@ exports.upload_small_img = function (req, res) {
     });
 };
 
-// 上传前台页面右边中图
+// 上传前台页面右边中图 废弃
 exports.upload_right_middle_img = function (req, res) {
     var city_id = req.query.city_id;
     var imageID = new ObjectID();
