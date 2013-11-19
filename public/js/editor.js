@@ -573,7 +573,7 @@ $(weego.init());
             }
             var coverImageName = _this.model.get('coverImageName');
             if (coverImageName) {
-                _this.$('#coverImageName').empty().append($('<img src="/attractionsimage/' + coverImageName + '?rev=' + Math.random() + '">'));
+                _this.$('#coverImageName').empty().append($('<img src="http://weegotest.b0.upaiyun.com/attractions/origin/' + coverImageName + '?rev=' + Math.random() + '">'));
             }
             return this;
         },
@@ -620,7 +620,7 @@ $(weego.init());
                 url:'/setCoverImg/' + _id + '/' + _this.model,
                 success:function (data) {
                     if (data) {
-                        $('#coverImageName').empty().append($('<img src="/attractionsimage/' + data + '?rev=' + Math.random() + '">'));
+                        $('#coverImageName').empty().append($('<img src="http://weegotest.b0.upaiyun.com/attractions/origin/' + data + '?rev=' + Math.random() + '">'));
                     }
                 }
             });

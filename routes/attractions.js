@@ -17,6 +17,8 @@ fs = require('fs');
 var im = require('imagemagick');
 im.identify.path = global.imIdentifyPath;
 im.convert.path = global.imConvertPath;
+var upyunClient = require('./upyun/upyunClient');
+
 exports.saveAttractions = function (req, res) {
     var data = req.body;
     if (data.subLabel.length > 0) {
@@ -237,14 +239,17 @@ exports.postimage = function (req, res) {
         var filePathA4 = global.imgpathA4 + target_upload_name;
         var filePathA5 = global.imgpathA5 + target_upload_name;
         makeImageFile(req, tmp_upload_path, target_upload_path, filePathA1, filePathA2, filePathA3,filePathA4,filePathA5, function () {
-            attractionsProvider.update({_id:new ObjectID(req.body._id)}, {$push:{ 'image':target_upload_name}}, {safe:true}, function (err) {
-                if (err) {
-                    throw err;
-                } else {
-                    res.setHeader("Content-Type", "application/json");
-                    res.json(target_upload_name);
-                    res.end();
-                }
+            upyunClient.upAttractionToYun(target_upload_name,function(err,data){
+                if(err) throw err;
+                attractionsProvider.update({_id:new ObjectID(req.body._id)}, {$push:{ 'image':target_upload_name}}, {safe:true}, function (err) {
+                    if (err) {
+                        throw err;
+                    } else {
+                        res.setHeader("Content-Type", "application/json");
+                        res.json(target_upload_name);
+                        res.end();
+                    }
+                });
             });
         });
     } else {
@@ -270,7 +275,7 @@ function makeImageFile(req, tmp_path, target_path, target_path_A1, target_path_A
                             if (err) throw err;
                             im.crop({srcPath:target_path,dstPath:target_path_A5,width:global.imgsizeA5.width,height:global.imgsizeA5.height,quality:1,gravity:'Center'}, function (err, metadata) {
                                 if (err) throw err;
-                                callback();
+                                process.nextTick(callback);
                             });
                         });
                     });
@@ -296,7 +301,10 @@ exports.delUploadImage = function (req, res) {
                         fs.unlink(global.imgpathA5 + imageName, function () {
                             attractionsProvider.update({_id:new ObjectID(_id)}, {$pull:{ 'image':imageName}}, {safe:true}, function (err) {
                                 if (err) throw err;
-                                res.send({'status':'success'});
+                                upyunClient.delAttractionFromYun(imageName,function(err,data){
+                                    if(err) res.send({'status':'fail'});
+                                    res.send({'status':'success'});
+                                });
                             });
                         });
                     });
@@ -306,6 +314,7 @@ exports.delUploadImage = function (req, res) {
     });
 
 };
+//废弃
 function copyCoverImage(globalpath, strpath, despath, callback) {
     var fileReadStream = fs.createReadStream(globalpath + strpath);
     var fileWriteStream = fs.createWriteStream(globalpath + despath);
@@ -317,54 +326,63 @@ function copyCoverImage(globalpath, strpath, despath, callback) {
 exports.setCoverImg = function (req, res) {
     var imageName = req.params.imageName;
     var _id = req.params._id;
-    attractionsProvider.findOne({_id:new ObjectID(_id), 'coverImageName':{$exists:true}}, {}, function (err, result) {
+    attractionsProvider.update({_id:new ObjectID(_id)}, {$set:{'coverImageName':imageName, "imgFlag":true}}, {safe:true}, function (err) {
         if (err) {
             throw err;
         } else {
-            if (result) {
-                copyCoverImage(global.imgpathAO, imageName, result.coverImageName, function () {
-                    copyCoverImage(global.imgpathA1, imageName, result.coverImageName, function () {
-                        copyCoverImage(global.imgpathA2, imageName, result.coverImageName, function () {
-                            copyCoverImage(global.imgpathA3, imageName, result.coverImageName, function () {
-                                copyCoverImage(global.imgpathA4, imageName, result.coverImageName, function () {
-                                    copyCoverImage(global.imgpathA5, imageName, result.coverImageName, function () {
-                                        res.setHeader("Content-Type", "application/json");
-                                        res.json(result.coverImageId);
-                                        res.end();
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
-            } else {
-                var suffix = imageName.split(".")[1];
-                var cover_id = new ObjectID();
-                var cover_name = cover_id + '.' + suffix;
-                copyCoverImage(global.imgpathAO, imageName, cover_name, function () {
-                    copyCoverImage(global.imgpathA1, imageName, cover_name, function () {
-                        copyCoverImage(global.imgpathA2, imageName, cover_name, function () {
-                            copyCoverImage(global.imgpathA3, imageName, cover_name, function () {
-                                copyCoverImage(global.imgpathA4, imageName, cover_name, function () {
-                                    copyCoverImage(global.imgpathA5, imageName, cover_name, function () {
-                                        attractionsProvider.update({_id:new ObjectID(_id)}, {$set:{'coverImageName':cover_name, "imgFlag":true}}, {safe:true}, function (err) {
-                                            if (err) {
-                                                throw err;
-                                            } else {
-                                                res.setHeader("Content-Type", "application/json");
-                                                res.json(cover_name);
-                                                res.end();
-                                            }
-                                        });
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
-            }
+            res.setHeader("Content-Type", "application/json");
+            res.json(imageName);
+            res.end();
         }
     });
+    // attractionsProvider.findOne({_id:new ObjectID(_id), 'coverImageName':{$exists:true}}, {}, function (err, result) {
+    //     if (err) {
+    //         throw err;
+    //     } else {
+    //         if (result) {
+    //             copyCoverImage(global.imgpathAO, imageName, result.coverImageName, function () {
+    //                 copyCoverImage(global.imgpathA1, imageName, result.coverImageName, function () {
+    //                     copyCoverImage(global.imgpathA2, imageName, result.coverImageName, function () {
+    //                         copyCoverImage(global.imgpathA3, imageName, result.coverImageName, function () {
+    //                             copyCoverImage(global.imgpathA4, imageName, result.coverImageName, function () {
+    //                                 copyCoverImage(global.imgpathA5, imageName, result.coverImageName, function () {
+    //                                     res.setHeader("Content-Type", "application/json");
+    //                                     res.json(result.coverImageId);
+    //                                     res.end();
+    //                                 });
+    //                             });
+    //                         });
+    //                     });
+    //                 });
+    //             });
+    //         } else {
+    //             var suffix = imageName.split(".")[1];
+    //             var cover_id = new ObjectID();
+    //             var cover_name = cover_id + '.' + suffix;
+    //             copyCoverImage(global.imgpathAO, imageName, cover_name, function () {
+    //                 copyCoverImage(global.imgpathA1, imageName, cover_name, function () {
+    //                     copyCoverImage(global.imgpathA2, imageName, cover_name, function () {
+    //                         copyCoverImage(global.imgpathA3, imageName, cover_name, function () {
+    //                             copyCoverImage(global.imgpathA4, imageName, cover_name, function () {
+    //                                 copyCoverImage(global.imgpathA5, imageName, cover_name, function () {
+    //                                     attractionsProvider.update({_id:new ObjectID(_id)}, {$set:{'coverImageName':cover_name, "imgFlag":true}}, {safe:true}, function (err) {
+    //                                         if (err) {
+    //                                             throw err;
+    //                                         } else {
+    //                                             res.setHeader("Content-Type", "application/json");
+    //                                             res.json(cover_name);
+    //                                             res.end();
+    //                                         }
+    //                                     });
+    //                                 });
+    //                             });
+    //                         });
+    //                     });
+    //                 });
+    //             });
+    //         }
+    //     }
+    // });
 };
 exports.updateAttractions = function (req, res) {
     var data = req.body;

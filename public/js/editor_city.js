@@ -488,7 +488,7 @@ $(weego_city.init());
             }
             var coverImageName = _this.model.get('coverImageName');
             if(coverImageName){
-                _this.$('#coverImageName').empty().append($('<img src="/cityCoverimage/'+coverImageName+'?rev='+Math.random()+'">'));
+                _this.$('#coverImageName').empty().append($('<img src="http://weegotest.b0.upaiyun.com/city/imgsizeC2/'+coverImageName+'?rev='+Math.random()+'">'));
             }
             return this;
         },
@@ -535,7 +535,7 @@ $(weego_city.init());
                 url:'/setCityCoverImg/' + _id + '/' + _this.model,
                 success:function (data) {
                     if (data) {
-                        $('#coverImageName').empty().append($('<img src="/cityCoverimage/' + data + '?rev=' + Math.random() + '">'));
+                        $('#coverImageName').empty().append($('<img src="http://weegotest.b0.upaiyun.com/city/imgsizeC2/' + data + '?rev=' + Math.random() + '">'));
                     }
                 }
             });

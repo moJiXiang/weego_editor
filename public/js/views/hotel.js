@@ -343,9 +343,28 @@ var HotelImageUploadView = Backbone.View.extend({
         var fileName = imgSrc.split('/')[imgSrc.split('/').length -1];
         var imgs = _.without(this.model.get('images'), fileName);
         this.model.set('images', imgs);
-        this.model.save({}, function(){
-            $(e.target).parent().remove();
+        // this.model.save({}, function(){
+        //     $(e.target).parent().remove();
+        // });
+        var curr_imgCover = this.model.get('imgCover');
+        if(fileName == curr_imgCover){
+            this.model.set('imgCover', '');
+            this.model.save({}, {
+                success : function(){
+                    $(e.target).parent().parent().find('.cover').removeClass('disabled btn-success');
+                    $(e.target).addClass('disabled btn-success');
+                }
+            });
+        }
+        $.ajax({
+            url:'/delUploadImageHotel/' + this.model.get('_id') + '/' + fileName,
+            success:function (data) {
+                if (data.status == 'success') {
+                    $(e.target).parent().remove();
+                }
+            }
         });
+    
     },
     render: function(){
         var that = this;
