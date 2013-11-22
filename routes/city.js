@@ -156,7 +156,8 @@ exports.updateCity = function (req, res) {
         masterLabel:data.masterLabel,
         subLabel:data.subLabel,
         latitude:data.latitude,
-        longitude:data.longitude
+        longitude:data.longitude,
+        weoid:data.weoid
     };
     cityProvider.update({_id:new ObjectID(req.params.cityID)}, {$set:setJson}, {safe:true}, function (err, result) {
         if (err) {

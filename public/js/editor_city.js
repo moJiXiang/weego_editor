@@ -164,7 +164,8 @@ $(weego_city.init());
                 masterLabel:$("#masterLabel").attr('data-value'),
                 label:array_label,
                 latitude:$("#latitude").val(),
-                longitude:$("#longitude").val()
+                longitude:$("#longitude").val(),
+                weoid:$('#weoid').val()
             });
             newAttractions.save(null, {
                 success:function (model, res) {
@@ -282,6 +283,7 @@ $(weego_city.init());
             for (var i = 0; i < $('.labels').length; i++) {
                 array_label.push($('.labels').eq(i).attr('data-value'));
             }
+            
             _this.model.save({
                 continents:$("#continents").val(),
                 cityname:$("#cityname").val(),
@@ -298,7 +300,9 @@ $(weego_city.init());
                 show_flag:$('input:radio[name="show_flag"]:checked').val(),
                 label:array_label, masterLabel:$("#masterLabel").attr('data-value'),
                 latitude:$("#latitude").val(),
-                longitude:$("#longitude").val()}, {
+                longitude:$("#longitude").val(),
+                weoid:$("#weoid").val()
+            }, {
                 success:function (model, res) {
                     if (!res.isSuccess) {
                         console.log("cuole");
