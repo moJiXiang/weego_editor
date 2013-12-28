@@ -418,6 +418,19 @@
                     </div>
                 </div>
 
+                <div class="control-group">
+                    <label class="control-label">推荐到首页大图</label>
+                    <div class="controls">
+                        {{#ifCond isviewindex_big '1'}}
+                            <input type="radio" name="isviewindex_big" value = "1" checked>推荐<br>
+                            <input type="radio" name="isviewindex_big" value = "0" >不推荐<br>
+                        {{else}}
+                        <input type="radio" name="isviewindex_big" value = "1" >推荐<br>
+                        <input type="radio" name="isviewindex_big" value = "0" checked>不推荐<br>
+                        {{/ifCond}}
+                    </div>
+                </div>
+
             </fieldset>
             <fieldset>
                 <legend>服务设施</legend>
@@ -1052,21 +1065,45 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="introduce">简介</label>
-                        <div class="controls">
-                            <textarea id="introduce" style="width:80%;height:150px"></textarea>
+                        <!--
+                        // <label class="control-label" for="introduce">简介</label>
+                        // <div class="controls">
+                        //     <textarea id="introduce" style="width:80%;height:150px"></textarea>
+                        // </div>
+                        -->
+                        <label class="control-label" for="tips">简介</label>
+                        <input type="button" value="增加条目" id="addIntr">
+                        <div class="controls intr-control">
+                            <input class="input-xlarge focused intrItemTitle"  name="intrItemTitle" data-value="" type="text">
+                            <textarea class="intrItemContent" id="intrItemContent" style="width:80%;height:50px"></textarea>
                         </div>
                     </div>
                     <div class="control-group">
+                    <!--
+                        // <label class="control-label" for="tips">小贴士</label>
+                        // <div class="controls">
+                        //     <textarea id="tips" style="width:80%;height:150px"></textarea>
+                        // </div>
+                        -->
                         <label class="control-label" for="tips">小贴士</label>
-                        <div class="controls">
-                            <textarea id="tips" style="width:80%;height:150px">{{tips}}</textarea>
+                        <input type="button" value="增加条目" id="addTip">
+                        <div class="controls tip-control">
+                            <input class="input-xlarge focused tipItemTitle"  name="tipItemTitle" data-value="" type="text">
+                            <textarea class="tipItemContent" id="tipItemContent" style="width:80%;height:50px"></textarea>
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="traffic">交通信息</label>
-                        <div class="controls">
-                            <textarea id="traffic" style="width:80%;height:150px">{{traffic}}</textarea>
+                        <!--
+                        // <label class="control-label" for="traffic">交通信息</label>
+                        // <div class="controls">
+                        //     <textarea id="traffic" style="width:80%;height:150px"></textarea>
+                        // </div>
+                        -->
+                        <label class="control-label" for="traffic">小贴士</label>
+                        <input type="button" value="增加条目" id="addTra">
+                        <div class="controls tra-control">
+                            <input class="input-xlarge focused traItemTitle"  name="traItemTitle" data-value="" type="text">
+                            <textarea class="traItemContent" id="traItemContent" style="width:80%;height:50px"></textarea>
                         </div>
                     </div>
                     <div class="control-group">
@@ -1079,6 +1116,17 @@
                         <label class="control-label" for="recommand_intensity">推荐强度</label>
                         <div class="controls">
                             <input class="input-xlarge focused" id="recommand_intensity" name="recommand_intensity" type="number" min="0">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="recommand_center">推荐出发点</label>
+                        <div class="controls">
+                            名称：
+                            <input class="input-xlarge focused" id="recommand_center_name" name="recommand_center_name" type="text" >
+                            维度：
+                             <input class="input-xlarge focused" id="recommand_center_latitude" name="recommand_center_latitude" type="text">
+                            经度：
+                              <input class="input-xlarge focused" id="recommand_center_longitude" name="recommand_center_longitude" type="text">
                         </div>
                     </div>
                     <div class="control-group">
@@ -1179,22 +1227,100 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <!--
+                        // <label class="control-label" for="introduce">简介</label>
+                        // <div class="controls">
+                        //     <textarea id="introduce" style="width:80%;height:150px">{{introduce}}</textarea>
+                        // </div>
+                        -->
                         <label class="control-label" for="introduce">简介</label>
-                        <div class="controls">
-                            <textarea id="introduce" style="width:80%;height:150px">{{introduce}}</textarea>
+                        <input type="button" value="增加条目" id="addIntr">
+                        {{#if introduce}}
+                        {{#ifBig introduce.length 20}}
+                            <div class="controls intr-control">
+                            <input class="input-xlarge focused intrItemTitle"  name="intrItemTitle" data-value="" type="text">
+                            <textarea class="intrItemContent" style="width:80%;height:100px">{{introduce}}</textarea>
+                            </div>
+                        {{else}}
+                        {{#each introduce}}
+                        <div class="controls intr-control">
+                            <input class="input-xlarge focused intrItemTitle"  name="intrItemTitle" data-value="" type="text" value={{intrItemTitle}}>
+                            <input type="button" value="删除" class="delIntr">
+                            <textarea class="intrItemContent" style="width:80%;height:50px">{{intrItemContent}}</textarea>
                         </div>
+                        {{/each}}
+                        {{/ifBig}}
+                        
+                        {{else}}
+                            <div class="controls intr-control">
+                            <input class="input-xlarge focused intrItemTitle"  name="intrItemTitle" data-value="" type="text">
+                            <textarea class="intrItemContent" style="width:80%;height:50px"></textarea>
+                            </div>
+                        {{/if}}
                     </div>
                     <div class="control-group">
+                        <!--
+                        // <label class="control-label" for="tips">小贴士</label>
+                        // <div class="controls">
+                        //     <textarea id="tips" style="width:80%;height:150px">{{tips}}</textarea>
+                        // </div>
+                        -->
                         <label class="control-label" for="tips">小贴士</label>
-                        <div class="controls">
-                            <textarea id="tips" style="width:80%;height:150px">{{tips}}</textarea>
+                        <input type="button" value="增加条目" id="addTip">
+                        {{#if tips}}
+                        {{#ifBig tips.length 20}}
+                            <div class="controls tip-control">
+                            <input class="input-xlarge focused tipItemTitle"  name="tipItemTitle" data-value="" type="text">
+                            <textarea class="tipItemContent" style="width:80%;height:100px">{{tips}}</textarea>
+                            </div>
+                        {{else}}
+                        {{#each tips}}
+                        <div class="controls tip-control">
+                            <input class="input-xlarge focused tipItemTitle"  name="tipItemTitle" data-value="" type="text" value={{tipItemTitle}}>
+                            <input type="button" value="删除" class="delTip">
+                            <textarea class="tipItemContent" style="width:80%;height:50px">{{tipItemContent}}</textarea>
                         </div>
+                        {{/each}}
+                        {{/ifBig}}
+                        
+                        {{else}}
+                            <div class="controls tip-control">
+                            <input class="input-xlarge focused tipItemTitle"  name="tipItemTitle" data-value="" type="text">
+                            <textarea class="tipItemContent" style="width:80%;height:50px"></textarea>
+                            </div>
+                        {{/if}}
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="traffic">交通信息</label>
-                        <div class="controls">
-                            <textarea id="traffic" style="width:80%;height:150px">{{traffic}}</textarea>
+                        <!--
+                        // <label class="control-label" for="traffic">交通信息</label>
+                        // <div class="controls">
+                        //     <textarea id="traffic" style="width:80%;height:150px">{{traffic}}</textarea>
+                        // </div>
+                        -->
+                        <label class="control-label" for="tips">交通信息</label>
+                        <input type="button" value="增加条目" id="addTra">
+                        {{#if traffic}}
+                        {{#ifBig traffic.length 20}}
+                            <div class="controls tra-control">
+                            <input class="input-xlarge focused traItemTitle"  name="traItemTitle" data-value="" type="text">
+                            <textarea class="traItemContent" style="width:80%;height:100px">{{traffic}}</textarea>
+                            </div>
+                        {{else}}
+                        {{#each traffic}}
+                        <div class="controls tra-control">
+                            <input class="input-xlarge focused traItemTitle"  name="traItemTitle" data-value="" type="text" value={{traItemTitle}}>
+                            <input type="button" value="删除" class="delTra">
+                            <textarea class="traItemContent" style="width:80%;height:50px">{{traItemContent}}</textarea>
                         </div>
+                        {{/each}}
+                        {{/ifBig}}
+                        
+                        {{else}}
+                            <div class="controls tra-control">
+                            <input class="input-xlarge focused traItemTitle"  name="traItemTitle" data-value="" type="text">
+                            <textarea class="traItemContent" style="width:80%;height:50px"></textarea>
+                            </div>
+                        {{/if}}
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="recommand_day">推荐天数</label>
@@ -1206,6 +1332,18 @@
                         <label class="control-label" for="recommand_intensity">推荐强度</label>
                         <div class="controls">
                             <input class="input-xlarge focused" id="recommand_intensity" name="recommand_intensity" value="{{recommand_intensity}}" min="0" type="number">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="recommand_center">推荐出发点</label>
+                        <div class="controls">
+                            名称：
+                            <input class="input-xlarge focused" id="recommand_center_name" name="recommand_center_name" value="{{recommand_center.name}}" type="text" >
+                            维度：
+                             <input class="input-xlarge focused" id="recommand_center_latitude" name="recommand_center_latitude" value="{{recommand_center.latitude}}" type="text">
+                            经度：
+                              <input class="input-xlarge focused" id="recommand_center_longitude" name="recommand_center_longitude" value="{{recommand_center.longitude}}" type="text">
                         </div>
                     </div>
 

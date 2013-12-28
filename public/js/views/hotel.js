@@ -141,7 +141,7 @@ var HotelView = Backbone.View.extend({
         var hotelDetails = {
             name: this.getTextInputValue('hotel-name'),
             property_type: this.getTextInputValue('hotel-property-type'),
-            stars: this.getTextInputValue('hotel-stars'),
+            stars: parseInt(this.getTextInputValue('hotel-stars')),
             url: this.getTextInputValue('hotel-url'),
             reservation_phone: this.getTextInputValue('hotel-reservation-phone'),
             fax: this.getTextInputValue('hotel-fax'),
@@ -157,11 +157,12 @@ var HotelView = Backbone.View.extend({
             latitude: this.getTextInputValue('hotel-latitude'),
             overview: this.getTextInputValue('hotel-overview'),
             area_description: this.getTextInputValue('hotel-description'),
-            from_price: this.getTextInputValue('hotel-from-price'),
-            website_price: this.getTextInputValue('hotel-website-price'),
+            from_price: parseInt(this.getTextInputValue('hotel-from-price')),
+            website_price: parseInt(this.getTextInputValue('hotel-website-price')),
             currency: this.getTextInputValue('hotel-currency'),
             creditcards: acceptCreditCards,
             isviewindex:$('input:radio[name="isviewindex"]:checked').val(),
+            isviewindex_big:$('input:radio[name="isviewindex_big"]:checked').val(),
             hotel_desc:this.getTextInputValue('wmd-input-desc'),
             hotel_room:this.getTextInputValue('wmd-input-room'),
             hotel_service:this.getTextInputValue('wmd-input-service'),
@@ -185,7 +186,7 @@ var HotelView = Backbone.View.extend({
             },
             to_list: this.$el.find('#hotel-to-list').prop('checked')
         }
-        alert(this.getTextInputValue('wmd-input-traffic'));
+        // alert(this.getTextInputValue('wmd-input-traffic'));
         if(this.model == null || this.model.get('_id') == null)
         {
             this.model = new HotelModel(hotelDetails);
