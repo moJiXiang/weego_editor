@@ -1,4 +1,4 @@
-global.mongodbHost = '192.168.1.100';
+global.mongodbHost = '192.168.1.104';
 global.mongodbPort = 27017;
 global.mongodbDB = 'travel';//travel
 global.listenerPort = 3000;
