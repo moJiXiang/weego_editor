@@ -83,6 +83,12 @@ global.imgpathD1 = '/srv/weego/hotels/imgpathD1/';//生产：
 global.imgpathD2 = '/srv/weego/hotels/imgpathD2/';//生产：
 global.imgpathD3 = '/srv/weego/hotels/imgpathD3/';//生产：
 global.imgpathD4 = '/srv/weego/hotels/imgpathD4/';//生产：
+// global.imgpathDO = '/srv/weego/hotels/imgpathDO/';//生产：
+// global.imgpathD1 = '/srv/weego/hotels/imgpathD1/';//生产：
+// global.imgpathD2 = '/srv/weego/hotels/imgpathD2/';//生产：
+// global.imgpathD3 = '/srv/weego/hotels/imgpathD3/';//生产：
+// global.imgpathD4 = '/srv/weego/hotels/imgpathD4/';//生产：
+
 //hotel服务器上地址
 //global.imgpathDO = 'c:/weego/origin/';  //原始
 //global.imgpathD1 = 'c:/weego/imgpathD1/';  //464*744

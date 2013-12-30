@@ -407,6 +407,7 @@ exports.updateAttractions = function (req, res) {
         introduce:req.body.introduce,
         short_introduce:req.body.short_introduce,
         recommand_flag:req.body.recommand_flag,
+        recommand_duration:req.body.recommand_duration,
         show_flag:req.body.show_flag,
         masterLabel:req.body.masterLabel,
         subLabel:data.subLabel,
