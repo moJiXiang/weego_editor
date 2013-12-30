@@ -35,8 +35,8 @@ $(weego.init());
         },
         before:function (route) {
             $('#app').off();
-//            if (!weego_user.loginFlag && route != 'login'&&route!='logout') {
-            if (false && route != 'login'&&route!='logout') {
+           if (!weego_user.loginFlag && route != 'login'&&route!='logout') {
+            // if (false && route != 'login'&&route!='logout') {
                 weego.globalCurrentUrl = window.location.hash;
                 self.location = "#login";
                 return false;

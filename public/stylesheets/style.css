@@ -207,6 +207,13 @@ a {
     font-size: 0.8em;
     font-weight: bold;
 }
+.container{
+    width:100%;
+}
+.hero-unit{
+    padding: 20px 10px;
+}
+
 
 /**
     markdown css end
