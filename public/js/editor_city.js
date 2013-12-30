@@ -74,17 +74,47 @@ $(weego_city.init());
             'click #save':'save',
             'change #cityname':'showCityLocations',
             'click #addlabel':'addlabel',
+            'click #addTip':'addTip',
+            'click #addIntr':'addIntr',
+            'click #addTra':'addTra',
             'focus .labels':'autogetMasterLabel',
             'focus #masterLabel':'autogetMasterLabel',
-            'click .del':'dellabel'
+            'click .del':'dellabel',
+            'click .delTip':'delTip',
+            'click .delIntr':'delIntr',
+            'click .delTra':'delTra'
         },
         dellabel:function (e) {
             $(e.target).parents('.label-group').remove();
+        },
+        delTip:function (e) {
+            $(e.target).parents('.tip-control').remove();
+        },
+        delTra:function (e) {
+            $(e.target).parents('.tra-control').remove();
+        },
+        delIntr:function (e) {
+            $(e.target).parents('.intr-control').remove();
         },
         addlabel:function () {
             var $newlabel = $('<div class="control-group label-group"><label class="control-label" for="label">标签</label><div class="controls">' +
                 '<input class="input-xlarge focused labels" id="label" name="label" type="text"><input type="button" value="删除" class="del"></div></div>');
             $('.label-group').last().after($newlabel);
+        },
+        addTip:function () {
+            var $newtip = $('<div class="controls tip-control"><input class="input-xlarge focused tipItemTitle"  name="tipItemTitle" data-value="" type="text" >'+
+                '<input type="button" value="删除" class="delTip"><textarea class="tipItemContent" style="width:80%;height:50px"></textarea></div>');
+            $('.tip-control').last().after($newtip);
+        },
+        addTra:function () {
+            var $newtra = $('<div class="controls tra-control"><input class="input-xlarge focused traItemTitle"  name="traItemTitle" data-value="" type="text" >'+
+                '<input type="button" value="删除" class="delTra"><textarea class="traItemContent" style="width:80%;height:50px"></textarea></div>');
+            $('.tra-control').last().after($newtra);
+        },
+        addIntr:function () {
+            var $newintr = $('<div class="controls intr-control"><input class="input-xlarge focused intrItemTitle"  name="intrItemTitle" data-value="" type="text" >'+
+                '<input type="button" value="删除" class="delIntr"><textarea class="intrItemContent" style="width:80%;height:50px"></textarea></div>');
+            $('.intr-control').last().after($newintr);
         },
         autogetMasterLabel:function (e) {
             if ($(e.target).attr('id') == 'masterLabel') {
@@ -147,18 +177,47 @@ $(weego_city.init());
                 console.log($('.labels').eq(i));
                 array_label.push($('.labels').eq(i).attr('data-value'));
             }
+            var array_tips = [];
+            for (var i = 0; i < $('.tipItemTitle').length; i++) {
+                var tipItem = {};
+                tipItem.tipItemTitle = $('.tipItemTitle').eq(i).attr('data-value');
+                tipItem.tipItemContent = $('.tipItemContent').eq(i).val();
+                array_tips.push(tipItem);
+            }
+            var array_tra = [];
+            for (var i = 0; i < $('.traItemTitle').length; i++) {
+                var traItem = {};
+                traItem.traItemTitle = $('.traItemTitle').eq(i).attr('data-value');
+                traItem.traItemContent = $('.traItemContent').eq(i).val();
+                array_tra.push(traItem);
+            }
+            var array_intr = [];
+            for (var i = 0; i < $('.intrItemTitle').length; i++) {
+                var intrItem = {};
+                intrItem.intrItemTitle = $('.intrItemTitle').eq(i).attr('data-value');
+                intrItem.intrItemContent = $('.intrItemContent').eq(i).val();
+                array_intr.push(intrItem);
+            }
+            var recommand_center = {};
+            recommand_center.name = $("#recommand_center_name").val();
+            recommand_center.latitude = $("#recommand_center_latitude").val();
+            recommand_center.longitude = $("#recommand_center_longitude").val();
+            recommand_center._id = 'center';
+
+
             var newAttractions = new weego_city.CityModel({
                 continents:$("#continents").val(),
                 cityname_py:$("#cityname_py").val(),
                 cityname:$("#cityname").val(),
                 cityname_en:$("#cityname_en").val(),
                 countryname:$("#countryname").val(),
-                introduce:$("#introduce").val(),
+                introduce:array_intr,
                 short_introduce:$("#short_introduce").val(),
-                tips:$("#tips").val(),
-                traffic:$("#traffic").val(),
+                tips:array_tips,
+                traffic:array_tra,
                 recommand_day:$("#recommand_day").val(),
                 recommand_indensity:$("#recommand_indensity").val(),
+                recommand_center : recommand_center,
                 hot_flag:$('input:radio[name="hot_flag"]:checked').val(),
                 show_flag:$('input:radio[name="show_flag"]:checked').val(),
                 masterLabel:$("#masterLabel").attr('data-value'),
@@ -210,12 +269,26 @@ $(weego_city.init());
             'click #save':'save',
             'change #cityname':'showCityLocations',
             'click #addlabel':'addlabel',
+            'click #addTip':'addTip',
+            'click #addIntr':'addIntr',
+            'click #addTra':'addTra',
             'focus .labels':'autogetMasterLabel',
             'focus #masterLabel':'autogetMasterLabel',
-            'click .del':'dellabel'
+            'click .del':'dellabel',
+            'click .delTip':'delTip',
+            'click .delIntr':'delIntr',
+            'click .delTra':'delTra'
         },
         dellabel:function (e) {
             $(e.target).parents('.label-group').remove();
+        },delTip:function (e) {
+            $(e.target).parents('.tip-control').remove();
+        },
+        delTra:function (e) {
+            $(e.target).parents('.tra-control').remove();
+        },
+        delIntr:function (e) {
+            $(e.target).parents('.intr-control').remove();
         },
         autogetMasterLabel:function (e) {
             var _this = this;
@@ -277,25 +350,67 @@ $(weego_city.init());
                 '<input class="input-xlarge focused labels" id="label" name="label" type="text"><input type="button" value="删除" class="del"></div></div>');
             $('.label-group').last().after($newlabel);
         },
+        addTip:function () {
+            var $newtip = $('<div class="controls tip-control"><input class="input-xlarge focused tipItemTitle"  name="tipItemTitle" data-value="" type="text" id="tipItemTitle">'+
+                '<input type="button" value="删除" class="delTip"><textarea class="tipItemContent" id="tipItemContent" style="width:80%;height:50px"></textarea></div>');
+            $('.tip-control').last().after($newtip);
+        },
+        addTra:function () {
+            var $newtra = $('<div class="controls tra-control"><input class="input-xlarge focused traItemTitle"  name="traItemTitle" data-value="" type="text" >'+
+                '<input type="button" value="删除" class="delTra"><textarea class="traItemContent" style="width:80%;height:50px"></textarea></div>');
+            $('.tra-control').last().after($newtra);
+        },
+        addIntr:function () {
+            var $newintr = $('<div class="controls intr-control"><input class="input-xlarge focused intrItemTitle"  name="intrItemTitle" data-value="" type="text" >'+
+                '<input type="button" value="删除" class="delIntr"><textarea class="intrItemContent" style="width:80%;height:50px"></textarea></div>');
+            $('.intr-control').last().after($newintr);
+        },
         save:function () {
             var _this = this;
             var array_label = [];
             for (var i = 0; i < $('.labels').length; i++) {
                 array_label.push($('.labels').eq(i).attr('data-value'));
             }
-            
+            var array_tips = [];
+            for (var i = 0; i < $('.tipItemTitle').length; i++) {
+                var tipItem = {};
+                tipItem.tipItemTitle = $('.tipItemTitle').eq(i).val();
+                tipItem.tipItemContent = $('.tipItemContent').eq(i).val();
+                array_tips.push(tipItem);
+            }
+            var array_tra = [];
+            for (var i = 0; i < $('.traItemTitle').length; i++) {
+                var traItem = {};
+                traItem.traItemTitle = $('.traItemTitle').eq(i).val();
+                traItem.traItemContent = $('.traItemContent').eq(i).val();
+                array_tra.push(traItem);
+            }
+            var array_intr = [];
+            for (var i = 0; i < $('.intrItemTitle').length; i++) {
+                var intrItem = {};
+                intrItem.intrItemTitle = $('.intrItemTitle').eq(i).val();
+                intrItem.intrItemContent = $('.intrItemContent').eq(i).val();
+                array_intr.push(intrItem);
+            }
+            var recommand_center = {};
+            recommand_center.name = $("#recommand_center_name").val();
+            recommand_center.latitude = $("#recommand_center_latitude").val();
+            recommand_center.longitude = $("#recommand_center_longitude").val();
+            recommand_center._id = 'center';
+
             _this.model.save({
                 continents:$("#continents").val(),
                 cityname:$("#cityname").val(),
                 cityname_en:$("#cityname_en").val(),
                 cityname_py:$("#cityname_py").val(),
                 countryname:$("#countryname").val(),
-                introduce:$("#introduce").val(),
+                introduce:array_intr,
                 short_introduce:$("#short_introduce").val(),
-                tips:$("#tips").val(),
-                traffic:$("#traffic").val(),
+                tips:array_tips,
+                traffic:array_tra,
                 recommand_day:$("#recommand_day").val(),
                 recommand_indensity:$("#recommand_indensity").val(),
+                recommand_center : recommand_center,
                 hot_flag:$('input:radio[name="hot_flag"]:checked').val(),
                 show_flag:$('input:radio[name="show_flag"]:checked').val(),
                 label:array_label, masterLabel:$("#masterLabel").attr('data-value'),

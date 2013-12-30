@@ -170,6 +170,12 @@ $(weego.init());
         }
         return options.inverse(this);
     });
+    Handlebars.registerHelper('ifBig', function (v1, v2, options) {
+        if (v1 > v2) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
+    });
     Handlebars.registerHelper('ifHas', function(collection, value, options){
         var exist = false;
         _.each(collection, function(v){

@@ -147,6 +147,7 @@ exports.updateCity = function (req, res) {
         countryname:data.countryname,
         recommand_day:data.recommand_day,
         recommand_indensity:data.recommand_indensity,
+        recommand_center:data.recommand_center,
         introduce:data.introduce,
         short_introduce:data.short_introduce,
         tips:data.tips,

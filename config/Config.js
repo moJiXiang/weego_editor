@@ -1,7 +1,8 @@
 global.mongodbHost = '192.168.1.104';
+//global.mongodbHost = 'localhost';
 global.mongodbPort = 27017;
 global.mongodbDB = 'travel';//travel
-global.listenerPort = 3000;
+global.listenerPort = 3003;
 
 //global.imgasizeMiddle = "572x176";
 //global.imgasizeSmall = "266x176";
@@ -77,7 +78,12 @@ global.citypathC1 = '/city/imgsizeC1/';
 global.citypathC2 = '/city/imgsizeC2/';
 global.citypathC3 = '/city/imgsizeC3/';
 
-//global.imgpathDO = '/srv/weego/hotels/imgpathDO/';//生产：
+// global.imgpathDO = '/srv/weego/hotels/imgpathDO/';//生产：
+// global.imgpathD1 = '/srv/weego/hotels/imgpathD1/';//生产：
+// global.imgpathD2 = '/srv/weego/hotels/imgpathD2/';//生产：
+// global.imgpathD3 = '/srv/weego/hotels/imgpathD3/';//生产：
+// global.imgpathD4 = '/srv/weego/hotels/imgpathD4/';//生产：
+
 //hotel服务器上地址
 global.imgpathDO = 'c:/weego/origin/';  //原始
 global.imgpathD1 = 'c:/weego/imgpathD1/';  //464*744
