@@ -16,6 +16,7 @@ var im = require('imagemagick');
 im.identify.path = global.imIdentifyPath;
 im.convert.path = global.imConvertPath;
 var upyunClient = require('./upyun/upyunClient');
+var Country =  require('./country');
 
 exports.getAllCity = function (req, res) {
 
@@ -141,10 +142,12 @@ exports.updateCity = function (req, res) {
     data.subLabel = sub;
     var setJson = {
         continents:data.continents,
+        continentscode:data.continentscode,
         cityname:data.cityname,
         cityname_en:data.cityname_en,
         cityname_py:data.cityname_py,
         countryname:data.countryname,
+        countrycode:data.countrycode,
         recommand_day:data.recommand_day,
         recommand_indensity:data.recommand_indensity,
         recommand_center:data.recommand_center,
@@ -589,6 +592,20 @@ exports.getCityCoverImage = function (req, res) {
         });
     } else {
         res.end();
+    }
+};
+
+exports.getCountriesByContinent = function(req,res){
+    var continentCode = req.params.continentCode;
+    if(continentCode){
+        Country.getCountriesByContinent(continentCode ,function(err,countries){
+            if(err)
+                res.send({'status':false});
+            else
+                res.send({'status':true,'countries':countries});
+        });
+    }else{
+        res.send({'status':false});
     }
 };
 

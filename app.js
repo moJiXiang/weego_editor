@@ -74,6 +74,7 @@ app.put('/city/:cityID', routes.city.updateCity);
 app.get('/getAllCity', routes.city.getAllCity);
 app.get('/getCityByPage/:pageLimit/:pageIndex', routes.city.getCityByPage);
 app.get('/getCityByLabelID/:labelID', routes.city.getCityByLabelID);
+app.get('/getCountriesByContinent/:continentCode',routes.city.getCountriesByContinent);
 
 app.get('/setCityCoverImg/:_id/:imageName', routes.city.setCityCoverImg);
 app.post('/citypic/upload',routes.city.upload);

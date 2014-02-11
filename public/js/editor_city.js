@@ -82,7 +82,8 @@ $(weego_city.init());
             'click .del':'dellabel',
             'click .delTip':'delTip',
             'click .delIntr':'delIntr',
-            'click .delTra':'delTra'
+            'click .delTra':'delTra',
+            'change #continents':'selectCountry'
         },
         dellabel:function (e) {
             $(e.target).parents('.label-group').remove();
@@ -204,13 +205,14 @@ $(weego_city.init());
             recommand_center.longitude = $("#recommand_center_longitude").val();
             recommand_center._id = 'center';
 
-
             var newAttractions = new weego_city.CityModel({
-                continents:$("#continents").val(),
+                continents:$("#continents option:selected").text(),
+                continentscode:$("#continents").val(),
                 cityname_py:$("#cityname_py").val(),
                 cityname:$("#cityname").val(),
                 cityname_en:$("#cityname_en").val(),
-                countryname:$("#countryname").val(),
+                countryname:$("#country option:selected").text(),
+                countrycode:$("#country").val(),
                 introduce:array_intr,
                 short_introduce:$("#short_introduce").val(),
                 tips:array_tips,
@@ -239,6 +241,26 @@ $(weego_city.init());
                 }
             });
             return false;
+        },
+        selectCountry: function(){
+            var continentCode =  $("#continents").val();
+            $.ajax({
+                url:"/getCountriesByContinent/"+continentCode,
+                success:function (data) {
+                    if(data.status){
+                        var countries = data.countries;
+                        var option = '';
+                        for(var i=0;i<countries.length;i++){
+                            var country = countries[i];
+                            option +='<option value="'+country.code+'">'+country.cn_name+'</option>';
+                        }
+                        $('#country').html(option);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                }
+                    
+            });
         }
     });
 
@@ -277,7 +299,8 @@ $(weego_city.init());
             'click .del':'dellabel',
             'click .delTip':'delTip',
             'click .delIntr':'delIntr',
-            'click .delTra':'delTra'
+            'click .delTra':'delTra',
+            'change #continents':'selectCountry'
         },
         dellabel:function (e) {
             $(e.target).parents('.label-group').remove();
@@ -399,11 +422,13 @@ $(weego_city.init());
             recommand_center._id = 'center';
 
             _this.model.save({
-                continents:$("#continents").val(),
+                continents:$("#continents option:selected").text(),
+                continentscode:$("#continents").val(),
                 cityname:$("#cityname").val(),
                 cityname_en:$("#cityname_en").val(),
                 cityname_py:$("#cityname_py").val(),
-                countryname:$("#countryname").val(),
+                countryname:$("#country option:selected").text(),
+                countrycode:$("#country").val(),
                 introduce:array_intr,
                 short_introduce:$("#short_introduce").val(),
                 tips:array_tips,
@@ -432,6 +457,26 @@ $(weego_city.init());
                 }
             });
             return false;
+        },
+        selectCountry: function(){
+            var continentCode =  $("#continents").val();
+            $.ajax({
+                url:"/getCountriesByContinent/"+continentCode,
+                success:function (data) {
+                    if(data.status){
+                        var countries = data.countries;
+                        var option = '';
+                        for(var i=0;i<countries.length;i++){
+                            var country = countries[i];
+                            option +='<option value="'+country.code+'">'+country.cn_name+'</option>';
+                        }
+                        $('#country').html(option);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                }
+                    
+            });
         }
     });
 
