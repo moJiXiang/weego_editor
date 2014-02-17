@@ -10,6 +10,7 @@
     "jade": "*",
     "mongodb":"1.1.11",
     "imagemagick":"*",
-    "node-markdown": "0.1.0"
+    "node-markdown": "0.1.0",
+    "eventproxy":"*"
   }
 }
