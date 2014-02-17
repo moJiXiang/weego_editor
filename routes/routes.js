@@ -15,3 +15,4 @@ exports.label = label;
 exports.city = city;
 exports.editUser = editUser;
 exports.hotel = hotel;
+exports.dataImport = require('./dataImport');
