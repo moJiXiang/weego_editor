@@ -140,5 +140,5 @@ function trim(str){
 		return '';
 }
 // var name = '  asdf   saefas   ';
-var a = {};
- console.log(JSON.stringify(a)==='{}');
+// var a = {};
+//  console.log(JSON.stringify(a)==='{}');
