@@ -71,7 +71,7 @@ exports.getAllAttractionsByPage = function (req, res) {
     var name = req.params.name;
     if (name != '' && name !== undefined) {
         attractionsProvider.count({cityname:name,checkFlag:'1'}, function (err, count) {
-            attractionsProvider.find({cityname:name,checkFlag:'1'}, {skip:skip, limit:req.params.pageLimit,sort:{'show_flag':-1}}, function (err, result) {
+            attractionsProvider.find({cityname:name,checkFlag:'1'}, {skip:skip, limit:req.params.pageLimit,sort:{'show_flag':-1,'recommand_flag':-1}}, function (err, result) {
                 if (err) {
                     res.send({err:err});
                 } else {
@@ -81,7 +81,7 @@ exports.getAllAttractionsByPage = function (req, res) {
         });
     } else {
         attractionsProvider.count({checkFlag:'1'}, function (err, count) {
-            attractionsProvider.find({checkFlag:'1'}, {skip:skip, limit:req.params.pageLimit,sort:{'show_flag':-1}}, function (err, result) {
+            attractionsProvider.find({checkFlag:'1'}, {skip:skip, limit:req.params.pageLimit,sort:{'show_flag':-1,'recommand_flag':-1}}, function (err, result) {
                 if (err) {
                     res.send({err:err});
                 } else {
