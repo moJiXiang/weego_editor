@@ -17,33 +17,101 @@ require('../config/Config');
 var AttractionsProvider = require("../config/AttractionsProvider").AttractionsProvider;
 var attractionsProvider = new AttractionsProvider();
 var Attractions = require('./attractions');
+var EventProxy = require('eventproxy');
 
 exports.importCity = function(req,res){
 	var flag = req.query.flag;
 	if(flag){
 		var cityItems = getInitData();
-		for(var j=0;j<cityItems.length;j++){
-			var items = cityItems[j].items;
-			var cityname = cityItems[j].cityname;
-			Attractions.getAttractionsByQuery({cityname:cityname},{},function(err,attractions){
-				if(attractions){
-					console.log(attractions.length);
-					for(var i=0;i<attractions.length;i++){
-						var attraction = attractions[i];
-						for(var k=0;k<items.length;k++){
-							if(attraction.attractions_en == trim(items[k].name)){
-								console.log('found!');
-							}
-						}
-					}
-				}
-			});
-		}
+		var ep = new EventProxy();
+	    ep.bind('error', function (err) {
+	        ep.unbind();// 卸载掉所有handler
+	        callback(err);// 异常回调
+	    });
+	    ep.after('getFull', cityItems.length, function (list) {
+	        // callback(null,list);
+	        res.send(list);
+	    });
+	    for(var i=0;i<cityItems.length;i++){
+	        importOne(cityItems[i],ep.group('getFull'));
+	    }
 
 	}else{
 		console.log('flag is null');
 	}
 };
+
+function importOne(cityItem,callback){
+	var cityname = cityItem.cityname;
+	var items = cityItem.items;
+	Attractions.getAttractionsByQuery({cityname:cityname},{},function(err,attractions){
+		if(attractions){
+			var times = 0;
+			console.log(attractions.length);
+			var updateData = [];
+			for(var i=0;i<attractions.length;i++){
+				var attraction = attractions[i];
+				for(var k=0;k<items.length;k++){
+					if(attraction.attractions_en == trim(items[k].name)){
+						console.log('found!'+attraction.attractions_en +'  '+items[k].name);
+						
+						var setJson = {};
+						if(!attraction.address&&items[k].Address){
+							setJson.address = items[k].Address;
+						}
+						if(!attraction.traffic_info&&items[k].traffic){
+							setJson.traffic_info = items[k].traffic;
+						}
+						if(!attraction.website&&items[k].url){
+							setJson.website = items[k].url;
+						}
+						if(!attraction.price&&items[k].Prices){
+							setJson.price = items[k].Prices;
+						}
+						if(!attraction.opentime&&items[k].open_time){
+							setJson.opentime = items[k].open_time;
+						}
+						if(JSON.stringify(setJson)==='{}'){
+							console.log('找到，无数据修改！');
+						}else{
+							var item = {};
+							item._id = attraction._id;
+							item.name = attraction.attracionts_en;
+							item.setJson = setJson;
+							updateData.push(item);
+							times++;
+						}
+					}
+				}
+			}
+
+			var ep = new EventProxy();
+		    ep.bind('error', function (err) {
+		        ep.unbind();// 卸载掉所有handler
+		        callback(err);// 异常回调
+		    });
+		    ep.after('setJson', updateData.length, function (list) {
+		        // callback(null,list);
+		        callback(null,times);
+		    });
+		    for(var i=0;i<updateData.length;i++){
+		        insertJson(updateData[i],ep.group('setJson'));
+		    }
+		}
+	});
+}
+
+function insertJson(item,callback){
+	attractionsProvider.update({'_id': item._id}, {$set:item.setJson}, {safe:true},  function (err, attraction) {
+	    if (err) {
+	      return callback(err);
+	    }
+	    if (!attraction) {
+	      return callback(new Error('该attractions不存在'));
+	    }
+	    callback(null,attraction);
+  });
+}
 
 function getInitData(){
 	var cityItems = [];
@@ -72,4 +140,5 @@ function trim(str){
 		return '';
 }
 // var name = '  asdf   saefas   ';
-// console.log(trim(name));
+var a = {};
+ console.log(JSON.stringify(a)==='{}');

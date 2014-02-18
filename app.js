@@ -105,7 +105,7 @@ app.post('/hotel/image/:hotelId', routes.hotel.uploadImage);
 app.get('/hotels/:pageLimit/:pageIndex', routes.hotel.getHotelByPage);
 app.get('/delUploadImageHotel/:_id/:imageName',routes.hotel.delUploadImageHotel);
 
- app.get('/dataImport?',routes.dataImport.importCity);
+app.get('/dataImport?',routes.dataImport.importCity);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
