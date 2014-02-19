@@ -7,18 +7,25 @@
  */
 var weego_user = {
     init:function () {
+        if($.cookie('user')){
+            this.loginFlag = true;
+            this.globalUser = jQuery.parseJSON($.cookie('user'));
+        }else{
+            this.loginFlag = false;
+            this.globalUser = {};
+        }
     }
 };
 $(weego_user.init());
 (function (weego_user) {
-    weego_user.loginFlag = false;
+    // weego_user.loginFlag = false;
     weego_user.currentPage = 1;
     weego_user.sumpages = 1;
     weego_user.limit = 10;
     weego_user.z_index = 2000;
     weego_user.count = 0;
     weego_user.name;
-    weego_user.globalUser;
+    // weego_user.globalUser;
 
     weego_user.UserLoginModel = Backbone.Model.extend({
         urlRoot:'/login',
@@ -58,7 +65,11 @@ $(weego_user.init());
                 {
                     success:function (model, res) {
                         if (model.get('login') == true) {
-                            weego_user.globalUser = model;
+                            weego_user.globalUser = {};
+                            weego_user.globalUser.username = model.get('username');
+                            weego_user.globalUser.type = model.get('type');
+                            var cookieUser = {'username':weego_user.globalUser.username,'type':weego_user.globalUser.type};
+                            $.cookie('user',JSON.stringify(cookieUser),{expires:1});
                             if (weego.globalCurrentUrl == '#login'||weego.globalCurrentUrl=='') {
                                 weego.globalCurrentUrl = '#city/1';
                             }
