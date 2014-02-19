@@ -10,7 +10,6 @@ function upToYun(src_path_name,target_path_name,callback){
 	var fileContent = fs.readFileSync(src_path_name);
 	upyun.writeFile(target_path_name, fileContent, false, function(err, data){
 	    if (err) {
-		console.log(err);
 	       callback(err);
 	    }else
 	    	callback(null,data);
