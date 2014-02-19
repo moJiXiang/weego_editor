@@ -7,7 +7,7 @@
  */
 var weego = {
     init:function () {
-
+       
     }
 };
 $(weego.init());
@@ -44,7 +44,7 @@ $(weego.init());
                 $('.show-nav').fadeIn();
             }
             if (weego_user.globalUser) {
-                if (weego_user.globalUser.get('type') == 1) {
+                if (weego_user.globalUser.type == 1) {
                     $('#tab-user').fadeIn();
                 }
             }
@@ -52,6 +52,7 @@ $(weego.init());
         logout:function(){
             weego_user.loginFlag = false;
             weego_user.globalUser = null;
+            $.cookie('user',null);
             $('.show-nav').fadeOut();
             self.location = "#login";
         },

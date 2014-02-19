@@ -7,6 +7,7 @@
  */
 var weego_city = {
     init:function () {
+        
     }
 };
 $(weego_city.init());
