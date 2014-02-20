@@ -32,7 +32,7 @@ exports.getAllCity = function (req, res) {
 exports.getCityByPage = function (req, res) {
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
     cityProvider.count({}, function (err, count) {
-        cityProvider.find({}, {sort:{'hot_flag':-1}, skip:skip, limit:req.params.pageLimit}, function (err, result) {
+        cityProvider.find({}, {sort:{'show_flag':-1,'hot_flag':-1}, skip:skip, limit:req.params.pageLimit}, function (err, result) {
             if (err) {
                 res.send({err:err});
             } else {
