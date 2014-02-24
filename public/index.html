@@ -144,10 +144,25 @@
             <h3>添加图片</h3>
         </div>
         <div class="modal-body">
-        <input type="hidden" id="attractions_id">
+        
         <div class="control-group">
                 <label class="customer_control-label" for="unloadPic">上传图片</label>
-                <input id="unloadPic" type="button" value="上传图片">
+                <!-- <input id="unloadPic" type="button" value="上传图片"> -->
+                <form id="uploadForm" action="/postimage" method="post" enctype="multipart/form-data">
+                    <input type="hidden" id="attractions_id">
+                    <div class="upload_box">
+                        <div class="upload_main">
+                            <div class="upload_choose">
+                                <input id="fileImage" type="file" size="30" name="fileselect[]" multiple />
+                            </div>
+                            <div id="preview" class="upload_preview"></div>
+                        </div>
+                        <div class="upload_submit">
+                            <button type="button" id="fileSubmit" class="upload_submit_btn">确认上传图片</button>
+                        </div>
+                        <div id="uploadInf" class="upload_inf"></div>
+                    </div>
+                </form>
         </div>
             <div class="control-group">
                 <div>封面图片</div><div id="coverImageName">
@@ -1609,6 +1624,7 @@
 <script src="js/user.js"></script>
 <script src="javascripts/ajaxupload.js"></script>
 <script src="javascripts/md5-min.js"></script>
+<script src="javascripts/zxxFile.js"></script>
 <script>
     $(document).ready(function(){
         new weego.GlobalRouter;
