@@ -2,6 +2,7 @@ global.mongodbHost = 'localhost';
 global.mongodbPort = 27017;
 global.mongodbDB = 'travel';//travel
 global.listenerPort = 3003;
+global.db = 'mongodb://localhost/travel',
 
 //global.imgasizeMiddle = "572x176";
 //global.imgasizeSmall = "266x176";
@@ -96,6 +97,19 @@ global.hotelpathD1 = '/hotel/imgpathD1/';
 global.hotelpathD2 = '/hotel/imgpathD2/';
 global.hotelpathD3 = '/hotel/imgpathD3/';
 global.hotelpathD4 = '/hotel/imgpathD4/';
+
+//life服务器上地址
+global.imgpathEO = 'c:/weego/restaurants/origin/';  //原始
+global.imgpathFO = 'c:/weego/shoppings/origin/';  //原始
+global.imgpathGO = 'c:/weego/entertainments/origin/';  //原始
+//global.imgpathEO = '/srv/weego/restaurants/origin';  //原始
+//global.imgpathFO = '/srv/weego/shoppings/origin';  //原始
+//global.imgpathGO = '/srv/weego/entertainments/origin';  //原始
+
+//life upyun 的地址
+global.lifepathEO = '/restaurant/origin/';
+global.lifepathFO = '/shopping/origin/';
+global.lifepathGO = '/entertainment/origin/';
 
 // global.imIdentifyPath = "/usr/bin/identify";
 // global.imConvertPath = "/usr/bin/convert";

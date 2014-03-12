@@ -11,6 +11,7 @@
     "mongodb":"1.1.11",
     "imagemagick":"*",
     "node-markdown": "0.1.0",
-    "eventproxy":"*"
+    "eventproxy":"*",
+    "mongoose": "2.7.3"
   }
 }

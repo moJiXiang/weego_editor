@@ -288,7 +288,7 @@ $(weego.init());
             });
             var template = Handlebars.compile($('#manageImageView').html());
             $(template()).appendTo(_this.$el);
-            _this.$('#attractions_id').val(_this.model.get('_id'));
+            _this.$('#zxx_id').val(_this.model.get('_id'));
             var image = _this.model.get('image');
             if(image&&image.length>0){
                 for(var i = 0;i<image.length;i++){
@@ -311,7 +311,7 @@ $(weego.init());
                 action:"/postimage",
                 name:"upload",
                 data: {
-                    _id : _this.$('#attractions_id').val()
+                    _id : _this.$('#zxx_id').val()
                 },
                 responseType:"json",
                 onSubmit:function (file, ext) {
@@ -341,7 +341,7 @@ $(weego.init());
         },
         setCoverImg:function(){
             var _this = this;
-            var _id = $('#attractions_id').val();
+            var _id = $('#zxx_id').val();
             $.ajax({
                 url:'/setCoverImg/' +_id+'/'+ _this.model,
                 success:function (data) {
@@ -353,7 +353,7 @@ $(weego.init());
         },
         remove:function (e) {
             var _this = this;
-            var _id = $('#attractions_id').val();
+            var _id = $('#zxx_id').val();
             $.ajax({
                 url:'/delUploadImage/' +_id+'/'+ _this.model,
                 success:function (data) {

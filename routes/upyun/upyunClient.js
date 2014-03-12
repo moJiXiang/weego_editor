@@ -199,3 +199,42 @@ exports.delCityBgFromYun = function(fileName,callback){
 		callback(null,data0);
 	});
 };
+
+exports.upLifeToYun = function(type,fileName,callback){
+	var src_path_name0 = getSrcPathByType(type) + fileName;
+	var target_path_name0 = getTargetPathByType(type) + fileName;
+	console.log(src_path_name0);
+	console.log(target_path_name0);
+	
+	upToYun(src_path_name0,target_path_name0,function(err,data0){
+		if(err) throw err;
+		console.log(err);
+		callback(null,data0);
+	});
+};
+
+exports.delLifeFromYun = function(type,fileName,callback){
+	var target_path_name0 = getTargetPathByType(type) + fileName;
+	
+	delFromYun(target_path_name0, function(err,data0){
+		if(err) throw err;
+		callback(null,data0);
+	});
+};
+
+function getSrcPathByType (type){
+    if(type=='1')
+        return global.imgpathEO;
+    else if(type=='2')
+        return global.imgpathFO;
+    else
+        return global.imgpathGO;
+}
+function getTargetPathByType (type){
+    if(type=='1')
+        return global.lifepathEO;
+    else if(type=='2')
+        return global.lifepathFO;
+    else
+        return global.lifepathGO;
+}

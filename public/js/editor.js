@@ -19,6 +19,28 @@ $(weego.init());
             "city/:name/:pageno":"city_attractions", //
             "attractions/:pageno":"list_attractions",
             "attractions":"list_attractions",
+            "lifes":"showLifeListView",
+            "lifes/:pageno":"showLifeListView",
+            "lifes/:pageno/:type":"showLifeListView",
+            "lifes/:pageno/:type/:cityname":"showLifeListView",
+            "lifes/:pageno/:type/:cityname/:lifename":"showLifeListView",
+            "life/new":"showLifeDetailView",
+            "life/:id/:type":"showLifeDetailView",
+
+            "categorys":"showCategoryListView",
+            "categorys/:pageno":"showCategoryListView",
+            "categorys/:pageno/:type":"showCategoryListView",
+            "category/new":"showCategoryDetailView",
+            "category/:id":"showCategoryDetailView",
+
+            "lifetags":"showLifetagListView",
+            "lifetags/:pageno":"showLifetagListView",
+            "lifetags/:pageno/:type":"showLifetagListView",
+            "lifetag/new":"showLifetagDetailView",
+            "lifetag/:id":"showLifetagDetailView",
+
+            "lifetag":"showLifeTagListView",
+            "lifetag/:pageno":"showLifeTagListView",
             "hotel/new":"showHotelDetailView",
             "hotel/:id":"showHotelDetailView",
             "hotels":"showHotelListView",
@@ -33,9 +55,10 @@ $(weego.init());
             "*actions":"list_city"//默认显示city
 
         },
+        
         before:function (route) {
             $('#app').off();
-           if (!weego_user.loginFlag && route != 'login'&&route!='logout') {
+           if ((!weego_user.loginFlag || !weego_user.globalUser) && route != 'login'&&route!='logout') {
             // if (false && route != 'login'&&route!='logout') {
                 weego.globalCurrentUrl = window.location.hash;
                 self.location = "#login";
@@ -112,7 +135,6 @@ $(weego.init());
                 var hotelModel = new HotelModel();
                 hotelModel.set('_id', id);
                 hotelModel.fetch({success: function(){
-                    console.log(hotelModel);
                      var hotelView = new HotelView({model: hotelModel});
                      hotelView.render().$el.appendTo($('#app'));
                      hotelView.initMarkDown();  //初始化markdown
@@ -136,6 +158,147 @@ $(weego.init());
             $('#tab-hotels')
                 .addClass('active')
                 .siblings().removeClass('active');
+        },
+        showLifeListView: function(page,type,cityname,lifename){
+            $('#app').off();
+            $('#app').empty();
+            if(type == null)
+                type = '1';
+            var model = {};
+            model.type = type;
+            if(cityname)
+                model.cityname = cityname;
+            if(lifename)
+                model.lifename = lifename;
+            if(page == null){
+                var lifeListView = new LifeListView(model);
+                lifeListView.render().showFirstPage();
+                lifeListView.$el.appendTo($('#app'));
+            }else{
+                var lifeListView = new LifeListView(model);
+                lifeListView.render();
+                lifeListView.showByPage(page,type);
+                lifeListView.$el.appendTo($('#app'));
+            }
+
+            $('#tab-life')
+                .addClass('active')
+                .siblings().removeClass('active');
+        },
+        showLifeDetailView: function(id,type){
+            $('#app').off();
+            $('#app').empty();
+            if(type == null)
+                type = '1';
+            if(id == null){
+                var lifeListView  = null;
+                if(type=='1')
+                    lifeListView = new LifeView({model: new RestaurantModel()});
+                else if(type=='2')
+                    lifeListView = new LifeView({model: new ShoppingModel()});
+                else
+                    lifeListView = new LifeView({model: new EntertainmentModel()});
+                lifeListView.render().$el.appendTo($('#app'));
+            }
+            else{
+                if(type == '1'){
+                    var restaurantModel = new RestaurantModel();
+                    restaurantModel.set('_id', id);
+                    restaurantModel.fetch({success: function(){
+                        restaurantModel.set('type','1');
+                         var restaurantView = new LifeView({model: restaurantModel});
+                         restaurantView.render().$el.appendTo($('#app'));
+                    }});
+                }else if(type == '2'){
+                    var shoppingModel = new ShoppingModel();
+                    shoppingModel.set('_id', id);
+                    shoppingModel.fetch({success: function(){
+                        shoppingModel.set('type','2');
+                         var shoppingView = new LifeView({model: shoppingModel});
+                         shoppingView.render().$el.appendTo($('#app'));
+                    }});
+                }else{
+                    var entertainmentModel = new EntertainmentModel();
+                    entertainmentModel.set('_id', id);
+                    entertainmentModel.fetch({success: function(){
+                        entertainmentModel.set('type','3');
+                         var entertainmentView = new LifeView({model: entertainmentModel});
+                         entertainmentView.render().$el.appendTo($('#app'));
+                    }});
+                }
+            }
+        },
+        showCategoryListView: function(page,type){
+            $('#app').off();
+            $('#app').empty();
+            if(type == null)
+                type = '1';
+            if(page == null){
+                var categoryListView = new CategoryListView({type:type});
+                categoryListView.render().showFirstPage();
+                categoryListView.$el.appendTo($('#app'));
+            }else{
+                var categoryListView = new CategoryListView({type:type});
+                categoryListView.render();
+                categoryListView.showByPage(page,type);
+                categoryListView.$el.appendTo($('#app'));
+            }
+            $('#tab-category')
+                .addClass('active')
+                .siblings().removeClass('active');
+        },
+        showCategoryDetailView: function(id){
+            $('#app').off();
+            $('#app').empty();
+            if(id == null){
+                var categoryView = new CategoryView({model: new CategoryModel()});
+                categoryView.render().$el.appendTo($('#app'));
+            }
+            else{
+                var categoryModel = new CategoryModel();
+                categoryModel.set('_id', id);
+                categoryModel.fetch({success: function(){
+                    console.log(categoryModel);
+                     var categoryView = new CategoryView({model: categoryModel});
+                     categoryView.render().$el.appendTo($('#app'));
+                }});
+            }
+        },
+        showLifetagListView: function(page,type){
+            $('#app').off();
+            $('#app').empty();
+            if(type == null)
+                type = '1';
+            if(page == null){
+                var lifetagListView = new LifetagListView({type:type});
+                lifetagListView.render().showFirstPage();
+                lifetagListView.$el.appendTo($('#app'));
+            }else{
+                var lifetagListView = new LifetagListView({type:type});
+                lifetagListView.render();
+                lifetagListView.showByPage(page,type);
+                lifetagListView.$el.appendTo($('#app'));
+            }
+            console.log('aa');
+            $('#tab-lifetag')
+                .addClass('active')
+                .siblings().removeClass('active');
+        },
+        showLifetagDetailView: function(id){
+            $('#app').off();
+            $('#app').empty();
+            if(id == null){
+                var lifetagView = new LifetagView({model: new LifetagModel()});
+                lifetagView.render().$el.appendTo($('#app'));
+            }
+            else{
+                var lifetagModel = new LifetagModel();
+                lifetagModel.set('_id', id);
+                lifetagModel.fetch({success: function(){
+                     var lifetagView = new LifetagView({model: lifetagModel});
+                     lifetagView.render().$el.appendTo($('#app'));
+                }});
+            }
         }
     });
     weego.currentPage = 1;
@@ -186,7 +349,50 @@ $(weego.init());
         if(exist)
             return options.fn(this);
         return options.inverse(this);
-    })
+    });
+   
+   //------------------------#load------------------------------------------------------------------ 
+    
+    $("#hotelDetailView").load("templ/hotel_detail.html",function(){
+       console.log('load hotelDetailView over!');
+    });
+    $("#attractions_template").load("templ/attraction.html",function(){
+        console.log('load attractions_template over!');
+    });
+
+    $("#attractions_detail_template").load("templ/attraction_editor.html",function(){
+       console.log('load attractions_detail_template over!');
+    });
+    $("#add_city_template").load("templ/city.html",function(){
+       console.log('load add_city_template over!');
+    });
+    $("#city_edit_template").load("templ/city_editor.html",function(){
+       console.log('load city_edit_template over!');
+    });
+    $("#add_label_template").load("templ/label.html",function(){
+       console.log('load add_label_template over!');
+    });
+    $("#label_edit_template").load("templ/label_editor.html",function(){
+       console.log('load label_edit_template over!');
+    });
+    $("#add_user_template").load("templ/user.html",function(){
+       console.log('load add_user_template over!');
+    });
+    $("#edit_user_template").load("templ/user_editor.html",function(){
+       console.log('load edit_user_template over!');
+    });
+    $("#categoryDetailView").load("templ/category_detail.html",function(){
+       console.log('load categoryDetailView over!');
+    });
+    $("#lifetagDetailView").load("templ/lifetag_detail.html",function(){
+       console.log('load lifetagDetailView over!');
+    });
+    $("#lifeDetailView").load("templ/life_detail.html",function(){
+       console.log('load lifeDetailView over!');
+    });
+     
+
+ //----------------------------------------------------------------------------------------------   
     //add city view
     weego.AttractionsDetailView = Backbone.View.extend({
         tagName:"div",
@@ -571,12 +777,12 @@ $(weego.init());
             });
             var template = Handlebars.compile($('#manageImageView').html());
             $(template()).appendTo(_this.$el);
-            _this.$('#attractions_id').val(_this.model.get('_id'));
+            _this.$('#zxx_id').val(_this.model.get('_id'));
             var image = _this.model.get('image');
             if (image && image.length > 0) {
                 for (var i = 0; i < image.length; i++) {
                     var uploadImageView = new weego.UploadImageView();
-                    uploadImageView.model = image[i];
+                    uploadImageView.model = {_id:image[i],imgForlder:'attractions'};
                     uploadImageView.render().$el.appendTo(_this.$("#uploadedName"));
                 }
             }
@@ -596,7 +802,7 @@ $(weego.init());
             //     action:"/postimage",
             //     name:"upload",
             //     data:{
-            //         _id:_this.$('#attractions_id').val()
+            //         _id:_this.$('#zxx_id').val()
             //     },
             //     responseType:"json",
             //     onSubmit:function (file, ext) {
@@ -714,9 +920,9 @@ $(weego.init());
         },
         setCoverImg:function () {
             var _this = this;
-            var _id = $('#attractions_id').val();
+            var _id = $('#zxx_id').val();
             $.ajax({
-                url:'/setCoverImg/' + _id + '/' + _this.model,
+                url:'/setCoverImg/' + _id + '/' + _this.model._id,
                 success:function (data) {
                     if (data) {
                         $('#coverImageName').empty().append($('<img src="http://weegotest.b0.upaiyun.com/attractions/origin/' + data + '?rev=' + Math.random() + '">'));
@@ -726,9 +932,9 @@ $(weego.init());
         },
         remove:function (e) {
             var _this = this;
-            var _id = $('#attractions_id').val();
+            var _id = $('#zxx_id').val();
             $.ajax({
-                url:'/delUploadImage/' + _id + '/' + _this.model,
+                url:'/delUploadImage/' + _id + '/' + _this.model._id,
                 success:function (data) {
                     if (data.status == 'success') {
                         _this.$el.remove();

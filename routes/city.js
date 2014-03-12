@@ -609,6 +609,22 @@ exports.getCountriesByContinent = function(req,res){
     }
 };
 
+exports.getCityByCountry = function(req,res){
+    var countryCode = req.params.countryCode;
+    if(countryCode){
+        cityProvider.find({countrycode:countryCode},{sort:{cityname:1}},function(err,cities){
+            if(err)
+                res.send({'status':false});
+            else
+                res.send({'status':true,'cities':cities});
+        });
+    }else{
+        res.send({'status':false});
+    }
+};
+
+
+
 
 
 

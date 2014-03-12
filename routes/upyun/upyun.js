@@ -278,7 +278,7 @@ function httpAction(method, uri, data, outputFile, callback, opts) {
     }
 
     //
-    //var date = (new Date()).toUTCString();
+    // var date = (new Date()).toUTCString();
     var date_a = new Date();
     date_a = date_a.valueOf();
     date_a = date_a -  8 * 60 * 60 * 1000;

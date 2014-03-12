@@ -75,7 +75,8 @@ var ZXXFILE = {
 			//非站点服务器上运行
 			return;	
 		}
-		var attractionId = $('#attractions_id').val(); //这里自己添加景点ID
+		var zxx_id = $('#zxx_id').val(); //这里自己添加ID
+		var _type = $('#_type').val();
 		for (var i = 0, file; file = this.fileFilter[i]; i++) {
 			(function(file) {
 				var xhr = new XMLHttpRequest();
@@ -112,7 +113,8 @@ var ZXXFILE = {
 					xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 					var fd = new FormData();
 					fd.append('file',file);
-					fd.append('_id',attractionId);
+					fd.append('_type',_type);
+					fd.append('_id',zxx_id);
 					xhr.send(fd);
 				}	
 			})(file);	
