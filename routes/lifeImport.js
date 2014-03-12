@@ -24,7 +24,7 @@ function getInitData(){
 	 // cityItems.push({cityname:'日内瓦',cityid:'516a35218902ca1936000003',items:geneva.items});
 	// cityItems.push({cityname:'伦敦',cityid:'516a35218902ca1936000005',items:london.items});
 	// cityItems.push({cityname:'洛杉矶',cityid:'516a34f958e3511036000003',items:losangeles.items});
-	// cityItems.push({cityname:'纽约',cityid:'516a34f958e3511036000001',items:newyork.items});
+	cityItems.push({cityname:'纽约',cityid:'516a34f958e3511036000001',items:newyork.items});
 	// cityItems.push({cityname:'巴黎',cityid:'516a350ec221c21236000003',items:paris.items});
 	// cityItems.push({cityname:'罗马',cityid:'51d3d238e98bbb566a000001',items:roma.items});
 	// cityItems.push({cityname:'旧金山',cityid:'516a34f958e3511036000002',items:sanfrancisco.items});
