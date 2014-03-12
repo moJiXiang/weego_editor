@@ -16,6 +16,7 @@ var im = require('imagemagick');
 im.identify.path = global.imIdentifyPath;
 im.convert.path = global.imConvertPath;
 var upyunClient = require('./upyun/upyunClient');
+var Country =  require('./country');
 
 exports.getAllCity = function (req, res) {
 
@@ -31,7 +32,7 @@ exports.getAllCity = function (req, res) {
 exports.getCityByPage = function (req, res) {
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
     cityProvider.count({}, function (err, count) {
-        cityProvider.find({}, {sort:{'hot_flag':-1}, skip:skip, limit:req.params.pageLimit}, function (err, result) {
+        cityProvider.find({}, {sort:{'show_flag':-1,'hot_flag':-1}, skip:skip, limit:req.params.pageLimit}, function (err, result) {
             if (err) {
                 res.send({err:err});
             } else {
@@ -141,10 +142,12 @@ exports.updateCity = function (req, res) {
     data.subLabel = sub;
     var setJson = {
         continents:data.continents,
+        continentscode:data.continentscode,
         cityname:data.cityname,
         cityname_en:data.cityname_en,
         cityname_py:data.cityname_py,
         countryname:data.countryname,
+        countrycode:data.countrycode,
         recommand_day:data.recommand_day,
         recommand_indensity:data.recommand_indensity,
         recommand_center:data.recommand_center,
@@ -591,6 +594,36 @@ exports.getCityCoverImage = function (req, res) {
         res.end();
     }
 };
+
+exports.getCountriesByContinent = function(req,res){
+    var continentCode = req.params.continentCode;
+    if(continentCode){
+        Country.getCountriesByContinent(continentCode ,function(err,countries){
+            if(err)
+                res.send({'status':false});
+            else
+                res.send({'status':true,'countries':countries});
+        });
+    }else{
+        res.send({'status':false});
+    }
+};
+
+exports.getCityByCountry = function(req,res){
+    var countryCode = req.params.countryCode;
+    if(countryCode){
+        cityProvider.find({countrycode:countryCode},{sort:{cityname:1}},function(err,cities){
+            if(err)
+                res.send({'status':false});
+            else
+                res.send({'status':true,'cities':cities});
+        });
+    }else{
+        res.send({'status':false});
+    }
+};
+
+
 
 
 

@@ -1,0 +1,167 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>添加城市</h3>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal">
+        <fieldset>
+
+            <div class="control-group">
+                <label class="control-label" for="continents">大洲</label>
+                <div class="controls">
+                <select id="continents" name="continents">
+                <option value='AS'>亚洲</option>
+                <option value='EU'>欧洲</option>
+                <option value='NA'>美洲</option>
+                <option value='SA'>南美</option>
+                <option value='AF'>非洲</option>
+                <option value='OC'>大洋洲</option>
+                </select>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="country">国家</label>
+                <div class="controls">
+                    <select id="country" name="country" >
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="cityname">城市名</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="cityname" name="cityname" type="text"><span class="help-inline">不能为空</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="cityname_en">城市名(英文)</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="cityname_en" name="cityname_en" type="text"><span class="help-inline">不能为空</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="cityname_py">城市名(拼音)</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="cityname_py" name="cityname_py" type="text"><span class="help-inline">不能为空</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="short_introduce">一句话简介</label>
+                <div class="controls">
+                    <textarea id="short_introduce" style="width:80%;height:60px"></textarea>
+                </div>
+            </div>
+            <div class="control-group">
+                <!--
+                // <label class="control-label" for="introduce">简介</label>
+                // <div class="controls">
+                //     <textarea id="introduce" style="width:80%;height:150px"></textarea>
+                // </div>
+                -->
+                <label class="control-label" for="tips">简介</label>
+                <input type="button" value="增加条目" id="addIntr">
+                <div class="controls intr-control">
+                    <input class="input-xlarge focused intrItemTitle"  name="intrItemTitle" data-value="" type="text">
+                    <textarea class="intrItemContent" id="intrItemContent" style="width:80%;height:50px"></textarea>
+                </div>
+            </div>
+            <div class="control-group">
+            <!--
+                // <label class="control-label" for="tips">小贴士</label>
+                // <div class="controls">
+                //     <textarea id="tips" style="width:80%;height:150px"></textarea>
+                // </div>
+                -->
+                <label class="control-label" for="tips">小贴士</label>
+                <input type="button" value="增加条目" id="addTip">
+                <div class="controls tip-control">
+                    <input class="input-xlarge focused tipItemTitle"  name="tipItemTitle" data-value="" type="text">
+                    <textarea class="tipItemContent" id="tipItemContent" style="width:80%;height:50px"></textarea>
+                </div>
+            </div>
+            <div class="control-group">
+                <!--
+                // <label class="control-label" for="traffic">交通信息</label>
+                // <div class="controls">
+                //     <textarea id="traffic" style="width:80%;height:150px"></textarea>
+                // </div>
+                -->
+                <label class="control-label" for="traffic">小贴士</label>
+                <input type="button" value="增加条目" id="addTra">
+                <div class="controls tra-control">
+                    <input class="input-xlarge focused traItemTitle"  name="traItemTitle" data-value="" type="text">
+                    <textarea class="traItemContent" id="traItemContent" style="width:80%;height:50px"></textarea>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="recommand_day">推荐天数</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="recommand_day" name="recommand_day" type="number" min="0">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="recommand_intensity">推荐强度</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="recommand_intensity" name="recommand_intensity" type="number" min="0">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="recommand_center">推荐出发点</label>
+                <div class="controls">
+                    名称：
+                    <input class="input-xlarge focused" id="recommand_center_name" name="recommand_center_name" type="text" >
+                    维度：
+                     <input class="input-xlarge focused" id="recommand_center_latitude" name="recommand_center_latitude" type="text">
+                    经度：
+                      <input class="input-xlarge focused" id="recommand_center_longitude" name="recommand_center_longitude" type="text">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="hot_flag">热门城市</label>
+                <div class="controls">
+                    <input type="radio" name="hot_flag" value = "1" >是<br>
+                    <input type="radio" name="hot_flag" value = "0" >不是<br>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="show_flag">是否显示</label>
+                <div class="controls">
+                    <input type="radio" name="show_flag" value = "1" >是<br>
+                    <input type="radio" name="show_flag" value = "0" >不是<br>
+                </div>
+            </div>
+            <div class="control-group label-group">
+                <label class="control-label" for="masterLabel">主标签</label>
+                <div class="controls">
+                    <input class="input-xlarge focused"  name="labels" data-value="" type="text" id="masterLabel">
+                    <input type="button" value="增加标签" id="addlabel">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="latitude">纬度</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="latitude" name="latitude" type="text">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="longitude">经度</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="longitude" name="longitude" type="text">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="weoid">城市WeoId</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="weoid" name="weoid" type="text">
+                </div>
+            </div>
+
+            <div class="control-group operate-group">
+                <input type="button" class="btn btn-primary" id="save" value="保存"></button>
+                <button class="btn" id="cancel">取消</button>
+            </div>
+        </fieldset>
+    </form>
+    <div id="map_canvas" style="height:400px"></div>
+</div>
