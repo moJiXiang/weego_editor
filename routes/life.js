@@ -31,8 +31,20 @@ exports.getCategoryByPage = function (req, res) {
     });
 };
 
-exports.getCategorysByType = function(req,res){
-    Category.getCategorysByType(req.params.type,function(err,categorys){
+exports.getCategorysByQuery = function(req,res){
+    var type = req.params.type;
+    var name = req.params.name;
+    var query = {};
+    if(type){
+        query.type = type;
+    }
+    if(!isNull(name)){
+        if(trim(name)!=""){
+            query.name = {$regex:name};
+        }   
+    }
+     
+    Category.getCategorysByQuery(query,function(err,categorys){
         if(err)
             res.send({err:err});
         else
@@ -526,4 +538,20 @@ function setCoverImg (_id,type,cover_image,callback){
             }
         });
     }
+}
+
+function isNull(str){
+    if(str==null || str=='' || str==undefined)
+        return true;
+    else{
+        return false;
+    }
+}
+
+function trim(content){  
+    // 用正则表达式将前后空格    
+    if(content==null || content==undefined)
+        return '';
+    else
+        return content.replace(/(^\s+)|(\s+$)/g,"");
 }

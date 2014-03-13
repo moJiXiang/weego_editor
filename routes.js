@@ -86,7 +86,7 @@ module.exports = function(app) {
 	app.post('/category', routes.life.addNewCategory);
 	app.get('/categorys/:pageLimit/:pageIndex/:type', routes.life.getCategoryByPage);
 	app.get('/categorys/:pageLimit/:pageIndex', routes.life.getCategoryByPage);
-	app.get('/getCategorysByType/:type',routes.life.getCategorysByType);
+	app.get('/getCategorysByQuery/:type/:name?',routes.life.getCategorysByQuery);
 
 	//lifetag
 	app.get('/lifetag/:lifetagId', routes.life.getLifetag);

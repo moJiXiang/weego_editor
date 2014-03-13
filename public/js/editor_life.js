@@ -111,6 +111,7 @@ var LifeView = Backbone.View.extend({
         'click #top_save':'saveLife',
         'click #cancel': 'back',
         'focus #addCategoryValue':'autogetCategory',
+        'click #addCategoryValue':'autogetCategory',
         'click #addCategory':'addCategory',
         'focus #addLifetagValue':'autogetLifetag',
         'click #addLifetag':'addLifetag',
@@ -182,10 +183,11 @@ var LifeView = Backbone.View.extend({
     autogetCategory:function (e) {
         var _this = this;
         var type =$('#property-type').val();
+        var name = $('#addCategoryValue').val();
         $("#addCategoryValue").autocomplete({
             source:function (request, response) {
                 $.ajax({
-                    url:"/getCategorysByType/"+type,
+                    url:"/getCategorysByQuery/"+type+"/"+$('#addCategoryValue').val(),
                     dataType:"json",
                     data:request,
                     success:function (data) {

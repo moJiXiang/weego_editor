@@ -49,7 +49,7 @@ exports.importCategoryRestaurantData = function(req,res){
 		for(var i=0;i<items.length;i++){
 			(function(k){
 				var item = items[k];
-				Category.newAndSave('1',item.name,item.en_name,function(){
+				Category.newAndSave('1',item.cn_name,item.name,function(){
 					console.log(k+' over!');
 				});
 			})(i);
@@ -122,6 +122,7 @@ var importOne = function(one, callback){
 				restaurant.name = item.ogtitle;
 				restaurant.city_id = cityid;
 				restaurant.city_name = cityname;
+				restaurant.ranking = (k+1);
 				if(item.placelocationlongitude && item.placelocationlatitude){
 					restaurant.longitude = item.placelocationlongitude;
 					restaurant.latitude = item.placelocationlatitude;

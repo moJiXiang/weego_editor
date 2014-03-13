@@ -27,6 +27,16 @@ exports.getCategorysByType = function(type,callback){
 	});
 };
 
+exports.getCategorysByQuery = function(query,callback){
+	Category.find(query, [], {sort: [['name', 'desc']]}, function (err, categorys) {
+		if(err)
+			callback(err);
+		else{
+			callback(null,categorys);
+		}
+	});
+};
+
 exports.count = function (type, callback) {
   Category.count({type: type}, callback);
 };
