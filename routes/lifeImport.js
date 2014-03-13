@@ -159,13 +159,14 @@ var importOne = function(one, callback){
 				}
 
 				if(isNotNull(item.website)){
-					restaurant.url = item.website;
+					restaurant.website = item.website;
 				}
 
 				if(isNotNull(item.avgprice)){
-					var price = getPriceLevelAndDesc(item.avgprice);
-					restaurant.price_desc = price.desc;
-					restaurant.price_level = price.level;
+					restaurant.price_desc = getPriceDesc(item.avgprice)
+				}
+				if(isNotNull(item.pricelevel)){
+					restaurant.price_level = getPriceLevel(item.pricelevel);
 				}
 				
 				if(isNotNull(item.hours) && item.hours.length!=0){
@@ -186,6 +187,10 @@ var importOne = function(one, callback){
 
 				if(isNotNull(item.reviewcomment)){
 					restaurant.comments.push(item.reviewcomment);
+				}
+
+				if(isNotNull(item.ogurl)){
+					restaurant.url = item.ogurl;
 				}
 
 				restaurant.save(function(err){
@@ -219,17 +224,30 @@ function getImageFileName(url) {
     return  _id + '.' + suffix[suffix.length-1];
 }
 
-function getPriceLevelAndDesc(avgprice){
+function getPriceDesc(avgprice){
 	avgprice = trim(avgprice);
 	if(avgprice=='Pricey')
-		return {'desc':'比较贵','level':5};
+		return '比较贵';
 	else if(avgprice=='Moderate')
-		return {'desc':'一般','level':3};
+		return '一般';
 	else if(avgprice=='Inexpensive')
-		return {'desc':'比较便宜','level':1};
+		return '比较便宜';
 	else
-		return {'desc':avgprice,'level':3};
+		return avgprice;
 }
+
+function getPriceLevel(pricelevel){
+	pricelevel = trim(pricelevel);
+	if(pricelevel=='$')
+		return 1;
+	else if(pricelevel=='$$')
+		return 2;
+	else if(pricelevel=='$$$')
+		return 3;
+	else
+		return 4;
+}
+
 
 function getOpenTime(open_time){
 	var rt = [];

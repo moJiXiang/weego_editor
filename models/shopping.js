@@ -20,6 +20,8 @@ var ShoppingSchema = new Schema({
   cover_image: { type: String },
   show_flag: {type:Boolean,default:false},
   create_at: { type: Date, default: Date.now },
+  recommand_flag :{ type: Boolean, default:false },
+  ranking: { type: Number },
 
   rating: { type: Number ,default: 3},
   rating_service: { type: Number ,default: 3},
