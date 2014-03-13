@@ -100,6 +100,7 @@ var LifeView = Backbone.View.extend({
     template: Handlebars.compile($('#lifeDetailView').html()),
     initialize: function(){
         // alert('');
+        this.template = Handlebars.compile($('#lifeDetailView').html());
     },
     events: {
         'change #property-type': 'selectType',

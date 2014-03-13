@@ -20,6 +20,8 @@ var RestaurantSchema = new Schema({
   cover_image: { type: String },
   show_flag: {type:Boolean,default:false},
   create_at: { type: Date, default: Date.now },
+  recommand_flag :{ type: Boolean, default:false },
+  ranking: { type: Number },
 
   rating: { type: Number ,default: 3},
   rating_service: { type: Number ,default: 3},
@@ -31,6 +33,7 @@ var RestaurantSchema = new Schema({
 
   price_level: { type: Number ,default: 3},
   price_desc: { type: String ,default: '一般'},
+  website: { type: String },
   url: { type: String },
   info:{
     wifi: { type: Boolean ,default: false},

@@ -53,6 +53,7 @@ var HotelView = Backbone.View.extend({
     template: Handlebars.compile($('#hotelDetailView').html()),
     initialize: function(){
         // alert('');
+        this.template = Handlebars.compile($('#hotelDetailView').html());
     },
     events: {
         'click #hotel-save': 'saveHotel',
@@ -218,6 +219,7 @@ var HotelListView = Backbone.View.extend({
         'click #hotel-list-next-page': 'showNextPage'
     },
     initialize: function(){
+        
         var that = this;
         this.collection = new HotelCollection();
         this.collection.on('all', function(){
