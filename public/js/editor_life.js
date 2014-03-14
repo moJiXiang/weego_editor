@@ -107,6 +107,7 @@ var LifeView = Backbone.View.extend({
         'change #continents_select': 'selectContinent',
         'change #country_select': 'selectCountry',
         'change #city_select': 'selectCity',
+        'click review':'review',
         'click #save': 'saveLife',
         'click #top_save':'saveLife',
         'click #cancel': 'back',
@@ -285,6 +286,9 @@ var LifeView = Backbone.View.extend({
         }else{
             alert('请不手动输入！');
         }
+        
+    },
+    review : function(){
         
     },
     delLi:function(e){
