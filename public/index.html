@@ -163,7 +163,7 @@
         </section>
 
         <div class="container">
-            <table class="table table-striped">
+            <table class="cmsTable">
                 <thead>
                     <th>酒店名称</th>
                     <th>城市</th>
@@ -224,39 +224,6 @@
         </ul>
     </script>
 
-    <!--<script id="appView" type="text/x-handlebars-template">
-        <div class="hero-unit">编辑器</div>
-        <div class="container">
-            <div class="row-fluid">
-                <div class="span3">
-                    <button id="addAttractionsButton">添加</button>
-                    <button id="prePageButton">上一页</button>
-                    <button id="nextPageButton">下一页</button>
-                </div>
-                <div class="span6">当前页:<span id="current_page"></span>总页数:<span id="sum_page"></span><span></span><span>总记录数：</span><span id="allattractionsno"></span></div>
-            </div>
-                <table class="table table-hover table-bordered">
-                    <thead>
-                    <tr>
-                        <th>城市名</th>
-                        <th>景点名(En)</th>
-                        <th>景点名</th>
-                        <th>标签</th>
-                        <th>推荐景点</th>
-                        <th>是否显示</th>
-                        <th>地理位置</th>
-                        <th>编辑</th>
-                        <th>删除</th>
-                        <th>图片管理</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-        </div>
-    </script>
-    -->
     <script id="appView" type="text/x-handlebars-template">
         <section class="cmsPageStatus">
             <dl>
@@ -379,51 +346,6 @@
         <td><a href="/index.html#city/{{cityname}}/1">景点</a></td>
     </script>
 
-    <!--
-    <script id="cityappView" type="text/x-handlebars-template">
-        <div class="hero-unit">城市编辑器</div>
-        <div class="row">
-
-        </div>
-        <div class="container">
-            <div class="row-fluid">
-                <div class="span3">
-                    <button id="addCityButton">添加</button>
-                    <button id="prePageButton">上一页</button>
-                    <button id="nextPageButton">下一页</button>
-                </div>
-                <div class="span6">
-                    当前页:<span id="current_page"></span>
-                    总页数:<span id="sum_page"></span>
-                    <span></span>
-                    总记录数:<span id="allcityno"></span></div>
-            </div>
-
-            <table class="table table-hover table-bordered">
-                <thead>
-                <tr>
-                    <th>城市名</th>
-                    <th>城市名(英文)</th>
-                    <th>地理位置</th>
-                    <th>推荐天数</th>
-                    <th>热门城市</th>
-                    <th>是否显示</th>
-                    <th>主标签</th>
-                    <th>城市cover图片</th>
-                    <th>城市背景大图</th>
-                    <th>编辑</th>
-                    <th>删除</th>
-                    <th>景点</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
-        </div>
-    </script>
-    -->
-
     <script id="cityappView" type="text/x-handlebars-template">
         <section class="cmsPageStatus">
             <dl>
@@ -439,8 +361,6 @@
         
 
         <div class="container">
-            
-
             <table class="cmsTable">
                 <thead>
                 <tr>
@@ -694,7 +614,7 @@
         </header>
 
         <section class="cmsNav">
-            <a href="/#" class="icomoon_home">主页</a>
+            <a href="/#main" class="icomoon_home active">主页</a>
             <a href="#city/1" class="icomoon_city">城市</a>
             <a href="#attractions" class="icomoon_attraction">景点</a>
             <a href="#hotels" class="icomoon_hotel">酒店</a>
@@ -705,22 +625,6 @@
             <a href="#user/1" class="icomoon_user">用户管理</a>
             <a href="CityLabeling.html" target="_blank" class="icomoon_labels">标签批量管理</a>
         </section>
-
-        <!-- <div class="show-nav">
-            <ul class="nav nav-tabs">
-                <li id="tab-city">
-                    <a href="#city/1">城市列表</a>
-                </li>
-                <li id="tab-attractions"><a href="#attractions">景点列表</a></li>
-                <li id="tab-life"><a href="#lifes">生活信息列表</a></li>
-                <li id="tab-hotels"><a href="#hotels">酒店列表</a></li>
-                <li id="tab-label"><a href="#label">标签列表</a></li>
-                <li id="tab-category"><a href="#categorys">生活类型</a></li>
-                <li id="tab-lifetag"><a href="#lifetags">生活标签</a></li>
-                <li id="tab-user"><a href="#user/1">用户管理</a></li>
-                <li id="tab-dolabel"><a href="CityLabeling.html" target="_blank">标签批量管理</a></li>
-            </ul>
-        </div> -->
 
         <div id="app" class="cmsContainer">
         </div>

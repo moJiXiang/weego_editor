@@ -7,8 +7,14 @@
  */
 var weego = {
     init:function () {
+        $(".cmsNav").on("click","a",function(evt){
+            $(evt.currentTarget).addClass("active").siblings("a").removeClass("active");
+        });                   
        
     }
+};
+var weegoCache = {
+
 };
 $(weego.init());
 
@@ -52,8 +58,20 @@ $(weego.init());
             "logout":"logout",
 
             "city/:pageno":"city", //根据页码展示city
-            "*actions":"list_city"//默认显示city
+            //"*actions":"list_city"//默认显示city
+            "main":"userMain",
+            "*actions":"userMain"
 
+        },
+        userMain:function(evt){
+            var currentUser=weego_user.globalUser;
+            // if(currentUser.type==1){
+
+            // }else if(currentUser.type==0){
+
+            // }
+            //根据登录用户的不同类型渲染不同的主页
+            new weego_user.EditorMainView();
         },
         
         before:function (route) {
