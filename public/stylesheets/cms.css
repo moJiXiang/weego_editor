@@ -1,0 +1,142 @@
+@font-face {
+    font-family: 'icomoon';
+    font-weight: normal;
+    font-style: normal;
+    src: url('/fonts/icomoon.woff'),
+         url('/fonts/icomoon.ttf');
+}
+[class*="icomoon_"]:before{
+	font-family: 'icomoon';
+}
+.icomoon_home:before{
+	content:"\e601";
+}
+.icomoon_city:before{
+	content:"\e600";
+}
+.icomoon_attraction:before{
+	content:"\e600";
+}
+.icomoon_hotel:before{
+	content:"\e607";
+}
+.icomoon_label:before{
+	content:"\e602";
+}
+.icomoon_life:before{
+	content:"\e609";
+}
+.icomoon_category:before{
+	content:"\e609";
+}
+.icomoon_lifetag:before{
+	content:"\e602";
+}
+.icomoon_user:before{
+	content:"\e603";
+}
+.icomoon_labels:before{
+	content:"\e602";
+}
+
+
+
+body{
+	font-family: "Microsoft Yahei",sans-serif;
+	background:url(/images/cmsbg.jpg) fixed;
+	width:100%;
+}
+a{
+	text-decoration: none!important;
+}
+
+header{
+	position: fixed;
+	height: 50px;
+	background: #333;
+	min-width: 100%;
+	top: 0;
+	left: 0;
+	z-index:1;
+}
+header a{
+	color:#ddd!important;
+	line-height: 50px;
+}
+header .cmsLogo{
+	font: normal 20px/50px arial;
+	margin: 0 0 0 20px;
+}
+header .cmsSignout{
+	position:absolute;
+	right:20px;
+}
+.container{
+	width:100%;
+}
+.cmsNav{
+	width: 130px;
+	height: 100%;
+	position: fixed;
+	top: 50px;
+	background: #292A2F;
+}
+.cmsNav a{
+	position: relative;
+	display: block;
+	height: 40px;
+	color: #fff;
+	line-height: 40px;
+	border-bottom: 1px dashed #333;
+
+}
+.cmsNav a:before{
+	margin: 0 5px 0 15px;
+}
+.cmsNav a:hover{
+	background:#1b1b1b;
+}
+
+.cmsContainer{
+	position: relative;
+	width: calc(100% - 150px);
+	margin: 0 0 0 140px;
+	top: 50px;
+}
+.cmsPageStatus{
+
+}
+.cmsPageStatus dl{
+	height:30px;
+	line-height: 30px;
+}
+.cmsPageStatus dl dt{
+	font-size:20px;
+}
+.cmsPageStatus dl dt,.cmsPageStatus dl dd{
+	float:left;
+	line-height: 30px;
+}
+.cmsPageStatus button{
+	border: none;
+	background: #1ABC9C;
+	color: #fff;
+	height: 30px;
+	width: 80px;
+	border-radius: 5px;
+	margin: -3px 0 0 0;
+}
+.cmsPageStatus button:hover{
+	background:#16A085;
+}
+.cmsTable{
+	width:100%;
+	border-top:1px solid #ddd;
+	border-right:1px solid #ddd;
+}
+.cmsTable th,.cmsTable td{
+	border-left:1px solid #ddd;
+	border-bottom:1px solid #ddd;
+	padding:8px 5px;
+}
+

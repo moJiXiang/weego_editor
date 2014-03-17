@@ -6,6 +6,7 @@
     <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="stylesheets/fileuploader.css" rel="stylesheet">
+    <link href="stylesheets/cms.css" rel="stylesheet">
     <link href="stylesheets/jquery.fileupload-ui.css" rel="stylesheet">
     <link href="javascripts/jquery-ui/css/jquery-ui-1.8.18.custom.css" rel="stylesheet">
     <link href="stylesheets/style.css" rel="stylesheet">
@@ -41,15 +42,19 @@
             </form>
         </div>
      </div>
-</script>
+    </script>
+
     <script id="userappView" type="text/x-handlebars-template">
-        <div class="hero-unit">user编辑器</div>
-        <div class="row">
-            <button class="btn span3" id="addUser">添加</button>
-        </div>
+        <section class="cmsPageStatus">
+            <dl>
+                <dt>用户列表</dt>
+                <dd><button class="btn span3" id="addUser">添加</button></dd>
+                <dd><button id="prePageButton">上一页</button></dd>
+                <dd><button id="nextPageButton">下一页</button></dd>
+            </dl>
+        </section>
+
         <div class="container">
-            <button id="prePageButton">上一页</button>
-            <button id="nextPageButton">下一页</button>
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
@@ -65,15 +70,18 @@
             </table>
         </div>
     </script>
+
     <script id="userView" type="text/x-handlebars-template">
         <td>{{username}}</td>
         <td>{{type}}</td>
         <td><button data-value="{{_id}}" class="modify">修改</button></td>
         <td><button data-value="{{_id}}" class="delete">删除</button></td>
     </script>
+
     <script id="add_user_template" type="text/x-handlebars-template">
         <!-- user.html -->
     </script>
+
     <script id="edit_user_template" type="text/x-handlebars-template">
          <!-- user_editor.html -->
     </script>
@@ -85,43 +93,45 @@
         <input type="hidden" class="uploadImageId" name="uploadImageId" value="{{this._id}}">
         <input type="button" class="setCoverImg" value="设置成为封面图片">
     </script>
+
     <script id="manageImageView" type="text/x-handlebars-template">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <button class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h3>添加图片</h3>
         </div>
         <div class="modal-body">
         
-        <div class="control-group">
-                <label class="customer_control-label" for="unloadPic">上传图片</label>
-                <!-- <input id="unloadPic" type="button" value="上传图片"> -->
-                <form id="uploadForm" action="/postimage" method="post" enctype="multipart/form-data">
-                    <input type="hidden" id="zxx_id">
-                    <input type="hidden" id="_type">
-                    <div class="upload_box">
-                        <div class="upload_main">
-                            <div class="upload_choose">
-                                <input id="fileImage" type="file" size="30" name="fileselect[]" multiple />
-                            </div>
-                            <div id="preview" class="upload_preview"></div>
-                        </div>
-                        <div class="upload_submit">
-                            <button type="button" id="fileSubmit" class="upload_submit_btn">确认上传图片</button>
-                        </div>
-                        <div id="uploadInf" class="upload_inf"></div>
-                    </div>
-                </form>
-        </div>
             <div class="control-group">
-                <div>封面图片</div><div id="coverImageName">
-
-                </div>
+                    <label class="customer_control-label" for="unloadPic">上传图片</label>
+                    <!-- <input id="unloadPic" type="button" value="上传图片"> -->
+                    <form id="uploadForm" action="/postimage" method="post" enctype="multipart/form-data">
+                        <input type="hidden" id="zxx_id">
+                        <input type="hidden" id="_type">
+                        <div class="upload_box">
+                            <div class="upload_main">
+                                <div class="upload_choose">
+                                    <input id="fileImage" type="file" size="30" name="fileselect[]" multiple />
+                                </div>
+                                <div id="preview" class="upload_preview"></div>
+                            </div>
+                            <div class="upload_submit">
+                                <button type="button" id="fileSubmit" class="upload_submit_btn">确认上传图片</button>
+                            </div>
+                            <div id="uploadInf" class="upload_inf"></div>
+                        </div>
+                    </form>
             </div>
-        <div class="control-group">
+
+            <div class="control-group">
+                <div>封面图片</div>
+                <div id="coverImageName"></div>
+            </div>
+            <div class="control-group">
                 <ol id="uploadedName"></ol>
-       </div>
-    </div>
+            </div>
+        </div>
     </script>
+
     <script id="attractionsView" type="text/x-handlebars-template">
         <td>{{cityname}}</td>
         <td>{{attractions_en}}</td>
@@ -138,37 +148,38 @@
     <script id="hotelDetailView" type="text/x-handlebars-template">
         <!-- templ/hotelDetailView.html -->
     </script>
-    <script id="hotel-list-view" type="text/x-handlebars-template">
-        <div class="row-fluid">
-            <div class="pull-left">
-                <a id="hotel-add-new" class="btn" href="#hotel/new">添加酒店</a>
-                <button id="hotel-list-prev-page" class="btn">上一页</button>
-                <button id="hotel-list-next-page" class="btn">下一页</button>
-            </div>
-            <div class="pull-right">
-                当前页：
-                <label id="hotel-list-current-page" class="badge">{{currentPage}}</label>
-                总页数：
-                <label id="hotel-list-page-count" class="badge">{{pageCount}}</label>
-                总记录数：
-                <label id="hotel-list-total" class="badge">{{total}}</label>
-            </div>
 
+    <script id="hotel-list-view" type="text/x-handlebars-template">
+        <section class="cmsPageStatus">
+            <dl>
+                <dt>酒店列表</dt>
+                <dd><a id="hotel-add-new" class="btn" href="#hotel/new">添加酒店</a></dd>
+                <dd><button id="hotel-list-prev-page" class="btn">上一页</button></dd>
+                <dd><button id="hotel-list-next-page" class="btn">下一页</button></dd>
+                <dd>当前页：<span id="hotel-list-current-page">{{currentPage}}</span></dd>
+                <dd>总页数：<span id="hotel-list-page-count">{{pageCount}}</span></dd>
+                <dd>总记录数：<span id="hotel-list-total">{{total}}</span></dd>
+            </dl>
+        </section>
+
+        <div class="container">
+            <table class="table table-striped">
+                <thead>
+                    <th>酒店名称</th>
+                    <th>城市</th>
+                    <th>区域</th>
+                    <th>地理位置</th>
+                    <th>是否显示</th>
+                    <th>上传酒店封面图片</th>
+                    <th>编辑</th>
+                    <th>删除</th>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
-        <table class="table table-striped">
-            <thead>
-            <th>酒店名称</th>
-            <th>城市</th>
-            <th>区域</th>
-            <th>地理位置</th>
-            <th>是否显示</th>
-            <th>上传酒店封面图片</th>
-            <th>编辑</th>
-            <th>删除</th>
-            </thead>
-            <tbody></tbody>
-        </table>
+        
     </script>
+
     <script id="hotel-list-item-view" type="text/x-handlebars-template">
         <td>{{name}}</td>
         <td>{{city}}</td>
@@ -179,6 +190,7 @@
         <td><a id="hotel-list-item-edit" class="btn" href="#hotel/{{_id}}">编辑</a></td>
         <td><button id="hotel-list-item-remove" class="btn btn-danger">删除</button></td>
     </script>
+
     <script id="hotel-image-upload-view" type="text/x-handlebars-template">
         <div class="modal hide fade">
             <div class="modal-header">
@@ -197,6 +209,7 @@
             </div>
         </div>
     </script>
+
     <script id="hotel-image-thumbnails" type="text/x-handlebars-template">
         <ul class="thumbnails">
             {{#each images}}
@@ -210,7 +223,8 @@
             {{/each}}
         </ul>
     </script>
-    <script id="appView" type="text/x-handlebars-template">
+
+    <!--<script id="appView" type="text/x-handlebars-template">
         <div class="hero-unit">编辑器</div>
         <div class="container">
             <div class="row-fluid">
@@ -242,6 +256,44 @@
                 </table>
         </div>
     </script>
+    -->
+    <script id="appView" type="text/x-handlebars-template">
+        <section class="cmsPageStatus">
+            <dl>
+                <dt>景点列表</dt>
+                <dd><button id="addAttractionsButton">添加</button></dd>
+                <dd><button id="prePageButton">上一页</button></dd>
+                <dd><button id="nextPageButton">下一页</button></dd>
+                <dd>当前页：<span id="current_page"></span></dd>
+                <dd>总页数：<span id="sum_page"></span></dd>
+                <dd>总记录数：<span id="allattractionsno"></span></div></dd>
+            </dl>
+        </section>
+
+        <div class="container">
+            
+                <table class="cmsTable">
+                    <thead>
+                    <tr>
+                        <th>城市名</th>
+                        <th>景点名(En)</th>
+                        <th>景点名</th>
+                        <th>标签</th>
+                        <th>推荐景点</th>
+                        <th>是否显示</th>
+                        <th>地理位置</th>
+                        <th>编辑</th>
+                        <th>删除</th>
+                        <th>图片管理</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+        </div>
+    </script>
+
     <script id="attractions_template" type="text/x-handlebars-template">
         <!-- attraction.html -->
     </script>
@@ -254,6 +306,7 @@
         <img src="http://weegotest.b0.upaiyun.com/city/imgsizeC1/{{this}}">
         <input type="hidden" class="uploadImageId" name="uploadImageId" value="{{this}}">
     </script>
+
     <script id="manageBackgroundImageView" type="text/x-handlebars-template">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -271,6 +324,7 @@
         </div>
         </div>
     </script>
+
     <script id="uploadCoverImageView" type="text/x-handlebars-template">
         <a class="btn-remove" title="Remove" style="display: inline;">X</a>
         <!--<img src="/cityCoverimage/{{this}}">-->
@@ -278,6 +332,7 @@
         <input type="hidden" class="uploadImageId" name="uploadImageId" value="{{this}}">
         <input type="button" class="setCoverImg" value="设置成为封面图片">
     </script>
+
     <script id="manageCoverImageView" type="text/x-handlebars-template">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -298,6 +353,7 @@
             </div>
         </div>
     </script>
+
     <script id="cityView" type="text/x-handlebars-template">
         <td>{{cityname}}</td>
         <td>{{cityname_en}}</td>
@@ -322,6 +378,8 @@
         <td><button data-value="{{_id}}" class="delete">删除</button></td>
         <td><a href="/index.html#city/{{cityname}}/1">景点</a></td>
     </script>
+
+    <!--
     <script id="cityappView" type="text/x-handlebars-template">
         <div class="hero-unit">城市编辑器</div>
         <div class="row">
@@ -364,9 +422,53 @@
             </table>
         </div>
     </script>
+    -->
+
+    <script id="cityappView" type="text/x-handlebars-template">
+        <section class="cmsPageStatus">
+            <dl>
+                <dt>城市列表</dt>
+                <dd><button id="addCityButton">添加</button></dd>
+                <dd><button id="prePageButton">上一页</button></dd>
+                <dd><button id="nextPageButton">下一页</button></dd>
+                <dd>当前页：<span id="current_page"></span></dd>
+                <dd>总页数：<span id="sum_page"></span></dd>
+                <dd>总记录数：<span id="allcityno"></span></div></dd>
+            </dl>
+        </section>
+        
+
+        <div class="container">
+            
+
+            <table class="cmsTable">
+                <thead>
+                <tr>
+                    <th>城市名</th>
+                    <th>城市名(英文)</th>
+                    <th>地理位置</th>
+                    <th>推荐天数</th>
+                    <th>热门城市</th>
+                    <th>是否显示</th>
+                    <th>主标签</th>
+                    <th>城市cover图片</th>
+                    <th>城市背景大图</th>
+                    <th>编辑</th>
+                    <th>删除</th>
+                    <th>景点</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </script>
+
     <script id="add_city_template" type="text/x-handlebars-template">
         <!-- city.html -->
     </script>
+
     <script id="city_edit_template" type="text/x-handlebars-template">
         <!-- city_editor.html -->
     </script>
@@ -385,15 +487,19 @@
         <td><button data-value="{{_id}}" class="modify">修改</button></td>
         <td><button data-value="{{_id}}" class="delete">删除</button></td>
     </script>
+
     <script id="labelappView" type="text/x-handlebars-template">
-        <div class="hero-unit">标签编辑器</div>
-        <div class="row">
-            <button class="btn span3" id="addLabelButton">添加</button>
-        </div>
+        <section class="cmsPageStatus">
+            <dl>
+                <dt>标签编辑器</dt>
+                <dd><button id="addLabelButton">添加</button></dd>
+                <dd><button id="prePageButton">上一页</button></dd>
+                <dd><button id="nextPageButton">下一页</button></dd>
+            </dl>
+        </section>
+
         <div class="container">
-            <button id="prePageButton">上一页</button>
-            <button id="nextPageButton">下一页</button>
-            <table class="table table-hover table-bordered">
+            <table class="cmsTable">
                 <thead>
                 <tr>
                     <th>标签名</th>
@@ -410,44 +516,52 @@
             </table>
         </div>
     </script>
+
     <script id="add_label_template" type="text/x-handlebars-template">
         <!-- label.html -->
     </script>
+
     <script id="label_edit_template" type="text/x-handlebars-template">
         <!-- label_editor.html -->
     </script>
+
     <script id="category-list-view" type="text/x-handlebars-template">
-        <div class="row-fluid">
-            <div class="pull-left">
-                <a id="category-add-new" class="btn" href="#category/new">添加类型</a>
-                <button id="category-list-prev-page" class="btn">上一页</button>
-                <button id="category-list-next-page" class="btn">下一页</button>
-                <select id="category_type">
-                <option value="1" {{#ifCond type '1'}} selected {{/ifCond}}>餐馆</option>
-                <option value="2" {{#ifCond type '2'}} selected {{/ifCond}}>购物</option>
-                <option value="3" {{#ifCond type '3'}} selected {{/ifCond}}>娱乐</option>
-                </select>
-            </div>
-            <div class="pull-right">
-                当前页：
-                <label id="category-list-current-page" class="badge">{{currentPage}}</label>
-                总页数：
-                <label id="category-list-page-count" class="badge">{{pageCount}}</label>
-                总记录数：
-                <label id="category-list-total" class="badge">{{total}}</label>
-            </div>
+        <section class="cmsPageStatus">
+            <dl>
+                <dt>生活类型</dt>
+                <dd><a id="category-add-new" class="btn" href="#category/new">添加类型</a></dd>
+                <dd><button id="category-list-prev-page" class="btn">上一页</button></dd>
+                <dd><button id="category-list-next-page" class="btn">下一页</button></dd>
+                <dd>当前页：
+                <span id="category-list-current-page">{{currentPage}}</span></dd>
+                <dd>总页数：
+                <span id="category-list-page-count">{{pageCount}}</span></dd>
+                <dd>总记录数：
+                <span id="category-list-total">{{total}}</span></dd>
+            </dl>
+        </section>
+
+        <select id="category_type">
+            <option value="1" {{#ifCond type '1'}} selected {{/ifCond}}>餐馆</option>
+            <option value="2" {{#ifCond type '2'}} selected {{/ifCond}}>购物</option>
+            <option value="3" {{#ifCond type '3'}} selected {{/ifCond}}>娱乐</option>
+        </select>
+
+        <div class="container">
+            <table class="table table-striped">
+                <thead>
+                <th>分类</th>
+                <th>类型名称</th>
+                <th>英文名</th>
+                <th>编辑</th>
+                <th>删除</th>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
-        <table class="table table-striped">
-            <thead>
-            <th>分类</th>
-            <th>类型名称</th>
-            <th>英文名</th>
-            <th>编辑</th>
-            <th>删除</th>
-            </thead>
-            <tbody></tbody>
-        </table>
+        
     </script>
+
     <script id="category-list-item-view" type="text/x-handlebars-template">
         <td>{{#ifCond type "1"}}餐馆{{/ifCond}}{{#ifCond type "2"}}购物{{/ifCond}}{{#ifCond type "3"}}娱乐{{/ifCond}}</td>
         <td>{{name}}</td>
@@ -455,93 +569,105 @@
         <td><a id="category-list-item-edit" class="btn" href="#category/{{_id}}">编辑</a></td>
         <td><button id="category-list-item-remove" class="btn btn-danger">删除</button></td>
     </script>
+
     <script id="categoryDetailView" type="text/x-handlebars-template">
         <!-- category_detail.html -->
     </script>
+
     <script id="lifetag-list-view" type="text/x-handlebars-template">
-        <div class="row-fluid">
-            <div class="pull-left">
-                <a id="lifetag-add-new" class="btn" href="#lifetag/new">添加生活标签</a>
-                <button id="lifetag-list-prev-page" class="btn">上一页</button>
-                <button id="lifetag-list-next-page" class="btn">下一页</button>
-                <select id="lifetag_type">
-                <option value="1" {{#ifCond type '1'}} selected {{/ifCond}}>餐馆</option>
-                <option value="2" {{#ifCond type '2'}} selected {{/ifCond}}>购物</option>
-                <option value="3" {{#ifCond type '3'}} selected {{/ifCond}}>娱乐</option>
-                </select>
-            </div>
-            <div class="pull-right">
-                当前页：
-                <label id="lifetag-list-current-page" class="badge">{{currentPage}}</label>
-                总页数：
-                <label id="lifetag-list-page-count" class="badge">{{pageCount}}</label>
-                总记录数：
-                <label id="lifetag-list-total" class="badge">{{total}}</label>
-            </div>
+        <section class="cmsPageStatus">
+            <dl>
+                <dt>生活标签</dt>
+                <dd><a id="lifetag-add-new" href="#lifetag/new">添加生活标签</a></dd>
+                <dd><button id="lifetag-list-prev-page" class="btn">上一页</button></dd>
+                <dd><button id="lifetag-list-next-page" class="btn">下一页</button></dd>
+                <dd>当前页：
+                <span id="lifetag-list-current-page">{{currentPage}}</span></dd>
+                <dd>总页数：
+                <span id="lifetag-list-page-count">{{pageCount}}</span></dd>
+                <dd>总记录数：
+                <span id="lifetag-list-total">{{total}}</span></dd>
+            </dl>
+        </section>
+
+        <select id="lifetag_type">
+            <option value="1" {{#ifCond type '1'}} selected {{/ifCond}}>餐馆</option>
+            <option value="2" {{#ifCond type '2'}} selected {{/ifCond}}>购物</option>
+            <option value="3" {{#ifCond type '3'}} selected {{/ifCond}}>娱乐</option>
+        </select>
+        <div class="container">
+            <table class="cmsTable">
+                <thead>
+                <th>分类</th>
+                <th>标签名称</th>
+                <th>编辑</th>
+                <th>删除</th>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
-        <table class="table table-striped">
-            <thead>
-            <th>分类</th>
-            <th>标签名称</th>
-            <th>编辑</th>
-            <th>删除</th>
-            </thead>
-            <tbody></tbody>
-        </table>
+        
     </script>
+
     <script id="lifetag-list-item-view" type="text/x-handlebars-template">
         <td>{{#ifCond type "1"}}餐馆{{/ifCond}}{{#ifCond type "2"}}购物{{/ifCond}}{{#ifCond type "3"}}娱乐{{/ifCond}}</td>
         <td>{{name}}</td>
         <td><a id="lifetag-list-item-edit" class="btn" href="#lifetag/{{_id}}">编辑</a></td>
         <td><button id="lifetag-list-item-remove" class="btn btn-danger">删除</button></td>
     </script>
+
     <script id="lifetagDetailView" type="text/x-handlebars-template">
         <!-- lifetag_detail.html -->
     </script>
-    <script id="life-list-view" type="text/x-handlebars-template">
-        <div class="row-fluid">
-            <div class="pull-left">
-                <a id="life-add-new" class="btn" href="#life/new">添加生活条目</a>
-                <button id="life-list-prev-page" class="btn">上一页</button>
-                <button id="life-list-next-page" class="btn">下一页</button>
-                <select id="life_type">
-                <option value="1" {{#ifCond type '1'}} selected {{/ifCond}}>餐馆</option>
-                <option value="2" {{#ifCond type '2'}} selected {{/ifCond}}>购物</option>
-                <option value="3" {{#ifCond type '3'}} selected {{/ifCond}}>娱乐</option>
-                </select>
-            </div>
 
-            <div class="pull-right">
-                当前页：
-                <label id="life-list-current-page" class="badge">{{currentPage}}</label>
-                总页数：
-                <label id="life-list-page-count" class="badge">{{pageCount}}</label>
-                总记录数：
-                <label id="life-list-total" class="badge">{{total}}</label>
-            </div>
-        </div>
+    <script id="life-list-view" type="text/x-handlebars-template">
+        <section class="cmsPageStatus">
+            <dl>
+                <dt>生活信息</dt>
+                <dd><a id="life-add-new" class="btn" href="#life/new">添加生活条目</a></dd>
+                <dd><button id="life-list-prev-page">上一页</button></dd>
+                <dd><button id="life-list-next-page">下一页</button></dd>
+                <dd>当前页：
+                <span id="life-list-current-page">{{currentPage}}</span></dd>
+                <dd>总页数：
+                <span id="life-list-page-count">{{pageCount}}</span></dd>
+                <dd>总记录数：
+                <span id="life-list-total">{{total}}</span></dd>
+            </dl>
+        </section>
+
+        <select id="life_type">
+            <option value="1" {{#ifCond type '1'}} selected {{/ifCond}}>餐馆</option>
+            <option value="2" {{#ifCond type '2'}} selected {{/ifCond}}>购物</option>
+            <option value="3" {{#ifCond type '3'}} selected {{/ifCond}}>娱乐</option>
+        </select>
+
         <div>
             城市：<input type="text" id="search-life-cityname"> 
             名称：<input type="text" id="search-life-name"> 
             <button id="search-button" class="btn">查询</button>
         </div>
-        <table class="table table-striped">
-            <thead>
-            <th>类型</th>
-            <th>名称</th>
-            <th>城市</th>
-            <th>电话</th>
-            <th>价格</th>
-            <th>Category</th>
-            <th>Rating</th>
-            <th>是否显示</th>
-            <th>编辑</th>
-            <th>删除</th>
-            <th>图片管理</th>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <div class="container">
+            <table class="cmsTable">
+                <thead>
+                <th>类型</th>
+                <th>名称</th>
+                <th>城市</th>
+                <th>电话</th>
+                <th>价格</th>
+                <th>Category</th>
+                <th>Rating</th>
+                <th>是否显示</th>
+                <th>编辑</th>
+                <th>删除</th>
+                <th>图片管理</th>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        
     </script>
+
     <script id="life-list-item-view" type="text/x-handlebars-template">
         <td>{{#ifCond type "1"}}餐馆{{else}}{{#ifCond type "2"}}购物{{else}}娱乐{{/ifCond}}{{/ifCond}}</td>
         <td>{{name}}</td>
@@ -555,58 +681,82 @@
         <td><button id="life-list-item-remove" class="btn btn-danger">删除</button></td>
         <td><button id="life-list-item-img" class="btn">图片管理</button></td>
     </script>
+
     <script id="lifeDetailView" type="text/x-handlebars-template">
         <!-- life_detail.html -->
     </script>
 </head>
-<body>
+    <body>
 
-<div id="logout" style="float: right"><a href="#logout">退出</a></div>
-    <div class="show-nav">
-    <ul class="nav nav-tabs">
-        <li id="tab-city">
-            <a href="#city/1">城市列表</a>
-        </li>
-        <li id="tab-attractions"><a href="#attractions">景点列表</a></li>
-        <li id="tab-life"><a href="#lifes">生活信息列表</a></li>
-        <li id="tab-hotels"><a href="#hotels">酒店列表</a></li>
-        <li id="tab-label"><a href="#label">标签列表</a></li>
-        <li id="tab-category"><a href="#categorys">生活类型</a></li>
-        <li id="tab-lifetag"><a href="#lifetags">生活标签</a></li>
-        <li id="tab-user"><a href="#user/1">用户管理</a></li>
-        <li id="tab-dolabel"><a href="CityLabeling.html" target="_blank">标签批量管理</a></li>
-    </ul>
-    </div>
-<div id="app"></div>
-<div id="dialog" title="demo"></div>
-<script src="javascripts/jquery-1.8.3.min.js"></script>
-<script src="javascripts/jquery.cookie.js"></script>
-<script src="javascripts/jquery-ui/jquery-ui-1.9.1.custom.min.js"></script>
-<script src="javascripts/underscore-min.js"></script>
-<script src="javascripts/backbone-min.js"></script>
-<script src="javascripts/backbone.routefilter.js"></script>
-<script src="javascripts/handlebars.min.js"></script>
-<script src="javascripts/jquery.fileupload.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="js/editor.js"></script>
-<script src="js/editor_city.js"></script>
-<script src="js/editor_label.js"></script>
-<script src="js/views/hotel.js"></script>
-<script src="js/user.js"></script>
-<script src="javascripts/ajaxupload.js"></script>
-<script src="javascripts/md5-min.js"></script>
-<script src="javascripts/zxxFile.js"></script>
-<script src="js/editor_category.js"></script>
-<script src="js/editor_lifetag.js"></script>
-<script src="js/editor_life.js"></script>
-<script src="libs/util.js"></script>
+        <header>
+            <a class="cmsLogo">WeegoCMS</a>
+            <a id="logout" class="cmsSignout" href="#logout">退出</a>
+        </header>
 
-<script>
-    $(document).ready(function(){
-        new weego.GlobalRouter;
-        Backbone.history.start();
-    });
-</script>
-<script src="http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-</body>
+        <section class="cmsNav">
+            <a href="/#" class="icomoon_home">主页</a>
+            <a href="#city/1" class="icomoon_city">城市</a>
+            <a href="#attractions" class="icomoon_attraction">景点</a>
+            <a href="#hotels" class="icomoon_hotel">酒店</a>
+            <a href="#label" class="icomoon_label">标签</a>
+            <a href="#lifes" class="icomoon_life">生活信息</a>
+            <a href="#categorys" class="icomoon_category">生活类型</a>
+            <a href="#lifetags" class="icomoon_lifetag">生活标签</a>
+            <a href="#user/1" class="icomoon_user">用户管理</a>
+            <a href="CityLabeling.html" target="_blank" class="icomoon_labels">标签批量管理</a>
+        </section>
+
+        <!-- <div class="show-nav">
+            <ul class="nav nav-tabs">
+                <li id="tab-city">
+                    <a href="#city/1">城市列表</a>
+                </li>
+                <li id="tab-attractions"><a href="#attractions">景点列表</a></li>
+                <li id="tab-life"><a href="#lifes">生活信息列表</a></li>
+                <li id="tab-hotels"><a href="#hotels">酒店列表</a></li>
+                <li id="tab-label"><a href="#label">标签列表</a></li>
+                <li id="tab-category"><a href="#categorys">生活类型</a></li>
+                <li id="tab-lifetag"><a href="#lifetags">生活标签</a></li>
+                <li id="tab-user"><a href="#user/1">用户管理</a></li>
+                <li id="tab-dolabel"><a href="CityLabeling.html" target="_blank">标签批量管理</a></li>
+            </ul>
+        </div> -->
+
+        <div id="app" class="cmsContainer">
+        </div>
+
+        <div id="dialog" title="demo"></div>
+
+        <script src="javascripts/jquery-1.8.3.min.js"></script>
+        <script src="javascripts/jquery.cookie.js"></script>
+        <script src="javascripts/jquery-ui/jquery-ui-1.9.1.custom.min.js"></script>
+        <script src="javascripts/underscore-min.js"></script>
+        <script src="javascripts/backbone-min.js"></script>
+        <script src="javascripts/backbone.routefilter.js"></script>
+        <script src="javascripts/handlebars.min.js"></script>
+        <script src="javascripts/jquery.fileupload.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/editor.js"></script>
+        <script src="js/editor_city.js"></script>
+        <script src="js/editor_label.js"></script>
+        <script src="js/views/hotel.js"></script>
+        <script src="js/user.js"></script>
+        <script src="javascripts/ajaxupload.js"></script>
+        <script src="javascripts/md5-min.js"></script>
+        <script src="javascripts/zxxFile.js"></script>
+        <script src="js/editor_category.js"></script>
+        <script src="js/editor_lifetag.js"></script>
+        <script src="js/editor_life.js"></script>
+        <script src="libs/util.js"></script>
+
+        <script>
+            $(document).ready(function(){
+                new weego.GlobalRouter;
+                Backbone.history.start();
+            });
+        </script>
+
+        <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places">
+        </script>
+    </body>
 </html>
