@@ -76,6 +76,7 @@ $(weego_user.init());
                             weego.globalCurrentUrl = '#main';
                             weego_user.loginFlag = true;
                             self.location = weego.globalCurrentUrl;
+
                         } else {
                             $(".login_wrong").fadeIn("slow");
                         }
@@ -100,20 +101,24 @@ $(weego_user.init());
             }
         },
         events:{
-            "click td":"test"
+            "click .showDetail":"showDetail"
         },
-        test:function(){
-            //alert("xxxxx");
+        showDetail:function(evt){
+            var $this=$(evt.currentTarget);
+            if($this.hasClass("active")){
+                $this.removeClass("active").next().fadeOut();
+            }else{
+                $this.addClass("active").next().fadeIn();
+            }
         }
     });
 
     //管理员主页
     weego_user.AdminMainView = Backbone.View.extend({
-        tagName:"div",
-        className:"container",
         el:"#app",
         initialize:function(){
-
+            var thisView=this;
+            thisView.$el.empty();
         },
         events:{}
     });
