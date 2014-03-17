@@ -87,14 +87,12 @@ header .cmsSignout{
 	height: 40px;
 	color: #fff;
 	line-height: 40px;
-	border-bottom: 1px dashed #333;
-
 }
 .cmsNav a:before{
 	margin: 0 5px 0 15px;
 }
-.cmsNav a:hover{
-	background:#1b1b1b;
+.cmsNav a:hover,.cmsNav a.active{
+	background:#888;
 }
 
 .cmsContainer{
@@ -139,4 +137,11 @@ header .cmsSignout{
 	border-bottom:1px solid #ddd;
 	padding:8px 5px;
 }
-
+.cmsEditorHistory,.cmsEditorTask,.cmsEditorFeedback{
+	margin:0 0 30px 0;
+}
+.cmsEditorHistory caption,.cmsEditorTask caption,.cmsEditorFeedback caption{
+	text-align: left;
+	font-size: 18px;
+	padding: 10px 0;
+}
