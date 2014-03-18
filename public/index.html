@@ -12,7 +12,7 @@
 
     <link href="stylesheets/jquery.fileupload-ui.css" rel="stylesheet">
     <link href="javascripts/jquery-ui/css/jquery-ui-1.8.18.custom.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="javascripts/vmap/jqvmap.css">
+    <!-- <link rel="stylesheet" type="text/css" href="javascripts/vmap/jqvmap.css"> -->
     <link href="stylesheets/style.css" rel="stylesheet">
     
     <script type="text/javascript" src="libs/pagedown/Markdown.Converter.js"></script>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="control-group">
                         <button class="btn btn-primary" type="button" id="login">登录</button>
-                        <button class="btn" type="button" id="cancel">取消</button>
+                        <button  type="button" id="cancel">取消</button>
                     </div>
                 </fieldset>
             </form>
@@ -53,7 +53,7 @@
         <section class="cmsPageStatus">
             <dl>
                 <dt>用户列表</dt>
-                <dd><button class="btn span3" id="addUser">添加</button></dd>
+                <dd><button id="addUser">添加</button></dd>
                 <dd><button id="prePageButton">上一页</button></dd>
                 <dd><button id="nextPageButton">下一页</button></dd>
             </dl>
@@ -158,9 +158,9 @@
         <section class="cmsPageStatus">
             <dl>
                 <dt>酒店列表</dt>
-                <dd><a id="hotel-add-new" class="btn" href="#hotel/new">添加酒店</a></dd>
-                <dd><button id="hotel-list-prev-page" class="btn">上一页</button></dd>
-                <dd><button id="hotel-list-next-page" class="btn">下一页</button></dd>
+                <dd><a id="hotel-add-new"  href="#hotel/new">添加酒店</a></dd>
+                <dd><button id="hotel-list-prev-page" >上一页</button></dd>
+                <dd><button id="hotel-list-next-page" >下一页</button></dd>
                 <dd>当前页：<span id="hotel-list-current-page">{{currentPage}}</span></dd>
                 <dd>总页数：<span id="hotel-list-page-count">{{pageCount}}</span></dd>
                 <dd>总记录数：<span id="hotel-list-total">{{total}}</span></dd>
@@ -191,8 +191,8 @@
         <td>{{district}}</td>
         <td>{{#if longitude}}{{longitude}}, {{latitude}}{{/if}}</td>
         <td><input id="hotel-list-item-to-list" type="checkbox" class="checkbox" disabled {{#if to_list}}checked{{/if}}></td>
-        <td><button id="hotel-list-item-upload-cover-img" class="btn">修改</button><div id="modal-placeholder"></div></td>
-        <td><a id="hotel-list-item-edit" class="btn" href="#hotel/{{_id}}">编辑</a></td>
+        <td><button id="hotel-list-item-upload-cover-img" >修改</button><div id="modal-placeholder"></div></td>
+        <td><a id="hotel-list-item-edit"  href="#hotel/{{_id}}">编辑</a></td>
         <td><button id="hotel-list-item-remove" class="btn btn-danger">删除</button></td>
     </script>
 
@@ -453,9 +453,9 @@
         <section class="cmsPageStatus">
             <dl>
                 <dt>生活类型</dt>
-                <dd><a id="category-add-new" class="btn" href="#category/new">添加类型</a></dd>
-                <dd><button id="category-list-prev-page" class="btn">上一页</button></dd>
-                <dd><button id="category-list-next-page" class="btn">下一页</button></dd>
+                <dd><a id="category-add-new"  href="#category/new">添加类型</a></dd>
+                <dd><button id="category-list-prev-page" >上一页</button></dd>
+                <dd><button id="category-list-next-page" >下一页</button></dd>
                 <dd>当前页：
                 <span id="category-list-current-page">{{currentPage}}</span></dd>
                 <dd>总页数：
@@ -465,14 +465,16 @@
             </dl>
         </section>
 
-        <select id="category_type">
-            <option value="1" {{#ifCond type '1'}} selected {{/ifCond}}>餐馆</option>
-            <option value="2" {{#ifCond type '2'}} selected {{/ifCond}}>购物</option>
-            <option value="3" {{#ifCond type '3'}} selected {{/ifCond}}>娱乐</option>
-        </select>
+        <section class="cmsQueryBar">
+            <select id="category_type">
+                <option value="1" {{#ifCond type '1'}} selected {{/ifCond}}>餐馆</option>
+                <option value="2" {{#ifCond type '2'}} selected {{/ifCond}}>购物</option>
+                <option value="3" {{#ifCond type '3'}} selected {{/ifCond}}>娱乐</option>
+            </select>
+        </section>
 
         <div class="container">
-            <table class="table table-striped">
+            <table class="cmsTable">
                 <thead>
                 <th>分类</th>
                 <th>类型名称</th>
@@ -490,7 +492,7 @@
         <td>{{#ifCond type "1"}}餐馆{{/ifCond}}{{#ifCond type "2"}}购物{{/ifCond}}{{#ifCond type "3"}}娱乐{{/ifCond}}</td>
         <td>{{name}}</td>
         <td>{{en_name}}</td>
-        <td><a id="category-list-item-edit" class="btn" href="#category/{{_id}}">编辑</a></td>
+        <td><a id="category-list-item-edit"  href="#category/{{_id}}">编辑</a></td>
         <td><button id="category-list-item-remove" class="btn btn-danger">删除</button></td>
     </script>
 
@@ -503,8 +505,8 @@
             <dl>
                 <dt>生活标签</dt>
                 <dd><a id="lifetag-add-new" href="#lifetag/new">添加生活标签</a></dd>
-                <dd><button id="lifetag-list-prev-page" class="btn">上一页</button></dd>
-                <dd><button id="lifetag-list-next-page" class="btn">下一页</button></dd>
+                <dd><button id="lifetag-list-prev-page" >上一页</button></dd>
+                <dd><button id="lifetag-list-next-page" >下一页</button></dd>
                 <dd>当前页：
                 <span id="lifetag-list-current-page">{{currentPage}}</span></dd>
                 <dd>总页数：
@@ -514,11 +516,14 @@
             </dl>
         </section>
 
-        <select id="lifetag_type">
-            <option value="1" {{#ifCond type '1'}} selected {{/ifCond}}>餐馆</option>
-            <option value="2" {{#ifCond type '2'}} selected {{/ifCond}}>购物</option>
-            <option value="3" {{#ifCond type '3'}} selected {{/ifCond}}>娱乐</option>
-        </select>
+        <section class="cmsQueryBar">
+            <select id="lifetag_type">
+                <option value="1" {{#ifCond type '1'}} selected {{/ifCond}}>餐馆</option>
+                <option value="2" {{#ifCond type '2'}} selected {{/ifCond}}>购物</option>
+                <option value="3" {{#ifCond type '3'}} selected {{/ifCond}}>娱乐</option>
+            </select>
+        </section>
+        
         <div class="container">
             <table class="cmsTable">
                 <thead>
@@ -536,7 +541,7 @@
     <script id="lifetag-list-item-view" type="text/x-handlebars-template">
         <td>{{#ifCond type "1"}}餐馆{{/ifCond}}{{#ifCond type "2"}}购物{{/ifCond}}{{#ifCond type "3"}}娱乐{{/ifCond}}</td>
         <td>{{name}}</td>
-        <td><a id="lifetag-list-item-edit" class="btn" href="#lifetag/{{_id}}">编辑</a></td>
+        <td><a id="lifetag-list-item-edit"  href="#lifetag/{{_id}}">编辑</a></td>
         <td><button id="lifetag-list-item-remove" class="btn btn-danger">删除</button></td>
     </script>
 
@@ -548,7 +553,7 @@
         <section class="cmsPageStatus">
             <dl>
                 <dt>生活信息</dt>
-                <dd><a id="life-add-new" class="btn" href="#life/new">添加生活条目</a></dd>
+                <dd><a id="life-add-new"  href="#life/new">添加生活条目</a></dd>
                 <dd><button id="life-list-prev-page">上一页</button></dd>
                 <dd><button id="life-list-next-page">下一页</button></dd>
                 <dd>当前页：
@@ -560,17 +565,30 @@
             </dl>
         </section>
 
-        <select id="life_type">
-            <option value="1" {{#ifCond type '1'}} selected {{/ifCond}}>餐馆</option>
-            <option value="2" {{#ifCond type '2'}} selected {{/ifCond}}>购物</option>
-            <option value="3" {{#ifCond type '3'}} selected {{/ifCond}}>娱乐</option>
-        </select>
+        <section class="cmsQueryBar">
+            <span>
+                城市：<input type="text" id="search-life-cityname"> 
+            </span>
 
-        <div>
-            城市：<input type="text" id="search-life-cityname" value="{{search_cityname}}"> 
-            名称：<input type="text" id="search-life-name" value="{{search_lifename}}"> 
-            <button id="search-button" class="btn">查询</button>
-        </div>
+
+            <select id="life_type">
+                <option value="1" {{#ifCond type '1'}} selected {{/ifCond}}>餐馆</option>
+                <option value="2" {{#ifCond type '2'}} selected {{/ifCond}}>购物</option>
+                <option value="3" {{#ifCond type '3'}} selected {{/ifCond}}>娱乐</option>
+            </select>
+
+            <span>
+                名称：<input type="text" id="search-life-name"> 
+            </span>
+            
+            <span>
+                <button id="search-button" >查询</button>
+            </span>
+        </section>
+
+        
+
+        
         <div class="container">
             <table class="cmsTable">
                 <thead>
@@ -603,9 +621,9 @@
         <td>{{rating}}</td>
         <td>{{ranking}}</td>
         <td><input id="life-show-flag" type="checkbox" class="checkbox" disabled {{#if show_flag}}checked{{/if}}></td>
-        <td><a id="life-list-item-edit" class="btn" item_id="{{_id}}" href="#life/{{_id}}">编辑</a></td>
+        <td><a id="life-list-item-edit"  item_id="{{_id}}" href="#life/{{_id}}">编辑</a></td>
         <td><button id="life-list-item-remove" class="btn btn-danger">删除</button></td>
-        <td><button id="life-list-item-img" class="btn">图片管理</button></td>
+        <td><button id="life-list-item-img" >图片管理</button></td>
     </script>
 
     <script id="lifeDetailView" type="text/x-handlebars-template">
@@ -683,9 +701,9 @@
         <script src="javascripts/backbone.routefilter.js"></script>
         <script src="javascripts/handlebars.min.js"></script>
         <script src="javascripts/jquery.fileupload.js"></script>
-        <script src="javascripts/bootstrap-modal.js"></script>
-        <script src="javascripts/bootstrap-transition.js"></script>
-        <script type="text/javascript" src="javascripts/backbone-min.js"></script>
+      
+        <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
         <script type="text/javascript" src="javascripts/vmap/jquery.vmap.js"></script>
         <script type="text/javascript" src="javascripts/vmap/jquery.vmap.world.js"></script>
         <script type="text/javascript" src="javascripts/vmap/jquery.vmap.sampledata.js"></script>

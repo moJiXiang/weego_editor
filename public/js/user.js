@@ -135,6 +135,12 @@ $(weego_user.init());
                     thisView.$el.empty().append(template());
                     thisView.initMap();
                     thisView.initSelect();
+                    $('a[data-toggle=modal]').on('click',function(){
+                        $(this).next().fadeIn();
+                    });
+                    $('button[data-toggle=modal').on('click',function(){
+                        $('#taskdetail').fadeIn();
+                    })
                 });
             }
         },
