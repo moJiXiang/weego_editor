@@ -60,8 +60,12 @@ $(weego.init());
             "city/:pageno":"city", //根据页码展示city
             //"*actions":"list_city"//默认显示city
             "main":"userMain",
+            "statistics":"dataStatistic",
             "*actions":"userMain"
 
+        },
+        dataStatistic:function(){
+            new weego.StatisticsView();
         },
         userMain:function(evt){
             var currentUser=weego_user.globalUser;
@@ -70,10 +74,7 @@ $(weego.init());
             }else if(currentUser.type==1){
                 new weego_user.AdminMainView();
             }
-            //根据登录用户的不同类型渲染不同的主页
-            
         },
-        
         before:function (route) {
             $('#app').off();
            if ((!weego_user.loginFlag || !weego_user.globalUser) && route != 'login'&&route!='logout') {
@@ -1052,6 +1053,22 @@ $(weego.init());
                 }
             });
         }
+    });
+    weego.StatisticsView = Backbone.View.extend({
+        el:"#app",
+        initialize:function(){
+            var thisView=this;
+            if(weegoCache.statisticsTpl){
+                thisView.$el.empty().append(weegoCache.statisticsTpl);
+            }else{
+                $("<div/>").load("/templ/statistics.handlebars",function(){
+                    var template = Handlebars.compile($(this).html());
+                    weegoCache.statisticsTpl=template();
+                    thisView.$el.empty().append(template());
+                });
+            }
+        },
+        events:{}
     });
     var geocoder;
     var map;
