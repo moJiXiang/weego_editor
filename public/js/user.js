@@ -132,6 +132,11 @@ $(weego_user.init());
                     });
                     $('button[data-toggle=modal').on('click',function(){
                         $('#taskdetail').fadeIn();
+                    });
+                    $('.delete').on('click',function(){
+                        $('#myModal').fadeOut();
+                        $('#taskdetail').fadeOut();
+                        $('#addeditor').fadeOut();
                     })
                 });
             }
