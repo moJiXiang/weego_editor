@@ -127,6 +127,12 @@ $(weego_user.init());
                     weegoCache.adminMainTpl=template();
                     thisView.$el.empty().append(template());
                     thisView.initMap();
+                    $('a[data-toggle=modal]').on('click',function(){
+                        $(this).next().fadeIn();
+                    });
+                    $('button[data-toggle=modal').on('click',function(){
+                        $('#taskdetail').fadeIn();
+                    })
                 });
             }
         },
