@@ -1,11 +1,11 @@
-body {
+/*body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+}*/
 
-a {
+/*a {
   color: #00B7FF;
-}
+}*/
 .droperea{
     top: 0;
     left: 0;
@@ -207,9 +207,9 @@ a {
     font-size: 0.8em;
     font-weight: bold;
 }
-.container{
+/*.container{
     width:100%;
-}
+}*/
 .hero-unit{
     padding: 20px 10px;
 }

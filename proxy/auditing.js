@@ -38,6 +38,7 @@ exports.update = function(one,callback){
 			auditing.city_name = one.city_name;
 			auditing.task_id = one.task_id;
 			auditing.item_id = one.item_id;
+			auditing.editor_id = one.editor_id;
 			auditing.type = one.type;
 			auditing.name = one.name;
 			auditing.save(function(err){
@@ -55,6 +56,7 @@ exports.newAndSave = function(one,callback){
 	auditing.city_name = one.city_name;
 	auditing.task_id = one.task_id;
 	auditing.item_id = one.item_id;
+	auditing.editor_id = one.editor_id;
 	auditing.type = one.type;
 	auditing.name = one.name;
 	auditing.save(function (err) {

@@ -103,6 +103,7 @@ var LifeView = Backbone.View.extend({
         'change #area_select': 'selectArea',
         'change #big_select': 'selectBigShopping',
         'click #is_big': 'checkBig',
+        'click review':'review',
         'click #save': 'saveLife',
         'click #top_save':'saveLife',
         'click #cancel': 'back',
@@ -389,6 +390,9 @@ var LifeView = Backbone.View.extend({
         }else{
             alert('请不手动输入！');
         }
+        
+    },
+    review : function(){
         
     },
     delLi:function(e){

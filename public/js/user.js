@@ -70,11 +70,13 @@ $(weego_user.init());
                             weego_user.globalUser.type = model.get('type');
                             var cookieUser = {'username':weego_user.globalUser.username,'type':weego_user.globalUser.type};
                             $.cookie('user',JSON.stringify(cookieUser),{expires:1});
-                            if (weego.globalCurrentUrl == '#login'||weego.globalCurrentUrl=='') {
-                                weego.globalCurrentUrl = '#city/1';
-                            }
+                            // if (weego.globalCurrentUrl == '#login'||weego.globalCurrentUrl=='') {
+                            //     weego.globalCurrentUrl = '#city/1';
+                            // }
+                            weego.globalCurrentUrl = '#main';
                             weego_user.loginFlag = true;
                             self.location = weego.globalCurrentUrl;
+
                         } else {
                             $(".login_wrong").fadeIn("slow");
                         }
@@ -82,6 +84,53 @@ $(weego_user.init());
                 });
         }
     });
+    
+    //编辑主页
+    weego_user.EditorMainView = Backbone.View.extend({
+        el:"#app",
+        initialize:function(){
+            var thisView=this;
+            if(weegoCache.editorMainTpl){
+                thisView.$el.empty().append(weegoCache.editorMainTpl);
+            }else{
+                $("<div/>").load("/templ/editorMain.handlebars",function(){
+                    var template = Handlebars.compile($(this).html());
+                    weegoCache.editorMainTpl=template();
+                    thisView.$el.empty().append(template());
+                });
+            }
+        },
+        events:{
+            "click .showDetail":"showDetail"
+        },
+        showDetail:function(evt){
+            var $this=$(evt.currentTarget);
+            if($this.hasClass("active")){
+                $this.removeClass("active").next().fadeOut();
+            }else{
+                $this.addClass("active").next().fadeIn();
+            }
+        }
+    });
+
+    //管理员主页 
+    weego_user.AdminMainView = Backbone.View.extend({
+        el:"#app",
+        initialize:function(){
+            var thisView=this;
+            if(weegoCache.adminMainTpl){
+                thisView.$el.empty().append(weegoCache.adminMainTpl);
+            }else{
+                $("<div/>").load("/templ/admin_personcenter.html",function(){
+                    var template = Handlebars.compile($(this).html());
+                    weegoCache.adminMainTpl=template();
+                    thisView.$el.empty().append(template());
+                });
+            }
+        },
+        events:{}
+    });
+
     weego_user.UserView = Backbone.View.extend({
         tagName:'tr',
         render:function () {
