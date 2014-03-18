@@ -45,6 +45,7 @@ module.exports = function(app) {
 	app.del('/city/:cityID', routes.city.deleteCity);
 	app.put('/city/:cityID', routes.city.updateCity);
 	app.get('/getAllCity', routes.city.getAllCity);
+	app.get('/getAllCityBaseInfo', routes.city.getAllCityBaseInfo);
 	app.get('/getCityByPage/:pageLimit/:pageIndex', routes.city.getCityByPage);
 	app.get('/getCityByLabelID/:labelID', routes.city.getCityByLabelID);
 	app.get('/getCountriesByContinent/:continentCode',routes.city.getCountriesByContinent);
@@ -65,6 +66,9 @@ module.exports = function(app) {
 	app.put('/user/:userID',routes.editUser.updateUser);
 	app.del('/user/:userID', routes.editUser.deleteUser);
 	app.get('/getUserByPage/:pageLimit/:pageIndex', routes.editUser.getUserByPage);
+	app.get('/getAllEditor', routes.editUser.getAllEditor);
+
+
 
 	app.post('/addMasterLabelToCities',routes.city.addMasterLabelToCities);
 	app.post('/addSubLabelToCities',routes.city.addSubLabelToCities);
@@ -131,6 +135,13 @@ module.exports = function(app) {
 	app.post('/postLifeImage', routes.life.postLifeImage);
 	app.get('/delUploadImageLife/:_id/:imageName/:_type', routes.life.delUploadImageLife);
 	app.get('/setCoverImgLife/:_id/:imageName/:_type', routes.life.setCoverImgLife);
+
+	//task
+	app.get('/task/:taskId', routes.task.getTask);
+	app.del('/task/:taskId', routes.task.removeTask);
+	app.put('/task/:taskId', routes.task.updateTask);
+	app.post('/task', routes.task.addNewTask);
+	app.get('/tasks/:pageLimit/:pageIndex?', routes.task.getTaskByPage);
 
 	app.get('/dataImport?',routes.dataImport.importCity);
 	app.get('/importLifeData?',routes.lifeImport.importLifeData);

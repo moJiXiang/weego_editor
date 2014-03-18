@@ -40,6 +40,12 @@ $(weego_user.init());
         model:weego_user.UserModel
     });
 
+    weego_user.TaskModel = Backbone.Model.extend({
+        urlRoot:'/task',
+        idAttribute:"_id"
+    });
+
+
     weego_user.LoginView = Backbone.View.extend({
         el:'#app',
         render:function () {
@@ -120,22 +126,129 @@ $(weego_user.init());
             var thisView=this;
             if(weegoCache.adminMainTpl){
                 thisView.$el.empty().append(weegoCache.adminMainTpl);
+                thisView.initMap();
+                thisView.initSelect();
             }else{
                 $("<div/>").load("/templ/admin_personcenter.html",function(){
                     var template = Handlebars.compile($(this).html());
                     weegoCache.adminMainTpl=template();
                     thisView.$el.empty().append(template());
+                    thisView.initMap();
+                    thisView.initSelect();
                 });
             }
         },
+        initMap : function(){
+            console.log($('#vmap').length);
+            jQuery('#vmap').vectorMap({
+                map: 'world_en',
+                backgroundColor: '#a5bfdd',
+                borderColor: '#818181',
+                borderOpacity: 0.25,
+                borderWidth: 1,
+                color: '#f4f3f0',
+                enableZoom: true,
+                hoverColor: '#c9dfaf',
+                hoverOpacity: null,
+                normalizeFunction: 'linear',
+                scaleColors: ['#b6d6ff', '#005ace'],
+                selectedColor: '#c9dfaf',
+                selectedRegion: null,
+                showTooltip: true,
+                onRegionClick: function(element, code, region) {
+                    var message = 'You clicked "' + region + '" which has the code: ' + code.toUpperCase();
+                    $('#eachcountrydetail').find('li').eq(0).children('strong').html(region);
+                    // alert(message);
+                }
+            });
+        },
+        initSelect: function(){
+            $.ajax({
+                url:"/getAllEditor",
+                success:function (data) {
+                    if(data.status){
+                        var results = data.results;
+                        var option = '';
+                        for(var i=0;i<results.length;i++){
+                            var one = results[i];
+                            option +='<option value="'+one._id+'" >'+one.username+'</option>';
+                        }
+                        $('#editor_select').html(option);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                }
+            });
+            $.ajax({
+                url:"/getAllCityBaseInfo",
+                success:function (data) {
+                    if(data.status){
+                        var results = data.results;
+                        var option = '';
+                        for(var i=0;i<results.length;i++){
+                            var one = results[i];
+                            option +='<option value="'+one._id+'" >'+one.cityname+'</option>';
+                        }
+                        $('#city_select').html(option);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                }
+            });
+
+        },
         events:{
-            'click #sendTask': 'sendTask'
+            'click #sendTask': 'sendTask',
+            'change #city_select': 'selectCity'
+        },
+        selectCity: function(){
+            var city_name = $('#city_select').find("option:selected").text();
+            var total = $('#total').val();
+            $('#taskname').val(city_name+total+'条数据任务');
         },
         sendTask: function(e){
             e.preventDefault();
-            alert('aaa');
-        }
+            var total = $('#total').val();
+            var days = $('#days').val();
+            if(!days || !total){
+                alert('请输入任务总量及任务时长！');
+                return false;
+            }
 
+            if(!isInt(days)||!isInt(total)){
+                alert('任务总量及时长必须为数字！');
+                return false;
+            }
+
+            if(confirm('你确定发送任务吗？')){
+                var city_name = $('#city_select').find("option:selected").text();
+                var item = {
+                    editor_id:$('#editor_select').val(),
+                    city_id:$('#city_select').val(),
+                    city_name:city_name,
+                    days:days,
+                    total:total,
+                    name:$('#taskname').val(),
+                    desc:$('#desc').val()
+                };
+                console.log(item);
+                var taskModel = new weego_user.TaskModel(item);
+                taskModel.save({},{
+                    success:function(model, res){
+                        if(res.isSuccess){
+                            alert('添加成功');
+                            $('#myModal').css('display','none');
+                            $('.modal-backdrop').fadeOut();
+                            self.location.reload();
+                        }else{
+                            alert('保存失败'+res.info);
+                        }
+                    }
+                });
+               
+            }
+
+        }
     });
 
     weego_user.UserView = Backbone.View.extend({

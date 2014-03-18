@@ -6,6 +6,7 @@ var Restaurant = require('../proxy').Restaurant;
 var Shopping = require('../proxy').Shopping;
 var Entertainment = require('../proxy').Entertainment;
 var upyunClient = require('./upyun/upyunClient');
+var Util = require('./util');
 
 exports.getCategory = function(req,res){
 	Category.getCategory(new ObjectID(req.params.categoryId+''), function (err, result) {
@@ -39,8 +40,8 @@ exports.getCategorysByQuery = function(req,res){
     if(type){
         query.type = type;
     }
-    if(!isNull(name)){
-        if(trim(name)!=""){
+    if(!Util.isNull(name)){
+        if(Util.trim(name)!=""){
             query.name = {$regex:name};
         }   
     }
@@ -247,10 +248,10 @@ exports.getRestaurantByPage = function (req, res) {
     var cityname = req.query.cityname;
     var con = {};
     if(lifename){
-        con.name = {$regex:trim(lifename)};
+        con.name = {$regex:Util.trim(lifename)};
     }
     if(cityname){
-        con.city_name = trim(cityname);
+        con.city_name = Util.trim(cityname);
     }
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
     Restaurant.count(con,function (err, count) {
@@ -316,10 +317,10 @@ exports.getShoppingByPage = function (req, res) {
     var cityname = req.query.cityname;
     var con = {};
     if(lifename){
-        con.name = {$regex:trim(lifename)};
+        con.name = {$regex:Util.trim(lifename)};
     }
     if(cityname){
-        con.city_name = trim(cityname);
+        con.city_name = Util.trim(cityname);
     }
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
     Shopping.count(con,function (err, count) {
@@ -398,10 +399,10 @@ exports.getEntertainmentByPage = function (req, res) {
     var cityname = req.query.cityname;
     var con = {};
     if(lifename){
-        con.name = {$regex:trim(lifename)};
+        con.name = {$regex:Util.trim(lifename)};
     }
     if(cityname){
-        con.city_name = trim(cityname);
+        con.city_name = Util.trim(cityname);
     }
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
     Entertainment.count(con,function (err, count) {
@@ -650,18 +651,3 @@ function setCoverImg (_id,type,cover_image,callback){
     }
 }
 
-function isNull(str){
-    if(str==null || str=='' || str==undefined)
-        return true;
-    else{
-        return false;
-    }
-}
-
-function trim(content){  
-    // 用正则表达式将前后空格    
-    if(content==null || content==undefined)
-        return '';
-    else
-        return content.replace(/(^\s+)|(\s+$)/g,"");
-}

@@ -18,13 +18,13 @@
 						  			<div class="control-group">
 								  		<label for="" class="control-label">编辑者</label>
 								  		<div class="controls">
-											<select id="editor-select"></select>
+											<select id="editor_select"></select>
 								  		</div>
 								  	</div>
 							  		<div class="control-group">
 								  		<label for="" class="control-label">城市</label>
 								  		<div class="controls">
-											<select id="city-select"></select>
+											<select id="city_select"></select>
 								  		</div>
 								  	</div>
 								  	<div class="control-group">
@@ -37,6 +37,12 @@
 								  		<label for="" class="control-label">时长</label>
 								  		<div class="controls">
 								  			<input type="text" id="days" value="10">[单位：天]
+								  		</div>
+								  	</div>
+								  	<div class="control-group">
+								  		<label for="" class="control-label">任务名称</label>
+								  		<div class="controls">
+								  			<input type="text" id="taskname" placeholder="纽约30条数据任务" value="">
 								  		</div>
 								  	</div>
 								  
@@ -335,7 +341,7 @@
 					<h5>查看城市</h5>
 				</div>
 				<div class="worldcities">
-					<div id="vmap" style="width:600px;height:350px;float:left;"></div>
+					<div id="vmap" style="width:600px;height:350px;"></div>
 					<div class="eachcountrydetail" id="eachcountrydetail">
 						<ul>
 							<li><label for="">国家</label><strong></strong></li>

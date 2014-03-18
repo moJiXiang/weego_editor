@@ -19,12 +19,21 @@ var upyunClient = require('./upyun/upyunClient');
 var Country =  require('./country');
 
 exports.getAllCity = function (req, res) {
-
     cityProvider.find({}, {}, function (err, result) {
         if (err) {
             res.send({err:err});
         } else {
             res.send(result);
+        }
+    });
+};
+
+exports.getAllCityBaseInfo = function(req,res){
+    cityProvider.find({}, {cityname:1}, function (err, result) {
+        if (err) {
+            res.send({status:false,err:err});
+        } else {
+            res.send({status:true,results:result});
         }
     });
 };

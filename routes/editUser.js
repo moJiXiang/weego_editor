@@ -83,5 +83,15 @@ exports.getUserByPage = function(req,res){
             }
         });
     });
-}
+};
+
+exports.getAllEditor = function(req,res){
+    editUserProvider.find({type:0}, {sort:{'username':-1}}, function (err, result) {
+        if (err) {
+            res.send({status:false,err:err});
+        } else {
+            res.send({status:true,results:result});
+        }
+    });
+};
 
