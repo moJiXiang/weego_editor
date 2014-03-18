@@ -12,6 +12,7 @@
 
     <link href="stylesheets/jquery.fileupload-ui.css" rel="stylesheet">
     <link href="javascripts/jquery-ui/css/jquery-ui-1.8.18.custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="javascripts/vmap/jqvmap.css">
     <link href="stylesheets/style.css" rel="stylesheet">
     
     <script type="text/javascript" src="libs/pagedown/Markdown.Converter.js"></script>
@@ -643,7 +644,11 @@
         <script src="javascripts/backbone.routefilter.js"></script>
         <script src="javascripts/handlebars.min.js"></script>
         <script src="javascripts/jquery.fileupload.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="javascripts/bootstrap-modal.js"></script>
+        <script src="javascripts/bootstrap-transition.js"></script>
+        <script src="javascripts/vmap/jquery.vmap.js"></script>
+        <script src="javascripts/vmap/jquery.vmap.world.js"></script>
+        <script src="javascripts/vmap/jquery.vmap.sampledata.js"></script>
         <script src="js/editor.js"></script>
         <script src="js/editor_city.js"></script>
         <script src="js/editor_label.js"></script>
@@ -656,14 +661,14 @@
         <script src="js/editor_lifetag.js"></script>
         <script src="js/editor_life.js"></script>
         <script src="libs/util.js"></script>
-
+        <script type="text/javascript" src="js/admin_personcennter.js"></script>
         <script>
             $(document).ready(function(){
                 new weego.GlobalRouter;
                 Backbone.history.start();
             });
         </script>
-
+       
         <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places">
         </script>
     </body>

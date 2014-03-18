@@ -1,5 +1,5 @@
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="icomoon-"], [class*=" icomoon-"] {
 	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
@@ -14,7 +14,7 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
-[class*="icon-"]{
+[class*="icomoon-"]{
 	font-size: 16px;
 	padding: 15px 10px 15px 11px;
 	text-align: center;
@@ -31,13 +31,13 @@ h1,h2,h3,h4,h5,h6,p,dl,dd,ul{
 .row-fluid{
 	margin-bottom: 20px;
 }
-.icon-th-list:before{
+.icomoon-th-list:before{
 	content: "\e60d";
 }
 .widget-buttons a{
 	float: right;
 }
-.icon-plus:before{
+.icomoon-plus:before{
 	content: "\e601"
 }
 
@@ -121,14 +121,14 @@ h1,h2,h3,h4,h5,h6,p,dl,dd,ul{
 }
 .widget .pager{
 	float: right;
-	margin: 3px 7px 0 0;
+	margin: 1px 7px 0 0;
 }
 .btn{
 	margin: 10px 0 0 20px;
 	padding: 1px 5px;
 }
 /*editor manage====================================================================*/
-.icon-users:before{
+.icomoon-users:before{
 	content: "\e613"
 }
 .usertable table a.btn{
