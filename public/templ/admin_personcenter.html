@@ -16,33 +16,34 @@
 						  	<form action="" class="form-horizontal">
 						  		<fieldset>
 						  			<div class="control-group">
-								  		<label for="" class="control-label">编辑</label>
+								  		<label for="" class="control-label">编辑者</label>
 								  		<div class="controls">
-											<select name="" id=""></select>
+											<select id="editor-select"></select>
 								  		</div>
 								  	</div>
-								  	<div class="control-group">
-								  		<label for="" class="control-label">开始时间</label>
-								  		<div class="controls">
-											<select name="" id=""></select>
-								  		</div>
-								  	</div>
-								  	<div class="control-group">
-								  		<label for="" class="control-label">任务时长</label>
-								  		<div class="controls">
-								  			<input type="text">
-								  		</div>
-								  	</div>
-								  	<div class="control-group">
+							  		<div class="control-group">
 								  		<label for="" class="control-label">城市</label>
 								  		<div class="controls">
-											<select name="" id=""></select>
+											<select id="city-select"></select>
 								  		</div>
 								  	</div>
 								  	<div class="control-group">
-								  		<label for="" class="control-label">注意事项</label>
+								  		<label for="total" class="control-label">总量</label>
 								  		<div class="controls">
-								  			<textarea class="input-xlarge" id="textarea" rows="3"></textarea>
+								  			<input type="text" id="total" value="30">[单位：条]
+								  		</div>
+								  	</div>
+								  	<div class="control-group">
+								  		<label for="" class="control-label">时长</label>
+								  		<div class="controls">
+								  			<input type="text" id="days" value="10">[单位：天]
+								  		</div>
+								  	</div>
+								  
+								  	<div class="control-group">
+								  		<label for="" class="control-label">详情</label>
+								  		<div class="controls">
+								  			<textarea class="input-xlarge" placeholder="例如：10个景点，10个餐馆，10个商店"  id="desc" rows="3"></textarea>
 								  		</div>
 								  	</div>
 						  		</fieldset>
@@ -50,7 +51,7 @@
 						  </div>
 						  <div class="modal-footer">
 						    <a href="#" class="btn" data-dismiss="modal">关闭</a>
-						    <a href="#" class="btn btn-primary">发送任务</a>
+						    <a href="#" class="btn btn-primary" id="sendTask">发送任务</a>
 						  </div>
 						</div>
 

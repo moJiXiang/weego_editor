@@ -128,7 +128,14 @@ $(weego_user.init());
                 });
             }
         },
-        events:{}
+        events:{
+            'click #sendTask': 'sendTask'
+        },
+        sendTask: function(e){
+            e.preventDefault();
+            alert('aaa');
+        }
+
     });
 
     weego_user.UserView = Backbone.View.extend({
