@@ -305,7 +305,6 @@
         <td>{{recommand_day}}</td>
         <td>{{hot_flag}}</td>
         <td>{{show_flag}}</td>
-        <th>{{#with masterLabel}}{{masterLabel}}{{/with}}</th>
         {{#if imgFlag}}
         <td><button data-value="{{_id}}" class="upload">添加图片</button></td>
         {{else}}
@@ -320,7 +319,8 @@
 
         <td><button data-value="{{_id}}" class="modify">修改</button></td>
         <td><button data-value="{{_id}}" class="delete">删除</button></td>
-        <td><a href="/index.html#city/{{cityname}}/1">景点</a></td>
+        <td><a href="/index.html#city/{{cityname}}/1">景点</a>&nbsp;
+        <a href="/index.html#lifes/1/1/q_{{cityname}}/q_">生活</a></td>
     </script>
     <script id="cityappView" type="text/x-handlebars-template">
         <div class="hero-unit">城市编辑器</div>
@@ -350,7 +350,6 @@
                     <th>推荐天数</th>
                     <th>热门城市</th>
                     <th>是否显示</th>
-                    <th>主标签</th>
                     <th>城市cover图片</th>
                     <th>城市背景大图</th>
                     <th>编辑</th>
@@ -521,8 +520,8 @@
             </div>
         </div>
         <div>
-            城市：<input type="text" id="search-life-cityname"> 
-            名称：<input type="text" id="search-life-name"> 
+            城市：<input type="text" id="search-life-cityname" value="{{search_cityname}}"> 
+            名称：<input type="text" id="search-life-name" value="{{search_lifename}}"> 
             <button id="search-button" class="btn">查询</button>
         </div>
         <table class="table table-striped">
@@ -534,6 +533,7 @@
             <th>价格</th>
             <th>Category</th>
             <th>Rating</th>
+            <th>Ranking</th>
             <th>是否显示</th>
             <th>编辑</th>
             <th>删除</th>
@@ -550,6 +550,7 @@
         <td>{{price_desc}}</td>
         <td>{{#each category}}{{this.name}},{{/each}}</td>
         <td>{{rating}}</td>
+        <td>{{ranking}}</td>
         <td><input id="life-show-flag" type="checkbox" class="checkbox" disabled {{#if show_flag}}checked{{/if}}></td>
         <td><a id="life-list-item-edit" class="btn" item_id="{{_id}}" href="#life/{{_id}}">编辑</a></td>
         <td><button id="life-list-item-remove" class="btn btn-danger">删除</button></td>
@@ -557,6 +558,43 @@
     </script>
     <script id="lifeDetailView" type="text/x-handlebars-template">
         <!-- life_detail.html -->
+    </script>
+    <script id="area-list-view" type="text/x-handlebars-template">
+        <div class="row-fluid">
+            <div class="pull-left">
+                <a id="area-add-new" class="btn" href="#area/new">添加区域</a>
+                <button id="area-list-prev-page" class="btn">上一页</button>
+                <button id="area-list-next-page" class="btn">下一页</button>
+            </div>
+            <div class="pull-right">
+                当前页：
+                <label id="area-list-current-page" class="badge">{{currentPage}}</label>
+                总页数：
+                <label id="area-list-page-count" class="badge">{{pageCount}}</label>
+                总记录数：
+                <label id="area-list-total" class="badge">{{total}}</label>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <th>城市</th>
+            <th>区域名</th>
+            <th>英文名</th>
+            <th>编辑</th>
+            <th>删除</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </script>
+    <script id="area-list-item-view" type="text/x-handlebars-template">
+        <td>{{city_name}}</td>
+        <td>{{name}}</td>
+        <td>{{en_name}}</td>
+        <td><a id="area-list-item-edit" class="btn" href="#area/{{_id}}">编辑</a></td>
+        <td><button id="area-list-item-remove" class="btn btn-danger">删除</button></td>
+    </script>
+    <script id="areaDetailView" type="text/x-handlebars-template">
+        <!-- area_detail.html -->
     </script>
 </head>
 <body>
@@ -573,6 +611,7 @@
         <li id="tab-label"><a href="#label">标签列表</a></li>
         <li id="tab-category"><a href="#categorys">生活类型</a></li>
         <li id="tab-lifetag"><a href="#lifetags">生活标签</a></li>
+        <li id="tab-area"><a href="#areas">城市区域</a></li>
         <li id="tab-user"><a href="#user/1">用户管理</a></li>
         <li id="tab-dolabel"><a href="CityLabeling.html" target="_blank">标签批量管理</a></li>
     </ul>
@@ -599,6 +638,7 @@
 <script src="js/editor_category.js"></script>
 <script src="js/editor_lifetag.js"></script>
 <script src="js/editor_life.js"></script>
+<script src="js/editor_area.js"></script>
 <script src="libs/util.js"></script>
 
 <script>

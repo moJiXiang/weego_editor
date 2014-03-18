@@ -13,3 +13,4 @@ exports.hotel = require('./hotel');
 exports.dataImport = require('./dataImport');
 exports.life = require('./life');
 exports.lifeImport = require('./lifeImport');
+exports.admin = require('./admin');

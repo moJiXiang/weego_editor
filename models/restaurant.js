@@ -21,7 +21,11 @@ var RestaurantSchema = new Schema({
   show_flag: {type:Boolean,default:false},
   create_at: { type: Date, default: Date.now },
   recommand_flag :{ type: Boolean, default:false },
+  local_flag :{ type: Boolean, default:false },
   ranking: { type: Number },
+  area_id: {type: ObjectId},
+  area_name: {type: String},
+  michilin_flag:{ type: Boolean ,default: false},
 
   rating: { type: Number ,default: 3},
   rating_service: { type: Number ,default: 3},

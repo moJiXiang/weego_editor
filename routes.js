@@ -97,12 +97,20 @@ module.exports = function(app) {
 	app.get('/lifetags/:pageLimit/:pageIndex', routes.life.getLifetagByPage);
 	app.get('/getLifetagsByType/:type',routes.life.getLifetagsByType);
 
+	//area
+	app.get('/area/:areaId', routes.life.getArea);
+	app.del('/area/:areaId', routes.life.removeArea);
+	app.put('/area/:areaId', routes.life.updateArea);
+	app.post('/area', routes.life.addNewArea);
+	app.get('/areas/:pageLimit/:pageIndex', routes.life.getAreaByPage);
+	app.get('/getAreasByCityId/:cityId',routes.life.getAreasByCityId);
+
 	//restaurant
 	app.get('/restaurant/:restaurantId', routes.life.getRestaurant);
 	app.del('/restaurant/:restaurantId', routes.life.removeRestaurant);
 	app.put('/restaurant/:restaurantId', routes.life.updateRestaurant);
 	app.post('/restaurant', routes.life.addNewRestaurant);
-	app.get('/restaurants/:pageLimit/:pageIndex', routes.life.getRestaurantByPage);
+	app.get('/restaurants/:pageLimit/:pageIndex?', routes.life.getRestaurantByPage);
 
 
 	//shopping
@@ -110,14 +118,15 @@ module.exports = function(app) {
 	app.del('/shopping/:shoppingId', routes.life.removeShopping);
 	app.put('/shopping/:shoppingId', routes.life.updateShopping);
 	app.post('/shopping', routes.life.addNewShopping);
-	app.get('/shoppings/:pageLimit/:pageIndex', routes.life.getShoppingByPage);
+	app.get('/shoppings/:pageLimit/:pageIndex?', routes.life.getShoppingByPage);
+	app.get('/getBigShoppingByCityId/:cityId', routes.life.getBigShoppingByCityId);
 
 	//entertainment
 	app.get('/entertainment/:entertainmentId', routes.life.getEntertainment);
 	app.del('/entertainment/:entertainmentId', routes.life.removeEntertainment);
 	app.put('/entertainment/:entertainmentId', routes.life.updateEntertainment);
 	app.post('/entertainment', routes.life.addNewEntertainment);
-	app.get('/entertainments/:pageLimit/:pageIndex', routes.life.getEntertainmentByPage);
+	app.get('/entertainments/:pageLimit/:pageIndex?', routes.life.getEntertainmentByPage);
 
 	app.post('/postLifeImage', routes.life.postLifeImage);
 	app.get('/delUploadImageLife/:_id/:imageName/:_type', routes.life.delUploadImageLife);
@@ -125,7 +134,11 @@ module.exports = function(app) {
 
 	app.get('/dataImport?',routes.dataImport.importCity);
 	app.get('/importLifeData?',routes.lifeImport.importLifeData);
+	app.get('/getTopCategoryByCity/:cityname',routes.lifeImport.getTopCategoryByCity);
+	app.get('/getMichilin',routes.lifeImport.getMichilin);
 	// app.get('/importCategoryRestaurantData?',routes.lifeImport.importCategoryRestaurantData);
+	// app.get('/importCategoryShoppingData?',routes.lifeImport.importCategoryShoppingData);
+	
 };
 
 routes.lifeImport.initCategoryData();

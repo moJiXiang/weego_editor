@@ -8,8 +8,40 @@ exports.getShopping = function (id, callback) {
   Shopping.findOne({_id: id}, callback);
 };
 
-exports.getShoppings = function (skip,pageLimit, callback) {
-  Shopping.find({}, [], {sort: [['name', 'desc']],skip:skip, limit:pageLimit}, function (err, shoppings) {
+exports.getFullShopping = function(id,callback){
+	exports.getShopping(id, function(err,shopping){
+	  	if(shopping){
+	  		if(shopping.in_big_id){
+	  			exports.getShopping(shopping.in_big_id, function(err2,one){
+	  				if(one){
+	  					shopping.in_big_name = one.name;
+	  					callback(null,shopping);
+	  				}
+	  				else{
+	  					callback(null,shopping);
+	  				}
+	  			});
+	  		}else{
+	  			callback(null,shopping);
+	  		}
+	  	}else{
+	  		callback(err,shopping);
+	  	}
+    });
+};
+
+exports.getShoppings = function (skip,pageLimit,query, callback) {
+  Shopping.find(query, [], {sort: [['city_name', 'asc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, shoppings) {
+		if(err)
+			callback(err);
+		else{
+			callback(null,shoppings);
+		}
+	});
+};
+
+exports.getShoppingsByQuery = function(query,callback){
+	Shopping.find(query, [], {sort: [['city_name', 'asc'],['ranking', 'asc']]}, function (err, shoppings) {
 		if(err)
 			callback(err);
 		else{
@@ -19,13 +51,15 @@ exports.getShoppings = function (skip,pageLimit, callback) {
 };
 
 
-exports.count = function (callback) {
-  Shopping.count({}, callback);
+exports.count = function (query,callback) {
+  Shopping.count(query, callback);
 };
 
 exports.update = function(one,callback){
 	exports.getShopping(new ObjectID(one._id+''),function(err,shopping){
 		if(shopping){
+			var comments = [];
+			comments.push(one.comments);
 			shopping.name = one.name;
 			shopping.city_name = one.city_name;
 			shopping.city_id = one.city_id;
@@ -42,17 +76,34 @@ exports.update = function(one,callback){
 			shopping.price_level = one.price_level;
 			shopping.price_desc = one.price_desc;
 			shopping.url = one.url;
+			shopping.website = one.website;
+			shopping.recommand_flag = one.recommand_flag;
+			shopping.local_flag = one.local_flag;
+			if(one.area_id){
+				shopping.area_id = one.area_id;
+				shopping.area_name = one.area_name;
+			}
+			shopping.is_big = one.is_big;
+			if(one.in_big_id){
+				shopping.in_big_id = one.in_big_id;
+			}
+			shopping.rating = one.rating;
+			shopping.ranking = one.ranking;
+			shopping.reviews = one.reviews;
+			shopping.comments = comments;
 			shopping.save(function(err){
 				callback(err,shopping);
 			});
 		}else{
-			callback(err+'not found!')
+			callback(err+'not found!');
 		}
 	});
 };
 
 exports.newAndSave = function(one,callback){
 	var shopping = new Shopping();
+	var comments = [];
+	comments.push(one.comments);
 	shopping.name = one.name;
 	shopping.city_name = one.city_name;
 	shopping.city_id = one.city_id;
@@ -69,6 +120,21 @@ exports.newAndSave = function(one,callback){
 	shopping.price_level = one.price_level;
 	shopping.price_desc = one.price_desc;
 	shopping.url = one.url;
+	shopping.website = one.website;
+	shopping.recommand_flag = one.recommand_flag;
+	shopping.local_flag = one.local_flag;
+	if(one.area_id){
+		shopping.area_id = one.area_id;
+		shopping.area_name = one.area_name;
+	}
+	shopping.is_big = one.is_big;
+	if(one.in_big_id){
+		shopping.in_big_id = one.in_big_id;
+	}
+	shopping.rating = one.rating;
+	shopping.ranking = one.ranking;
+	shopping.reviews = one.reviews;
+	shopping.comments = comments;
 	shopping.save(function (err) {
 		callback(err, shopping);
 	});

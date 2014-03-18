@@ -59,6 +59,7 @@ var LifetagView = Backbone.View.extend({
     template: Handlebars.compile($('#lifetagDetailView').html()),
     initialize: function(){
         // alert('');
+        this.template = Handlebars.compile($('#lifetagDetailView').html());
     },
     events: {
         'click #save': 'saveLifetag',

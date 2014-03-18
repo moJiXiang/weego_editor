@@ -1,46 +1,305 @@
-var barcelona = require('../data/life/barcelona_data'); //ID:516a3519f8a6461636000003,巴塞罗那
-var geneva = require('../data/life/geneva_data'); //ID:516a35218902ca1936000003,日内瓦
-var london = require('../data/life/london_data'); //ID:516a35218902ca1936000005,伦敦
-var losangeles = require('../data/life/losangeles_data');//ID:516a34f958e3511036000003,洛杉矶
-var newyork = require('../data/life/newyork_data'); //ID:516a34f958e3511036000001,纽约
-var paris = require('../data/life/paris_data');//ID:516a350ec221c21236000003,巴黎
-var roma = require('../data/life/roma_data');//ID:51d3d238e98bbb566a000001,罗马
-var sanfrancisco = require('../data/life/sanfrancisco_data');//ID:516a34f958e3511036000002,旧金山
-var singapore = require('../data/life/singapore_data');//ID:516a3535dac6182136000004,新加坡
-var zurich = require('../data/life/zurich_data'); //ID:516a35218902ca1936000002,苏黎世
+var barcelona = require('../data/life/shopping/barcelona_data'); //ID:516a3519f8a6461636000003,巴塞罗那
+var geneva = require('../data/life/shopping/geneva_data'); //ID:516a35218902ca1936000003,日内瓦
+var london = require('../data/life/shopping/london_data'); //ID:516a35218902ca1936000005,伦敦
+var losangeles = require('../data/life/shopping/losangeles_data');//ID:516a34f958e3511036000003,洛杉矶
+var newyork = require('../data/life/shopping/newyork_data'); //ID:516a34f958e3511036000001,纽约
+var paris = require('../data/life/shopping/paris_data');//ID:516a350ec221c21236000003,巴黎
+var roma = require('../data/life/shopping/roma_data');//ID:51d3d238e98bbb566a000001,罗马
+var sanfrancisco = require('../data/life/shopping/sanfrancisco_data');//ID:516a34f958e3511036000002,旧金山
+var singapore = require('../data/life/shopping/singapore_data');//ID:516a3535dac6182136000004,新加坡
+var zurich = require('../data/life/shopping/zurich_data'); //ID:516a35218902ca1936000002,苏黎世
+var venezia = require('../data/life/shopping/venezia_data');//ID:516a3519f8a6461636000001,威尼斯
 
-var CategoryR = require('../data/life/category_restaurant');
+var newyork_m = require('../data/life/restaurant/michilin/newyorkmichelin_data');
+var barcelona_m = require('../data/life/restaurant/michilin/barcelonamichelin_data');
+var geneva_m = require('../data/life/restaurant/michilin/genevamichelin_data');
+var london_m = require('../data/life/restaurant/michilin/londonmichelin_data');
+var losangeles_m = require('../data/life/restaurant/michilin/losangelesmichelin_data');
+var paris_m = require('../data/life/restaurant/michilin/parismichelin_data');
+var roma_m = require('../data/life/restaurant/michilin/romamichelin_data');
+var sanfranciscoa_m = require('../data/life/restaurant/michilin/sanfranciscomichelin_data');
+var singapore_m = require('../data/life/restaurant/michilin/singaporemichelin_data');
+var zurich_m = require('../data/life/restaurant/michilin/zurichmichelin_data');
+var venezia_m = require('../data/life/restaurant/michilin/veneziamichelin_data');
+
+
+var CategoryR = require('../data/life/restaurant/category_restaurant');
+var CategoryS = require('../data/life/shopping/category_shopping');
 var fs = require('fs');
 var ObjectID = require('mongodb').ObjectID;
 var EventProxy = require('eventproxy');
 var Restaurant = require('../proxy').Restaurant;
 var RestaurantModel = require('../models').Restaurant;
+var ShoppingModel = require('../models').Shopping;
 var Category = require('../proxy').Category;
+var Bigtype = require('../proxy').Bigtype;
 var count=0;
+var bigs = require('../data/life/big');
 
 function getInitData(){
 	var cityItems = [];
-	//cityItems.push({cityname:'巴塞罗那',cityid:'516a3519f8a6461636000003',items:barcelona.items});
-	 // cityItems.push({cityname:'日内瓦',cityid:'516a35218902ca1936000003',items:geneva.items});
+	// cityItems.push({cityname:'纽约',cityid:'516a34f958e3511036000001',items:newyork.items});
+	// cityItems.push({cityname:'巴塞罗那',cityid:'516a3519f8a6461636000003',items:barcelona.items});
+	// cityItems.push({cityname:'日内瓦',cityid:'516a35218902ca1936000003',items:geneva.items});
 	// cityItems.push({cityname:'伦敦',cityid:'516a35218902ca1936000005',items:london.items});
 	// cityItems.push({cityname:'洛杉矶',cityid:'516a34f958e3511036000003',items:losangeles.items});
-	cityItems.push({cityname:'纽约',cityid:'516a34f958e3511036000001',items:newyork.items});
 	// cityItems.push({cityname:'巴黎',cityid:'516a350ec221c21236000003',items:paris.items});
 	// cityItems.push({cityname:'罗马',cityid:'51d3d238e98bbb566a000001',items:roma.items});
 	// cityItems.push({cityname:'旧金山',cityid:'516a34f958e3511036000002',items:sanfrancisco.items});
 	// cityItems.push({cityname:'新加坡',cityid:'516a3535dac6182136000004',items:singapore.items});
 	// cityItems.push({cityname:'苏黎世',cityid:'516a35218902ca1936000002',items:zurich.items});
+	// cityItems.push({cityname:'威尼斯',cityid:'516a3519f8a6461636000001',items:venezia.items});
 	return cityItems;
 }
 
 exports.initCategoryData = function(){
-	Category.getCategorysByType('1',function(err,categorys){
+	// Category.getCategorysByType('1',function(err,categorys){
+		Category.getCategorysByQuery({},function(err,categorys){
 		if(categorys){
 			global.categorys = categorys;
 			console.log('global.categorys='+global.categorys.length);
+			exports.initBigtypeData();
 		}
 	});
+};
+
+exports.initBigtypeData = function(){
+	for(var i=0;i<bigs.items.length;i++){
+		var _ids = [];
+		for(var k=0;k<bigs.items[i].categorys.length;k++){
+			for(var j=0;j<global.categorys.length;j++){
+				if(bigs.items[i].categorys[k]== global.categorys[j].en_name){
+					_ids.push(global.categorys[j]._id);
+				}
+			}
+		}
+		bigs.items[i]._ids = _ids;
+		
+	}
+	global.bigs = bigs.items;
+	// console.log(bigs);
+};
+
+exports.getMichilin = function(req,res){
+	var items = newyork_m.items,cityname='纽约',cityid='516a34f958e3511036000001';
+	// var items = barcelona_m.items,cityname='巴塞罗那',cityid='516a3519f8a6461636000003';          
+	// var items = geneva_m.items,cityname='日内瓦',cityid='516a35218902ca1936000003';
+	// var items = london_m.items,cityname='伦敦',cityid='516a35218902ca1936000005';
+	// var items = losangeles_m.items,cityname='洛杉矶',cityid='516a34f958e3511036000003';
+	// var items = paris_m.items,cityname='巴黎',cityid='516a350ec221c21236000003';
+	// var items = roma_m.items,cityname='罗马',cityid='51d3d238e98bbb566a000001';
+	// var items = sanfranciscoa_m.items,cityname='旧金山',cityid='516a34f958e3511036000002';
+	// var items = singapore_m.items,cityname='新加坡',cityid='516a3535dac6182136000004';
+	// var items = zurich_m.items,cityname='苏黎世',cityid='516a35218902ca1936000002';
+	var items = venezia_m.items,cityname='威尼斯',cityid='516a3519f8a6461636000001';
+
+	var ep = new EventProxy();
+	var c = [];
+	ep.after('getM',items.length,function(list){
+		res.send({length:items.length,found:c});
+	});
+	ep.bind('error', function (err) {
+        ep.unbind();// 卸载掉所有handler
+        console.log("you wenti !");
+        callback(err);// 异常回调
+    });
+    var images = [];
+	for(var i=0;i<items.length;i++){
+		(function(k){
+			var item = items[k];
+			Restaurant.getRestaurantByName(item.ogtitle,function(err,result){
+				if(result){
+					result.michilin_flag = true;
+					result.save(function(err){
+						console.log(++count + ' over!');
+						c.push(result.name);
+						ep.emit('getM');
+					})
+				}
+				else{
+					importRestaurantMichilin(images,cityname,cityid,item,function(){
+						ep.emit('getM');
+					});
+				}
+			});
+		})(i);
+	}
+};
+
+function importRestaurantMichilin(images,cityname,cityid,item,callback){
+	if(isNotNull(item.ogtitle)){
+				var one = new RestaurantModel();
+				one.name = item.ogtitle;
+				one.city_id = cityid;
+				one.city_name = cityname;
+				// one.ranking = item.ranking;
+				if(item.placelocationlongitude && item.placelocationlatitude){
+					one.longitude = item.placelocationlongitude;
+					one.latitude = item.placelocationlatitude;
+				}
+				if(isNotNull(item.categorystrlist)){
+					one.category = getCategory(item.categorystrlist);
+				}
+
+				if(isNotNull(item.ogimage)){
+					var fileName = getImageFileName(item.ogimage);
+					var image = {
+						fileName:fileName,
+						image:item.ogimage
+					}
+					images.push(image);
+					one.cover_image = fileName;
+					one.image.push(fileName);
+					writeImgFile(image,cityname);
+				}
+
+				if(isNotNull(item.ogdescription)){
+					one.introduce = item.ogdescription;
+				}
+
+				if(isNotNull(item.address)){
+					one.address = replaceBR(item.address);
+				}
+
+				if(isNotNull(item.postalcode)){
+					one.postal_code = item.postalcode;
+				}
+
+				if(isNotNull(item.telephone)){
+					one.tel = item.telephone;
+				}
+
+				if(isNotNull(item.website)){
+					one.website = item.website;
+				}
+
+				if(isNotNull(item.avgprice)){
+					one.price_desc = getPriceDesc(item.avgprice)
+				}
+				if(isNotNull(item.pricelevel)){
+					one.price_level = getPriceLevel(item.pricelevel);
+				}
+				
+				if(isNotNull(item.hours) && item.hours.length!=0){
+					one.open_time = getOpenTime(item.hours);
+				}
+
+				if(!isEmptyObject(item.businessinfos)){
+					one.info = getInfo(item.businessinfos);
+				}
+
+				if(isNotNull(item.rating)){
+					one.rating = parseFloat(item.rating);
+				}
+
+				if(isNotNull(item.reviewcount)){
+					one.reviews = parseInt(item.reviewcount);
+				}
+
+				if(isNotNull(item.reviewcomment)){
+					one.comments.push(item.reviewcomment);
+				}
+
+				if(isNotNull(item.ogurl)){
+					one.url = item.ogurl;
+				}
+
+				one.michilin_flag = true;
+				// console.log(one);
+				one.save(function(err){
+					// console.log(restaurant);
+					console.log(++count+' over!');
+					callback(null,one);
+				});
+			}else{
+				callback('not title');
+			}
 }
+
+exports.getTopCategoryByCity = function(req,res){
+	var cityname = req.params.cityname;
+	Restaurant.getRestaurantsByQuery({'city_name':cityname},function(err,result){
+		if(result){
+			var a = [];
+			for(var i=0;i<result.length;i++){
+				var category = result[i].category;
+				if(category){
+					for(var k=0;k<category.length;k++){
+						var index = indexArray(category[k],a);
+						if(index==-1){
+							a.push(category[k]);
+							a[a.length-1].count = 1;
+						}else{
+							a[index].count++;
+							console.log('aaa');
+						}
+						
+					}
+				}
+			}
+
+			for(var i=0;i<a.length-1;i++){
+				for(var j=0;j<a.length-1-i;j++){
+					if(a[j].count<a[j+1].count){
+						var t = a[j];
+						a[j] = a[j+1];
+						a[j+1] = t;
+					}
+				}
+			}
+
+			for(var i=0;i<a.length;i++){
+				for(var j=0;j<global.categorys.length;j++){
+					if(a[i]._id.toString()==global.categorys[j]._id.toString()){
+						a[i].en_name = global.categorys[j].en_name
+					}
+				}
+			}
+
+			var out = [];
+			for(var i=0;i<a.length;i++){
+				for(var j=0;j<bigs.items.length;j++){
+					if(inBig(a[i],bigs.items[j])){
+						var index = inOut(bigs.items[j],out);
+						if(index==-1){
+							var tmp = {
+								en_name:bigs.items[j].en_name,
+								name:bigs.items[j].name,
+								count:a[i].count
+							}
+							out.push(tmp);
+						}else{
+							out[index].count += a[i].count;
+						}
+					}else{
+						console.log('没找到'+a[i].name);
+					}
+				} 
+			}
+			res.send({length:out.length,out:out,big:global.bigs})	
+		}else{
+			res.send('找不到任何结果')
+		}
+		
+	});
+};
+
+var inOut = function(a,out){
+	var index = -1;
+	for(var i=0;i<out.length;i++){
+		if(a.en_name==out[i].en_name)
+			index = i;
+	}
+	return index;
+};
+
+var inBig = function(a,big){
+	for(var i=0;i<big.categorys.length;i++){
+		if(a.en_name==big.categorys[i])
+			return true;
+	}
+	return false;
+};
 
 exports.importCategoryRestaurantData = function(req,res){
 	var items = CategoryR.items;
@@ -60,6 +319,24 @@ exports.importCategoryRestaurantData = function(req,res){
 	}
 };
 
+exports.importCategoryShoppingData = function(req,res){
+	var items = CategoryS.items;
+	var flag = req.query.flag;
+	if(flag){
+		for(var i=0;i<items.length;i++){
+			(function(k){
+				var item = items[k];
+				Category.newAndSave('2',item.name,item.en_name,function(){
+					console.log(k+' over!');
+				});
+			})(i);
+		}
+	}
+	else{
+		res.end();
+	}
+};
+
 exports.importLifeData = function(req,res){
 	var flag = req.query.flag;
 	if(flag){
@@ -67,7 +344,9 @@ exports.importLifeData = function(req,res){
 		var ep = new EventProxy();
 	    ep.bind('error', function (err) {
 	        ep.unbind();// 卸载掉所有handler
+	        console.log(err);
 	        callback(err);// 异常回调
+
 	    });
 	    console.log('--------'+cityItems.length);
 	    ep.after('getFull', cityItems.length, function (list) {
@@ -88,8 +367,8 @@ exports.importLifeData = function(req,res){
 	}
 };
 
-function writeImgFile(obj){
-	fs.appendFileSync('c:/images.js', JSON.stringify(obj),[], function (err) {
+function writeImgFile(obj,cityname){
+	fs.appendFileSync('c:/images_'+cityname+'.js', JSON.stringify(obj),[], function (err) {
 	  if (err) throw err;
 	  console.log('The "data to append" was appended to file!');
 	});
@@ -115,20 +394,21 @@ var importOne = function(one, callback){
 
 	for(var i=0;i<items.length;i++){
 		(function(k){
-			var item = items[k]
+			var item = items[k];
 			var categorystrlist = item.categorystrlist;
 			if(isNotNull(item.ogtitle)){
-				var restaurant = new RestaurantModel();
-				restaurant.name = item.ogtitle;
-				restaurant.city_id = cityid;
-				restaurant.city_name = cityname;
-				restaurant.ranking = (k+1);
+				// var one = new RestaurantModel();
+				var one = new ShoppingModel();
+				one.name = item.ogtitle;
+				one.city_id = cityid;
+				one.city_name = cityname;
+				one.ranking = item.ranking;
 				if(item.placelocationlongitude && item.placelocationlatitude){
-					restaurant.longitude = item.placelocationlongitude;
-					restaurant.latitude = item.placelocationlatitude;
+					one.longitude = item.placelocationlongitude;
+					one.latitude = item.placelocationlatitude;
 				}
 				if(isNotNull(item.categorystrlist)){
-					restaurant.category = getCategory(item.categorystrlist);
+					one.category = getCategory(item.categorystrlist);
 				}
 
 				if(isNotNull(item.ogimage)){
@@ -138,67 +418,69 @@ var importOne = function(one, callback){
 						image:item.ogimage
 					}
 					images.push(image);
-					restaurant.cover_image = fileName;
-					restaurant.image.push(fileName);
-					writeImgFile(image);
+					one.cover_image = fileName;
+					one.image.push(fileName);
+					writeImgFile(image,cityname);
 				}
 
 				if(isNotNull(item.ogdescription)){
-					restaurant.introduce = item.ogdescription;
+					one.introduce = item.ogdescription;
 				}
 
 				if(isNotNull(item.address)){
-					restaurant.address = replaceBR(item.address);
+					one.address = replaceBR(item.address);
 				}
 
 				if(isNotNull(item.postalcode)){
-					restaurant.postal_code = item.postalcode;
+					one.postal_code = item.postalcode;
 				}
 
 				if(isNotNull(item.telephone)){
-					restaurant.tel = item.telephone;
+					one.tel = item.telephone;
 				}
 
 				if(isNotNull(item.website)){
-					restaurant.website = item.website;
+					one.website = item.website;
 				}
 
 				if(isNotNull(item.avgprice)){
-					restaurant.price_desc = getPriceDesc(item.avgprice)
+					one.price_desc = getPriceDesc(item.avgprice)
 				}
 				if(isNotNull(item.pricelevel)){
-					restaurant.price_level = getPriceLevel(item.pricelevel);
+					one.price_level = getPriceLevel(item.pricelevel);
 				}
 				
 				if(isNotNull(item.hours) && item.hours.length!=0){
-					restaurant.open_time = getOpenTime(item.hours);
+					one.open_time = getOpenTime(item.hours);
 				}
 
-				if(!isEmptyObject(item.businessinfos)){
-					restaurant.info = getInfo(item.businessinfos);
-				}
+				// if(!isEmptyObject(item.businessinfos)){
+				// 	one.info = getInfo(item.businessinfos);
+				// }
 
 				if(isNotNull(item.rating)){
-					restaurant.rating = parseFloat(item.rating);
+					one.rating = parseFloat(item.rating);
 				}
 
 				if(isNotNull(item.reviewcount)){
-					restaurant.reviews = parseInt(item.reviewcount);
+					one.reviews = parseInt(item.reviewcount);
 				}
 
 				if(isNotNull(item.reviewcomment)){
-					restaurant.comments.push(item.reviewcomment);
+					one.comments.push(item.reviewcomment);
 				}
 
 				if(isNotNull(item.ogurl)){
-					restaurant.url = item.ogurl;
+					one.url = item.ogurl;
 				}
 
-				restaurant.save(function(err){
+				one.save(function(err){
 					// console.log(restaurant);
-					// console.log(++count+' over!');
+					console.log(++count+' over!');
 					return ep.emit('getAll');
 				});
+			}else{
+				return ep.emit('getAll');
 			}
 		})(i);
 		
@@ -274,7 +556,7 @@ function delOpenNow(open_time){
 			break;
 		}
 	}
-	console.log(staticP);
+	// console.log(staticP);
 	for(var i=0;i<open_time.length;i++){
 		var item = open_time[i];
 		if(item=='Open now'){
@@ -425,6 +707,15 @@ function inArray(a,bArray){
 			return true;
 	}
 	return false;
+}
+
+function indexArray(a,bArray){
+	var index = -1;
+	for(var i=0;i<bArray.length;i++){
+		if(a._id.toString()==bArray[i]._id.toString())
+			index = i;
+	}
+	return index;
 }
 
 function trim(content){  

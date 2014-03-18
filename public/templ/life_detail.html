@@ -25,7 +25,7 @@
     </div>
     <div class="control-group">
         <label class="control-label">城市</label>
-        <input type="text" id="city" readonly placeholder="必填" value="{{city_name}}" style="width:30px;margin-left:20px">
+        <input type="text" id="city" readonly placeholder="必填" value="{{city_name}}" style="width:60px;margin-left:20px">
         <select id="continents_select" name="continents" style="width:100px">
             <option value='AS'>亚洲</option>
             <option value='EU'>欧洲</option>
@@ -42,6 +42,34 @@
         </select>
     </div>
     <div class="control-group">
+        <label class="control-label" for="address">区域</label>
+        <div class="controls">
+            <input type="text" id="area_name" placeholder="选填" readonly style="width:100px" value="{{area_name}}">
+            <select id="area_select" style="width:150px">
+              <option value='{{area_id}}'>{{area_name}}</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="control-group" id="big-shopping-show" {{#ifCond type "2"}} style="display:block" {{else}} style="display:none"  {{/ifCond}}>
+        <label class="control-label" for="address">大商场</label>
+        <div class="controls">
+          <input id="is_big" type="checkbox" {{#if is_big}}checked{{/if}}> 
+          <label class="control-label show_flag" for="is_big">是否是大商场</label>
+      </div>
+    </div>
+
+    <div class="control-group" id="belong-to-shopping-show" {{#if is_big}} style="display:none" {{else}} style="display:block" {{/if}}>
+        <label class="control-label" for="address">所属商场</label>
+        <div class="controls">
+          <input type="text" id="in_big_name" placeholder="选填" readonly style="width:100px" value="{{in_big_name}}">
+            <select id="big_select">
+              <option value='{{parent._id}}'>{{parent.name}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="control-group">
         <label class="control-label" for="address">地址</label>
         <div class="controls">
             <input type="text" id="address" placeholder="选填" style="width:470px" value="{{address}}">
@@ -56,9 +84,9 @@
         </div>
     </div>
      <div class="control-group">
-        <label class="control-label" for="url">网址</label>
+        <label class="control-label" for="website">网址</label>
         <div class="controls">
-            <input type="text" id="url" placeholder="选填" value="{{url}}">
+            <input type="text" id="website" placeholder="选填" value="{{website}}">
             <!-- 创建时间
             <input type="text" id="create_at" readonly placeholder="当前时间" value="{{create_at}}"> -->
         </div>
@@ -183,7 +211,7 @@
             <ul>
         </div>
     </div>
-     
+     {{#ifCond type "1"}}
     <div class="control-group services">
       <label class="control-label">服务设施</label>
       <ul>
@@ -242,14 +270,15 @@
         </li>
       </ul>
     </div>
+    {{/ifCond}}
     </fieldset>
     <fieldset id="Rank-msg">
       <legend>排名相关信息</legend>
       <div class="control-group">
           <label class="control-label" for="free-wifi">来源链接</label>
           <div class="controls">
-              <input id="sourceurl" type="text" value="{{url}}">
-              <a href="{{url}}">点击查看</a>
+              <input id="url" type="text" value="{{url}}">
+              <a href="{{url}}" target="_blank">点击查看</a>
           </div>
       </div>
       <div class="control-group">
@@ -265,7 +294,7 @@
           </div>
       </div>
        <div class="control-group">
-          <label class="control-label" for="addCategoryValue">菜系</label>
+          <label class="control-label" for="addCategoryValue">菜系[类型]</label>
           <div class="controls">
                <input class="input-xlarge focused"  name="addCategoryValue" id="addCategoryValue" type="text" value="" data-value=""> <input type="button" value="添加" id="addCategory">
           </div>
@@ -281,16 +310,24 @@
           </div>
       </div>
       <div class="control-group">
-          <label class="control-label" for="free-wifi">推荐</label>
+          <label class="control-label" for="recommand_flag">推荐</label>
           <div class="controls">
-              <input type="checkbox" id="recommend" {{#if info.recommand_flag}}checked{{/if}}>
-              <label  class="control-label show_flag" for='recommend'>是否推荐</label>
+              <input type="checkbox" id="recommand_flag" {{#if recommand_flag}}checked{{/if}}>
+              <label  class="control-label show_flag" for='recommand_flag'>是否推荐</label>
           </div>
       </div>
       <div class="control-group">
-          <label class="control-label" for="tese">当地特色</label>
+          <label class="control-label" for="local_flag">当地特色</label>
           <div class="controls">
-              <input id="tese" type="text" value="{{tese}}">
+            <input type="checkbox" id="local_flag" {{#if local_flag}}checked{{/if}}>
+              <label  class="control-label show_flag" for='local_flag'>是否是当地特色</label>
+          </div>
+      </div>
+      <div class="control-group">
+          <label class="control-label" for="michilin_flag">米其林</label>
+          <div class="controls">
+            <input type="checkbox" id="michilin_flag" {{#if michilin_flag}}checked{{/if}}>
+              <label  class="control-label show_flag" for='michilin_flag'>是否是米其林推荐</label>
           </div>
       </div>
       <div class="control-group">

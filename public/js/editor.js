@@ -39,6 +39,11 @@ $(weego.init());
             "lifetag/new":"showLifetagDetailView",
             "lifetag/:id":"showLifetagDetailView",
 
+            "areas":"showAreaListView",
+            "areas/:pageno":"showAreaListView",
+            "area/new":"showAreaDetailView",
+            "area/:id":"showAreaDetailView",
+
             "lifetag":"showLifeTagListView",
             "lifetag/:pageno":"showLifeTagListView",
             "hotel/new":"showHotelDetailView",
@@ -166,10 +171,18 @@ $(weego.init());
                 type = '1';
             var model = {};
             model.type = type;
-            if(cityname)
-                model.cityname = cityname;
-            if(lifename)
-                model.lifename = lifename;
+            if(cityname){
+                var a=cityname.split('_');
+                if(a[1]){
+                    model.cityname = a[1];
+                }
+            }
+            if(lifename){
+                var a=lifename.split('_');
+                if(a[1]){
+                    model.lifename = a[1];
+                }
+            }
             if(page == null){
                 var lifeListView = new LifeListView(model);
                 lifeListView.render().showFirstPage();
@@ -177,7 +190,7 @@ $(weego.init());
             }else{
                 var lifeListView = new LifeListView(model);
                 lifeListView.render();
-                lifeListView.showByPage(page,type);
+                lifeListView.showByPage(page);
                 lifeListView.$el.appendTo($('#app'));
             }
 
@@ -258,7 +271,6 @@ $(weego.init());
                 var categoryModel = new CategoryModel();
                 categoryModel.set('_id', id);
                 categoryModel.fetch({success: function(){
-                    console.log(categoryModel);
                      var categoryView = new CategoryView({model: categoryModel});
                      categoryView.render().$el.appendTo($('#app'));
                 }});
@@ -279,7 +291,6 @@ $(weego.init());
                 lifetagListView.showByPage(page,type);
                 lifetagListView.$el.appendTo($('#app'));
             }
-            console.log('aa');
             $('#tab-lifetag')
                 .addClass('active')
                 .siblings().removeClass('active');
@@ -299,7 +310,41 @@ $(weego.init());
                      lifetagView.render().$el.appendTo($('#app'));
                 }});
             }
-        }
+        },
+        showAreaListView: function(page){
+            $('#app').off();
+            $('#app').empty();
+            if(page == null){
+                var areaListView = new AreaListView();
+                areaListView.render().showFirstPage();
+                areaListView.$el.appendTo($('#app'));
+            }else{
+                var areaListView = new AreaListView();
+                areaListView.render();
+                areaListView.showByPage(page);
+                areaListView.$el.appendTo($('#app'));
+            }
+            $('#tab-area')
+                .addClass('active')
+                .siblings().removeClass('active');
+        },
+        showAreaDetailView: function(id){
+            $('#app').off();
+            $('#app').empty();
+            if(id == null){
+                var areaView = new AreaView({model: new AreaModel()});
+                areaView.render().$el.appendTo($('#app'));
+            }
+            else{
+                var areaModel = new AreaModel();
+                areaModel.set('_id', id);
+                areaModel.fetch({success: function(){
+                     var areaView = new AreaView({model: areaModel});
+                     areaView.render().$el.appendTo($('#app'));
+                }});
+            }
+        },
+
     });
     weego.currentPage = 1;
     weego.sumpages = 1;
@@ -389,6 +434,9 @@ $(weego.init());
     });
     $("#lifeDetailView").load("templ/life_detail.html",function(){
        console.log('load lifeDetailView over!');
+    });
+    $("#areaDetailView").load("templ/area_detail.html",function(){
+       console.log('load areaDetailView over!');
     });
      
 

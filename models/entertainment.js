@@ -21,13 +21,17 @@ var EntertainmentSchema = new Schema({
   show_flag: {type:Boolean,default:false},
   create_at: { type: Date, default: Date.now },
   recommand_flag :{ type: Boolean, default:false },
+  local_flag :{ type: Boolean, default:false },
   ranking: { type: Number },
+  area_id: {type: ObjectId},
+  area_name: {type: String},
 
   rating: { type: Number ,default: 3},
   rating_service: { type: Number ,default: 3},
   rating_env: { type: Number ,default: 3},
   score: { type: Number ,default: 60},
   reviews: { type: Number ,default: 0},
+  comments: { type: Array },
 
   price_level: { type: Number },
   price_desc: { type: String },

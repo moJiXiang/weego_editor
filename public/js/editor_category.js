@@ -59,6 +59,7 @@ var CategoryView = Backbone.View.extend({
     template: Handlebars.compile($('#categoryDetailView').html()),
     initialize: function(){
         // alert('');
+        this.template = Handlebars.compile($('#categoryDetailView').html());
     },
     events: {
         'click #save': 'saveCategory',

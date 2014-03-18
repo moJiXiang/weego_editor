@@ -18,29 +18,36 @@ var EntertainmentModel = Backbone.Model.extend({
 });
 var LifeCollection = Backbone.Collection.extend({
     url: '/restaurants/'+this.pageLimit+'/'+this.currentPage,
+    baseUrl:'/restaurants/',
     model: RestaurantModel,
     currentPage: 1,
     pageLimit: 10,
-    cityname:'',
-    lifename:'',
+    query:'',
     type:'1',
     initialize: function(data){
         var type = '1';
         if(data && data.type)
             type = data.type;
+        if(data.cityname){
+            this.query += "cityname="+data.cityname + "&";
+        }
+        if(data.lifename){
+            this.query += "lifename="+data.lifename+"&";
+        }
         if(type=='1'){
             this.type='1';
             this.model = RestaurantModel;
-            this.url = '/restaurants/'+this.pageLimit+'/'+this.currentPage;
+            this.baseUrl = '/restaurants/';
         }else if(type == '2'){
             this.type='2';
             this.model = ShoppingModel;
-            this.url = '/shoppings/'+this.pageLimit+'/'+this.currentPage;
+            this.baseUrl = '/shoppings/';
         }else{
             this.type='3';
             this.model = EntertainmentModel;
-            this.url = '/entertainments/'+this.pageLimit+'/'+this.currentPage;
+            this.baseUrl = '/entertainments/';
         }
+        this.url = this.baseUrl +this.pageLimit+'/'+this.currentPage+'?'+this.query;
     },
     parse: function(response){
         this.total = response.count;
@@ -53,40 +60,26 @@ var LifeCollection = Backbone.Collection.extend({
             return false;
         return true;
     },
-    getByPage: function(limit, pageIndex,type, successCallback){
-        if(type == null ||type == undefined || type =='')
-            type = '1';
-        if(type=='1'){
-            this.type='1';
-            this.model = RestaurantModel;
-            this.url = '/restaurants/'+limit+'/'+pageIndex;
-        }else if(type == '2'){
-            this.type='2';
-            this.model = ShoppingModel;
-            this.url = '/shoppings/'+limit+'/'+pageIndex;
-        }else{
-            this.type='3';
-            this.model = EntertainmentModel;
-            this.url = '/entertainments/'+limit+'/'+pageIndex;
-        }
+    getByPage: function(limit, pageIndex, successCallback){
+        this.url = this.baseUrl + limit+'/'+pageIndex+'?'+this.query;
         this.fetch({success: successCallback});
     },
-    getFirstPage: function(type,callback){
-        this.getByPage(this.pageLimit, 1,type, callback);
+    getFirstPage: function(callback){
+        this.getByPage(this.pageLimit, 1, callback);
     },
-    getNextPage: function(type,successCallback){
+    getNextPage: function(successCallback){
         if(!this.hasPage(this.currentPage + 1))
             return;
-        this.getByPage(this.pageLimit, ++this.currentPage, type, successCallback);
+        this.getByPage(this.pageLimit, ++this.currentPage, successCallback);
     },
-    getPrevPage: function(type,successCallback){
+    getPrevPage: function(successCallback){
         if(!this.hasPage(this.currentPage - 1))
             return;
-        this.getByPage(this.pageLimit, --this.currentPage, type, successCallback);
+        this.getByPage(this.pageLimit, --this.currentPage, successCallback);
     },
-    getPage: function(page,type, successCallback){
+    getPage: function(page, successCallback){
         this.currentPage = page;
-        this.getByPage(this.pageLimit, this.currentPage, type, successCallback);
+        this.getByPage(this.pageLimit, this.currentPage, successCallback);
     }
 });
 
@@ -107,6 +100,9 @@ var LifeView = Backbone.View.extend({
         'change #continents_select': 'selectContinent',
         'change #country_select': 'selectCountry',
         'change #city_select': 'selectCity',
+        'change #area_select': 'selectArea',
+        'change #big_select': 'selectBigShopping',
+        'click #is_big': 'checkBig',
         'click #save': 'saveLife',
         'click #top_save':'saveLife',
         'click #cancel': 'back',
@@ -120,19 +116,72 @@ var LifeView = Backbone.View.extend({
     },
     render: function(){
         this.$el.html(this.template(this.model.toJSON()));
+        this.initSelect();
         return this;
+    },
+    initSelect: function(){
+        var cityid = this.model.get('city_id');
+        var in_big_id = this.model.get('in_big_id');
+        var is_big = this.model.get('is_big');
+        var area_id = this.model.get('area_id');
+        $.ajax({
+            url:"/getAreasByCityId/"+cityid,
+            success:function (data) {
+                if(data.status){
+                    var areas = data.results;
+                    var option = '';
+                    for(var i=0;i<areas.length;i++){
+                        var area = areas[i];
+                        var selected = "";
+                        if(area_id&&area._id.toString()==(area_id+''))
+                            selected = "selected";
+                        option +='<option value="'+area._id+'" '+selected+'>'+area.name+'</option>';
+                    }
+                    $('#area_select').html(option);
+                }else{
+                    alert('数据库异常！');
+                }
+            }
+        });
+            
+        $.ajax({
+            url:"/getBigShoppingByCityId/"+cityid,
+            success:function (data) {
+                if(data.status){
+                    var bigShoppings = data.results;
+                    var option = '';
+                    for(var i=0;i<bigShoppings.length;i++){
+                        var big = bigShoppings[i];
+                        var selected = "";
+                        if(!is_big&&in_big_id&&big._id.toString()==(in_big_id+''))
+                            selected = "selected";
+                        option +='<option value="'+big._id+'" '+selected+'>'+big.name+'</option>';
+                    }
+                    $('#big_select').html(option);
+                }else{
+                    alert('数据库异常！');
+                }
+            }
+        });
+
     },
     selectType: function(){
         var type =$('#property-type').val();
         if(type=='1'){
-            $('#service-set').css('display','block');
+            $('.services').css('display','block');
+            $('#big-shopping-show').css('display','none');
+            $('#belong-to-shopping-show').css('display','none');
             $('#rating_food_trust_span').css('display','block');
         }
         else if(type=='2'){
-            $('#service-set').css('display','none');
+            $('.services').css('display','none');
+            $('#big-shopping-show').css('display','block');
+            $('#belong-to-shopping-show').css('display','block');
             $('#rating_food_trust_span').css('display','block');
         }else{
-            $('#service-set').css('display','none');
+            $('.services').css('display','none');
+            $('#big-shopping-show').css('display','none');
+            $('#belong-to-shopping-show').css('display','none');
              $('#rating_food_trust_span').css('display','none');
         }
             
@@ -164,7 +213,7 @@ var LifeView = Backbone.View.extend({
             success:function (data) {
                 if(data.status){
                     var cities = data.cities;
-                    var option = '';
+                    var option = '<option value=""></option>';
                     for(var i=0;i<cities.length;i++){
                         var city = cities[i];
                         option +='<option value="'+city._id+'">'+city.cityname+'</option>';
@@ -178,7 +227,60 @@ var LifeView = Backbone.View.extend({
     },
     selectCity:function(){
         var cityname =  $("#city_select").find("option:selected").text();
+        var cityid = $("#city_select").val();
         $("#city").val(cityname);
+        if(cityid!=''){
+            $.ajax({
+                url:"/getAreasByCityId/"+cityid,
+                success:function (data) {
+                    if(data.status){
+                        var areas = data.results;
+                        var option = '';
+                        for(var i=0;i<areas.length;i++){
+                            var area = areas[i];
+                            option +='<option value="'+area._id+'">'+area.name+'</option>';
+                        }
+                        $('#area_select').html(option);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                }
+            });
+            
+            $.ajax({
+                url:"/getBigShoppingByCityId/"+cityid,
+                success:function (data) {
+                    if(data.status){
+                        var bigShoppings = data.results;
+                        var option = '';
+                        for(var i=0;i<bigShoppings.length;i++){
+                            var big = bigShoppings[i];
+                            option +='<option value="'+big._id+'">'+big.name+'</option>';
+                        }
+                        $('#big_select').html(option);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                }
+            });
+        }
+    },
+    selectArea:function(){
+        var areaname =  $("#area_select").find("option:selected").text();
+        $("#area_name").val(areaname);
+    },
+    selectBigShopping:function(){
+        var name =  $("#big_select").find("option:selected").text();
+        $("#in_big_name").val(name);
+    },
+    
+    checkBig:function(){
+        var is_big = $('#is_big').prop('checked');
+        if(is_big){
+            $('#belong-to-shopping-show').css('display','none');
+        }else{
+            $('#belong-to-shopping-show').css('display','block');
+        }
     },
     autogetCategory:function (e) {
         var _this = this;
@@ -217,7 +319,7 @@ var LifeView = Backbone.View.extend({
             'type="text" value="'+itemName+'" data-value="'+itemId+'"> <input type="button" value="删除" class="li-del"><li>');
             $('#category-list').last().after($newitem); 
         }else{
-            alert('请不手动输入！');
+            alert('请不要手动输入！');
         }
         
     },
@@ -335,12 +437,22 @@ var LifeView = Backbone.View.extend({
             postal_code : $('#postal_code').val(),
             introduce : $('#introduce').val(),
             show_flag : $('#show_flag').prop('checked'),
+            recommand_flag : $('#recommand_flag').prop('checked'),
+            local_flag : $('#local_flag').prop('checked'),
+            michelin_flag : $('#michelin_flag').prop('checked'),
+            ranking:$('#ranking').val(),
+            rating:$('#rating').val(),
+            reviews:$('#reviews').val(),
             price_level : $('#price_level').val(),
             price_desc : $('#price_desc').val(),
             url : $('#url').val(),
+            website : $('#website').val(),
+            comments: $('#comments').val(),
             category: categorys,
             lifetag:lifetags,
-            open_time:opentimes
+            open_time:opentimes,
+            area_id:$('#area_select').val(),
+            area_name : $('#area_select').find("option:selected").text()
         };
         if(type=='1'){
             var info = {
@@ -359,6 +471,11 @@ var LifeView = Backbone.View.extend({
                 alcohol: $('#alcohol').val(),
             };
             item.info = info;
+        }else if(type=='2'){
+            item.is_big = $('#is_big').prop('checked');
+            if(!item.is_big){
+                item.in_big_id = $('#big_select').val();
+            }
         }
         if(item.name=='' || item.name==null || item.name==undefined){
             alert('名称不能为空！');
@@ -419,23 +536,29 @@ var LifeListView = Backbone.View.extend({
     events:{
         'click #life-list-prev-page': 'showPrevPage',
         'click #life-list-next-page': 'showNextPage',
-        'change #life_type': 'selectType'
+        'change #life_type': 'selectType',
+        'click #search-button': 'serach'
     },
     initialize: function(data){
         var that = this;
         this.type = data.type;
-        this.cityname = data.cityname;
-        this.lifename = data.lifename;
+        this.cityname = isNull(data.cityname)?'':data.cityname;
+        this.lifename = isNull(data.lifename)?'':data.lifename;
         this.collection = new LifeCollection(data);
-        this.collection.cityname = data.cityname;
-        this.collection.lifename = data.lifename;
-        
+
         this.collection.on('all', function(){
             $('#life-list-current-page').html(that.collection.currentPage);
             $('#life-list-total').html(that.collection.total);
             $('#life-list-page-count').html(Math.floor(that.collection.total/that.collection.pageLimit) + 1);
         });
         
+    },
+    serach: function(){
+        var type = $('#life_type').val();
+        var cityname =$('#search-life-cityname').val();
+        var lifename =$('#search-life-name').val();
+        
+        self.location = '/#lifes/1/'+type+'/q_'+cityname+'/q_'+encodeURIComponent(lifename);
     },
     selectType: function(){
         var type = $('#life_type').val();
@@ -453,7 +576,7 @@ var LifeListView = Backbone.View.extend({
     },
     showFirstPage: function(){
         var that = this;
-        this.collection.getFirstPage(this.type,function(collection){
+        this.collection.getFirstPage(function(collection){
             that.showLifeList(that.type,collection);
         });
     },
@@ -464,7 +587,7 @@ var LifeListView = Backbone.View.extend({
 //        });
         if(!this.collection.hasPage(parseInt(this.collection.currentPage)-1))
             return;
-        Backbone.history.navigate('lifes/'+(--this.collection.currentPage)+'/'+this.type, {trigger:true});
+        Backbone.history.navigate('lifes/'+(--this.collection.currentPage)+'/'+this.type+'/q_'+this.cityname+'/q_'+encodeURIComponent(this.lifename), {trigger:true});
     },
     showNextPage: function(){
 //        var that = this;
@@ -473,12 +596,12 @@ var LifeListView = Backbone.View.extend({
 //        });
         if(this.collection.hasPage(parseInt(this.collection.currentPage)+1) === false)
             return;
-        Backbone.history.navigate('lifes/'+(++this.collection.currentPage)+'/'+this.type, {trigger:true});
+        Backbone.history.navigate('lifes/'+(++this.collection.currentPage)+'/'+this.type+'/q_'+this.cityname+'/q_'+encodeURIComponent(this.lifename), {trigger:true});
     },
-    showByPage: function(page,type){
+    showByPage: function(page){
         var that = this;
-        this.collection.getPage(page,type, function(collection){
-            that.showLifeList(type,collection);
+        this.collection.getPage(page, function(collection){
+            that.showLifeList(that.type,collection);
         });
     },
     render: function(){
@@ -487,7 +610,9 @@ var LifeListView = Backbone.View.extend({
 //            currentPage: that.collection.currentPage,
 //            pageCount: (that.collection.total/that.collection.pageLimit) + 1,
 //            total: that.collection.total
-            type:this.type
+            type:this.type,
+            search_cityname:this.cityname,
+            search_lifename:isNull(this.lifename)?this.lifename:decodeURIComponent(this.lifename)
         }));
         this.tbodyPlaceHolder = that.$el.find('tbody');
 

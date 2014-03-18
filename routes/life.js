@@ -1,5 +1,6 @@
 var Category = require('../proxy').Category;
 var Lifetag = require('../proxy').Lifetag;
+var Area = require('../proxy').Area;
 var ObjectID = require('mongodb').ObjectID;
 var Restaurant = require('../proxy').Restaurant;
 var Shopping = require('../proxy').Shopping;
@@ -158,6 +159,77 @@ exports.updateLifetag = function(req, res){
     });
 };
 
+//---------------------------area---------------------------------------------
+
+exports.getArea = function(req,res){
+    Area.getArea(new ObjectID(req.params.areaId+''), function (err, result) {
+        if (err) {
+            res.send({err:err});
+        } else {
+            res.send(result);
+        }
+    });
+};
+exports.getAreaByPage = function (req, res) {
+    var skip = req.params.pageLimit * (req.params.pageIndex - 1);
+    Area.count( function (err, count) {
+        Area.getAreasByLimit(skip,req.params.pageLimit, function (err, result) {
+            if (err) {
+                res.send({err:err});
+            } else {
+                res.send({areas:result, count:count});
+            }
+        });
+    });
+};
+
+exports.getAreasByCityId = function(req,res){
+    var query = {city_id:new ObjectID(req.params.cityId+'')};
+    Area.getAreasByQuery(query,function(err,areas){
+        if(err){
+            res.send({status:false,err:err});
+        }else{
+            res.send({status:true,results:areas});
+        }
+    });
+};
+
+
+exports.removeArea = function(req, res){
+    Area.getArea(new ObjectID(req.params.areaId+''), function (err, result) {
+        if (err) {
+            res.send({err:err});
+        } else {
+            if(result){
+                result.remove();
+            }
+            res.send({_id:req.params.areaId});
+        }
+    });
+};
+
+exports.addNewArea = function(req, res){
+    var area = req.body;
+    Area.newAndSave(area,  function (err, result) {
+        if (err) {
+            res.send({isSuccess:false, info:err});
+        } else {
+            res.send({isSuccess:true, _id:result._id});
+        }
+    });
+};
+
+exports.updateArea = function(req, res){
+    var json = req.body;
+    Area.update(json,function(err,new_one){
+        if (err) {
+            res.send({err:err});
+        } else {
+            res.send({isSuccess:true});
+        }
+    });
+};
+
 //-----------------------------------restaurant-----------------------------------
 
 exports.getRestaurant = function(req, res){
@@ -171,9 +243,18 @@ exports.getRestaurant = function(req, res){
 };
 
 exports.getRestaurantByPage = function (req, res) {
+    var lifename = req.query.lifename;
+    var cityname = req.query.cityname;
+    var con = {};
+    if(lifename){
+        con.name = {$regex:trim(lifename)};
+    }
+    if(cityname){
+        con.city_name = trim(cityname);
+    }
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
-    Restaurant.count(function (err, count) {
-        Restaurant.getRestaurants(skip,req.params.pageLimit, function (err, result) {
+    Restaurant.count(con,function (err, count) {
+        Restaurant.getRestaurants(skip,req.params.pageLimit,con, function (err, result) {
             if (err) {
                 res.send({err:err});
             } else {
@@ -221,7 +302,7 @@ exports.updateRestaurant = function(req, res){
 //-----------------------------------shopping-----------------------------------
 
 exports.getShopping = function(req, res){
-    Shopping.getShopping(new ObjectID(req.params.shoppingId+''), function (err, result) {
+    Shopping.getFullShopping(new ObjectID(req.params.shoppingId+''), function (err, result) {
         if (err) {
             res.send({err:err});
         } else {
@@ -231,16 +312,37 @@ exports.getShopping = function(req, res){
 };
 
 exports.getShoppingByPage = function (req, res) {
+    var lifename = req.query.lifename;
+    var cityname = req.query.cityname;
+    var con = {};
+    if(lifename){
+        con.name = {$regex:trim(lifename)};
+    }
+    if(cityname){
+        con.city_name = trim(cityname);
+    }
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
-    Shopping.count(function (err, count) {
-        Shopping.getShoppings(skip,req.params.pageLimit, function (err, result) {
+    Shopping.count(con,function (err, count) {
+        Shopping.getShoppings(skip,req.params.pageLimit,con, function (err, result) {
             if (err) {
                 res.send({err:err});
             } else {
-                console.log(result);
                 res.send({results:result, count:count});
             }
         });
+    });
+};
+
+exports.getBigShoppingByCityId = function(req,res){
+    var cityId = req.params.cityId;
+    var query = {city_id:new ObjectID(cityId+'')};
+    query.is_big = true;
+    Shopping.getShoppingsByQuery(query,function(err,shoppings){
+        if (err) {
+            res.send({status:false,err:err});
+        } else {
+            res.send({status:true,results:shoppings});
+        }
     });
 };
 
@@ -292,9 +394,18 @@ exports.getEntertainment = function(req, res){
 };
 
 exports.getEntertainmentByPage = function (req, res) {
+    var lifename = req.query.lifename;
+    var cityname = req.query.cityname;
+    var con = {};
+    if(lifename){
+        con.name = {$regex:trim(lifename)};
+    }
+    if(cityname){
+        con.city_name = trim(cityname);
+    }
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
-    Entertainment.count(function (err, count) {
-        Entertainment.getEntertainments(skip,req.params.pageLimit, function (err, result) {
+    Entertainment.count(con,function (err, count) {
+        Entertainment.getEntertainments(skip,req.params.pageLimit,con, function (err, result) {
             if (err) {
                 res.send({err:err});
             } else {
@@ -358,7 +469,6 @@ exports.postLifeImage = function(req,res){
                     if (err) {
                         throw err;
                     } else {
-                        console.log('aaa');
                         res.setHeader("Content-Type", "application/json");
                         res.json(target_upload_name);
                         res.end();
