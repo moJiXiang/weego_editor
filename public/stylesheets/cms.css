@@ -1,268 +1,281 @@
-@font-face {
-    font-family: 'icomoon';
-    font-weight: normal;
-    font-style: normal;
-    src: url('/fonts/icomoon.woff'),
-         url('/fonts/icomoon.ttf');
+.cmsNav
+{
+    position: fixed;
+    top: 50px;
+    width: 130px;
+    height: 100%;
+    background: rgba(47,47,47,.7);
 }
-[class*="icomoon_"]:before{
-	font-family: 'icomoon';
-	margin-right: 5px;
+.cmsNav a
+{
+    line-height: 40px;
+    position: relative;
+    display: block;
+    height: 40px;
+    color: #fff;
 }
-.icomoon_home:before{
-	content:"\e601";
+.cmsNav a:before
+{
+    margin: 0 5px 0 15px;
 }
-.icomoon_city:before{
-	content:"\e600";
+.cmsNav a.active
+{
+    background: #888;
 }
-.icomoon_attraction:before{
-	content:"\e600";
+.cmsNav a:hover
+{
+    background: #c2c2c2;
 }
-.icomoon_hotel:before{
-	content:"\e607";
+.cmsContainer
+{
+    position: relative;
+    top: 50px;
+    width: calc(100% - 150px);
+    margin: 0 0 0 140px;
 }
-.icomoon_label:before{
-	content:"\e602";
+.cmsPageStatus dl
+{
+    line-height: 30px;
+    height: 30px;
 }
-.icomoon_life:before{
-	content:"\e609";
+.cmsPageStatus dl dt
+{
+    font-size: 20px;
 }
-.icomoon_category:before{
-	content:"\e609";
+.cmsPageStatus dl dt,.cmsPageStatus dl dd
+{
+    line-height: 30px;
+    float: left;
 }
-.icomoon_lifetag:before{
-	content:"\e602";
+.cmsPageStatus button
+{
+    width: 80px;
+    height: 30px;
+    margin: -3px 0 0 0;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    background: #1abc9c;
 }
-.icomoon_user:before{
-	content:"\e603";
+.cmsPageStatus button:hover
+{
+    background: #16a085;
 }
-.icomoon_labels:before{
-	content:"\e602";
+.cmsTable
+{
+    width: 100%;
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
 }
-.icomoon_alarm:before{
-	content:"\e60f";
+.cmsTable th,.cmsTable td
+{
+    padding: 8px 5px;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
 }
-.icomoon_calendar:before{
-	content:"\e610";
+.cmsEditorTask,.cmsEditorFeedback
+{
+    width: 100%;
+    margin: 0 0 30px 0;
 }
-.icomoon_bubbles:before{
-	content:"\e611";
+.cmsEditorTask thead,.cmsEditorFeedback thead
+{
+    text-align: left;
 }
-.icomoon_caret_down:before{
-	content:"\e613";
-}
-.icomoon_caret_right:before{
-	content:"\e616";
-}
-
-
-body{
-	font-family: "Microsoft Yahei",sans-serif;
-	background:url(/images/cmsbg.jpg) fixed;
-	width:100%;
-}
-a{
-	text-decoration: none!important;
-}
-li{
-	list-style: none;
-}
-
-header{
-	position: fixed;
-	height: 50px;
-	background: #333;
-	min-width: 100%;
-	top: 0;
-	left: 0;
-	z-index:1;
-}
-header a{
-	color:#ddd!important;
-	line-height: 50px;
-}
-header .cmsLogo{
-	font: normal 20px/50px arial;
-	margin: 0 0 0 20px;
-}
-header .cmsSignout{
-	position:absolute;
-	right:20px;
-}
-.container{
-	width:100%;
-}
-.cmsNav{
-	width: 130px;
-	height: 100%;
-	position: fixed;
-	top: 50px;
-	background: rgba(47,47,47,.7);
-}
-.cmsNav a{
-	position: relative;
-	display: block;
-	height: 40px;
-	color: #fff;
-	line-height: 40px;
-}
-.cmsNav a:before{
-	margin: 0 5px 0 15px;
-}
-.cmsNav a.active{
-	background:#888;
-}
-.cmsNav a:hover{
-	background:#c2c2c2;
-}
-
-.cmsContainer{
-	position: relative;
-	width: calc(100% - 150px);
-	margin: 0 0 0 140px;
-	top: 50px;
-}
-.cmsPageStatus{
-
-}
-.cmsPageStatus dl{
-	height:30px;
-	line-height: 30px;
-}
-.cmsPageStatus dl dt{
-	font-size:20px;
-}
-.cmsPageStatus dl dt,.cmsPageStatus dl dd{
-	float:left;
-	line-height: 30px;
-}
-.cmsPageStatus button{
-	border: none;
-	background: #1ABC9C;
-	color: #fff;
-	height: 30px;
-	width: 80px;
-	border-radius: 5px;
-	margin: -3px 0 0 0;
-}
-.cmsPageStatus button:hover{
-	background:#16A085;
-}
-.cmsTable{
-	width:100%;
-	border-top:1px solid #ddd;
-	border-right:1px solid #ddd;
-}
-.cmsTable th,.cmsTable td{
-	border-left:1px solid #ddd;
-	border-bottom:1px solid #ddd;
-	padding:8px 5px;
-}
-.cmsEditorTask,.cmsEditorFeedback{
-	width:100%;
-	margin:0 0 30px 0;
-}
-
-.cmsEditorTask thead,.cmsEditorFeedback thead{
-	text-align: left;
-}
-
 .cmsEditorTask tbody tr:nth-child(odd),
-.cmsEditorFeedback tbody tr:nth-child(odd){
-	background:#e6e6e6;
+.cmsEditorFeedback tbody tr:nth-child(odd)
+{
+    background: #e6e6e6;
 }
-
 .cmsEditorTask td,
-.cmsEditorFeedback td{
-	padding:5px;
+.cmsEditorFeedback td
+{
+    padding: 5px;
 }
 .cmsEditorTask td:first-child,
-.cmsEditorFeedback td:first-child{
-	border-bottom-left-radius: 5px;
-	border-top-left-radius: 5px;
+.cmsEditorFeedback td:first-child
+{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 .cmsEditorTask td:last-child,
-.cmsEditorFeedback td:last-child{
-	border-bottom-right-radius: 5px;
-	border-top-right-radius: 5px;
+.cmsEditorFeedback td:last-child
+{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
-
 .cmsEditorTask th,
-.cmsEditorFeedback th{
-	padding:8px 5px;
+.cmsEditorFeedback th
+{
+    padding: 8px 5px;
 }
-
 .cmsEditorTask caption,
-.cmsEditorFeedback caption{
-	text-align: left;
-	font-size: 18px;
-	padding: 10px 0;
-	border-bottom: 1px solid #DDD;
+.cmsEditorFeedback caption
+{
+    font-size: 18px;
+    padding: 10px 0;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
-.cmsEditorHistory{
-	margin:0 0 30px 0;
+.cmsEditorHistory
+{
+    margin: 0 0 30px 0;
 }
-.cmsEditorHistory label{
-	font-size:18px;
-	display: block;
-	padding:10px 0;
-	border-bottom:1px solid #ddd;
+.cmsEditorHistory label
+{
+    font-size: 18px;
+    display: block;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
 }
-
-.cmsEditorHistory ul{
-	width: 100%;
-	margin: 0;
-	overflow: hidden;
+.cmsEditorHistory ul
+{
+    overflow: hidden;
+    width: 100%;
+    margin: 0;
 }
-.cmsEditorHistory ul li{
-	display: inline-block;
-	width: 20%;
-	margin: 0;
-	float: left;
-	font-weight: bold;
-	line-height: 30px;
-	text-indent: 5px;
+.cmsEditorHistory ul li
+{
+    font-weight: bold;
+    line-height: 30px;
+    display: inline-block;
+    float: left;
+    width: 20%;
+    margin: 0;
+    text-indent: 5px;
 }
-.cmsEditorHistory-items{
-	width:100%;
+.cmsEditorHistory-items
+{
+    width: 100%;
 }
-.cmsEditorHistory-items .ehitem{
-	width:100%;
-	overflow: hidden;
-	line-height: 30px;
-	border-radius: 5px;
+.cmsEditorHistory-items .ehitem
+{
+    line-height: 30px;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 5px;
 }
-.cmsEditorHistory-items .ehitem span{
-	display: inline-block;
-	width:20%;
-	float:left;
-	height:30px;
-	text-indent: 5px;
+.cmsEditorHistory-items .ehitem span
+{
+    display: inline-block;
+    float: left;
+    width: 20%;
+    height: 30px;
+    text-indent: 5px;
 }
-.cmsEditorHistory-items .ehitem:nth-child(odd) span{
-	background:#e6e6e6;
+.cmsEditorHistory-items .ehitem:nth-child(odd) span
+{
+    background: #e6e6e6;
 }
-.cmsEditorHistory-items .ehitem p{
-	display: none;
-	float: right;
-	width: 100%;
-	padding: 5px 0;
-	text-indent: 10px;
-	background: #4FC784;
-	color: #fff;
-	border-radius: 5px;
-	position:relative;
+.cmsEditorHistory-items .ehitem p
+{
+    position: relative;
+    display: none;
+    float: right;
+    width: 100%;
+    padding: 5px 0;
+    text-indent: 10px;
+    color: #fff;
+    border-radius: 5px;
+    background: #4fc784;
 }
-.cmsEditorHistory-items .ehitem p:before{
-	content: "";
-	display: block;
-	position: absolute;
-	border-bottom: 10px solid #4FC784;
-	border-right: 10px solid transparent;
-	border-left: 10px solid transparent;
-	top: -7px;
-	right: 16%;
+.cmsEditorHistory-items .ehitem p:before
+{
+    position: absolute;
+    top: -7px;
+    right: 16%;
+    display: block;
+    content: '';
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #4fc784;
+    border-left: 10px solid transparent;
 }
-.cmsEditorHistory-items .ehitem .showDetail{
-	cursor:pointer;
+.cmsEditorHistory-items .ehitem .showDetail
+{
+    cursor: pointer;
+}
+.qq-uploader
+{
+    position: relative;
+    width: 100%;
+}
+.qq-upload-button
+{
+    display: block; /* or inline-block */
+    width: 105px;
+    padding: 7px 0;
+    text-align: center;
+    color: #fff;
+    border-bottom: 1px solid #ddd;
+    background: #800;
+}
+.qq-upload-button-hover
+{
+    background: #c00;
+}
+.qq-upload-button-focus
+{
+    outline: 1px dotted black;
+}
+.qq-upload-drop-area
+{
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 70px;
+    text-align: center;
+    background: #ff9797;
+}
+.qq-upload-drop-area span
+{
+    font-size: 16px;
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 100%;
+    margin-top: -8px;
+}
+.qq-upload-drop-area-active
+{
+    background: #ff7171;
+}
+.qq-upload-list
+{
+    margin: 15px 35px;
+    padding: 0;
+    list-style: disc;
+}
+.qq-upload-list li
+{
+    font-size: 12px;
+    line-height: 15px;
+    margin: 0;
+    padding: 0;
+}
+.qq-upload-file, .qq-upload-spinner, .qq-upload-size, .qq-upload-cancel, .qq-upload-failed-text
+{
+    margin-right: 7px;
+}
+.qq-upload-spinner
+{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    vertical-align: text-bottom;
+    background: url('loading.gif');
+}
+.qq-upload-size,.qq-upload-cancel
+{
+    font-size: 11px;
+}
+.qq-upload-failed-text
+{
+    display: none;
+}
+.qq-upload-fail .qq-upload-failed-text
+{
+    display: inline;
 }
