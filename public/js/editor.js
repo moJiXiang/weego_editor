@@ -65,13 +65,13 @@ $(weego.init());
         },
         userMain:function(evt){
             var currentUser=weego_user.globalUser;
-            // if(currentUser.type==1){
-
-            // }else if(currentUser.type==0){
-
-            // }
+            if(currentUser.type==0){
+                new weego_user.EditorMainView();
+            }else if(currentUser.type==1){
+                new weego_user.AdminMainView();
+            }
             //根据登录用户的不同类型渲染不同的主页
-            new weego_user.EditorMainView();
+            
         },
         
         before:function (route) {
