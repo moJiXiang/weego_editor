@@ -113,12 +113,20 @@ $(weego_user.init());
         }
     });
 
-    //管理员主页
+    //管理员主页 
     weego_user.AdminMainView = Backbone.View.extend({
         el:"#app",
         initialize:function(){
             var thisView=this;
-            thisView.$el.empty();
+            if(weegoCache.adminMainTpl){
+                thisView.$el.empty().append(weegoCache.adminMainTpl);
+            }else{
+                $("<div/>").load("/templ/admin_personcenter.html",function(){
+                    var template = Handlebars.compile($(this).html());
+                    weegoCache.adminMainTpl=template();
+                    thisView.$el.empty().append(template());
+                });
+            }
         },
         events:{}
     });
