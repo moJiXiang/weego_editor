@@ -120,13 +120,39 @@ $(weego_user.init());
             var thisView=this;
             if(weegoCache.adminMainTpl){
                 thisView.$el.empty().append(weegoCache.adminMainTpl);
+                thisView.initMap();
             }else{
                 $("<div/>").load("/templ/admin_personcenter.html",function(){
                     var template = Handlebars.compile($(this).html());
                     weegoCache.adminMainTpl=template();
                     thisView.$el.empty().append(template());
+                    thisView.initMap();
                 });
             }
+        },
+        initMap : function(){
+            console.log($('#vmap').length);
+            jQuery('#vmap').vectorMap({
+                map: 'world_en',
+                backgroundColor: '#a5bfdd',
+                borderColor: '#818181',
+                borderOpacity: 0.25,
+                borderWidth: 1,
+                color: '#f4f3f0',
+                enableZoom: true,
+                hoverColor: '#c9dfaf',
+                hoverOpacity: null,
+                normalizeFunction: 'linear',
+                scaleColors: ['#b6d6ff', '#005ace'],
+                selectedColor: '#c9dfaf',
+                selectedRegion: null,
+                showTooltip: true,
+                onRegionClick: function(element, code, region) {
+                    var message = 'You clicked "' + region + '" which has the code: ' + code.toUpperCase();
+                    $('#eachcountrydetail').find('li').eq(0).children('strong').html(region)
+                    // alert(message);
+                }
+            });
         },
         events:{}
     });
