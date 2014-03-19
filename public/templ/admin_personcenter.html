@@ -122,6 +122,7 @@
 									<li>
 										<button data-toggle="modal" class="btn btn-primary" href="#">查看</button>
 										<button class="btn btn-warning" href="#">删除</button>
+										<button class="btn btn-info sendmsg">发信息</button>
 									</li>
 								</ul>
 							</div>
@@ -328,7 +329,21 @@
 			    <a href="#" class="btn btn-primary">发送任务</a>
 			  </div>
 		</div>
-
+		<div class="modal hide fade in" id="sendmsg">
+			<div class="modal-header">
+			    <a class="close delete" data-dismiss="modal">×</a>
+			    <h3>信息内容</h3>
+			</div>
+			<div class="modal-body">
+			  	<form action="" class="form-horizontal">
+			  		<textarea name="" id="" cols="30" rows="10"></textarea>
+			  	</form>
+			</div>
+			<div class="modal-footer">
+			   <a href="#" class="btn delete" data-dismiss="modal">关闭</a>
+			   <a href="#" class="btn btn-primary">发送信息</a>
+			</div>
+		</div>
 		<!-- jquery vmap =====================================================-->
 		<div class="row-fluid">
 			<div class="widget span8">

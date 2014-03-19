@@ -121,6 +121,21 @@ $(weego_user.init());
             if(weegoCache.adminMainTpl){
                 thisView.$el.empty().append(weegoCache.adminMainTpl);
                 thisView.initMap();
+                $('a[data-toggle=modal]').on('click', function() {
+                    $(this).next().fadeIn();
+                });
+                $('button[data-toggle=modal').on('click', function() {
+                    $('#taskdetail').fadeIn();
+                });
+                $('.sendmsg').on('click', function() {
+                    $('#sendmsg').fadeIn();
+                });
+                $('.delete').on('click', function() {
+                    $('#myModal').fadeOut();
+                    $('#taskdetail').fadeOut();
+                    $('#addeditor').fadeOut();
+                    $('#sendmsg').fadeOut();
+                })
             }else{
                 $("<div/>").load("/templ/admin_personcenter.html",function(){
                     var template = Handlebars.compile($(this).html());
@@ -133,10 +148,14 @@ $(weego_user.init());
                     $('button[data-toggle=modal').on('click',function(){
                         $('#taskdetail').fadeIn();
                     });
+                    $('.sendmsg').on('click',function(){
+                        $('#sendmsg').fadeIn();
+                    });
                     $('.delete').on('click',function(){
                         $('#myModal').fadeOut();
                         $('#taskdetail').fadeOut();
                         $('#addeditor').fadeOut();
+                        $('#sendmsg').fadeOut();
                     })
                 });
             }
