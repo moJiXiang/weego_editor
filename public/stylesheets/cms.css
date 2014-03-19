@@ -129,21 +129,11 @@
 .cmsEditorTask caption,
 .cmsEditorFeedback caption
 {
-    font-size: 18px;
-    padding: 10px 0;
     text-align: left;
-    border-bottom: 1px solid #ddd;
 }
 .cmsEditorHistory
 {
     margin: 0 0 30px 0;
-}
-.cmsEditorHistory label
-{
-    font-size: 18px;
-    display: block;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
 }
 .cmsEditorHistory ul
 {
@@ -312,3 +302,31 @@
 	background: #1abc9c;
 	text-shadow: none;
 }
+.cmsPageNum{
+    margin: 10px 0;
+    border-bottom: 1px solid #ddd;
+    padding: 0 0 10px 0;
+    overflow: hidden;
+}
+.cmsPageNum label{
+    font-size: 18px;
+    display: inline-block;
+    height: 30px;
+    line-height: 26px;
+    float: left;
+    margin: 0 10px 0 0;
+}
+.cmsPageNum button{
+    margin: 0 5px;
+    width: 70px;
+    height: 30px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    background: #1abc9c;
+    text-shadow: none;
+    float: left;
+}
+.cmsPageNum button:hover{
+    background: #16a085;
+};
