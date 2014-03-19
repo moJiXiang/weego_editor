@@ -7,6 +7,10 @@ exports.getAuditing = function (id, callback) {
   Auditing.findOne({_id: id}, callback);
 };
 
+exports.findAuditingByQuery = function(query,callback){
+	Auditing.findOne(query,callback);
+};
+
 exports.getAuditingsByLimit = function (skip,pageLimit, callback) {
   Auditing.find({}, [], {sort: [['create_at', 'desc']],skip:skip, limit:pageLimit}, function (err, auditings) {
 		if(err)
@@ -31,15 +35,24 @@ exports.count = function (query,callback) {
   Auditing.count(query, callback);
 };
 
+exports.updateStatus = function(_id,status,callback){
+	exports.getAuditing(new ObjectID(_id+''),function(err,one){
+		if(one){
+			one.status = status;
+			one.save(function(err){
+				callback(err,one);
+			});
+		}else{
+			callback(err+' or not found!');
+		}
+	});
+};
+
 exports.update = function(one,callback){
 	exports.getAuditing(new ObjectID(one._id+''),function(err,auditing){
 		if(auditing){
-			auditing.city_id = one.city_id;
-			auditing.city_name = one.city_name;
 			auditing.task_id = one.task_id;
-			auditing.item_id = one.item_id;
-			auditing.editor_id = one.editor_id;
-			auditing.type = one.type;
+			auditing.mod_at = Date.now();
 			auditing.name = one.name;
 			auditing.save(function(err){
 				callback(err,auditing);
@@ -49,17 +62,30 @@ exports.update = function(one,callback){
 		}
 	});
 };
-
+//如果是同一个item_id,和同一个editor_id 表明，不需要重新插入，只需要修改数据即可。
 exports.newAndSave = function(one,callback){
-	var auditing = new Auditing();
-	auditing.city_id = one.city_id;
-	auditing.city_name = one.city_name;
-	auditing.task_id = one.task_id;
-	auditing.item_id = one.item_id;
-	auditing.editor_id = one.editor_id;
-	auditing.type = one.type;
-	auditing.name = one.name;
-	auditing.save(function (err) {
-		callback(err, auditing);
+	var query = {editor_id:one.editor_id,item_id:one.item_id};
+	exports.findAuditingByQuery(query,function(err,result){
+		if(result){
+			result.task_id = one.task_id;
+			result.mod_at = Date.now();
+			result.name = one.name;
+			result.save(function(err){
+				callback(err,result);
+			});
+		}else{
+			var auditing = new Auditing();
+			auditing.city_id = one.city_id;
+			auditing.city_name = one.city_name;
+			auditing.task_id = one.task_id;
+			auditing.item_id = one.item_id;
+			auditing.editor_id = one.editor_id;
+			auditing.type = one.type;
+			auditing.log_type = one.log_type;
+			auditing.name = one.name;
+			auditing.save(function (err) {
+				callback(err, auditing);
+			});
+		}
 	});
 };

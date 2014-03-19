@@ -8,7 +8,7 @@ exports.getTask = function (id, callback) {
 };
 
 exports.getTasksByLimit = function (skip,pageLimit, callback) {
-  Task.find({}, [], {sort: [['create_at', 'desc']],skip:skip, limit:pageLimit}, function (err, tasks) {
+  Task.find({}, [], {sort: [['status','asc'],['create_at', 'desc']],skip:skip, limit:pageLimit}, function (err, tasks) {
 		if(err)
 			callback(err);
 		else{
@@ -18,7 +18,7 @@ exports.getTasksByLimit = function (skip,pageLimit, callback) {
 };
 
 exports.getTasksByQuery = function (query, callback) {
-  Task.find(query, [], {sort: [['create_at', 'desc']]}, function (err, tasks) {
+  Task.find(query, [], {sort: [['status','asc'],['create_at', 'desc']]}, function (err, tasks) {
 		if(err)
 			callback(err);
 		else{

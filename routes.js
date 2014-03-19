@@ -142,6 +142,15 @@ module.exports = function(app) {
 	app.put('/task/:taskId', routes.task.updateTask);
 	app.post('/task', routes.task.addNewTask);
 	app.get('/tasks/:pageLimit/:pageIndex?', routes.task.getTaskByPage);
+	app.get('/getTasksIndex', routes.task.getTasksIndex);
+	app.get('/getMyToDoTasks', routes.task.getMyToDoTasks);
+
+	//auditing
+	app.get('/auditing/:auditingId', routes.task.getAuditing);
+	app.del('/auditing/:auditingId', routes.task.removeAuditing);
+	app.put('/auditing/:auditingId', routes.task.updateAuditing);
+	app.post('/auditing', routes.task.addNewAuditing);
+	app.get('/auditings/:pageLimit/:pageIndex?', routes.task.getAuditingByPage);
 
 	app.get('/dataImport?',routes.dataImport.importCity);
 	app.get('/importLifeData?',routes.lifeImport.importLifeData);

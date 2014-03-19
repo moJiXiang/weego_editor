@@ -98,13 +98,46 @@ $(weego_user.init());
             var thisView=this;
             if(weegoCache.editorMainTpl){
                 thisView.$el.empty().append(weegoCache.editorMainTpl);
+                thisView.initData();
             }else{
                 $("<div/>").load("/templ/editorMain.handlebars",function(){
                     var template = Handlebars.compile($(this).html());
                     weegoCache.editorMainTpl=template();
                     thisView.$el.empty().append(template());
+                    thisView.initData();
                 });
             }
+        },
+        initData: function(){
+            $.ajax({
+                url:"/getTasksIndex",
+                success:function (data) {
+                    if(data.status){
+                        console.log(data);
+                        var results = data.results;
+                        var itemHtml = '';
+                        for(var i=0;i<results.length;i++){
+                            var item = results[i];
+                            var displayTime = item.create_at.split('T');
+                            var status = '待完成';
+                            if(item.status==50)
+                                status = '已完成';
+                            itemHtml += '<tr>'+
+                            '<td>'+item.name+'</td>'+
+                            '<td>'+displayTime[0]+'</td>'+
+                            '<td>'+item.total+'条</td>'+
+                            '<td>'+item.days+'天</td>'+
+                            '<td>'+item.desc+'</td>'+
+                            '<td>'+status+'</td>'+
+                            '</tr>';
+                        }
+                        $('#myTask').html(itemHtml);
+                                    
+                    }else{
+                        alert('数据库异常！');
+                    }
+                }
+            });
         },
         events:{
             "click .showDetail":"showDetail"
@@ -140,6 +173,11 @@ $(weego_user.init());
                     });
                     $('button[data-toggle=modal').on('click',function(){
                         $('#taskdetail').fadeIn();
+                    });
+                    $('.delete').on('click',function(){
+                        $('#myModal').fadeOut();
+                        $('#taskdetail').fadeOut();
+                        $('#addeditor').fadeOut();
                     })
                 });
             }

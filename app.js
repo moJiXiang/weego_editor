@@ -19,6 +19,13 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  app.use(express.cookieParser('weego'));
+  app.use(express.cookieSession({'cookie':{maxAge:31557600000}}));
+  app.use(express.session({ secret: "weego_editor" }));
+  app.use(function(req, res, next){
+      res.locals.session = req.session;
+      next();
+  });
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });

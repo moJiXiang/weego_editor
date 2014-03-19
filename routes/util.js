@@ -13,3 +13,10 @@ exports.trim = function(content){
     else
         return content.replace(/(^\s+)|(\s+$)/g,"");
 };
+
+exports.getYYMMDD = function(data){
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    return year + '-' + month +'-'+ day;
+};

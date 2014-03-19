@@ -28,6 +28,7 @@ exports.login = function(req,res){
          if(err) throw err;
         if(result){
             result.login = true;
+            req.session.user = result;
             res.send(result);
         }else{
             var data ={};

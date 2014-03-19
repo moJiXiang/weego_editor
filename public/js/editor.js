@@ -65,8 +65,12 @@ $(weego.init());
             "city/:pageno":"city", //根据页码展示city
             //"*actions":"list_city"//默认显示city
             "main":"userMain",
+            "statistics":"dataStatistic",
             "*actions":"userMain"
 
+        },
+        dataStatistic:function(){
+            new weego.StatisticsView();
         },
         userMain:function(evt){
             var currentUser=weego_user.globalUser;
@@ -76,10 +80,7 @@ $(weego.init());
             }else if(currentUser.type==1){
                 new weego_user.AdminMainView();
             }
-            //根据登录用户的不同类型渲染不同的主页
-            
         },
-        
         before:function (route) {
             $('#app').off();
            if ((!weego_user.loginFlag || !weego_user.globalUser) && route != 'login'&&route!='logout') {
@@ -393,6 +394,11 @@ $(weego.init());
         model:weego.CityModel
     });
 
+    weego.AuditingModel = Backbone.Model.extend({
+        urlRoot:'/auditing',
+        idAttribute:"_id"
+    });
+
     Handlebars.registerHelper('ifCond', function (v1, v2, options) {
         if (v1 == v2) {
             return options.fn(this);
@@ -484,17 +490,83 @@ $(weego.init());
             var template = Handlebars.compile($("#attractions_template").html());
             $(template(_this.model)).appendTo(_this.$el);
             this.delegateEvents(this.events);
+            _this.initSelect();
             return this;
+        },
+        initSelect: function(){
+            $.ajax({
+                url:"/getMyToDoTasks",
+                success:function (data) {
+                    if(data.status){
+                        var results = data.results;
+                        console.log(results);
+                        var option = '';
+                        for(var i=0;i<results.length;i++){
+                            var one = results[i];
+                            option +='<option value="'+one._id+'" >'+one.name+'</option>';
+                        }
+                        $('#task_select').html(option);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                }
+            });
         },
         events:{
             'click #save':'save',
             'change #cityname':'showCityLocations',
+            'change #continents_select': 'selectContinent',
+            'change #country_select': 'selectCountry',
+            'change #city_select': 'selectCity',
 //            'change #attractions_en':'showLocations',
 //            'change .labels':'savelabel',
             'click #addlabel':'addlabel',
             'click .del':'dellabel',
             'focus .labels':'autoget',
             'focus #masterLabel':'autogetMasterLabel'
+        },
+        selectContinent: function(){
+            var continentCode =  $("#continents_select").val();
+            $.ajax({
+                url:"/getCountriesByContinent/"+continentCode,
+                success:function (data) {
+                    if(data.status){
+                        var countries = data.countries;
+                        var option = '';
+                        for(var i=0;i<countries.length;i++){
+                            var country = countries[i];
+                            option +='<option value="'+country.code+'">'+country.cn_name+'</option>';
+                        }
+                        $('#country_select').html(option);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                }
+                    
+            });
+        },
+        selectCountry: function(){
+            var countryCode =  $("#country_select").val();
+            $.ajax({
+                url:"/getCityByCountry/"+countryCode,
+                success:function (data) {
+                    if(data.status){
+                        var cities = data.cities;
+                        var option = '<option value=""></option>';
+                        for(var i=0;i<cities.length;i++){
+                            var city = cities[i];
+                            option +='<option value="'+city._id+'">'+city.cityname+'</option>';
+                        }
+                        $('#city_select').html(option);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                }
+            });
+        },
+        selectCity:function(){
+            var cityname =  $("#city_select").find("option:selected").text();
+            $("#city").val(cityname);
         },
         autogetMasterLabel:function (e) {
             var _this = this;
@@ -581,7 +653,8 @@ $(weego.init());
             for (var i = 0; i < $('.labels').length; i++) {
                 array_label.push($('.labels').eq(i).attr('data-value'));
             }
-            var newAttractions = new weego.AttractionsModel({cityname:$("#cityname").val(), attractions_en:$("#attractions_en").val(),
+            var newAttractions = new weego.AttractionsModel({cityname:$("#city_select").find("option:selected").text(),
+                cityid:$("#city_select").val(), attractions_en:$("#attractions_en").val(),
                 address:$('#address').val(), price:$('#price').val(), opentime:$('#opentime').val(), traffic_info:$('#traffic_info').val(),
 				dayornight:$('input:radio[name="dayornight"]:checked').val(),website:$("#website").val(), telno:$("#telno").val(),
                 attractions:$("#attractions").val(), introduce:$("#introduce").val(), short_introduce:$("#short_introduce").val(),
@@ -591,18 +664,35 @@ $(weego.init());
                 success:function (model, res) {
                     if (!res.isSuccess) {
                         alert('保存失败');
-                        $("#attractionsDialog").new_modal('hide');
-                        weego.defaultView.getData(weego.currentPage, model.get('cityname'));
                     } else {
-                        alert('保存成功');
-                        $("#attractionsDialog").new_modal('hide');
-                        weego.defaultView.getData(weego.currentPage, model.get('cityname'));
+                        var auditingModel = new weego.AuditingModel({
+                            city_id:$("#city_select").val(),
+                            city_name:$("#city_select").find("option:selected").text(),
+                            task_id : $("#task_select").val(),
+                            item_id : res._id,
+                            editor_id : res.user_id,
+                            type : '0',
+                            log_type : '0',
+                            name : $('#attractions').val()
+                        });
+
+                        auditingModel.save(null,{
+                            success:function (model, res) {
+                                if (!res.isSuccess) {
+                                    alert('保存失败');
+                                }else
+                                    alert('保存成功');
+                                $("#attractionsDialog").new_modal('hide');
+                                weego.defaultView.getData(weego.currentPage, model.get('cityname'));
+                            },
+                            error:function () {
+                                alert('保存景点成功，但auditing保存失败！');
+                            }
+                        });
                     }
                 },
                 error:function () {
                     alert('保存失败');
-                    $("#attractionsDialog").new_modal('hide');
-                    weego.defaultView.getData(weego.currentPage, model.get('cityname'));
                 }
             });
             return false;
@@ -631,11 +721,34 @@ $(weego.init());
             var template = Handlebars.compile($("#attractions_detail_template").html());
             $(template(_this.model.toJSON())).appendTo(_this.$el);
             this.delegateEvents(this.events);
+            _this.initSelect();
             return this;
+        },
+        initSelect: function(){
+            $.ajax({
+                url:"/getMyToDoTasks",
+                success:function (data) {
+                    if(data.status){
+                        var results = data.results;
+                        console.log(results);
+                        var option = '';
+                        for(var i=0;i<results.length;i++){
+                            var one = results[i];
+                            option +='<option value="'+one._id+'" >'+one.name+'</option>';
+                        }
+                        $('#task_select').html(option);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                }
+            });
         },
         events:{
             'click #save':'save',
             'change #cityname':'showCityLocations',
+            'change #continents_select': 'selectContinent',
+            'change #country_select': 'selectCountry',
+            'change #city_select': 'selectCity',
 //            'change #attractions_en':'showLocations',
             'click #addlabel':'addlabel',
             'click .del':'dellabel',
@@ -643,6 +756,49 @@ $(weego.init());
             'focus .labels':'autoget',
             'focus #masterLabel':'autogetMasterLabel',
             'click #cancel':'cancel'
+        },
+        selectContinent: function(){
+            var continentCode =  $("#continents_select").val();
+            $.ajax({
+                url:"/getCountriesByContinent/"+continentCode,
+                success:function (data) {
+                    if(data.status){
+                        var countries = data.countries;
+                        var option = '';
+                        for(var i=0;i<countries.length;i++){
+                            var country = countries[i];
+                            option +='<option value="'+country.code+'">'+country.cn_name+'</option>';
+                        }
+                        $('#country_select').html(option);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                }
+                    
+            });
+        },
+        selectCountry: function(){
+            var countryCode =  $("#country_select").val();
+            $.ajax({
+                url:"/getCityByCountry/"+countryCode,
+                success:function (data) {
+                    if(data.status){
+                        var cities = data.cities;
+                        var option = '<option value=""></option>';
+                        for(var i=0;i<cities.length;i++){
+                            var city = cities[i];
+                            option +='<option value="'+city._id+'">'+city.cityname+'</option>';
+                        }
+                        $('#city_select').html(option);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                }
+            });
+        },
+        selectCity:function(){
+            var cityname =  $("#city_select").find("option:selected").text();
+            $("#city").val(cityname);
         },
         autogetMasterLabel:function (e) {
             var _this = this;
@@ -733,7 +889,8 @@ $(weego.init());
             for (var i = 0; i < $('.labels').length; i++) {
                 array_label.push($('.labels').eq(i).attr('data-value'));
             }
-            _this.model.save({cityname:$("#cityname").val(), attractions_en:$("#attractions_en").val(), attractions:$("#attractions").val(), address:$('#address').val(), price:$('#price').val(), opentime:$('#opentime').val(),
+            _this.model.save({cityname:$("#city_select").find("option:selected").text(),
+                cityid:$("#city_select").val(), attractions_en:$("#attractions_en").val(), attractions:$("#attractions").val(), address:$('#address').val(), price:$('#price').val(), opentime:$('#opentime').val(),
                 traffic_info:$('#traffic_info').val(),dayornight:$('input:radio[name="dayornight"]:checked').val(),
                 website:$("#website").val(), telno:$("#telno").val(), introduce:$("#introduce").val(), short_introduce:$("#short_introduce").val(), recommand_flag:$('input:radio[name="recommand_flag"]:checked').val(),
                 recommand_duration:$('#recommand_duration').val(),show_flag:$('input:radio[name="show_flag"]:checked').val(), masterLabel:$("#masterLabel").attr('data-value'), subLabel:array_label,
@@ -742,9 +899,30 @@ $(weego.init());
                     if (!res.isSuccess) {
                         console.log("cuole");
                     } else {
-                        alert('保存成功');
-                        $("#attractionsDetailDialog").new_modal('hide');
-                        weego.defaultView.getData(weego.currentPage, model.get('cityname'));
+                        var auditingModel = new weego.AuditingModel({
+                            city_id:$("#city_select").val(),
+                            city_name:$("#city_select").find("option:selected").text(),
+                            task_id : $("#task_select").val(),
+                            item_id : res._id,
+                            editor_id : res.user_id,
+                            type : '0',
+                            log_type : '1',
+                            name : $('#attractions').val()
+                        });
+
+                        auditingModel.save(null,{
+                            success:function (model, res) {
+                                if (!res.isSuccess) {
+                                    alert('保存失败');
+                                }else
+                                    alert('保存成功');
+                                $("#attractionsDialog").new_modal('hide');
+                                weego.defaultView.getData(weego.currentPage, model.get('cityname'));
+                            },
+                            error:function () {
+                                alert('保存景点成功，但auditing保存失败！');
+                            }
+                        });
                     }
                 },
                 error:function () {
@@ -1103,6 +1281,22 @@ $(weego.init());
             });
         }
     });
+    weego.StatisticsView = Backbone.View.extend({
+        el:"#app",
+        initialize:function(){
+            var thisView=this;
+            if(weegoCache.statisticsTpl){
+                thisView.$el.empty().append(weegoCache.statisticsTpl);
+            }else{
+                $("<div/>").load("/templ/statistics.handlebars",function(){
+                    var template = Handlebars.compile($(this).html());
+                    weegoCache.statisticsTpl=template();
+                    thisView.$el.empty().append(template());
+                });
+            }
+        },
+        events:{}
+    });
     var geocoder;
     var map;
     var city_location;
@@ -1130,7 +1324,8 @@ $(weego.init());
     }
 
     function locationCity() {
-        var address = document.getElementById('cityname').value;
+        // var address = document.getElementById('cityname').value;
+        var address = $("#city_select").find("option:selected").text();
         geocoder.geocode({ 'address':address}, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 city_location = results[0].geometry.location;

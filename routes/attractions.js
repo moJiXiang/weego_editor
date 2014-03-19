@@ -39,7 +39,7 @@ exports.saveAttractions = function (req, res) {
             res.send({isSuccess:false, info:err});
         } else {
             console.log("userProvider.insert result: ", result);
-            res.send({isSuccess:true, _id:result[0]._id});
+            res.send({isSuccess:true, _id:result[0]._id,user_id:req.session.user._id});
         }
     });
 };
