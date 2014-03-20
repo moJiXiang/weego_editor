@@ -139,7 +139,8 @@
     margin: 25px 0 0 0px;
     padding: 1px 5px;
 }
-.btn.checkeditor,{
+
+.btn.viewone{
     margin: 0;
     padding: 1px 5px;
 }
@@ -216,6 +217,12 @@
 .form-horizontal textarea{
     width: 95%;
 }
+#checkdetail{
+    width: 700px;
+}
 #checkdetail .modal-body{
     height: 500px;
+}
+#checkdetail input[type=checkbox]{
+    margin: 4px;
 }
