@@ -124,8 +124,8 @@ $(weego_user.init());
                 $('a[data-toggle=modal]').on('click', function() {
                     $(this).next().fadeIn();
                 });
-                $('button[data-toggle=modal').on('click', function() {
-                    $('#taskdetail').fadeIn();
+                $('.checkeditor').on('click', function() {
+                    $('#checkdetail').fadeIn();
                 });
                 $('.sendmsg').on('click', function() {
                     $('#sendmsg').fadeIn();
@@ -145,18 +145,25 @@ $(weego_user.init());
                     $('a[data-toggle=modal]').on('click',function(){
                         $(this).next().fadeIn();
                     });
-                    $('button[data-toggle=modal').on('click',function(){
-                        $('#taskdetail').fadeIn();
+                    $('.checkeditor').on('click',function(){
+                        $('#checkdetail').fadeIn();
                     });
                     $('.sendmsg').on('click',function(){
                         $('#sendmsg').fadeIn();
                     });
                     $('.delete').on('click',function(){
                         $('#myModal').fadeOut();
-                        $('#taskdetail').fadeOut();
+                        $('#checkdetail').fadeOut();
                         $('#addeditor').fadeOut();
                         $('#sendmsg').fadeOut();
-                    })
+                    });
+                    $('#checkdetail .modal-body').slimScroll({
+                        color: '#00f',
+                        size: '10px',
+                        height: '180px',
+                        alwaysVisible: true
+                    });
+
                 });
             }
         },
