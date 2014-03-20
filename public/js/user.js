@@ -94,6 +94,8 @@ $(weego_user.init());
     //编辑主页
     weego_user.EditorMainView = Backbone.View.extend({
         el:"#app",
+        currentPage: 1,
+        pageLimit: 10,
         initialize:function(){
             var thisView=this;
             if(weegoCache.editorMainTpl){
@@ -110,37 +112,93 @@ $(weego_user.init());
         },
         initData: function(){
             $.ajax({
-                url:"/getTasksIndex",
-                success:function (data) {
+                url:"/auditings/"+this.pageLimit+'/'+this.currentPage,
+                success: _.bind(function (data) {
                     if(data.status){
-                        console.log(data);
-                        var results = data.results;
-                        var itemHtml = '';
-                        for(var i=0;i<results.length;i++){
-                            var item = results[i];
-                            var displayTime = item.create_at.split('T');
-                            var status = '待完成';
-                            if(item.status==50)
-                                status = '已完成';
-                            itemHtml += '<tr>'+
-                            '<td>'+item.name+'</td>'+
-                            '<td>'+displayTime[0]+'</td>'+
-                            '<td>'+item.total+'条</td>'+
-                            '<td>'+item.days+'天</td>'+
-                            '<td>'+item.desc+'</td>'+
-                            '<td>'+status+'</td>'+
-                            '</tr>';
-                        }
-                        $('#myTask').html(itemHtml);
-                                    
+                        this.appendAuditingHTML(data);
                     }else{
                         alert('数据库异常！');
                     }
-                }
+                },this)
+            });
+
+            $.ajax({
+                url:"/tasks/"+this.pageLimit+'/'+this.currentPage,
+                success: _.bind(function (data) {
+                    if(data.status){
+                        this.appendTaskHTML(data);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                },this)
             });
         },
+        appendAuditingHTML:function(data){
+            var results = data.results;
+            var itemHtml = '';
+            for(var i=0;i<results.length;i++){
+                var item = results[i];
+                var displayTime = item.create_at.split('T');
+                var status = item.status==0?'未递交':item.status==10?'已递交':item.status==40?'审核不通过':'审核通过';
+                var type = item.type=='0'?'景点':item.type=='1'?'餐馆':item.type=='2'?'购物':'娱乐';
+                var log_type = item.log_type=='0'?'新增':'修改';
+                var askApprovalHTML = '<span>递交审核</span>';
+                if(item.status==0||item.status==40)
+                    askApprovalHTML = '<a href="#" class="askApprovalHTML"><span class="askApproval">递交审核</span></a>';
+                itemHtml += '<div class="ehitem" auditingId="'+item._id+'">'+
+                '<span>'+displayTime[0]+'</span>'+
+                '<span>'+type+'</span>'+
+                '<span>'+item.city_name+'</span>'+
+                '<span>'+item.name+'</span>'+
+                '<span>'+log_type+'</span>'+
+                '<span>'+item.task_name+'</span>'+
+                '<span class="status">'+status+'</span>'+
+                askApprovalHTML+
+                '<span class="showDetail">详情</span>'+
+                '<p>我修改了xxx</p>'+
+                
+                '</div>';
+            }
+            $('.cmsEditorHistory-items').html(itemHtml);
+            $('#auditing-list-current-page').html('1');
+            $('#auditing-list-total').html(data.count);
+            $('#auditing-list-page-count').html(Math.floor(data.count/this.pageLimit) + 1);
+        },
+        appendTaskHTML:function(data){
+            var results = data.results;
+            var itemHtml = '';
+            for(var i=0;i<results.length;i++){
+                var item = results[i];
+                var displayTime = item.create_at.split('T');
+                var status = '待完成';
+                if(item.status==50)
+                    status = '已完成';
+                itemHtml += '<tr>'+
+                '<td>'+item.name+'</td>'+
+                '<td>'+displayTime[0]+'</td>'+
+                '<td>'+item.total+'条</td>'+
+                '<td>'+item.days+'天</td>'+
+                '<td>'+item.desc+'</td>'+
+                '<td>'+status+'</td>'+
+                '</tr>';
+            }
+            $('#myTask').html(itemHtml);
+            $('#task-list-current-page').html('1');
+            $('#task-list-total').html(data.count);
+            $('#task-list-page-count').html(Math.floor(data.count/this.pageLimit) + 1);
+        },
         events:{
-            "click .showDetail":"showDetail"
+            "click .showDetail":"showDetail",
+            "click .askApproval":"askApproval",
+            "click #auditing-first":"auditingFirst",
+            "click #auditing-pre":"auditingPre",
+            "click #auditing-next":"auditingNext",
+            "click #task-first":"taskFirst",
+            "click #task-pre":"taskPre",
+            "click #task-next":"taskNext",
+            "click #taskquestion-first":"taskquestionFirst",
+            "click #taskquestion-pre":"taskquestionPre",
+            "click #taskquestion-next":"taskquestionNext",
         },
         showDetail:function(evt){
             var $this=$(evt.currentTarget);
@@ -149,7 +207,210 @@ $(weego_user.init());
             }else{
                 $this.addClass("active").next().fadeIn();
             }
-        }
+        },
+        askApproval:function(evt){
+            evt.preventDefault();
+            if(confirm('确定递交审核该条数据吗？')){
+                $.ajax({
+                    url:"/askApproval/"+$(evt.currentTarget).closest(".ehitem").attr('auditingId'),
+                    success: _.bind(function (data) {
+                        if(data.status){
+                            console.log($(evt.currentTarget).parent().siblings(".status"));
+                           $(evt.currentTarget).parent().siblings(".status").html('已递交');
+                           $(evt.currentTarget).closest(".askApprovalHTML").after('<span>递交审核</span>').end().remove();
+                        }else{
+                            alert('递交失败！请联系管理员！');
+                        }
+                    },this)
+                });
+            }
+        },
+        auditingFirst:function(){
+            $.ajax({
+                url:"/auditings/"+this.pageLimit+'/1',
+                success: _.bind(function (data) {
+                    if(data.status){
+                        this.appendAuditingHTML(data);
+                        $('#auditing-list-current-page').html('1');
+                    }else{
+                        alert('数据库异常！');
+                    }
+                },this)
+            });
+        },
+        auditingPre:function(){
+            var currentPage = $('#auditing-list-current-page').html();
+            if(isInt(currentPage))
+                currentPage = parseInt(currentPage);
+            if(currentPage>1){
+                $.ajax({
+                    url:"/auditings/"+this.pageLimit+'/'+(--currentPage),
+                    success: _.bind(function (data) {
+                        if(data.status){
+                            this.appendAuditingHTML(data);
+                            $('#auditing-list-current-page').html(currentPage);
+                        }else{
+                            alert('数据库异常！');
+                        }
+                    },this)
+                });
+            }else{
+                alert('无上一页');
+            }
+        },
+        auditingNext:function(){
+            var currentPage = $('#auditing-list-current-page').html();
+            if(isInt(currentPage))
+                currentPage = parseInt(currentPage);
+            else{
+                return false;
+            }
+            var totalPage = $('#auditing-list-page-count').html();
+            if(isInt(totalPage))
+                totalPage = parseInt(totalPage);
+            else{
+                return false;
+            }
+            if(currentPage<totalPage){
+                $.ajax({
+                    url:"/auditings/"+this.pageLimit+'/'+(++currentPage),
+                    success: _.bind(function (data) {
+                        if(data.status){
+                            this.appendAuditingHTML(data);
+                            $('#auditing-list-current-page').html(currentPage);
+                        }else{
+                            alert('数据库异常！');
+                        }
+                    },this)
+                });
+            }else{
+                alert('无下一页');
+            }
+        },
+        taskFirst:function(){
+            $.ajax({
+                url:"/tasks/"+this.pageLimit+'/1',
+                success: _.bind(function (data) {
+                    if(data.status){
+                        this.appendTaskHTML(data);
+                        $('#task-list-current-page').html('1');
+                    }else{
+                        alert('数据库异常！');
+                    }
+                },this)
+            });
+        },
+        taskPre:function(){
+            var currentPage = $('#task-list-current-page').html();
+            if(isInt(currentPage))
+                currentPage = parseInt(currentPage);
+            if(currentPage>1){
+                $.ajax({
+                    url:"/tasks/"+this.pageLimit+'/'+(--currentPage),
+                    success: _.bind(function (data) {
+                        if(data.status){
+                            this.appendTaskHTML(data);
+                            $('#task-list-current-page').html(currentPage);
+                        }else{
+                            alert('数据库异常！');
+                        }
+                    },this)
+                });
+            }else{
+                alert('无上一页');
+            }
+        },
+        taskNext:function(){
+            var currentPage = $('#task-list-current-page').html();
+            if(isInt(currentPage))
+                currentPage = parseInt(currentPage);
+            else{
+                return false;
+            }
+            var totalPage = $('#task-list-page-count').html();
+            if(isInt(totalPage))
+                totalPage = parseInt(totalPage);
+            else{
+                return false;
+            }
+            if(currentPage<totalPage){
+                $.ajax({
+                    url:"/tasks/"+this.pageLimit+'/'+(++currentPage),
+                    success: _.bind(function (data) {
+                        if(data.status){
+                            this.appendTaskHTML(data);
+                            $('#task-list-current-page').html(currentPage);
+                        }else{
+                            alert('数据库异常！');
+                        }
+                    },this)
+                });
+            }else{
+                alert('无下一页');
+            }
+        },
+        taskquestionFirst:function(){
+            $.ajax({
+                url:"/taskquestions/"+this.pageLimit+'/1',
+                success: _.bind(function (data) {
+                    if(data.status){
+                        this.appendTaskquestionHTML(data);
+                        $('#taskquestion-list-current-page').html('1');
+                    }else{
+                        alert('数据库异常！');
+                    }
+                },this)
+            });
+        },
+        taskquestionPre:function(){
+            var currentPage = $('#taskquestion-list-current-page').html();
+            if(isInt(currentPage))
+                currentPage = parseInt(currentPage);
+            if(currentPage>1){
+                $.ajax({
+                    url:"/taskquestions/"+this.pageLimit+'/'+(--currentPage),
+                    success: _.bind(function (data) {
+                        if(data.status){
+                            this.appendTaskquestionHTML(data);
+                            $('#taskquestion-list-current-page').html(currentPage);
+                        }else{
+                            alert('数据库异常！');
+                        }
+                    },this)
+                });
+            }else{
+                alert('无上一页');
+            }
+        },
+        taskquestionNext:function(){
+            var currentPage = $('#taskquestion-list-current-page').html();
+            if(isInt(currentPage))
+                currentPage = parseInt(currentPage);
+            else{
+                return false;
+            }
+            var totalPage = $('#taskquestion-list-page-count').html();
+            if(isInt(totalPage))
+                totalPage = parseInt(totalPage);
+            else{
+                return false;
+            }
+            if(currentPage<totalPage){
+                $.ajax({
+                    url:"/taskquestions/"+this.pageLimit+'/'+(++currentPage),
+                    success: _.bind(function (data) {
+                        if(data.status){
+                            this.appendTaskquestionHTML(data);
+                            $('#taskquestion-list-current-page').html(currentPage);
+                        }else{
+                            alert('数据库异常！');
+                        }
+                    },this)
+                });
+            }else{
+                alert('无下一页');
+            }
+        },
     });
 
     //管理员主页 
@@ -161,6 +422,22 @@ $(weego_user.init());
                 thisView.$el.empty().append(weegoCache.adminMainTpl);
                 thisView.initMap();
                 thisView.initSelect();
+                $('a[data-toggle=modal]').on('click', function() {
+                    $(this).next().fadeIn();
+                });
+                $('button[data-toggle=modal').on('click', function() {
+                    $('#taskdetail').fadeIn();
+                    thisView.showTaskDetailStatistic();
+                });
+                $('.sendmsg').on('click', function() {
+                    $('#sendmsg').fadeIn();
+                });
+                $('.delete').on('click', function() {
+                    $('#myModal').fadeOut();
+                    $('#taskdetail').fadeOut();
+                    $('#addeditor').fadeOut();
+                    $('#sendmsg').fadeOut();
+                })
             }else{
                 $("<div/>").load("/templ/admin_personcenter.html",function(){
                     var template = Handlebars.compile($(this).html());
@@ -173,11 +450,16 @@ $(weego_user.init());
                     });
                     $('button[data-toggle=modal').on('click',function(){
                         $('#taskdetail').fadeIn();
+                        thisView.showTaskDetailStatistic();
+                    });
+                    $('.sendmsg').on('click',function(){
+                        $('#sendmsg').fadeIn();
                     });
                     $('.delete').on('click',function(){
                         $('#myModal').fadeOut();
                         $('#taskdetail').fadeOut();
                         $('#addeditor').fadeOut();
+                        $('#sendmsg').fadeOut();
                     })
                 });
             }
@@ -241,9 +523,68 @@ $(weego_user.init());
             });
 
         },
+        showTaskDetailStatistic: function(){
+            $('#taskdetail-statistic').highcharts({
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: '数据统计'
+                },
+                xAxis: {
+                    categories: ['景点', '餐馆', '购物']
+                },
+                yAxis: {
+                    title: {
+                        text: '数量'
+                    }
+                },
+                series: [{
+                    name: '任务总数',
+                    data: [50, 200, 54]
+                }, {
+                    name: '已完成',
+                    data: [16, 103, 5]
+                },{
+                    name: '待审核',
+                    data: [16, 103, 5]
+                }]
+            });
+        },
         events:{
             'click #sendTask': 'sendTask',
-            'change #city_select': 'selectCity'
+            'change #city_select': 'selectCity',
+            'change #attraction_num': 'numChange',
+            'change #restaurant_num': 'numChange',
+            'change #shopping_num': 'numChange',
+            'change #entertainment_num': 'numChange',
+        },
+        numChange: function(){
+            var attraction_num = $('#attraction_num').val();
+            var restaurant_num = $('#restaurant_num').val();
+            var shopping_num = $('#shopping_num').val();
+            var entertainment_num = $('#entertainment_num').val(); 
+            if(!isInt(attraction_num)){
+                alert('景点数必须是整数！');
+                $('#attraction_num').val('10');
+                attraction_num = '10';
+            }
+            if(!isInt(restaurant_num)){
+                alert('景点数必须是整数！');
+                $('#restaurant_num').val('10');
+                restaurant_num = '10';
+            }
+            if(!isInt(shopping_num)){
+                alert('景点数必须是整数！');
+                $('#shopping_num').val('10');
+                shopping_num = '10';
+            }
+            if(!isInt(entertainment_num)){
+                alert('景点数必须是整数！');
+                $('#entertainment_num').val('0');
+                entertainment_num = '0';
+            }
+            $('#total').val(parseInt(attraction_num)+parseInt(restaurant_num)+parseInt(shopping_num)+parseInt(entertainment_num));
         },
         selectCity: function(){
             var city_name = $('#city_select').find("option:selected").text();
@@ -254,13 +595,24 @@ $(weego_user.init());
             e.preventDefault();
             var total = $('#total').val();
             var days = $('#days').val();
-            if(!days || !total){
-                alert('请输入任务总量及任务时长！');
+            var taskname = $('#taskname').val();
+            var attraction_num = $('#attraction_num').val();
+            var restaurant_num = $('#restaurant_num').val();
+            var shopping_num = $('#shopping_num').val();
+            var entertainment_num = $('#entertainment_num').val();
+            if(!taskname){
+                alert('请输入任务名称！');
+                $('#taskname').focus();
                 return false;
             }
-
-            if(!isInt(days)||!isInt(total)){
-                alert('任务总量及时长必须为数字！');
+            if(!isInt(days)){
+                alert('时长必须为数字！');
+                $('#days').focus();
+                return false;
+            }
+            if(!isInt(attraction_num) ||!isInt(restaurant_num)||!isInt(shopping_num)||!isInt(entertainment_num)){
+                alert('景点、餐馆、购物、娱乐必须为数字！');
+                $('#attraction_num').focus();
                 return false;
             }
 
@@ -271,16 +623,18 @@ $(weego_user.init());
                     city_id:$('#city_select').val(),
                     city_name:city_name,
                     days:days,
+                    attraction_num:attraction_num,
+                    restaurant_num:restaurant_num,
+                    shopping_num:shopping_num,
+                    entertainment_num:entertainment_num,
                     total:total,
-                    name:$('#taskname').val(),
+                    name:taskname,
                     desc:$('#desc').val()
                 };
-                console.log(item);
                 var taskModel = new weego_user.TaskModel(item);
                 taskModel.save({},{
                     success:function(model, res){
                         if(res.isSuccess){
-                            alert('添加成功');
                             $('#myModal').css('display','none');
                             $('.modal-backdrop').fadeOut();
                             self.location.reload();

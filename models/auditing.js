@@ -10,6 +10,7 @@ var AuditingSchema = new Schema({
 	city_id: { type: ObjectId ,index: true },
 	city_name: { type: String },
 	task_id: { type: ObjectId ,index: true },
+	task_name: { type:String },
 	editor_id: { type: ObjectId ,index: true },
 	item_id: { type: ObjectId },
 	type: { type: String },

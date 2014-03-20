@@ -80,10 +80,11 @@
 	border-bottom: none;
 }
 .widget-tasks-assigned li li:nth-child(2){
-	width: 63%;
+	width: 57%;
 }
 .widget-tasks-assigned li li:last-child{
 	border-right: none;
+    width: 15%
 }
 .widget-tasks-assigned li li:nth-child(1),
 .widget-tasks-assigned li li:nth-child(3),
@@ -135,7 +136,7 @@
 }
 .btn
 {
-    margin: 10px 0 0 20px;
+    margin: 25px 0 0 0px;
     padding: 1px 5px;
 }
 /*editor manage====================================================================*/
@@ -208,3 +209,6 @@
 	float: left;
 }
 
+.form-horizontal textarea{
+    width: 95%;
+}

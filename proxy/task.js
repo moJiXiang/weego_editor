@@ -7,8 +7,8 @@ exports.getTask = function (id, callback) {
   Task.findOne({_id: id}, callback);
 };
 
-exports.getTasksByLimit = function (skip,pageLimit, callback) {
-  Task.find({}, [], {sort: [['status','asc'],['create_at', 'desc']],skip:skip, limit:pageLimit}, function (err, tasks) {
+exports.getTasksByLimit = function (skip,pageLimit,editor_id, callback) {
+  Task.find({editor_id:editor_id}, [], {sort: [['status','asc'],['create_at', 'desc']],skip:skip, limit:pageLimit}, function (err, tasks) {
 		if(err)
 			callback(err);
 		else{
@@ -39,6 +39,10 @@ exports.update = function(one,callback){
 			task.name = one.name;
 			task.editor_id = one.editor_id;
 			task.days = one.days;
+			task.attraction_num = one.attraction_num;
+			task.restaurant_num = one.restaurant_num;
+			task.shopping_num = one.shopping_num;
+			task.entertainment_num = one.entertainment_num;
 			task.total = one.total;
 			task.desc = one.desc;
 			task.save(function(err){
@@ -57,6 +61,10 @@ exports.newAndSave = function(one,callback){
 	task.name = one.name;
 	task.editor_id = one.editor_id;
 	task.days = one.days;
+	task.attraction_num = one.attraction_num;
+	task.restaurant_num = one.restaurant_num;
+	task.shopping_num = one.shopping_num;
+	task.entertainment_num = one.entertainment_num;
 	task.total = one.total;
 	task.desc = one.desc;
 	task.save(function (err) {

@@ -11,7 +11,11 @@ var TaskSchema = new Schema({
 	name: { type: String },
 	create_at: { type: Date, default: Date.now },
 	days:{ type:Number},
-	total:{type:Number},
+	attraction_num:{ type:Number, default: 0},
+	restaurant_num:{ type:Number, default: 0},
+	shopping_num:{ type:Number, default: 0},
+	entertainment_num:{ type:Number, default: 0},
+	total:{type:Number, default: 0},
 	desc:{type:String},
 	status:{ type:Number,default:10}
 });

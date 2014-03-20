@@ -454,7 +454,7 @@ exports.updateAttractions = function (req, res) {
         if (err) {
             res.send({err:err});
         } else {
-            res.send({isSuccess:true});
+            res.send({isSuccess:true, _id:req.params.attractionsID,user_id:req.session.user._id});
         }
     });
 };

@@ -11,8 +11,8 @@ exports.findAuditingByQuery = function(query,callback){
 	Auditing.findOne(query,callback);
 };
 
-exports.getAuditingsByLimit = function (skip,pageLimit, callback) {
-  Auditing.find({}, [], {sort: [['create_at', 'desc']],skip:skip, limit:pageLimit}, function (err, auditings) {
+exports.getAuditingsByLimit = function (skip,pageLimit,query, callback) {
+  Auditing.find(query, [], {sort: [['status', 'asc'],['create_at', 'desc']],skip:skip, limit:pageLimit}, function (err, auditings) {
 		if(err)
 			callback(err);
 		else{
@@ -22,7 +22,7 @@ exports.getAuditingsByLimit = function (skip,pageLimit, callback) {
 };
 
 exports.getAuditingsByQuery = function (query, callback) {
-  Auditing.find(query, [], {sort: [['create_at', 'desc']]}, function (err, auditings) {
+  Auditing.find(query, [], {sort: [['status', 'asc'],['create_at', 'desc']]}, function (err, auditings) {
 		if(err)
 			callback(err);
 		else{
@@ -52,6 +52,7 @@ exports.update = function(one,callback){
 	exports.getAuditing(new ObjectID(one._id+''),function(err,auditing){
 		if(auditing){
 			auditing.task_id = one.task_id;
+			auditing.task_name = one.task_name;
 			auditing.mod_at = Date.now();
 			auditing.name = one.name;
 			auditing.save(function(err){
@@ -64,10 +65,15 @@ exports.update = function(one,callback){
 };
 //如果是同一个item_id,和同一个editor_id 表明，不需要重新插入，只需要修改数据即可。
 exports.newAndSave = function(one,callback){
+	if(!one.task_id){
+		return callback('task_id is null!');
+	}
 	var query = {editor_id:one.editor_id,item_id:one.item_id};
+	console.log(one);
 	exports.findAuditingByQuery(query,function(err,result){
 		if(result){
 			result.task_id = one.task_id;
+			result.task_name = one.task_name;
 			result.mod_at = Date.now();
 			result.name = one.name;
 			result.save(function(err){
@@ -78,6 +84,7 @@ exports.newAndSave = function(one,callback){
 			auditing.city_id = one.city_id;
 			auditing.city_name = one.city_name;
 			auditing.task_id = one.task_id;
+			auditing.task_name = one.task_name;
 			auditing.item_id = one.item_id;
 			auditing.editor_id = one.editor_id;
 			auditing.type = one.type;

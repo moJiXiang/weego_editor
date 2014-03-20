@@ -16,28 +16,15 @@ exports.getTask = function(req,res){
 };
 exports.getTaskByPage = function (req, res) {
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
-    Task.count({},function (err, count) {
-        Task.getTasksByLimit(skip,req.params.pageLimit, function (err, result) {
+    var editor_id = req.session.user._id;
+    Task.count({editor_id:editor_id},function (err, count) {
+        Task.getTasksByLimit(skip,req.params.pageLimit,editor_id, function (err, result) {
             if (err) {
-                res.send({err:err});
+                res.send({status:false,err:err});
             } else {
-                res.send({tasks:result, count:count});
+                res.send({status:true,results:result, count:count});
             }
         });
-    });
-};
-
-exports.getTasksIndex = function(req,res){
-	var userId = req.session.user._id;
-	Task.getTasksByQuery({editor_id:userId},function(err,tasks){
-        if(err)
-            res.send({status:false,err:err});
-        else{
-        	if(tasks&&tasks.length>4)
-        		res.send({status:true,results:tasks.splice(0,4)});
-        	else
-        		res.send({status:true,results:tasks});
-        }
     });
 };
 
@@ -99,28 +86,16 @@ exports.getAuditing = function(req,res){
 };
 exports.getAuditingByPage = function (req, res) {
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
-    Auditing.count({},function (err, count) {
-        Auditing.getAuditingsByLimit(skip,req.params.pageLimit, function (err, result) {
+    var editor_id = req.session.user._id;
+    var query = {editor_id:editor_id};
+    Auditing.count(query,function (err, count) {
+        Auditing.getAuditingsByLimit(skip,req.params.pageLimit,query, function (err, result) {
             if (err) {
-                res.send({err:err});
+                res.send({status:false,err:err});
             } else {
-                res.send({auditings:result, count:count});
+                res.send({status:true,results:result, count:count});
             }
         });
-    });
-};
-
-exports.getAuditingsIndex = function(req,res){
-    var userId = req.session.user._id;
-    Auditing.getAuditingsByQuery({editor_id:userId},function(err,auditings){
-        if(err)
-            res.send({status:false,err:err});
-        else{
-            if(auditings&&auditings.length>4)
-                res.send({status:true,results:auditings.splice(0,4)});
-            else
-                res.send({status:true,results:auditings});
-        }
     });
 };
 
@@ -168,4 +143,31 @@ exports.updateAuditing = function(req, res){
             res.send({isSuccess:true});
         }
     });
+};
+
+exports.askApproval = function(req,res){
+    var editor_id = req.session.user._id;
+    var curr_user = req.session.user.username;
+    if(editor_id){
+        var auditingId = req.params.auditingId;
+        Auditing.getAuditing(auditingId,function(err,one){
+            if(one){
+                if(one.editor_id.toString()==editor_id.toString()||curr_user=='admin'){
+                    one.status = 10;
+                    one.save(function(err){
+                        if(err)
+                            res.send({status:false,err:err});
+                        else
+                            res.send({status:true,result:one});
+                    });
+                }else{
+                    res.send({status:false,err:err+' or not found!'});
+                }
+            }else{
+                res.send({status:false,err:err+' or not found!'});
+            }
+        });
+    }else{
+        res.send({status:false,err:'please login!'});
+    }
 };

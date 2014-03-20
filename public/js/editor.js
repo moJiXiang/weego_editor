@@ -669,6 +669,7 @@ $(weego.init());
                             city_id:$("#city_select").val(),
                             city_name:$("#city_select").find("option:selected").text(),
                             task_id : $("#task_select").val(),
+                            task_name : $("#task_select").find("option:selected").text(),
                             item_id : res._id,
                             editor_id : res.user_id,
                             type : '0',
@@ -730,7 +731,6 @@ $(weego.init());
                 success:function (data) {
                     if(data.status){
                         var results = data.results;
-                        console.log(results);
                         var option = '';
                         for(var i=0;i<results.length;i++){
                             var one = results[i];
@@ -903,6 +903,7 @@ $(weego.init());
                             city_id:$("#city_select").val(),
                             city_name:$("#city_select").find("option:selected").text(),
                             task_id : $("#task_select").val(),
+                            task_name : $("#task_select").find("option:selected").text(),
                             item_id : res._id,
                             editor_id : res.user_id,
                             type : '0',
@@ -1287,13 +1288,41 @@ $(weego.init());
             var thisView=this;
             if(weegoCache.statisticsTpl){
                 thisView.$el.empty().append(weegoCache.statisticsTpl);
+                thisView.initBar();
             }else{
                 $("<div/>").load("/templ/statistics.handlebars",function(){
                     var template = Handlebars.compile($(this).html());
                     weegoCache.statisticsTpl=template();
                     thisView.$el.empty().append(template());
+                    thisView.initBar();
                 });
             }
+
+        },
+        initBar:function(){
+            $('.statistics_bar').highcharts({
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: '数据统计'
+                },
+                xAxis: {
+                    categories: ['城市', '景点', '酒店']
+                },
+                yAxis: {
+                    title: {
+                        text: '数量'
+                    }
+                },
+                series: [{
+                    name: '总数',
+                    data: [50, 200, 54]
+                }, {
+                    name: '已有',
+                    data: [16, 103, 5]
+                }]
+            });
         },
         events:{}
     });
