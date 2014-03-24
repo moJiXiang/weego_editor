@@ -156,6 +156,7 @@
 
     <script id="hotel-list-view" type="text/x-handlebars-template">
         <section class="cmsPageStatus">
+           
             <dl>
                 <dt>酒店列表</dt>
                 <dd><a id="hotel-add-new"  href="#hotel/new">添加酒店</a></dd>
@@ -168,6 +169,14 @@
         </section>
 
         <div class="container">
+            <section class="cmsQueryBar">
+                <span>
+                    城市：<input type="text" id="search-hotel-cityname"> 
+                </span>
+                <span>
+                    <button id="search-hotel-button">查询</button>
+                </span>
+            </section>
             <table class="cmsTable">
                 <thead>
                     <th>酒店名称</th>
@@ -243,7 +252,14 @@
         </section>
 
         <div class="container">
-            
+                <section class="cmsQueryBar">
+                    <span>
+                        城市：<input type="text" id="search-city-cityname"> 
+                    </span>
+                    <span>
+                        <button id="search-city-button">查询</button>
+                    </span>
+                </section>
                 <table class="cmsTable">
                     <thead>
                     <tr>
@@ -366,6 +382,14 @@
         
 
         <div class="container">
+            <section class="cmsQueryBar">
+                <span>
+                    国家：<input type="text" id="search-country-cityname"> 
+                </span>
+                <span>
+                    <button id="search-city-button">查询</button>
+                </span>
+            </section>
             <table class="cmsTable">
                 <thead>
                 <tr>
