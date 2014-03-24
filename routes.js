@@ -50,6 +50,7 @@ module.exports = function(app) {
 	app.get('/getCityByLabelID/:labelID', routes.city.getCityByLabelID);
 	app.get('/getCountriesByContinent/:continentCode',routes.city.getCountriesByContinent);
 	app.get('/getCityByCountry/:countryCode',routes.city.getCityByCountry);
+	app.get('/getCountryStatistic/:countryCode',routes.city.getCountryStatistic);
 
 	app.get('/setCityCoverImg/:_id/:imageName', routes.city.setCityCoverImg);
 	app.post('/citypic/upload',routes.city.upload);
@@ -143,6 +144,8 @@ module.exports = function(app) {
 	app.post('/task', routes.task.addNewTask);
 	app.get('/tasks/:pageLimit/:pageIndex?', routes.task.getTaskByPage);
 	app.get('/getMyToDoTasks', routes.task.getMyToDoTasks);
+	app.get('/statistic/:taskId',routes.task.statistic);
+	app.get('/getAllTasks/:pageLimit/:pageIndex?', routes.task.getAllTasksByPage);
 
 	//auditing
 	app.get('/auditing/:auditingId', routes.task.getAuditing);
@@ -151,6 +154,16 @@ module.exports = function(app) {
 	app.post('/auditing', routes.task.addNewAuditing);
 	app.get('/auditings/:pageLimit/:pageIndex?', routes.task.getAuditingByPage);
 	app.get('/askApproval/:auditingId',routes.task.askApproval);
+	app.get('/getApprovalAuditings/:taskId',routes.task.getApprovalAuditings);
+	app.post('/approvalAuditings',routes.task.approvalAuditings);
+
+	//taskquestion
+	app.get('/taskquestion/:taskquestionId', routes.task.getTaskquestion);
+	app.del('/taskquestion/:taskquestionId', routes.task.removeTaskquestion);
+	app.put('/taskquestion/:taskquestionId', routes.task.updateTaskquestion);
+	app.post('/taskquestion', routes.task.addNewTaskquestion);
+	app.get('/taskquestions/:pageLimit/:pageIndex?', routes.task.getTaskquestionByPage);
+	app.get('/closeTaskquestion/:taskquestionId', routes.task.closeTaskquestion);
 
 	app.get('/dataImport?',routes.dataImport.importCity);
 	app.get('/importLifeData?',routes.lifeImport.importLifeData);

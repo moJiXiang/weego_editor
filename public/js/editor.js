@@ -25,6 +25,9 @@ $(weego.init());
             "city/:name/:pageno":"city_attractions", //
             "attractions/:pageno":"list_attractions",
             "attractions":"list_attractions",
+            "attraction/new":"showAttractionView",
+            "attraction/:attractionId":"showAttractionView",
+
             "lifes":"showLifeListView",
             "lifes/:pageno":"showLifeListView",
             "lifes/:pageno/:type":"showLifeListView",
@@ -92,8 +95,22 @@ $(weego.init());
                 $('.show-nav').fadeIn();
             }
             if (weego_user.globalUser) {
+                console.log(weego_user.globalUser);
                 if (weego_user.globalUser.type == 1) {
                     $('#tab-user').fadeIn();
+                    $('.icomoon_user').css('display','');
+                    $('.icomoon_labels').css('display','');
+                    $('.icomoon_user').css('display','');
+                    $('.icomoon_label').css('display','');
+                    $('.icomoon_category').css('display','');
+                    $('.icomoon_lifetag').css('display','');
+                }else{
+                     $('.icomoon_user').css('display','none');
+                    $('.icomoon_labels').css('display','none');
+                    $('.icomoon_user').css('display','none');
+                    $('.icomoon_label').css('display','none');
+                    $('.icomoon_category').css('display','none');
+                    $('.icomoon_lifetag').css('display','none');
                 }
             }
         },
@@ -149,7 +166,27 @@ $(weego.init());
             weego.name = '';
             weego.currentPage = (pageno == null ? 1 : pageno);
             weego.defaultView = new weego.AppView();
-            weego.defaultView.getData(weego.currentPage, weego.name)
+            weego.defaultView.getData(weego.currentPage, weego.name);
+        },
+        showAttractionView: function(id){
+            $('#app').off();
+            $('#app').empty();
+
+            if(id == null){
+                new weego.AttractionsDetailView().render(this).$el.appendTo($('#app'));
+                initialize();
+            }
+            else{
+                var attractionModel = new weego.AttractionsModel();
+                attractionModel.set('_id', id);
+                attractionModel.fetch({success: function(){
+                    console.log(attractionModel)
+                     var showAttractionsDetailView = new weego.ShowAttractionsDetailView();
+                     showAttractionsDetailView.model =  attractionModel;
+                     showAttractionsDetailView.render().$el.appendTo($('#app'));
+                     initialize();
+                }});
+            }
         },
         showHotelDetailView: function(id){
             $('#app').off();
@@ -470,8 +507,8 @@ $(weego.init());
     //add city view
     weego.AttractionsDetailView = Backbone.View.extend({
         tagName:"div",
-        className:"modal hide fade",
-        "id":"attractionsDialog",
+        //className:"modal hide fade",
+        //"id":"attractionsDialog",
         initialize:function () {
             _.bindAll(this, 'render', 'save');
         },
@@ -649,6 +686,13 @@ $(weego.init());
         },
         save:function () {
             var _this = this;
+            var cityid = $("#city_select").val();
+            var name = $("#attractions").val();
+            if(!cityid||!name){
+                alert('城市和景点名称均不能为空！');
+                return false;
+            }
+
             var array_label = [];
             for (var i = 0; i < $('.labels').length; i++) {
                 array_label.push($('.labels').eq(i).attr('data-value'));
@@ -680,11 +724,11 @@ $(weego.init());
                         auditingModel.save(null,{
                             success:function (model, res) {
                                 if (!res.isSuccess) {
-                                    alert('保存失败');
+                                    alert('保存景点成功，但auditing保存失败！');
                                 }else
                                     alert('保存成功');
-                                $("#attractionsDialog").new_modal('hide');
-                                weego.defaultView.getData(weego.currentPage, model.get('cityname'));
+                                self.location = '#attractions';
+                                // weego.defaultView.getData(weego.currentPage, model.get('cityname'));
                             },
                             error:function () {
                                 alert('保存景点成功，但auditing保存失败！');
@@ -703,8 +747,8 @@ $(weego.init());
     //edit city view
     weego.ShowAttractionsDetailView = Backbone.View.extend({
         tagName:"div",
-        className:"modal hide fade",
-        "id":"attractionsDetailDialog",
+        //className:"modal hide fade",
+        //"id":"attractionsDetailDialog",
         initialize:function () {
             _.bindAll(this, 'render', 'save');
         },
@@ -914,11 +958,10 @@ $(weego.init());
                         auditingModel.save(null,{
                             success:function (model, res) {
                                 if (!res.isSuccess) {
-                                    alert('保存失败');
+                                    alert('保存景点成功，但auditing保存失败！');
                                 }else
                                     alert('保存成功');
-                                $("#attractionsDialog").new_modal('hide');
-                                weego.defaultView.getData(weego.currentPage, model.get('cityname'));
+                                self.location="#attractions";
                             },
                             error:function () {
                                 alert('保存景点成功，但auditing保存失败！');
@@ -933,7 +976,7 @@ $(weego.init());
             return false;
         },
         cancel:function () {
-            $("#attractionsDetailDialog").new_modal('hide');
+            //$("#attractionsDetailDialog").new_modal('hide');
         }
     });
 
@@ -966,13 +1009,8 @@ $(weego.init());
             manageImageView.unloadPic();
         },
         modify:function (e) {
-            var showAttractionsDetailView = new weego.ShowAttractionsDetailView();
-            showAttractionsDetailView.model = this.model;
-            showAttractionsDetailView.render().$el.new_modal({
-                "show":true,
-                "z_index":weego.z_index++
-            });
-            initialize();
+            var attractionId =  $(e.currentTarget).attr('data-value');
+            self.location = '#attraction/'+attractionId;
         },
         delete:function (e) {
             var _this = this;
@@ -1212,11 +1250,12 @@ $(weego.init());
             'click #prePageButton':'prePage'
         },
         addAttractions:function () {
-            new weego.AttractionsDetailView().render(this).$el.new_modal({
-                "show":true,
-                "z_index":weego.z_index++
-            });
-            initialize();
+            // new weego.AttractionsDetailView().render(this).$el.new_modal({
+            //     "show":true,
+            //     "z_index":weego.z_index++
+            // });
+            // initialize();
+            self.location = '#attraction/new';
         },
         appendAttractions:function (attractions) {
             var attractionsView = new weego.AttractionsView();

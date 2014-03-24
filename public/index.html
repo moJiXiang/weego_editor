@@ -567,7 +567,7 @@
 
         <section class="cmsQueryBar">
             <span>
-                城市：<input type="text" id="search-life-cityname"> 
+                城市：<input type="text" id="search-life-cityname" value="{{search_cityname}}"> 
             </span>
 
 
@@ -578,7 +578,7 @@
             </select>
 
             <span>
-                名称：<input type="text" id="search-life-name"> 
+                名称：<input type="text" id="search-life-name" value="{{search_lifename}}"> 
             </span>
             
             <span>
@@ -683,7 +683,7 @@
             <a href="#lifes" class="icomoon_life">生活信息</a>
             <a href="#categorys" class="icomoon_category">生活类型</a>
             <a href="#lifetags" class="icomoon_lifetag">生活标签</a>
-            <a href="#areas" class="icomoon_lifetag">城市区域</a>
+            <a href="#areas" class="icomoon_life">城市区域</a>
             <a href="#user/1" class="icomoon_user">用户管理</a>
             <a href="CityLabeling.html" target="_blank" class="icomoon_labels">标签批量管理</a>
             <a href="#statistics" class="icomoon_user">数据统计</a>
@@ -721,6 +721,7 @@
         <script src="js/editor_area.js"></script>
         <script src="libs/util.js"></script>
         <script type="text/javascript" src="js/admin_personcennter.js"></script>
+        <script src="javascripts/jquery.slimscroll.min.js"></script>
         <script>
             $(document).ready(function(){
                 new weego.GlobalRouter;

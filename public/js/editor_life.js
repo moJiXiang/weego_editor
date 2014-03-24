@@ -165,6 +165,22 @@ var LifeView = Backbone.View.extend({
             }
         });
 
+        $.ajax({
+            url:"/getMyToDoTasks",
+            success:function (data) {
+                if(data.status){
+                    var results = data.results;
+                    var option = '';
+                    for(var i=0;i<results.length;i++){
+                        var one = results[i];
+                        option +='<option value="'+one._id+'" >'+one.name+'</option>';
+                    }
+                    $('#task_select').html(option);
+                }else{
+                    alert('数据库异常！');
+                }
+            }
+        });
     },
     selectType: function(){
         var type =$('#property-type').val();
@@ -510,8 +526,30 @@ var LifeView = Backbone.View.extend({
             this.model.save({},{
                 success:function(model, res){
                     if(res.isSuccess){
-                        alert('添加成功');
-                        self.location = '/#lifes/1/'+type; 
+                        var auditingModel = new weego.AuditingModel({
+                            city_id:$("#city_select").val(),
+                            city_name:$("#city_select").find("option:selected").text(),
+                            task_id : $("#task_select").val(),
+                            task_name : $("#task_select").find("option:selected").text(),
+                            item_id : res._id,
+                            editor_id : res.user_id,
+                            type : type,
+                            log_type : '0',
+                            name : $('#name').val()
+                        });
+                        auditingModel.save(null,{
+                            success:function (model, res) {
+                                if (!res.isSuccess) {
+                                    alert('保存失败');
+                                }else
+                                    alert('添加成功');
+                                    self.location = '/#lifes/1/'+type; 
+                            },
+                            error:function () {
+                                alert('保存信息成功，但auditing保存失败！');
+                            }
+                        });
+                        
                     }else{
                         alert('保存失败'+res.info);
                     }
@@ -523,8 +561,29 @@ var LifeView = Backbone.View.extend({
             this.model.save(item, {
                 success:function(model, res){
                     if(res.isSuccess){
-                        alert('修改成功');
-                        self.location = '/#lifes/1/'+type; 
+                        var auditingModel = new weego.AuditingModel({
+                            city_id:$("#city_select").val(),
+                            city_name:$("#city_select").find("option:selected").text(),
+                            task_id : $("#task_select").val(),
+                            task_name : $("#task_select").find("option:selected").text(),
+                            item_id : res._id,
+                            editor_id : res.user_id,
+                            type : type,
+                            log_type : '0',
+                            name : $('#name').val()
+                        });
+                        auditingModel.save(null,{
+                            success:function (model, res) {
+                                if (!res.isSuccess) {
+                                    alert('保存失败');
+                                }else
+                                    alert('修改成功');
+                                    self.location = '/#lifes/1/'+type; 
+                            },
+                            error:function () {
+                                alert('保存信息成功，但auditing保存失败！');
+                            }
+                        });
                     }else{
                         alert('修改失败'+res.info);
                     }

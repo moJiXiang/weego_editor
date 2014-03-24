@@ -566,4 +566,8 @@ exports.getAttractionsByQuery = function(query,option,callback){
     attractionsProvider.find(query,option,callback);
 };
 
+exports.countByQuery = function(query,callback){
+    attractionsProvider.count(query, callback);
+};
+
 

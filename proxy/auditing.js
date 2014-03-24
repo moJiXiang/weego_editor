@@ -35,6 +35,10 @@ exports.count = function (query,callback) {
   Auditing.count(query, callback);
 };
 
+exports.deleteByQuery = function(query,callback){
+	Auditing.remove(query,callback);
+};
+
 exports.updateStatus = function(_id,status,callback){
 	exports.getAuditing(new ObjectID(_id+''),function(err,one){
 		if(one){

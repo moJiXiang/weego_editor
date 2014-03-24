@@ -74,7 +74,7 @@
 }
 .widget-tasks-assigned li li{
 	float: left;
-	width: 9%;
+	width: 7%;
 	height: 74px;
 	border-right: 1px solid #ddd;
 	border-bottom: none;
@@ -84,7 +84,7 @@
 }
 .widget-tasks-assigned li li:last-child{
 	border-right: none;
-    width: 15%
+    width: 20%
 }
 .widget-tasks-assigned li li:nth-child(1),
 .widget-tasks-assigned li li:nth-child(3),
@@ -136,7 +136,12 @@
 }
 .btn
 {
-    margin: 25px 0 0 0px;
+    
+    padding: 1px 5px;
+}
+
+.btn.viewone{
+    margin: 0;
     padding: 1px 5px;
 }
 /*editor manage====================================================================*/
@@ -211,4 +216,13 @@
 
 .form-horizontal textarea{
     width: 95%;
+}
+#checkdetail{
+    width: 700px;
+}
+#checkdetail .modal-body{
+    height: 500px;
+}
+#checkdetail input[type=checkbox]{
+    margin: 4px;
 }

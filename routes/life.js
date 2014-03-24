@@ -284,7 +284,7 @@ exports.addNewRestaurant = function(req, res){
         if (err) {
             res.send({isSuccess:false, info:err});
         } else {
-            res.send({isSuccess:true, _id:result._id});
+            res.send({isSuccess:true, _id:result._id,user_id:req.session.user._id});
         }
     });
 };
@@ -295,7 +295,7 @@ exports.updateRestaurant = function(req, res){
         if (err) {
              res.send({isSuccess:false, info:err});
         } else {
-            res.send({isSuccess:true, _id:result._id});
+            res.send({isSuccess:true, _id:result._id,user_id:req.session.user._id});
         }
     });
 };
@@ -366,7 +366,7 @@ exports.addNewShopping = function(req, res){
         if (err) {
             res.send({isSuccess:false, info:err});
         } else {
-            res.send({isSuccess:true, _id:result._id});
+            res.send({isSuccess:true, _id:result._id,user_id:req.session.user._id});
         }
     });
 };
@@ -377,7 +377,7 @@ exports.updateShopping = function(req, res){
         if (err) {
              res.send({isSuccess:false, info:err});
         } else {
-            res.send({isSuccess:true, _id:result._id});
+            res.send({isSuccess:true, _id:result._id,user_id:req.session.user._id});
         }
     });
 };
@@ -435,7 +435,7 @@ exports.addNewEntertainment = function(req, res){
         if (err) {
             res.send({isSuccess:false, info:err});
         } else {
-            res.send({isSuccess:true, _id:result._id});
+            res.send({isSuccess:true, _id:result._id,user_id:req.session.user._id});
         }
     });
 };
@@ -446,7 +446,7 @@ exports.updateEntertainment = function(req, res){
         if (err) {
              res.send({isSuccess:false, info:err});
         } else {
-            res.send({isSuccess:true, _id:result._id});
+            res.send({isSuccess:true, _id:result._id,user_id:req.session.user._id});
         }
     });
 };

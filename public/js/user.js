@@ -45,6 +45,11 @@ $(weego_user.init());
         idAttribute:"_id"
     });
 
+    weego_user.TaskquestionModel = Backbone.Model.extend({
+        urlRoot:'/taskquestion',
+        idAttribute:"_id"
+    });
+
 
     weego_user.LoginView = Backbone.View.extend({
         el:'#app',
@@ -73,8 +78,9 @@ $(weego_user.init());
                         if (model.get('login') == true) {
                             weego_user.globalUser = {};
                             weego_user.globalUser.username = model.get('username');
+                            weego_user.globalUser._id = model.get('_id');
                             weego_user.globalUser.type = model.get('type');
-                            var cookieUser = {'username':weego_user.globalUser.username,'type':weego_user.globalUser.type};
+                            var cookieUser = {'_id':weego_user.globalUser._id,'username':weego_user.globalUser.username,'type':weego_user.globalUser.type};
                             $.cookie('user',JSON.stringify(cookieUser),{expires:1});
                             // if (weego.globalCurrentUrl == '#login'||weego.globalCurrentUrl=='') {
                             //     weego.globalCurrentUrl = '#city/1';
@@ -132,6 +138,18 @@ $(weego_user.init());
                     }
                 },this)
             });
+
+            $.ajax({
+                url:"/taskquestions/"+this.pageLimit+'/'+this.currentPage,
+                success: _.bind(function (data) {
+                    if(data.status){
+                        this.appendTaskquestionHTML(data);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                },this)
+            });
+           
         },
         appendAuditingHTML:function(data){
             var results = data.results;
@@ -176,7 +194,8 @@ $(weego_user.init());
                 itemHtml += '<tr>'+
                 '<td>'+item.name+'</td>'+
                 '<td>'+displayTime[0]+'</td>'+
-                '<td>'+item.total+'条</td>'+
+                '<td>'+item.total+'条['+item.attraction_num+'条景点,'+
+                item.restaurant_num+'条餐馆,'+item.shopping_num+'条购物,'+item.entertainment_num+'条娱乐]</td>'+
                 '<td>'+item.days+'天</td>'+
                 '<td>'+item.desc+'</td>'+
                 '<td>'+status+'</td>'+
@@ -186,6 +205,30 @@ $(weego_user.init());
             $('#task-list-current-page').html('1');
             $('#task-list-total').html(data.count);
             $('#task-list-page-count').html(Math.floor(data.count/this.pageLimit) + 1);
+        },
+        appendTaskquestionHTML:function(data){
+            var results = data.results;
+            var itemHtml = '';
+            for(var i=0;i<results.length;i++){
+                var item = results[i];
+                var displayTime = item.create_at.split('T');
+                var isClosed = item.is_closed?'已解决':'待解决';
+                var closeHTML = '<td><a href="#" ><span class="setClosed">close</span></a></td>';
+                if(item.is_closed)
+                    closeHTML = '<td><span>close</span></td>'
+                itemHtml += '<tr class="itemtr" taskquestionId="'+item._id+'">'+
+                '<td>'+item.asker_name+'</td>'+
+                '<td>'+displayTime[0]+'</td>'+
+                '<td width=60%>'+item.content+'</td>'+
+                '<td class="isClosed">'+isClosed+'</td>'+
+                closeHTML+
+                // '<a href="#" ><span class="setOpen">open</span></td>'+
+                '</tr>';
+            }
+            $('#myTaskquestion').html(itemHtml);
+            $('#taskquestion-list-current-page').html('1');
+            $('#taskquestion-list-total').html(data.count);
+            $('#taskquestion-list-page-count').html(Math.floor(data.count/this.pageLimit) + 1);
         },
         events:{
             "click .showDetail":"showDetail",
@@ -199,6 +242,36 @@ $(weego_user.init());
             "click #taskquestion-first":"taskquestionFirst",
             "click #taskquestion-pre":"taskquestionPre",
             "click #taskquestion-next":"taskquestionNext",
+            "click .setClosed":"setClosed",
+            "click .setOpen":"setOpen"
+        },
+        setClosed:function(evt){
+            evt.preventDefault();
+            $.ajax({
+                url:"/closeTaskquestion/"+$(evt.currentTarget).closest(".itemtr").attr('taskquestionId'),
+                success: _.bind(function (data) {
+                    if(data.status){
+                        console.log(data);
+                       $(evt.currentTarget).parent().parent().siblings(".isClosed").html('已解决');
+                       $(evt.currentTarget).parent().after('<span>close</span>').end().remove();
+                    }else{
+                        alert('设置失败！请联系管理员！');
+                    }
+                },this)
+            });
+        },
+        setOpen:function(evt){
+            evt.preventDefault();
+            $.ajax({
+                url:"/openTaskquestion/"+$(evt.currentTarget).closest(".itemtr").attr('taskquestionId'),
+                success: _.bind(function (data) {
+                    if(data.status){
+                       $(evt.currentTarget).parent().siblings(".isClosed").html('待解决');
+                    }else{
+                        alert('设置失败！请联系管理员！');
+                    }
+                },this)
+            });
         },
         showDetail:function(evt){
             var $this=$(evt.currentTarget);
@@ -416,28 +489,15 @@ $(weego_user.init());
     //管理员主页 
     weego_user.AdminMainView = Backbone.View.extend({
         el:"#app",
+        currentPage: 1,
+        pageLimit: 10,
         initialize:function(){
             var thisView=this;
             if(weegoCache.adminMainTpl){
                 thisView.$el.empty().append(weegoCache.adminMainTpl);
                 thisView.initMap();
                 thisView.initSelect();
-                $('a[data-toggle=modal]').on('click', function() {
-                    $(this).next().fadeIn();
-                });
-                $('button[data-toggle=modal').on('click', function() {
-                    $('#taskdetail').fadeIn();
-                    thisView.showTaskDetailStatistic();
-                });
-                $('.sendmsg').on('click', function() {
-                    $('#sendmsg').fadeIn();
-                });
-                $('.delete').on('click', function() {
-                    $('#myModal').fadeOut();
-                    $('#taskdetail').fadeOut();
-                    $('#addeditor').fadeOut();
-                    $('#sendmsg').fadeOut();
-                })
+                thisView.initData(thisView);
             }else{
                 $("<div/>").load("/templ/admin_personcenter.html",function(){
                     var template = Handlebars.compile($(this).html());
@@ -445,24 +505,56 @@ $(weego_user.init());
                     thisView.$el.empty().append(template());
                     thisView.initMap();
                     thisView.initSelect();
-                    $('a[data-toggle=modal]').on('click',function(){
-                        $(this).next().fadeIn();
-                    });
-                    $('button[data-toggle=modal').on('click',function(){
-                        $('#taskdetail').fadeIn();
-                        thisView.showTaskDetailStatistic();
-                    });
-                    $('.sendmsg').on('click',function(){
-                        $('#sendmsg').fadeIn();
-                    });
-                    $('.delete').on('click',function(){
-                        $('#myModal').fadeOut();
-                        $('#taskdetail').fadeOut();
-                        $('#addeditor').fadeOut();
-                        $('#sendmsg').fadeOut();
-                    })
+                    thisView.initData(thisView);
                 });
             }
+        },
+        initData: function(_this){
+            $.ajax({
+                url:"/getAllTasks/"+this.pageLimit+'/1',
+                success:function (data) {
+                    if(data.status){
+                        _this.appendTaskHTML(data);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                }
+            });
+        },
+        appendTaskHTML:function(data){
+            var results = data.results;
+            var itemHtml = '';
+            for(var i=0;i<results.length;i++){
+                var item = results[i];
+                var displayTime = item.create_at.split('T');
+               
+                itemHtml += '<li class="itemli" taskId="'+item._id+'"><div class="content"><ul class="taskdetail">'+
+                '<li><h3>'+item.editor_name+'</h3></li>'+
+                '<li><dl><dt><h5>'+item.city_name+'</h5></dt>'+
+                '<dd><p>'+item.attraction_num+'个城市景点，'+
+                item.restaurant_num+'个餐馆，'+
+                item.shopping_num+'个购物，'+
+                item.entertainment_num+'个娱乐信息</p></dd>'+
+                '<dd><em>开始于'+displayTime[0]+'</em></dd></dl></li>'+
+                '<li><h4>'+item.days+'天</h4><p>任务时长</p></li>'+
+                '<li><h4>'+item.finish_rate+'%</h4><p>当前完成</p></li>'+
+                '<li><button data-toggle="modal" class="btn btn-primary viewdetail">查看</button>'+
+                    '<button class="btn btn-warning deltask">删除</button>'+
+                    '<button class="btn btn-info sendmsg" editorId="'+item.editor_id+
+                    '" editorName="'+item.editor_name+'">发信息</button>'+
+                    '<button class="btn btn-primary checkeditor">审核</button></li></ul></div>'+
+                '<div class="progress"><div style="width: '+item.finish_rate+'%;" class="bar"></div></div></li>';
+            }
+            $('#allTask').html(itemHtml);
+            $('#checkdetail .modal-body').slimScroll({
+                color: '#00f',
+                size: '10px',
+                height: '180px',
+                alwaysVisible: true
+            });
+            // $('#task-list-current-page').html('1');
+            // $('#task-list-total').html(data.count);
+            // $('#task-list-page-count').html(Math.floor(data.count/this.pageLimit) + 1);
         },
         initMap : function(){
             console.log($('#vmap').length);
@@ -484,7 +576,41 @@ $(weego_user.init());
                 onRegionClick: function(element, code, region) {
                     var message = 'You clicked "' + region + '" which has the code: ' + code.toUpperCase();
                     $('#eachcountrydetail').find('li').eq(0).children('strong').html(region);
-                    // alert(message);
+                    $.ajax({
+                        url:"/getCountryStatistic/"+code.toUpperCase(),
+                        success:function (data) {
+                            if(data.status){
+                                var online = data.online;
+                                var lis = '';
+                                for(var i=0;i<online.length;i++){
+                                    var one = online[i];
+                                    lis +='<li><label for="">'+one.city_name+'</label>'+
+                                        '<strong>[已完成景点：'+one.attr_show+'，未完成：'+one.attr_not_show+']'+
+                                        '[已完成餐馆：'+one.rest_show+'，未完成：'+one.rest_not_show+']'+
+                                        '[已完成购物：'+one.shop_show+'，未完成：'+one.shop_not_show+']'+
+                                        '</strong></li>';
+                                }
+                                $('#online_num').html(online.length);
+                                $('#online').html(lis);
+                                var lis2 = '';
+                                var offline = data.offline;
+                                for(var i=0;i<offline.length;i++){
+                                    var one = offline[i];
+                                    lis2 +='<li><label for="">'+one.city_name+'</label>'+
+                                        '<strong>[已完成景点：'+one.attr_show+'，未完成：'+one.attr_not_show+']'+
+                                        '[已完成餐馆：'+one.rest_show+'，未完成：'+one.rest_not_show+']'+
+                                        '[已完成购物：'+one.shop_show+'，未完成：'+one.shop_not_show+']'+
+                                        '</strong></li>';
+                                }
+                                $('#offline_num').html(offline.length);
+                                console.log(offline.length);
+                                $('#offline').html(lis2);
+                                
+                            }else{
+                                alert('数据库异常！');
+                            }
+                        }
+                    });
                 }
             });
         },
@@ -523,33 +649,45 @@ $(weego_user.init());
             });
 
         },
-        showTaskDetailStatistic: function(){
-            $('#taskdetail-statistic').highcharts({
-                chart: {
-                    type: 'bar'
-                },
-                title: {
-                    text: '数据统计'
-                },
-                xAxis: {
-                    categories: ['景点', '餐馆', '购物']
-                },
-                yAxis: {
-                    title: {
-                        text: '数量'
+        showTaskDetailStatistic: function(e){
+            var taskId = $(e.currentTarget).closest('.itemli').attr('taskId');
+            $.ajax({
+                url:"/statistic/"+taskId,
+                success:function (data) {
+                    if(data.status){
+                        var task = data.task;
+                        $('#taskdetail-statistic').highcharts({
+                            chart: {
+                                type: 'bar'
+                            },
+                            title: {
+                                text: '数据统计'
+                            },
+                            xAxis: {
+                                categories: ['景点', '餐馆', '购物']
+                            },
+                            yAxis: {
+                                title: {
+                                    text: '数量'
+                                }
+                            },
+                            series: [{
+                                name: '任务总数',
+                                data: [task.attraction_num, task.restaurant_num, task.shopping_num]
+                            }, {
+                                name: '已完成',
+                                data: [data.att_done, data.res_done, data.shop_done]
+                            },{
+                                name: '待审核[审核不通过]',
+                                data: [data.att_ask, data.res_ask, data.shop_ask]
+                            }]
+                        });
+                    }else{
+                        alert('数据库异常！');
                     }
-                },
-                series: [{
-                    name: '任务总数',
-                    data: [50, 200, 54]
-                }, {
-                    name: '已完成',
-                    data: [16, 103, 5]
-                },{
-                    name: '待审核',
-                    data: [16, 103, 5]
-                }]
+                }
             });
+            
         },
         events:{
             'click #sendTask': 'sendTask',
@@ -558,6 +696,100 @@ $(weego_user.init());
             'change #restaurant_num': 'numChange',
             'change #shopping_num': 'numChange',
             'change #entertainment_num': 'numChange',
+            'click .viewdetail': 'viewdetail',
+            'click .checkeditor': 'checkdetail',
+            'click .sendmsg': 'sendmsg',
+            'click .deltask': 'deltask',
+            'click .delete':'delete',
+            'click .icomoon-plus': 'newTask',
+            'click #sendApproval': 'sendApproval',
+            'click #sendMessage': 'sendMessage'
+        },
+        newTask: function(e){
+            $('#myModal').fadeIn();
+        },
+        deltask: function(e){
+            var taskId = $(e.currentTarget).closest('.itemli').attr('taskId');
+            if(confirm('你确定删除本次任务吗？审批记录条也将随之删除！')){
+                var taskModel = new weego_user.TaskModel();
+                taskModel.set('_id', taskId);
+                taskModel.destroy();
+                $(e.currentTarget).closest('.itemli').remove();
+            }
+        },
+        viewdetail:function(e){
+            // $(e.currentTarget()).next().fadeIn();
+            $('#taskdetail').fadeIn();
+            this.showTaskDetailStatistic(e);
+        },
+        checkdetail:function(e){
+            $('#checkdetail').fadeIn();
+            var taskId = $(e.currentTarget).closest('.itemli').attr('taskId');
+            $('#checkdetail-list').attr('taskId',taskId);
+            $.ajax({
+                url:"/getApprovalAuditings/"+taskId,
+                success:function (data) {
+                    if(data.status){
+                        var results = data.results;
+                        console.log(data);
+                        var itemHtml = '';
+                        for(var i=0;i<results.length;i++){
+                            var item = results[i];
+                            var displayTime = item.mod_at.split('T');
+                            var type = item.type=='0'?'景点':item.type=='1'?'餐馆':item.type=='2'?'购物':'娱乐';
+                            itemHtml += '<tr class="approval-auditing" auditingId="'+item._id+'">'+
+                            '<td>'+displayTime[0]+'</td>'+
+                            '<td>'+type+'</td>'+
+                            '<td>'+item.city_name+'</td>'+
+                            '<td>'+item.name+'</td>'+
+                            '<td><a href="" target="<_blank></_blank>" class="btn viewone">查看</a></td>'+
+                            '<td>通过<input type="checkbox" style="float:none " class="pass-auditing">'+
+                            '不通过<input type="checkbox" style="float:none " class="refuse-auditing"></td></tr>';
+                        }
+                        $('#checkdetail-list').html(itemHtml);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                }
+            });
+        },
+        sendmsg:function(e){
+            $('#sendmsg').fadeIn();
+            $('#sendMessage').attr('editorId',$(e.currentTarget).attr('editorId'));
+            $('#sendMessage').attr('editorName',$(e.currentTarget).attr('editorName'));
+        },
+        sendMessage:function(e){
+            var curr_user = jQuery.parseJSON($.cookie('user'));
+            var content = $('#taskquestion-content').val();
+            if(!content){
+                alert('内容不能为空！');
+                return false;
+            }
+            var item = {
+                asker_id:curr_user._id,
+                asker_name:curr_user.username,
+                answer_id : $(e.currentTarget).attr('editorId'),
+                answer_name : $(e.currentTarget).attr('editorName'),
+                content : content
+            };
+            var taskquestionModel = new weego_user.TaskquestionModel(item);
+            taskquestionModel.save({},{
+                success:function(model, res){
+                    if(res.status){
+                        $('#sendmsg').fadeOut();
+                        alert('发送成功');
+                    }else{
+                        alert('保存失败'+res.err);
+                    }
+                }
+            });
+        },
+        delete:function(e){
+            $('#myModal').fadeOut();
+            $('#taskdetail').fadeOut();
+            $('#checkdetail').fadeOut();
+            $('#addeditor').fadeOut();
+            $('#sendmsg').fadeOut();
         },
         numChange: function(){
             var attraction_num = $('#attraction_num').val();
@@ -620,6 +852,7 @@ $(weego_user.init());
                 var city_name = $('#city_select').find("option:selected").text();
                 var item = {
                     editor_id:$('#editor_select').val(),
+                    editor_name:$('#editor_select').find("option:selected").text(),
                     city_id:$('#city_select').val(),
                     city_name:city_name,
                     days:days,
@@ -646,7 +879,41 @@ $(weego_user.init());
                
             }
 
-        }
+        },
+        sendApproval:function(e){
+            var list = $('#checkdetail-list').children('.approval-auditing');
+            var pass = [];
+            var refuse = [];
+            for(var i=0;i<list.length;i++){
+                var pass_flag = $(list[i]).find('.pass-auditing').prop('checked');
+                if(pass_flag){
+                    pass.push($(list[i]).attr('auditingId'));
+                }
+                var refuse_flag = $(list[i]).find('.refuse-auditing').prop('checked');
+                if(refuse_flag)
+                    refuse.push($(list[i]).attr('auditingId'));
+            }
+            var taskId = $('#checkdetail-list').attr('taskId');
+            if(confirm('你确定递交审核么？')){
+                $.ajax({
+                    url:"/approvalAuditings",
+                    type:'POST',
+                    data: {
+                        'pass': pass,
+                        'refuse': refuse,
+                        'taskId':taskId
+                    },
+                    success:function (data) {
+                        if(data.status){
+                            $('#checkdetail').fadeOut();
+                        }else{
+                            alert('数据库异常！');
+                        }
+                    }
+                });
+            }
+            
+        },
     });
 
     weego_user.UserView = Backbone.View.extend({
