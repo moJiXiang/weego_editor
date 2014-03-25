@@ -300,6 +300,10 @@ exports.updateRestaurant = function(req, res){
     });
 };
 
+exports.publishRestaurant = function(_id,callback){
+    Restaurant.updateShowFlag(_id,true,callback);
+};
+
 //-----------------------------------shopping-----------------------------------
 
 exports.getShopping = function(req, res){
@@ -382,6 +386,10 @@ exports.updateShopping = function(req, res){
     });
 };
 
+exports.publishShopping = function(_id,callback){
+    Shopping.updateShowFlag(_id,true,callback);
+};
+
 //-----------------------------------entertainment-----------------------------------
 
 exports.getEntertainment = function(req, res){
@@ -449,6 +457,10 @@ exports.updateEntertainment = function(req, res){
             res.send({isSuccess:true, _id:result._id,user_id:req.session.user._id});
         }
     });
+};
+
+exports.publishEntertainment = function(_id,callback){
+    Entertainment.updateShowFlag(_id,true,callback);
 };
 
 //-----------------------------------image-----------------------------------------

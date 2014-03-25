@@ -149,7 +149,7 @@ $(weego_user.init());
                     }
                 },this)
             });
-           
+
         },
         appendAuditingHTML:function(data){
             var results = data.results;
@@ -737,12 +737,22 @@ $(weego_user.init());
                             var item = results[i];
                             var displayTime = item.mod_at.split('T');
                             var type = item.type=='0'?'景点':item.type=='1'?'餐馆':item.type=='2'?'购物':'娱乐';
+                            var href = '';
+                            if(item.type=='0'){
+                                href='#attractions/1/q_'+item.city_name+'/q_'+item.name;
+                            }else if(item.type=='1'){
+                                href='#lifes/1/1/q_'+item.city_name+'/q_'+item.name;
+                            }else if(item.type=='2'){
+                                href='#lifes/1/2/q_'+item.city_name+'/q_'+item.name;
+                            }else{
+                                href='#lifes/1/3/q_'+item.city_name+'/q_'+item.name;
+                            }
                             itemHtml += '<tr class="approval-auditing" auditingId="'+item._id+'">'+
                             '<td>'+displayTime[0]+'</td>'+
                             '<td>'+type+'</td>'+
                             '<td>'+item.city_name+'</td>'+
                             '<td>'+item.name+'</td>'+
-                            '<td><a href="" target="<_blank></_blank>" class="btn viewone">查看</a></td>'+
+                            '<td><a href="'+href+'" target="_blank" class="btn viewone">查看</a></td>'+
                             '<td>通过<input type="checkbox" style="float:none " class="pass-auditing">'+
                             '不通过<input type="checkbox" style="float:none " class="refuse-auditing"></td></tr>';
                         }

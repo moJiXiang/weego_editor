@@ -94,6 +94,7 @@ var LifeView = Backbone.View.extend({
     initialize: function(){
         // alert('');
         this.template = Handlebars.compile($('#lifeDetailView').html());
+
     },
     events: {
         'change #property-type': 'selectType',
@@ -116,6 +117,11 @@ var LifeView = Backbone.View.extend({
         'click .li-del':'delLi'
     },
     render: function(){
+        if(weego_user.globalUser.type == 1){
+             this.model.set('_show_flag',true);
+        }else{
+            this.model.set('_show_flag',false);
+        }
         this.$el.html(this.template(this.model.toJSON()));
         this.initSelect();
         return this;
@@ -125,45 +131,47 @@ var LifeView = Backbone.View.extend({
         var in_big_id = this.model.get('in_big_id');
         var is_big = this.model.get('is_big');
         var area_id = this.model.get('area_id');
-        $.ajax({
-            url:"/getAreasByCityId/"+cityid,
-            success:function (data) {
-                if(data.status){
-                    var areas = data.results;
-                    var option = '';
-                    for(var i=0;i<areas.length;i++){
-                        var area = areas[i];
-                        var selected = "";
-                        if(area_id&&area._id.toString()==(area_id+''))
-                            selected = "selected";
-                        option +='<option value="'+area._id+'" '+selected+'>'+area.name+'</option>';
+        if(cityid){
+            $.ajax({
+                url:"/getAreasByCityId/"+cityid,
+                success:function (data) {
+                    if(data.status){
+                        var areas = data.results;
+                        var option = '';
+                        for(var i=0;i<areas.length;i++){
+                            var area = areas[i];
+                            var selected = "";
+                            if(area_id&&area._id.toString()==(area_id+''))
+                                selected = "selected";
+                            option +='<option value="'+area._id+'" '+selected+'>'+area.name+'</option>';
+                        }
+                        $('#area_select').html(option);
+                    }else{
+                        alert('数据库异常！');
                     }
-                    $('#area_select').html(option);
-                }else{
-                    alert('数据库异常！');
                 }
-            }
-        });
-            
-        $.ajax({
-            url:"/getBigShoppingByCityId/"+cityid,
-            success:function (data) {
-                if(data.status){
-                    var bigShoppings = data.results;
-                    var option = '';
-                    for(var i=0;i<bigShoppings.length;i++){
-                        var big = bigShoppings[i];
-                        var selected = "";
-                        if(!is_big&&in_big_id&&big._id.toString()==(in_big_id+''))
-                            selected = "selected";
-                        option +='<option value="'+big._id+'" '+selected+'>'+big.name+'</option>';
+            });
+                
+            $.ajax({
+                url:"/getBigShoppingByCityId/"+cityid,
+                success:function (data) {
+                    if(data.status){
+                        var bigShoppings = data.results;
+                        var option = '';
+                        for(var i=0;i<bigShoppings.length;i++){
+                            var big = bigShoppings[i];
+                            var selected = "";
+                            if(!is_big&&in_big_id&&big._id.toString()==(in_big_id+''))
+                                selected = "selected";
+                            option +='<option value="'+big._id+'" '+selected+'>'+big.name+'</option>';
+                        }
+                        $('#big_select').html(option);
+                    }else{
+                        alert('数据库异常！');
                     }
-                    $('#big_select').html(option);
-                }else{
-                    alert('数据库异常！');
                 }
-            }
-        });
+            });
+        }
 
         $.ajax({
             url:"/getMyToDoTasks",

@@ -16,7 +16,7 @@ var trim = function(str){
 };
 
 var isNull = function(str){
-	if(str==null ||str==undefined)
+	if(str==null ||str==undefined || str==''||str=='undefined')
 		return true;
 	else
 		return false;

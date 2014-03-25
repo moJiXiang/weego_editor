@@ -22,11 +22,15 @@ $(weego.init());
 
     weego.GlobalRouter = Backbone.Router.extend({
         routes:{
-            "city/:name/:pageno":"city_attractions", //
+            // "city/:name/:pageno":"city_attractions", //
+            "city/:pageno":"city", //根据页码展示city
+            "city/:pageno/:country/:cityname":"city", //根据页码展示city
+
             "attractions/:pageno":"list_attractions",
             "attractions":"list_attractions",
             "attraction/new":"showAttractionView",
             "attraction/:attractionId":"showAttractionView",
+            "attractions/:pageno/:cityname/:attname":"list_attractions",
 
             "lifes":"showLifeListView",
             "lifes/:pageno":"showLifeListView",
@@ -55,17 +59,18 @@ $(weego.init());
 
             "lifetag":"showLifeTagListView",
             "lifetag/:pageno":"showLifeTagListView",
+
             "hotel/new":"showHotelDetailView",
             "hotel/:id":"showHotelDetailView",
             "hotels":"showHotelListView",
             "hotels/:page":"showHotelListView",
-            "label":'list_label',
+            "hotels/:page/:cityname/:hotelname":"showHotelListView",
 
+            "label":'list_label',
             "login":'login',
             'user/:pageno':"list_user",
             "logout":"logout",
-
-            "city/:pageno":"city", //根据页码展示city
+            
             //"*actions":"list_city"//默认显示city
             "main":"userMain",
             "statistics":"dataStatistic",
@@ -95,7 +100,7 @@ $(weego.init());
                 $('.show-nav').fadeIn();
             }
             if (weego_user.globalUser) {
-                console.log(weego_user.globalUser);
+                // console.log(weego_user.globalUser);
                 if (weego_user.globalUser.type == 1) {
                     $('#tab-user').fadeIn();
                     $('.icomoon_user').css('display','');
@@ -138,12 +143,25 @@ $(weego.init());
             weego_label.defaultView = new weego_label.AppView();
             weego_label.defaultView.getData(weego_label.currentPage);
         },
-        city:function (pageno) {
+        city:function (pageno,country,cityname) {
             $('#tab-city').siblings().removeClass('active');
             $('#tab-city').addClass('active');
+            var query = {};
+            if(country){
+                var a=country.split('_');
+                if(a[1]){
+                    query.country = a[1];
+                }
+            }
+            if(cityname){
+                var a=cityname.split('_');
+                if(a[1]){
+                    query.cityname = a[1];
+                }
+            }
             weego_city.currentPage = pageno;
             weego_city.defaultView = new weego_city.AppView();
-            weego_city.defaultView.getData(weego_city.currentPage)
+            weego_city.defaultView.getData(weego_city.currentPage,query);
         },
         list_city:function () {
             $('#tab-city').siblings().removeClass('active');
@@ -152,21 +170,34 @@ $(weego.init());
             weego_city.defaultView = new weego_city.AppView();
             weego_city.defaultView.getData(weego_city.currentPage)
         },
-        city_attractions:function (name, pageno) {
+        // city_attractions:function (name, pageno) {
+        //     $('#tab-attractions').siblings().removeClass('active');
+        //     $('#tab-attractions').addClass('active');
+        //     weego.name = name;
+        //     weego.currentPage = pageno;
+        //     weego.defaultView = new weego.AppView();
+        //     weego.defaultView.getData(weego.currentPage, weego.name);
+        // },
+        list_attractions:function (pageno,cityname,attrname) {
             $('#tab-attractions').siblings().removeClass('active');
             $('#tab-attractions').addClass('active');
-            weego.name = name
-            weego.currentPage = pageno;
-            weego.defaultView = new weego.AppView();
-            weego.defaultView.getData(weego.currentPage, weego.name)
-        },
-        list_attractions:function (pageno) {
-            $('#tab-attractions').siblings().removeClass('active');
-            $('#tab-attractions').addClass('active');
-            weego.name = '';
+            var query = {};
+            if(cityname){
+                var a=cityname.split('_');
+                if(a[1]){
+                    query.cityname = a[1];
+                }
+            }
+            if(attrname){
+                var a=attrname.split('_');
+                if(a[1]){
+                    query.attrname = a[1];
+                }
+            }
+            // weego.name = '';
             weego.currentPage = (pageno == null ? 1 : pageno);
             weego.defaultView = new weego.AppView();
-            weego.defaultView.getData(weego.currentPage, weego.name);
+            weego.defaultView.getData(weego.currentPage,query);
         },
         showAttractionView: function(id){
             $('#app').off();
@@ -204,16 +235,30 @@ $(weego.init());
                 }});
             }
         },
-        showHotelListView: function(page){
+        showHotelListView: function(page,cityname,hotelname){
             $('#app').off();
             $('#app').empty();
             if(page == null){
-                var hotelListView = new HotelListView();
+                var query = {};
+                var hotelListView = new HotelListView(query);
                 hotelListView.render().showFirstPage();
                 hotelListView.$el.appendTo($('#app'));
             }
             if(page != null){
-                var hotelListView = new HotelListView();
+                var query = {};
+                if(cityname){
+                    var a=cityname.split('_');
+                    if(a[1]){
+                        query.cityname = a[1];
+                    }
+                }
+                if(hotelname){
+                    var a=hotelname.split('_');
+                    if(a[1]){
+                        query.hotelname = a[1];
+                    }
+                }
+                var hotelListView = new HotelListView(query);
                 hotelListView.render();
                 hotelListView.showByPage(page);
                 hotelListView.$el.appendTo($('#app'));
@@ -524,8 +569,14 @@ $(weego.init());
             });
             this.that = that;
             var _this = this;
+            _this.model = new weego.AttractionsModel();
+            if(weego_user.globalUser.type == 1){
+                _this.model.set('_show_flag',true);
+            }else{
+                _this.model.set('_show_flag',false);
+            }
             var template = Handlebars.compile($("#attractions_template").html());
-            $(template(_this.model)).appendTo(_this.$el);
+            $(template(_this.model.toJSON())).appendTo(_this.$el);
             this.delegateEvents(this.events);
             _this.initSelect();
             return this;
@@ -697,12 +748,13 @@ $(weego.init());
             for (var i = 0; i < $('.labels').length; i++) {
                 array_label.push($('.labels').eq(i).attr('data-value'));
             }
+            var show_flag = $('#show_flag').prop('checked')?'1':'0';
             var newAttractions = new weego.AttractionsModel({cityname:$("#city_select").find("option:selected").text(),
                 cityid:$("#city_select").val(), attractions_en:$("#attractions_en").val(),
                 address:$('#address').val(), price:$('#price').val(), opentime:$('#opentime').val(), traffic_info:$('#traffic_info').val(),
 				dayornight:$('input:radio[name="dayornight"]:checked').val(),website:$("#website").val(), telno:$("#telno").val(),
                 attractions:$("#attractions").val(), introduce:$("#introduce").val(), short_introduce:$("#short_introduce").val(),
-                recommand_duration:$('#recommand_duration').val(),recommand_flag:$('input:radio[name="recommand_flag"]:checked').val(), show_flag:$('input:radio[name="show_flag"]:checked').val(),
+                recommand_duration:$('#recommand_duration').val(),recommand_flag:$('input:radio[name="recommand_flag"]:checked').val(), show_flag:show_flag,
                 masterLabel:$("#masterLabel").attr('data-value'), subLabel:array_label, latitude:$("#latitude").val(), longitude:$("#longitude").val()});
             newAttractions.save(null, {
                 success:function (model, res) {
@@ -763,6 +815,11 @@ $(weego.init());
                 position:'relative'
             });
             var _this = this;
+            if(weego_user.globalUser.type == 1){
+                 _this.model.set('_show_flag',true);
+            }else{
+                _this.model.set('_show_flag',false);
+            }
             var template = Handlebars.compile($("#attractions_detail_template").html());
             $(template(_this.model.toJSON())).appendTo(_this.$el);
             this.delegateEvents(this.events);
@@ -933,11 +990,12 @@ $(weego.init());
             for (var i = 0; i < $('.labels').length; i++) {
                 array_label.push($('.labels').eq(i).attr('data-value'));
             }
+            var show_flag = $('#show_flag').prop('checked')?'1':'0';
             _this.model.save({cityname:$("#city_select").find("option:selected").text(),
                 cityid:$("#city_select").val(), attractions_en:$("#attractions_en").val(), attractions:$("#attractions").val(), address:$('#address').val(), price:$('#price').val(), opentime:$('#opentime').val(),
                 traffic_info:$('#traffic_info').val(),dayornight:$('input:radio[name="dayornight"]:checked').val(),
                 website:$("#website").val(), telno:$("#telno").val(), introduce:$("#introduce").val(), short_introduce:$("#short_introduce").val(), recommand_flag:$('input:radio[name="recommand_flag"]:checked').val(),
-                recommand_duration:$('#recommand_duration').val(),show_flag:$('input:radio[name="show_flag"]:checked').val(), masterLabel:$("#masterLabel").attr('data-value'), subLabel:array_label,
+                recommand_duration:$('#recommand_duration').val(),show_flag:show_flag, masterLabel:$("#masterLabel").attr('data-value'), subLabel:array_label,
                 latitude:$("#latitude").val(), longitude:$("#longitude").val()}, {
                 success:function (model, res) {
                     if (!res.isSuccess) {
@@ -1230,6 +1288,7 @@ $(weego.init());
     });
     weego.AppView = Backbone.View.extend({
         el:'#app',
+        query:{},
         initialize:function () {
             _.bindAll(this, 'render', 'nextPage', 'prePage', 'appendAttractions', 'addAttractions', 'getData');
             this.collection = new weego.AttractionsColletion();
@@ -1247,7 +1306,13 @@ $(weego.init());
         events:{
             'click #addAttractionsButton':'addAttractions',
             'click #nextPageButton':'nextPage',
-            'click #prePageButton':'prePage'
+            'click #prePageButton':'prePage',
+            'click #search-city-button':'search'
+        },
+        search:function(){
+            var cityname = $('#search-city-cityname').val();
+            var attrname = $('#search-city-attraction').val();
+            self.location = '#attractions/1/q_'+cityname+'/q_'+attrname;
         },
         addAttractions:function () {
             // new weego.AttractionsDetailView().render(this).$el.new_modal({
@@ -1268,30 +1333,27 @@ $(weego.init());
                 return;
             }
             weego.currentPage = parseInt(weego.currentPage) + 1;
-            if (weego.name != '') {
-                self.location = "#city/" + weego.name + "/" + weego.currentPage;
-            } else {
-                self.location = "#attractions/" + weego.currentPage;
-            }
-
+            // if (weego.name != '') {
+            //     self.location = "#city/" + weego.name + "/" + weego.currentPage;
+            // } else {
+            //     self.location = "#attractions/" + weego.currentPage;
+            // }
+            self.location = "#attractions/" + weego.currentPage+'/q_'+this.query.cityname+'/q_'+this.query.attrname;
         },
         prePage:function () {
             if (weego.currentPage > 1) {
                 weego.currentPage = parseInt(weego.currentPage) - 1;
-                if (weego.name != '') {
-                    self.location = "#city/" + weego.name + "/" + weego.currentPage;
-                } else {
-                    self.location = "#attractions/" + weego.currentPage;
-                }
+                self.location = "#attractions/" + weego.currentPage+'/q_'+this.query.cityname+'/q_'+this.query.attrname;
             } else {
                 alert("无上一页");
             }
         },
-        getData:function (_index, name) {
+        getData:function (_index,query) {
+            this.query = query;
             var _this = this;
             var cityname = name || "";
             $.ajax({
-                url:'/getAttractionsByPage/' + weego.limit + '/' + _index + '/' + cityname,
+                url:'/getAttractionsByPage/' + weego.limit + '/' + _index + '?cityname='+query.cityname+'&attrname='+query.attrname,
                 type:'GET',
                 success:function (data) {
                     weego.count = data.count;
@@ -1316,6 +1378,12 @@ $(weego.init());
                             alert("无下一页");
                             weego.currentPage--;
                         }
+                    }
+                    if(!isNull(query.cityname)){
+                        _this.$('#search-city-cityname').attr('value',query.cityname);
+                    }
+                    if(!isNull(query.attrname)){
+                        $('#search-city-attraction').val(query.attrname);
                     }
                 }
             });

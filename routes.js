@@ -26,7 +26,7 @@ module.exports = function(app) {
 
 
 	app.get('/getAllAttractions', routes.attractions.getAllAttractions);
-	app.get('/getAttractionsByPage/:pageLimit/:pageIndex/:name?', routes.attractions.getAllAttractionsByPage);
+	app.get('/getAttractionsByPage/:pageLimit/:pageIndex?', routes.attractions.getAllAttractionsByPage);
 
 	app.get('/getAllUserCreateAttractionsByPage/:pageLimit/:pageIndex/:name?', routes.attractions.getAllUserCreateAttractionsByPage);
 	app.get('/checkattractions/:attractionsID', routes.attractions.getAttractions);
@@ -46,7 +46,7 @@ module.exports = function(app) {
 	app.put('/city/:cityID', routes.city.updateCity);
 	app.get('/getAllCity', routes.city.getAllCity);
 	app.get('/getAllCityBaseInfo', routes.city.getAllCityBaseInfo);
-	app.get('/getCityByPage/:pageLimit/:pageIndex', routes.city.getCityByPage);
+	app.get('/getCityByPage/:pageLimit/:pageIndex?', routes.city.getCityByPage);
 	app.get('/getCityByLabelID/:labelID', routes.city.getCityByLabelID);
 	app.get('/getCountriesByContinent/:continentCode',routes.city.getCountriesByContinent);
 	app.get('/getCityByCountry/:countryCode',routes.city.getCityByCountry);
@@ -81,7 +81,7 @@ module.exports = function(app) {
 	app.post('/hotel', routes.hotel.addNewHotel);
 	app.get('/hotel/image/:fileName', routes.hotel.getImage);
 	app.post('/hotel/image/:hotelId', routes.hotel.uploadImage);
-	app.get('/hotels/:pageLimit/:pageIndex', routes.hotel.getHotelByPage);
+	app.get('/hotels/:pageLimit/:pageIndex?', routes.hotel.getHotelByPage);
 	app.get('/delUploadImageHotel/:_id/:imageName',routes.hotel.delUploadImageHotel);
 
 	//category

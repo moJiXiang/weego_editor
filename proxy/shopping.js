@@ -55,6 +55,19 @@ exports.count = function (query,callback) {
   Shopping.count(query, callback);
 };
 
+exports.updateShowFlag = function(_id,show_flag,callback){
+	exports.getShopping(_id,function(err,one){
+		if(one){
+			one.show_flag = show_flag;
+			one.save(function(err2){
+				callback(err2,one);
+			});
+		}else{
+			callback(err,one);
+		}
+	});
+};
+
 exports.update = function(one,callback){
 	exports.getShopping(new ObjectID(one._id+''),function(err,shopping){
 		if(shopping){

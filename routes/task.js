@@ -4,6 +4,8 @@ var Auditing = require('../proxy').Auditing;
 var Util = require('./util');
 var ObjectID = require('mongodb').ObjectID;
 var EventProxy = require('eventproxy');
+var Attraction = require('./attractions');
+var Life = require('./life');
 
 //-------------------------task----------------------------
 exports.getTask = function(req,res){
@@ -238,7 +240,6 @@ exports.approvalAuditings = function(req,res){
 
     var ep = new EventProxy();
     ep.all('pass','refuse',function (pass,refuse) {
-        console.log(taskId);
         Task.updateFinishRate(taskId,function(err,task){
             res.send({status:true});
         });
@@ -253,7 +254,8 @@ exports.approvalAuditings = function(req,res){
         });
         for(var i=0;i<pass.length;i++){
             (function(k){
-                Auditing.updateStatus(pass[k],50,ep.done('savePass'));
+                //Auditing.updateStatus(pass[k],50,ep.done('savePass'));
+                passAuditing(pass[k],ep.done('savePass'));
             })(i);
         }
     }
@@ -274,6 +276,26 @@ exports.approvalAuditings = function(req,res){
         ep.emit('refuse');
 
 };
+
+function passAuditing(_id,callback){
+    Auditing.updateStatus(_id,50,function(err,one){
+        if(one){
+            if(one.type=='0'){
+                Attraction.publishAttraction(one.item_id,callback);
+            }else if(one.type=='1'){
+                Life.publishRestaurant(one.item_id,callback);
+            }else if(one.type == '2'){
+                Life.publishShopping(one.item_id,callback);
+            }else if(one.type == '3'){
+                Life.publishEntertainment(one.item_id,callback);
+            }else{
+                callback('type is error');
+            }
+        }else{
+            callback(err,one);
+        }
+    });
+}
 
 //-------------------------taskquestion----------------------------
 exports.getTaskquestion = function(req,res){

@@ -174,6 +174,9 @@
                     城市：<input type="text" id="search-hotel-cityname"> 
                 </span>
                 <span>
+                    酒店名：<input type="text" id="search-hotel-hotelname"> 
+                </span>
+                <span>
                     <button id="search-hotel-button">查询</button>
                 </span>
             </section>
@@ -257,12 +260,16 @@
                         城市：<input type="text" id="search-city-cityname"> 
                     </span>
                     <span>
+                        景点名：<input type="text" id="search-city-attraction"> 
+                    </span>
+                    <span>
                         <button id="search-city-button">查询</button>
                     </span>
                 </section>
                 <table class="cmsTable">
                     <thead>
                     <tr>
+
                         <th>城市名</th>
                         <th>景点名(En)</th>
                         <th>景点名</th>
@@ -343,6 +350,7 @@
     </script>
 
     <script id="cityView" type="text/x-handlebars-template">
+        <td>{{countryname}}</td>
         <td>{{cityname}}</td>
         <td>{{cityname_en}}</td>
         <td>{{latitude}},{{longitude}}</td>
@@ -363,7 +371,7 @@
 
         <td><button data-value="{{_id}}" class="modify">修改</button></td>
         <td><button data-value="{{_id}}" class="delete">删除</button></td>
-        <td><a href="/index.html#city/{{cityname}}/1">景点</a>&nbsp;
+        <td><a href="/index.html#attractions/1/q_{{cityname}}/q_">景点</a>&nbsp;
         <a href="/index.html#lifes/1/1/q_{{cityname}}/q_">生活</a></td>
     </script>
 
@@ -384,7 +392,10 @@
         <div class="container">
             <section class="cmsQueryBar">
                 <span>
-                    国家：<input type="text" id="search-country-cityname"> 
+                    国家：<input type="text" id="search-country-cityname" value=""> 
+                </span>
+                <span>
+                    城市：<input type="text" id="search-cityname-cityname" value=""> 
                 </span>
                 <span>
                     <button id="search-city-button">查询</button>
@@ -393,6 +404,7 @@
             <table class="cmsTable">
                 <thead>
                 <tr>
+                    <th>国家</th>
                     <th>城市名</th>
                     <th>城市名(英文)</th>
                     <th>地理位置</th>
@@ -703,12 +715,12 @@
             <a href="#city/1" class="icomoon_city">城市</a>
             <a href="#attractions" class="icomoon_attraction">景点</a>
             <a href="#hotels" class="icomoon_hotel">酒店</a>
-            <a href="#label" class="icomoon_label">标签</a>
             <a href="#lifes" class="icomoon_life">生活信息</a>
             <a href="#categorys" class="icomoon_category">生活类型</a>
             <a href="#lifetags" class="icomoon_lifetag">生活标签</a>
             <a href="#areas" class="icomoon_life">城市区域</a>
             <a href="#user/1" class="icomoon_user">用户管理</a>
+            <a href="#label" class="icomoon_label">标签</a>
             <a href="CityLabeling.html" target="_blank" class="icomoon_labels">标签批量管理</a>
             <a href="#statistics" class="icomoon_user">数据统计</a>
         </section>

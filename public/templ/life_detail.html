@@ -12,7 +12,7 @@
     <div class="control-group">
         <label class="control-label" for="property-type">类型</label>
         <div class="controls">
-            <input id="show_flag" type="checkbox" {{#if show_flag}}checked{{/if}}> 
+            <input id="show_flag" {{#if _show_flag}} {{else}} disabled="disabled" {{/if}} type="checkbox" {{#if show_flag}}checked{{/if}}> 
             <label class="control-label show_flag" for="show_flag">是否显示</label>
             <select id="property-type">餐馆 | 购物 | 娱乐
                 <option value="1" {{#ifCond type '1'}}selected{{/ifCond}}>餐馆</option>

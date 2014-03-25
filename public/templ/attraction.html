@@ -115,11 +115,10 @@
                     <input type="radio" name="recommand_flag" value = "0" >不推荐<br>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="control-group" >
                 <label class="control-label">是否显示</label>
                 <div class="controls">
-                    <input type="radio" name="show_flag" value = "1"  >显示<br>
-                    <input type="radio" name="show_flag" value = "0" >不显示<br>
+                    <input id="show_flag" {{#if _show_flag}} {{else}} disabled="disabled" {{/if}} type="checkbox" >
                 </div>
             </div>
 

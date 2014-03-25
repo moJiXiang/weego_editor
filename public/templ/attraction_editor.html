@@ -123,16 +123,10 @@
                     {{/ifCond}}
                 </div>
             </div>
-            <div class="control-group">
+            <div class="control-group" >
                 <label class="control-label">是否显示</label>
                 <div class="controls">
-                    {{#ifCond show_flag '1'}}
-                    <input type="radio" name="show_flag" value = "1" checked>显示<br>
-                    <input type="radio" name="show_flag" value = "0" >不显示<br>
-                    {{else}}
-                    <input type="radio" name="show_flag" value = "1" >显示<br>
-                    <input type="radio" name="show_flag" value = "0" checked>不显示<br>
-                    {{/ifCond}}
+                    <input id="show_flag" {{#if _show_flag}} {{else}} disabled="disabled" {{/if}} type="checkbox" {{#ifCond show_flag "1"}}checked{{/ifCond}}> 
                 </div>
             </div>
 

@@ -16,6 +16,16 @@ var HotelCollection = Backbone.Collection.extend({
     model: HotelModel,
     currentPage: 1,
     pageLimit: 10,
+    query:'',
+    initialize: function(data){
+        if(data.cityname){
+            this.query += "cityname="+data.cityname + "&";
+        }
+        if(data.hotelname){
+            this.query += "hotelname="+data.hotelname+"&";
+        }
+        this.url = this.baseUrl +this.pageLimit+'/'+this.currentPage+'?'+this.query;
+    },
     parse: function(response){
         this.total = response.count;
         return response.hotels;
@@ -28,7 +38,7 @@ var HotelCollection = Backbone.Collection.extend({
         return true;
     },
     getByPage: function(limit, pageIndex, successCallback){
-        this.url = '/hotels/'+limit+'/'+pageIndex;
+        this.url = '/hotels/'+limit+'/'+pageIndex+'?'+this.query;
         this.fetch({success: successCallback});
     },
     getFirstPage: function(callback){
@@ -214,18 +224,22 @@ var HotelView = Backbone.View.extend({
 
 var HotelListView = Backbone.View.extend({
     template: Handlebars.compile($('#hotel-list-view').html()),
+    query:{},
     events:{
         'click #hotel-list-prev-page': 'showPrevPage',
-        'click #hotel-list-next-page': 'showNextPage'
+        'click #hotel-list-next-page': 'showNextPage',
+        'click #search-hotel-button': 'seach'
     },
-    initialize: function(){
-        
+    initialize: function(query){
         var that = this;
-        this.collection = new HotelCollection();
+        this.query = query;
+        this.collection = new HotelCollection(query);
         this.collection.on('all', function(){
             $('#hotel-list-current-page').html(that.collection.currentPage);
             $('#hotel-list-total').html(that.collection.total);
             $('#hotel-list-page-count').html(Math.floor(that.collection.total/that.collection.pageLimit) + 1);
+            $('#search-hotel-cityname').val(query.cityname);
+            $('#search-hotel-hotelname').val(isNull(query.hotelname)?query.hotelname:decodeURIComponent(query.hotelname));
         });
     },
     showHotelList: function(collection){
@@ -236,6 +250,11 @@ var HotelListView = Backbone.View.extend({
             var hotelListItemView = new HotelListItemView({model: model});
             hotelListItemView.render().$el.appendTo(that.tbodyPlaceHolder);
         })
+    },
+    seach:function(){
+        var cityname =$('#search-hotel-cityname').val();
+        var hotelname =$('#search-hotel-hotelname').val();
+        self.location = '/#hotels/1/q_'+cityname+'/q_'+encodeURIComponent(hotelname);
     },
     showFirstPage: function(){
         var that = this;
@@ -250,7 +269,7 @@ var HotelListView = Backbone.View.extend({
 //        });
         if(!this.collection.hasPage(parseInt(this.collection.currentPage)-1))
             return;
-        Backbone.history.navigate('hotels/'+(--this.collection.currentPage), {trigger:true});
+        Backbone.history.navigate('hotels/'+(--this.collection.currentPage)+'/q_'+this.query.cityname+'/q_'+encodeURIComponent(this.query.hotelname), {trigger:true});
     },
     showNextPage: function(){
 //        var that = this;
@@ -259,7 +278,7 @@ var HotelListView = Backbone.View.extend({
 //        });
         if(this.collection.hasPage(parseInt(this.collection.currentPage)+1) === false)
             return;
-        Backbone.history.navigate('hotels/'+(++this.collection.currentPage), {trigger:true});
+        Backbone.history.navigate('hotels/'+(++this.collection.currentPage)+'/q_'+this.query.cityname+'/q_'+encodeURIComponent(this.query.hotelname), {trigger:true});
     },
     showByPage: function(page){
         var that = this;

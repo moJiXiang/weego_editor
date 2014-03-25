@@ -18,6 +18,7 @@ var im = require('imagemagick');
 im.identify.path = global.imIdentifyPath;
 im.convert.path = global.imConvertPath;
 var upyunClient = require('./upyun/upyunClient');
+var Util = require('./util');
 
 exports.saveAttractions = function (req, res) {
     var data = req.body;
@@ -68,28 +69,22 @@ exports.deleteAttractions = function (req, res) {
 };
 exports.getAllAttractionsByPage = function (req, res) {
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
-    var name = req.params.name;
-    if (name != '' && name !== undefined) {
-        attractionsProvider.count({cityname:name,checkFlag:'1'}, function (err, count) {
-            attractionsProvider.find({cityname:name,checkFlag:'1'}, {skip:skip, limit:req.params.pageLimit,sort:{'show_flag':-1,'recommand_flag':-1}}, function (err, result) {
-                if (err) {
-                    res.send({err:err});
-                } else {
-                    res.send({attractions:result, count:count});
-                }
-            });
+    var cityname = req.query.cityname;
+    var attrname = req.query.attrname;
+    var query = {checkFlag:'1'};
+    if(!Util.isNull(cityname))
+        query.cityname = cityname;
+    if(!Util.isNull(attrname))
+        query.attractions = {$regex:attrname};
+    attractionsProvider.count(query, function (err, count) {
+        attractionsProvider.find(query, {skip:skip, limit:req.params.pageLimit,sort:{'show_flag':-1,'recommand_flag':-1}}, function (err, result) {
+            if (err) {
+                res.send({err:err});
+            } else {
+                res.send({attractions:result, count:count});
+            }
         });
-    } else {
-        attractionsProvider.count({checkFlag:'1'}, function (err, count) {
-            attractionsProvider.find({checkFlag:'1'}, {skip:skip, limit:req.params.pageLimit,sort:{'show_flag':-1,'recommand_flag':-1}}, function (err, result) {
-                if (err) {
-                    res.send({err:err});
-                } else {
-                    res.send({attractions:result, count:count});
-                }
-            });
-        });
-    }
+    });
 };
 exports.getAllUserCreateAttractionsByPage = function (req, res) {
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
@@ -570,4 +565,10 @@ exports.countByQuery = function(query,callback){
     attractionsProvider.count(query, callback);
 };
 
+exports.publishAttraction = function(_id,callback){
+    attractionsProvider.update({_id:_id},{$set:{show_flag:'1'}},{safe:true,multi:true},function(err,new_one){
+        if(err) callback(err);
+        else callback(null,new_one);
+    });
+};
 

@@ -22,6 +22,19 @@ exports.count = function (query,callback) {
   Entertainment.count(query, callback);
 };
 
+exports.updateShowFlag = function(_id,show_flag,callback){
+	exports.getEntertainment(_id,function(err,one){
+		if(one){
+			one.show_flag = show_flag;
+			one.save(function(err2){
+				callback(err2,one);
+			});
+		}else{
+			callback(err,one);
+		}
+	});
+};
+
 exports.update = function(one,callback){
 	exports.getEntertainment(new ObjectID(one._id+''),function(err,entertainment){
 		if(entertainment){

@@ -21,6 +21,7 @@ var EventProxy = require('eventproxy');
 var Attraction = require('./attractions');
 var Restaurant = require('../proxy').Restaurant;
 var Shopping  = require('../proxy').Shopping;
+var Util = require('./util');
 
 exports.getAllCity = function (req, res) {
     cityProvider.find({}, {}, function (err, result) {
@@ -43,9 +44,16 @@ exports.getAllCityBaseInfo = function(req,res){
 };
 
 exports.getCityByPage = function (req, res) {
+    var country = req.query.country;
+    var cityname = req.query.cityname;
+    var query = {};
+    if(!Util.isNull(country))
+        query.countryname = country;
+    if(!Util.isNull(cityname))
+        query.cityname = cityname;
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
-    cityProvider.count({}, function (err, count) {
-        cityProvider.find({}, {sort:{'show_flag':-1,'hot_flag':-1}, skip:skip, limit:req.params.pageLimit}, function (err, result) {
+    cityProvider.count(query, function (err, count) {
+        cityProvider.find(query, {sort:{'show_flag':-1,'hot_flag':-1}, skip:skip, limit:req.params.pageLimit}, function (err, result) {
             if (err) {
                 res.send({err:err});
             } else {
