@@ -41,14 +41,16 @@
 .icomoon-plus:before{
 	content: "\e601"
 }
-
+.widget-tasks-assigned{
+    max-height: 800px;
+}
 .usertable{
 	height: 324px;
 	border-bottom: 1px solid #ddd;
 }
 .widget{
 	width: 800px;
-	height: 410px;
+	/*height: 410px;*/
 	border-radius: 3px;
 	border: 1px solid #ddd;
 }
