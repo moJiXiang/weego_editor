@@ -1,0 +1,10 @@
+exports.Category = require('./category');
+exports.Entertainment = require('./entertainment');
+exports.Lifetag = require('./lifetag');
+exports.Restaurant = require('./restaurant');
+exports.Shopping = require('./shopping');
+exports.Bigtype = require('./bigtype');
+exports.Area = require('./area');
+exports.Task = require('./task');
+exports.Taskquestion = require('./taskquestion');
+exports.Auditing = require('./auditing');

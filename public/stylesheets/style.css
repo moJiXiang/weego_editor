@@ -1,11 +1,11 @@
-body {
+/*body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+}*/
 
-a {
+/*a {
   color: #00B7FF;
-}
+}*/
 .droperea{
     top: 0;
     left: 0;
@@ -207,9 +207,9 @@ a {
     font-size: 0.8em;
     font-weight: bold;
 }
-.container{
+/*.container{
     width:100%;
-}
+}*/
 .hero-unit{
     padding: 20px 10px;
 }
@@ -218,3 +218,41 @@ a {
 /**
     markdown css end
 */
+
+.control-right-label{
+    margin-left: 10px;
+}
+
+.controls li{
+    float:left;
+    list-style: none;
+}
+.form-horizontal .show_flag{
+    width: auto;
+}
+.basicmsg,#Rank-msg{
+    overflow: hidden;
+    border: 1px solid #e5e5e5;
+}
+legend{
+    background: #e5e5e5;
+}
+.basicmsg legend button{
+    margin: 5px 5px 0 0;
+}
+input[type=checkbox]{
+    float: left;
+    margin: 9px 0 0 0px;
+}
+.services ul{
+    overflow: hidden;
+    padding: 0 0 0 20px;
+}
+.services li{
+    float: left;
+    margin-right: 10px;
+    list-style: none;
+}
+.services li .control-label{
+    width: auto;
+}

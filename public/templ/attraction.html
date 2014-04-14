@@ -1,0 +1,152 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>添加景点</h3>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal">
+        <fieldset>
+            <div class="control-group">
+                <label class="control-label" for="task">所属任务</label>
+                <div class="controls">
+                    <select id="task_select"></select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">城市</label>
+                <input type="text" id="city" readonly placeholder="必填" value="" style="width:60px;margin-left:20px">
+                <select id="continents_select" name="continents" style="width:100px">
+                    <option value='AS'>亚洲</option>
+                    <option value='EU'>欧洲</option>
+                    <option value='NA'>美洲</option>
+                    <option value='SA'>南美</option>
+                    <option value='AF'>非洲</option>
+                    <option value='OC'>大洋洲</option>
+                </select>
+                <select id="country_select" style="width:150px">
+                    <option value=''></option>
+                </select>
+                <select id="city_select" style="width:150px">
+                    <option value=''></option>
+                </select><span class="help-inline">不能为空</span>
+            </div>
+           
+            <div class="control-group">
+                <label class="control-label" for="attractions_en">景点名(En)</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="attractions_en" name="attractions_en" type="text"><span class="help-inline">不能为空</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="attractions">景点名</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="attractions" name="attractions" type="text"><span class="help-inline">不能为空</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="address">地址</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="address" name="address" type="text"><span class="help-inline">不能为空</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="price">价格</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="price" name="price" type="text"><span class="help-inline"></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="opentime">开放时间</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="opentime" name="opentime" type="text"><span class="help-inline"></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="traffic_info">交通信息</label>
+                <div class="controls">
+                    <textarea id="traffic_info" name="traffic_info" style="width:80%;height:30px"></textarea>
+                </div>
+            </div>
+			<div class="control-group">
+                <label class="control-label">推荐白天或晚上</label>
+                <div class="controls">
+                    <input type="radio" name="dayornight" value = "1" >白天<br>
+                    <input type="radio" name="dayornight" value = "0" >晚上<br>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="website">网址</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="website" name="website" type="text"><span class="help-inline"></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="telno">电话</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="telno" name="telno" type="text"><span class="help-inline"></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="telno">推荐游览时间</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="recommand_duration" name="recommand_duration" type="text"><span class="help-inline"></span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="short_introduce">一句话简介</label>
+                <div class="controls">
+                    <textarea id="short_introduce" style="width:80%;height:60px"></textarea>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="introduce">简介</label>
+                <div class="controls">
+                    <textarea id="introduce" style="width:80%;height:150px"></textarea>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">是否推荐</label>
+                <div class="controls">
+                    <input type="radio" name="recommand_flag" value = "1"  >推荐<br>
+                    <input type="radio" name="recommand_flag" value = "0" >不推荐<br>
+                </div>
+            </div>
+            <div class="control-group" >
+                <label class="control-label">是否显示</label>
+                <div class="controls">
+                    <input id="show_flag" {{#if _show_flag}} {{else}} disabled="disabled" {{/if}} type="checkbox" >
+                </div>
+            </div>
+
+            <div class="control-group label-group">
+                <label class="control-label" >主标签</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="masterLabel" name="label" data-value="" type="text">
+                    <input type="button" value="增加标签" id="addlabel">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="latitude">纬度</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="latitude" name="latitude" type="text">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="longitude">经度</label>
+                <div class="controls">
+                    <input class="input-xlarge focused" id="longitude" name="longitude" type="text">
+                </div>
+            </div>
+
+            <div class="control-group operate-group">
+                <input type="button" class="btn btn-primary" id="save" value="保存"></button>
+                <button class="btn" id="cancel">取消</button>
+            </div>
+        </fieldset>
+    </form>
+    <div id="map_canvas" style="min-height:600px"></div>
+</div>

@@ -5,14 +5,13 @@
  * Time: 下午5:07
  * To change this template use File | Settings | File Templates.
  */
-var attractions = require('./attractions');
-var label = require('./label');
-var city = require('./city');
-var editUser = require('./editUser');
-var hotel = require('./hotel');
-exports.attractions = attractions;
-exports.label = label;
-exports.city = city;
-exports.editUser = editUser;
-exports.hotel = hotel;
+exports.attractions = require('./attractions');
+exports.label = require('./label');
+exports.city = require('./city');
+exports.editUser = require('./editUser');
+exports.hotel = require('./hotel');
 exports.dataImport = require('./dataImport');
+exports.life = require('./life');
+exports.lifeImport = require('./lifeImport');
+exports.task = require('./task');
+exports.auth = require('../midderwares/auth');

@@ -284,6 +284,7 @@ $(weego_city.init());
                 position:'relative'
             });
             var template = Handlebars.compile($("#city_edit_template").html());
+            _this.model.set('user',weego_user.globalUser);
             $(template(_this.model.toJSON())).appendTo(_this.$el);
             this.delegateEvents(this.events);
             return this;
@@ -488,6 +489,7 @@ $(weego_city.init());
             _this.model.fetch({
                 success:function () {
                     var template = Handlebars.compile($("#cityView").html());
+                    _this.model.set('user',weego_user.globalUser);
                     $(template(_this.model.toJSON())).appendTo(_this.$el);
                 }
             });
@@ -720,6 +722,7 @@ $(weego_city.init());
     });
     weego_city.AppView = Backbone.View.extend({
         el:'#app',
+        query:{},
         initialize:function () {
             _.bindAll(this, 'render', 'nextPage', 'prePage', 'appendCity', 'addCity', 'getData');
             this.collection = new weego_city.CityCollection();
@@ -730,14 +733,20 @@ $(weego_city.init());
             $('#app').empty();
             var _this = this;
             var template = Handlebars.compile($("#cityappView").html());
-            $(template()).appendTo(_this.$el);
+            $(template({user:weego_user.globalUser})).appendTo(_this.$el);
             _this.delegateEvents(_this.events);
             return this;
         },
         events:{
             'click #addCityButton':'addCity',
             'click #nextPageButton':'nextPage',
-            'click #prePageButton':'prePage'
+            'click #prePageButton':'prePage',
+            'click #search-city-button':'search'
+        },
+        search:function(){
+            var country = $('#search-country-cityname').val();
+            var cityname = $('#search-cityname-cityname').val();
+            self.location = '#city/1/q_'+country+'/q_'+cityname;
         },
         addCity:function () {
             new weego_city.AddCityDetailView().render(this).$el.new_modal({
@@ -757,20 +766,21 @@ $(weego_city.init());
                 return;
             }
             weego_city.currentPage = parseInt(weego_city.currentPage) + 1;
-            self.location = "#city/" + weego_city.currentPage;
+            self.location = "#city/" + weego_city.currentPage+'/q_'+this.query.country+'/q_'+this.query.cityname;
         },
         prePage:function () {
             if (weego_city.currentPage > 1) {
                 weego_city.currentPage = parseInt(weego_city.currentPage) - 1;
-                self.location = "#city/" + weego_city.currentPage;
+                self.location = "#city/" + weego_city.currentPage+'/q_'+this.query.country+'/q_'+this.query.cityname;
             } else {
                 alert("无上一页");
             }
         },
-        getData:function (_index) {
+        getData:function (_index,query) {
+            this.query = query;
             var _this = this;
             $.ajax({
-                url:'/getCityByPage/' + weego_city.limit + '/' + _index,
+                url:'/getCityByPage/' + weego_city.limit + '/' + _index+'?country='+query.country+'&cityname='+query.cityname,
                 type:'GET',
                 success:function (data) {
                     weego_city.count = data.count;
@@ -795,6 +805,12 @@ $(weego_city.init());
                             alert("无下一页");
                             weego_city.currentPage--;
                         }
+                    }
+                    if(!isNull(query.country)){
+                        _this.$('#search-country-cityname').attr('value',query.country);
+                    }
+                    if(!isNull(query.cityname)){
+                        $('#search-cityname-cityname').val(query.cityname);
                     }
                 }
             });
