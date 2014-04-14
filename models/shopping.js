@@ -21,6 +21,7 @@ var ShoppingSchema = new Schema({
   show_flag: {type:Boolean,default:false},
   create_at: { type: Date, default: Date.now },
   recommand_flag :{ type: Boolean, default:false },
+  index_flag :{ type: Boolean, default:false },
   local_flag :{ type: Boolean, default:false },
   ranking: { type: Number },
   area_id: {type: ObjectId},

@@ -322,6 +322,13 @@
           </div>
       </div>
       <div class="control-group">
+          <label class="control-label" for="index_flag">城市首页显示</label>
+          <div class="controls">
+              <input type="checkbox" id="index_flag" {{#if index_flag}}checked{{/if}}>
+              <label  class="control-label show_flag" for='index_flag'>是否放在城市首页显示</label><span style="color:red">*</span>
+          </div>
+      </div>
+      <div class="control-group">
           <label class="control-label" for="local_flag">当地特色</label>
           <div class="controls">
             <input type="checkbox" id="local_flag" {{#if local_flag}}checked{{/if}}>

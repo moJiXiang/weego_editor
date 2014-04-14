@@ -468,6 +468,7 @@ var LifeView = Backbone.View.extend({
             introduce : $('#introduce').val(),
             show_flag : $('#show_flag').prop('checked'),
             recommand_flag : $('#recommand_flag').prop('checked'),
+            index_flag : $('#index_flag').prop('checked'),
             local_flag : $('#local_flag').prop('checked'),
             michilin_flag : $('#michilin_flag').prop('checked'),
             ranking:$('#ranking').val(),

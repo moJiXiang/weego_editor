@@ -77,7 +77,7 @@ exports.getAllAttractionsByPage = function (req, res) {
     if(!Util.isNull(attrname))
         query.attractions = {$regex:attrname};
     attractionsProvider.count(query, function (err, count) {
-        attractionsProvider.find(query, {skip:skip, limit:req.params.pageLimit,sort:{'show_flag':-1,'recommand_flag':-1}}, function (err, result) {
+        attractionsProvider.find(query, {skip:skip, limit:req.params.pageLimit,sort:{'index_flag':-1,'show_flag':-1,'recommand_flag':-1}}, function (err, result) {
             if (err) {
                 res.send({err:err});
             } else {
@@ -439,6 +439,7 @@ exports.updateAttractions = function (req, res) {
         recommand_duration:req.body.recommand_duration,
         traffic_info:req.body.traffic_info,
         show_flag:req.body.show_flag,
+        index_flag:req.body.index_flag,
         masterLabel:req.body.masterLabel,
         subLabel:data.subLabel,
         latitude:req.body.latitude,

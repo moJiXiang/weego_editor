@@ -31,7 +31,7 @@ exports.getFullShopping = function(id,callback){
 };
 
 exports.getShoppings = function (skip,pageLimit,query, callback) {
-  Shopping.find(query, [], {sort: [['city_name', 'asc'],['show_flag','desc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, shoppings) {
+  Shopping.find(query, [], {sort: [['city_name', 'asc'],['index_flag','desc'],['show_flag','desc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, shoppings) {
 		if(err)
 			callback(err);
 		else{
@@ -41,7 +41,7 @@ exports.getShoppings = function (skip,pageLimit,query, callback) {
 };
 
 exports.getShoppingsByQuery = function(query,callback){
-	Shopping.find(query, [], {sort: [['city_name', 'asc'],['show_flag','desc'],['ranking', 'asc']]}, function (err, shoppings) {
+	Shopping.find(query, [], {sort: [['city_name', 'asc'],['index_flag','desc'],['show_flag','desc'],['ranking', 'asc']]}, function (err, shoppings) {
 		if(err)
 			callback(err);
 		else{
@@ -91,6 +91,7 @@ exports.update = function(one,callback){
 			shopping.url = one.url;
 			shopping.website = one.website;
 			shopping.recommand_flag = one.recommand_flag;
+			shopping.index_flag = one.index_flag;
 			shopping.local_flag = one.local_flag;
 			if(one.area_id){
 				shopping.area_id = one.area_id;
@@ -135,6 +136,7 @@ exports.newAndSave = function(one,callback){
 	shopping.url = one.url;
 	shopping.website = one.website;
 	shopping.recommand_flag = one.recommand_flag;
+	shopping.index_flag = one.index_flag;
 	shopping.local_flag = one.local_flag;
 	if(one.area_id){
 		shopping.area_id = one.area_id;
