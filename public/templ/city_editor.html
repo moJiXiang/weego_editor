@@ -238,7 +238,9 @@
             </div>
 
             <div class="control-group operate-group">
+                {{#ifCond user.type "-1"}} {{else}}
                 <input type="button" class="btn btn-primary" id="save" value="保存"></button>
+                {{/ifCond}}
                 <button class="btn" id="cancel">取消</button>
             </div>
         </fieldset>

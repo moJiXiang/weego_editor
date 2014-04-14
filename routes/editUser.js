@@ -28,7 +28,7 @@ exports.login = function(req,res){
          if(err) throw err;
         if(result){
             result.login = true;
-            req.session.user = result;
+            res.locals.session.user = result;
             res.send(result);
         }else{
             var data ={};
@@ -40,7 +40,7 @@ exports.login = function(req,res){
 
 exports.saveUser = function(req,res){
     var data = req.body;
-    editUserProvider.insert({username:data.username,password:data.password,type:0},{safe:true}, function (err, result) {
+    editUserProvider.insert({username:data.username,password:data.password,type:data.type},{safe:true}, function (err, result) {
         if (err) {
             res.send({isSuccess:false});
             throw err;

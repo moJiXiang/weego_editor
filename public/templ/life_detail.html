@@ -1,6 +1,6 @@
 <form class="form-horizontal">
     <fieldset class="basicmsg">
-        <legend>基本信息<a style="margin-left: 20px" href="/#lifes">返回</a>
+        <legend>基本信息<a style="margin-left: 20px" id="back" href="">返回</a>
             <!-- <button id="top_save" style="float:right" class="btn btn-primary">保存</button> -->
         </legend> 
     <div class="control-group">
@@ -63,8 +63,8 @@
           <label class="control-label show_flag" for="is_big">是否是大商场</label>
       </div>
     </div>
-
-    <div class="control-group" id="belong-to-shopping-show" {{#if is_big}} style="display:none" {{else}} style="display:block" {{/if}}>
+    
+    <div class="control-group" id="belong-to-shopping-show" {{#ifCond type "2"}} {{#if is_big}} style="display:none" {{else}} style="display:block" {{/if}} {{else}} style="display:none" {{/ifCond}}>
         <label class="control-label" for="address">所属商场</label>
         <div class="controls">
           <input type="text" id="in_big_name" placeholder="选填" readonly style="width:100px" value="{{in_big_name}}">
@@ -457,7 +457,10 @@
     </fieldset> -->
     <div class="pull-right">
         <button id="review" class="btn">预览</button>
+        {{#ifCond user.type "-1"}}
+        {{else}}
         <button id="save" class="btn btn-primary">保存</button>
+        {{/ifCond}}
         <button id="cancel" class="btn">取消</button>
     </div>
 </form>

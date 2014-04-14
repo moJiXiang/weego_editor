@@ -72,11 +72,18 @@ var HotelView = Backbone.View.extend({
         'click #show_hotel_hot' : 'showMarkDown_hot',
         'click #show_hotel_service' : 'showMarkDown_service',
         'click #show_hotel_appraise' : 'showMarkDown_appraise',
-        'click #show_hotel_traffic' : 'showMarkDown_traffic'
+        'click #show_hotel_traffic' : 'showMarkDown_traffic',
+        'click #back' : 'back',
+        'click #cancel' : 'back'
     },
     render: function(){
+        this.model.set('user',weego_user.globalUser);
         this.$el.html(this.template(this.model.toJSON()));
         return this;
+    },
+    back: function(e){
+        e.preventDefault();
+        window.history.back();
     },
     getTextInputValue: function(id){
         return this.$el.find('#'+id).val();
@@ -289,6 +296,7 @@ var HotelListView = Backbone.View.extend({
     render: function(){
         var that = this;
         this.$el.html(that.template({
+             user:weego_user.globalUser
 //            currentPage: that.collection.currentPage,
 //            pageCount: (that.collection.total/that.collection.pageLimit) + 1,
 //            total: that.collection.total
@@ -308,6 +316,7 @@ var HotelListItemView = Backbone.View.extend({
         'click #hotel-list-item-upload-cover-img' : 'showHotelImgCoverModal'
     },
     render: function(){
+        this.model.set('user',weego_user.globalUser);
         this.$el.html(this.template(this.model.toJSON()));
         return this;
     },

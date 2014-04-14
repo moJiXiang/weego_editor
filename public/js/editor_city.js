@@ -284,6 +284,7 @@ $(weego_city.init());
                 position:'relative'
             });
             var template = Handlebars.compile($("#city_edit_template").html());
+            _this.model.set('user',weego_user.globalUser);
             $(template(_this.model.toJSON())).appendTo(_this.$el);
             this.delegateEvents(this.events);
             return this;
@@ -488,6 +489,7 @@ $(weego_city.init());
             _this.model.fetch({
                 success:function () {
                     var template = Handlebars.compile($("#cityView").html());
+                    _this.model.set('user',weego_user.globalUser);
                     $(template(_this.model.toJSON())).appendTo(_this.$el);
                 }
             });
@@ -731,7 +733,7 @@ $(weego_city.init());
             $('#app').empty();
             var _this = this;
             var template = Handlebars.compile($("#cityappView").html());
-            $(template()).appendTo(_this.$el);
+            $(template({user:weego_user.globalUser})).appendTo(_this.$el);
             _this.delegateEvents(_this.events);
             return this;
         },

@@ -193,6 +193,7 @@ $(weego_user.init());
                     status = '已完成';
                 itemHtml += '<tr>'+
                 '<td>'+item.name+'</td>'+
+                '<td>'+item.city_name+'</td>'+
                 '<td>'+displayTime[0]+'</td>'+
                 '<td>'+item.total+'条['+item.attraction_num+'条景点,'+
                 item.restaurant_num+'条餐馆,'+item.shopping_num+'条购物,'+item.entertainment_num+'条娱乐]</td>'+
@@ -486,6 +487,24 @@ $(weego_user.init());
         },
     });
 
+    //Guest主页
+    weego_user.GuestMainView = Backbone.View.extend({
+        el:"#app",
+        initialize:function(){
+            var thisView=this;
+            if(weegoCache.guestMainTpl){
+                thisView.$el.empty().append(weegoCache.guestMainTpl);
+            }else{
+                $("<div/>").load("/templ/guest_main.html",function(){
+                    var template = Handlebars.compile($(this).html());
+                    weegoCache.guestMainTpl=template();
+                    thisView.$el.empty().append(template());
+                });
+            }
+        },
+
+    });
+
     //管理员主页 
     weego_user.AdminMainView = Backbone.View.extend({
         el:"#app",
@@ -552,9 +571,9 @@ $(weego_user.init());
                 height: '180px',
                 alwaysVisible: true
             });
-            // $('#task-list-current-page').html('1');
-            // $('#task-list-total').html(data.count);
-            // $('#task-list-page-count').html(Math.floor(data.count/this.pageLimit) + 1);
+            $('#curr-page').html('1');
+            $('#total-page').html(Math.floor(data.count/this.pageLimit) + 1);
+            $('#total-count').html(data.count);
         },
         initMap : function(){
             console.log($('#vmap').length);
@@ -703,7 +722,9 @@ $(weego_user.init());
             'click .delete':'delete',
             'click .icomoon-plus': 'newTask',
             'click #sendApproval': 'sendApproval',
-            'click #sendMessage': 'sendMessage'
+            'click #sendMessage': 'sendMessage',
+            "click #all-task-pre":"allTaskPre",
+            "click #all-task-next":"allTaskNext",
         },
         newTask: function(e){
             $('#myModal').fadeIn();
@@ -924,7 +945,60 @@ $(weego_user.init());
             }
             
         },
+        allTaskPre:function(e){
+            e.preventDefault();
+            var currentPage = $('#curr-page').html();
+            if(isInt(currentPage))
+                currentPage = parseInt(currentPage);
+            if(currentPage>1){
+                $.ajax({
+                    url:"/getAllTasks/"+this.pageLimit+'/'+(--currentPage),
+                    success: _.bind(function (data) {
+                        if(data.status){
+                            this.appendTaskHTML(data);
+                            $('#curr-page').html(currentPage);
+                        }else{
+                            alert('数据库异常！');
+                        }
+                    },this)
+                });
+            }else{
+                alert('无上一页');
+            }
+        },
+        allTaskNext:function(e){
+            e.preventDefault();
+            var currentPage = $('#curr-page').html();
+            if(isInt(currentPage))
+                currentPage = parseInt(currentPage);
+            else{
+                return false;
+            }
+            var totalPage = $('#total-page').html();
+            if(isInt(totalPage))
+                totalPage = parseInt(totalPage);
+            else{
+                return false;
+            }
+            if(currentPage<totalPage){
+                $.ajax({
+                    url:"/getAllTasks/"+this.pageLimit+'/'+(++currentPage),
+                    success: _.bind(function (data) {
+                        if(data.status){
+                            this.appendTaskHTML(data);
+                            $('#curr-page').html(currentPage);
+                        }else{
+                            alert('数据库异常！');
+                        }
+                    },this)
+                });
+            }else{
+                alert('无下一页');
+            }
+        },
     });
+
+    // weego_user.AdminMainView = Backbone.View.extend({});
 
     weego_user.UserView = Backbone.View.extend({
         tagName:'tr',
@@ -1056,7 +1130,8 @@ $(weego_user.init());
             }
             var newUser = new weego_user.UserModel({
                 username:$('#username').val(),
-                password:md5($('#password').val())
+                password:md5($('#password').val()),
+                type:parseInt($('#type').val())
             });
             newUser.save(null, {
                 success:function (model, res) {
@@ -1089,7 +1164,8 @@ $(weego_user.init());
         },
         save:function(){
             var _this  = this;
-            this.model.set('password',md5($('#password').val()))
+            this.model.set('password',md5($('#password').val()));
+            this.model.set('type',parseInt($('#type').val()));
             this.model.save(null, {
                 success:function (model, res) {
                     if (!res.isSuccess) {

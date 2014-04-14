@@ -67,6 +67,7 @@ var AreaView = Backbone.View.extend({
         'click #cancel': 'back'
     },
     render: function(){
+        this.model.set('user',weego_user.globalUser);
         this.$el.html(this.template(this.model.toJSON()));
         return this;
     },
@@ -113,8 +114,8 @@ var AreaView = Backbone.View.extend({
         var cityname =  $("#city_select").find("option:selected").text();
         $("#city").val(cityname);
     },
-    back: function(){
-        console.log('back!');
+    back: function(e){
+        e.preventDefault();
         window.history.back();
     },
     getTextInputValue: function(id){
@@ -221,6 +222,7 @@ var AreaListView = Backbone.View.extend({
 //            currentPage: that.collection.currentPage,
 //            pageCount: (that.collection.total/that.collection.pageLimit) + 1,
 //            total: that.collection.total
+                user:weego_user.globalUser
         }));
         this.tbodyPlaceHolder = that.$el.find('tbody');
 
@@ -236,6 +238,7 @@ var AreaListItemView = Backbone.View.extend({
         'click #area-list-item-remove' : 'removeArea',
     },
     render: function(){
+        this.model.set('user',weego_user.globalUser);
         this.$el.html(this.template(this.model.toJSON()));
         return this;
     },

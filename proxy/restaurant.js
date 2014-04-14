@@ -12,30 +12,30 @@ exports.getRestaurantByName = function(name,callback){
 };
 
 exports.getRestaurants = function (skip,pageLimit,query, callback) {
-  Restaurant.find(query, [], {sort: [['city_name', 'asc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, restaurants) {
+  Restaurant.find(query, [], {sort: [['city_name', 'asc'],['show_flag','desc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, restaurants) {
 		if(err)
 			callback(err);
 		else{
-			for(var i=0;i<restaurants.length;i++){
-				var categorys = restaurants[i].category;
-				var tmp = [];
-				console.log(categorys.length);
-				for(var j=0;j<categorys.length;j++){
-					console.log('v '+global.bigs.length);
-					for(var k=0;k<global.bigs.length;k++){
-						if(isIn(categorys[j]._id,global.bigs[k])){
-							if(isInTmp(global.bigs[k],tmp)){
+			// for(var i=0;i<restaurants.length;i++){
+			// 	var categorys = restaurants[i].category;
+			// 	var tmp = [];
+			// 	console.log(categorys.length);
+			// 	for(var j=0;j<categorys.length;j++){
+			// 		console.log('v '+global.bigs.length);
+			// 		for(var k=0;k<global.bigs.length;k++){
+			// 			if(isIn(categorys[j]._id,global.bigs[k])){
+			// 				if(isInTmp(global.bigs[k],tmp)){
 
-							}else{
-								tmp.push(global.bigs[k]);
-							}
-						}else{
-							// console.log('not found');
-						}
-					}
-				}
-				restaurants[i].category = tmp;
-			}
+			// 				}else{
+			// 					tmp.push(global.bigs[k]);
+			// 				}
+			// 			}else{
+			// 				// console.log('not found');
+			// 			}
+			// 		}
+			// 	}
+			// 	restaurants[i].category = tmp;
+			// }
 
 			callback(null,restaurants);
 		}
@@ -60,7 +60,7 @@ var isInTmp = function(a,b){
 };
 
 exports.getRestaurantsByQuery = function(query,callback){
-	Restaurant.find(query, [], {sort: [['city_name', 'asc'],['ranking', 'asc']]}, function (err, restaurants) {
+	Restaurant.find(query, [], {sort: [['city_name', 'asc'],['show_flag','desc'],['ranking', 'asc']]}, function (err, restaurants) {
 		if(err)
 			callback(err);
 		else{

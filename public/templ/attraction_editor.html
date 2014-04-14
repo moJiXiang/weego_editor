@@ -160,7 +160,10 @@
             </div>
 
             <div class="control-group operate-group">
+                {{#ifCond user.type "-1"}}
+                {{else}}
                 <input type="button" class="btn btn-primary" id="save" value="保存">
+                {{/ifCond}}
                 <input class="btn" id="cancel" value="取消" type="button">
             </div>
         </fieldset>

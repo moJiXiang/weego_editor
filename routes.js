@@ -171,6 +171,7 @@ module.exports = function(app) {
 	app.get('/getMichilin',routes.lifeImport.getMichilin);
 	// app.get('/importCategoryRestaurantData?',routes.lifeImport.importCategoryRestaurantData);
 	// app.get('/importCategoryShoppingData?',routes.lifeImport.importCategoryShoppingData);
+	// app.get('/saveRestaurantCategory?',routes.lifeImport.saveRestaurantCategory);
 	
 };
 

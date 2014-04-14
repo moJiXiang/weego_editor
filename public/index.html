@@ -145,9 +145,16 @@
         <td>{{recommand_flag}}</td>
         <td>{{show_flag}}</td>
         <td>{{latitude}},{{longitude}}</td>
+
+        {{#ifCond user.type '-1'}}
+        <td><button data-value="{{_id}}" class="modify">查看</button></td>
+        <td></td>
+        <td></td>
+        {{else}}
         <td><button data-value="{{_id}}" class="modify">修改</button></td>
         <td><button data-value="{{_id}}" class="delete">删除</button></td>
         <td><button data-value="{{_id}}" id="manageimg">图片管理</button></td>
+        {{/ifCond}}
     </script>
    
     <script id="hotelDetailView" type="text/x-handlebars-template">
@@ -159,7 +166,9 @@
            
             <dl>
                 <dt>酒店列表</dt>
+                {{#ifCond user.type "-1"}}  {{else}}
                 <dd><a id="hotel-add-new"  href="#hotel/new">添加酒店</a></dd>
+                {{/ifCond}}
                 <dd><button id="hotel-list-prev-page" >上一页</button></dd>
                 <dd><button id="hotel-list-next-page" >下一页</button></dd>
                 <dd>当前页：<span id="hotel-list-current-page">{{currentPage}}</span></dd>
@@ -203,9 +212,15 @@
         <td>{{district}}</td>
         <td>{{#if longitude}}{{longitude}}, {{latitude}}{{/if}}</td>
         <td><input id="hotel-list-item-to-list" type="checkbox" class="checkbox" disabled {{#if to_list}}checked{{/if}}></td>
+        {{#ifCond user.type '-1'}}
+        <td></td>
+        <td><a id="hotel-list-item-edit"  href="#hotel/{{_id}}">查看</a></td>
+        <td></td>
+        {{else}}
         <td><button id="hotel-list-item-upload-cover-img" >修改</button><div id="modal-placeholder"></div></td>
         <td><a id="hotel-list-item-edit"  href="#hotel/{{_id}}">编辑</a></td>
         <td><button id="hotel-list-item-remove" class="btn btn-danger">删除</button></td>
+        {{/ifCond}}
     </script>
 
     <script id="hotel-image-upload-view" type="text/x-handlebars-template">
@@ -245,7 +260,9 @@
         <section class="cmsPageStatus">
             <dl>
                 <dt>景点列表</dt>
+                {{#ifCond user.type "-1"}} {{else}}
                 <dd><button id="addAttractionsButton">添加</button></dd>
+                {{/ifCond}}
                 <dd><button id="prePageButton">上一页</button></dd>
                 <dd><button id="nextPageButton">下一页</button></dd>
                 <dd>当前页：<span id="current_page"></span></dd>
@@ -357,20 +374,25 @@
         <td>{{recommand_day}}</td>
         <td>{{hot_flag}}</td>
         <td>{{show_flag}}</td>
-        {{#if imgFlag}}
-        <td><button data-value="{{_id}}" class="upload">添加图片</button></td>
+        {{#ifCond user.type "-1"}} 
+            <td></td>
+            <td></td>
+            <td><button data-value="{{_id}}" class="modify">查看</button></td>
+            <td></td>
         {{else}}
-        <td><button data-value="{{_id}}" class="upload">上传图片</button></td>
-        {{/if}}
-
-        {{#if img_background_Flag}}
-        <td><button data-value="{{_id}}" class="upload_background_img">添加城市背景大图</button></td>
-        {{else}}
-        <td><button data-value="{{_id}}" class="upload_background_img">上传城市背景大图</button></td>
-        {{/if}}
-
-        <td><button data-value="{{_id}}" class="modify">修改</button></td>
-        <td><button data-value="{{_id}}" class="delete">删除</button></td>
+            {{#if imgFlag}}
+            <td><button data-value="{{_id}}" class="upload">添加图片</button></td>
+            {{else}}
+            <td><button data-value="{{_id}}" class="upload">上传图片</button></td>
+            {{/if}}
+            {{#if img_background_Flag}}
+            <td><button data-value="{{_id}}" class="upload_background_img">添加城市背景大图</button></td>
+            {{else}}
+            <td><button data-value="{{_id}}" class="upload_background_img">上传城市背景大图</button></td>
+            {{/if}}
+            <td><button data-value="{{_id}}" class="modify">修改</button></td>
+            <td><button data-value="{{_id}}" class="delete">删除</button></td>
+        {{/ifCond}}
         <td><a href="/index.html#attractions/1/q_{{cityname}}/q_">景点</a>&nbsp;
         <a href="/index.html#lifes/1/1/q_{{cityname}}/q_">生活</a></td>
     </script>
@@ -379,7 +401,9 @@
         <section class="cmsPageStatus">
             <dl>
                 <dt>城市列表</dt>
+                {{#ifCond user.type "-1"}} {{else}}
                 <dd><button id="addCityButton">添加</button></dd>
+                {{/ifCond}}
                 <dd><button id="prePageButton">上一页</button></dd>
                 <dd><button id="nextPageButton">下一页</button></dd>
                 <dd>当前页：<span id="current_page"></span></dd>
@@ -589,7 +613,9 @@
         <section class="cmsPageStatus">
             <dl>
                 <dt>生活信息</dt>
+                {{#ifCond user.type "-1"}} {{else}}
                 <dd><a id="life-add-new"  href="#life/new">添加生活条目</a></dd>
+                {{/ifCond}}
                 <dd><button id="life-list-prev-page">上一页</button></dd>
                 <dd><button id="life-list-next-page">下一页</button></dd>
                 <dd>当前页：
@@ -657,47 +683,74 @@
         <td>{{rating}}</td>
         <td>{{ranking}}</td>
         <td><input id="life-show-flag" type="checkbox" class="checkbox" disabled {{#if show_flag}}checked{{/if}}></td>
+        {{#ifCond user.type '-1'}}
+        <td><a id="life-list-item-edit"  item_id="{{_id}}" href="#life/{{_id}}">查看</a></td>
+        <td></td>
+        <td></td>
+        {{else}}
         <td><a id="life-list-item-edit"  item_id="{{_id}}" href="#life/{{_id}}">编辑</a></td>
         <td><button id="life-list-item-remove" class="btn btn-danger">删除</button></td>
         <td><button id="life-list-item-img" >图片管理</button></td>
+        {{/ifCond}}
     </script>
 
     <script id="lifeDetailView" type="text/x-handlebars-template">
         <!-- life_detail.html -->
     </script>
     <script id="area-list-view" type="text/x-handlebars-template">
-        <div class="row-fluid">
-            <div class="pull-left">
-                <a id="area-add-new" class="btn" href="#area/new">添加区域</a>
-                <button id="area-list-prev-page" class="btn">上一页</button>
-                <button id="area-list-next-page" class="btn">下一页</button>
-            </div>
-            <div class="pull-right">
-                当前页：
-                <label id="area-list-current-page" class="badge">{{currentPage}}</label>
-                总页数：
-                <label id="area-list-page-count" class="badge">{{pageCount}}</label>
-                总记录数：
-                <label id="area-list-total" class="badge">{{total}}</label>
-            </div>
+     <section class="cmsPageStatus">
+            <dl>
+                <dt>区域</dt>
+                {{#ifCond user.type "-1"}} {{else}}
+                <dd><a id="area-add-new"  href="#area/new">添加区域</a></dd>
+                {{/ifCond}}
+                <dd><button id="area-list-prev-page">上一页</button></dd>
+                <dd><button id="area-list-next-page">下一页</button></dd>
+                <dd>当前页：
+                <span id="area-list-current-page">{{currentPage}}</span></dd>
+                <dd>总页数：
+                <span id="area-list-page-count">{{pageCount}}</span></dd>
+                <dd>总记录数：
+                <span id="area-list-total">{{total}}</span></dd>
+            </dl>
+        </section>
+
+        <section class="cmsQueryBar">
+            <span>
+                城市：<input type="text" id="search-area-cityname" value="{{search_cityname}}"> 
+            </span>
+            <span>
+                名称：<input type="text" id="search-area-name" value="{{search_areaname}}"> 
+            </span>
+            <span>
+                <button id="search-button" >查询</button>
+            </span>
+        </section>
+        <div class="container">
+            <table class="cmsTable">
+                <thead>
+                <th>城市</th>
+                <th>区域名</th>
+                <th>英文名</th>
+                <th>编辑</th>
+                <th>删除</th>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
-        <table class="table table-striped">
-            <thead>
-            <th>城市</th>
-            <th>区域名</th>
-            <th>英文名</th>
-            <th>编辑</th>
-            <th>删除</th>
-            </thead>
-            <tbody></tbody>
-        </table>
+
     </script>
     <script id="area-list-item-view" type="text/x-handlebars-template">
         <td>{{city_name}}</td>
         <td>{{name}}</td>
         <td>{{en_name}}</td>
+        {{#ifCond user.type '-1'}}
+        <td><a id="area-list-item-edit" class="btn" href="#area/{{_id}}">查看</a></td>
+        <td></td>
+        {{else}}
         <td><a id="area-list-item-edit" class="btn" href="#area/{{_id}}">编辑</a></td>
         <td><button id="area-list-item-remove" class="btn btn-danger">删除</button></td>
+        {{/ifCond}}
     </script>
     <script id="areaDetailView" type="text/x-handlebars-template">
         <!-- area_detail.html -->

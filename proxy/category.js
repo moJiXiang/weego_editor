@@ -7,6 +7,10 @@ exports.getCategory = function (id, callback) {
   Category.findOne({_id: id}, callback);
 };
 
+exports.getCategoryByEnName = function (en_name, callback) {
+  Category.findOne({en_name: en_name}, callback);
+};
+
 exports.getCategorysByTypeLimit = function (type,skip,pageLimit, callback) {
   Category.find({type: type}, [], {sort: [['name', 'desc']],skip:skip, limit:pageLimit}, function (err, categorys) {
 		if(err)

@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 //type 1:餐馆，2：购物，3：游玩。
 var LifetagSchema = new Schema({
   type: { type: Number },
-  name: { type: String },
+  name: { type: String }
 });
 
 mongoose.model('Lifetag', LifetagSchema);

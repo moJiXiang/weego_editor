@@ -31,7 +31,7 @@ exports.getFullShopping = function(id,callback){
 };
 
 exports.getShoppings = function (skip,pageLimit,query, callback) {
-  Shopping.find(query, [], {sort: [['city_name', 'asc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, shoppings) {
+  Shopping.find(query, [], {sort: [['city_name', 'asc'],['show_flag','desc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, shoppings) {
 		if(err)
 			callback(err);
 		else{
@@ -41,7 +41,7 @@ exports.getShoppings = function (skip,pageLimit,query, callback) {
 };
 
 exports.getShoppingsByQuery = function(query,callback){
-	Shopping.find(query, [], {sort: [['city_name', 'asc'],['ranking', 'asc']]}, function (err, shoppings) {
+	Shopping.find(query, [], {sort: [['city_name', 'asc'],['show_flag','desc'],['ranking', 'asc']]}, function (err, shoppings) {
 		if(err)
 			callback(err);
 		else{

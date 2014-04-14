@@ -108,6 +108,7 @@ var LifeView = Backbone.View.extend({
         'click #save': 'saveLife',
         'click #top_save':'saveLife',
         'click #cancel': 'back',
+        'click #back':'back',
         'focus #addCategoryValue':'autogetCategory',
         'click #addCategoryValue':'autogetCategory',
         'click #addCategory':'addCategory',
@@ -122,6 +123,7 @@ var LifeView = Backbone.View.extend({
         }else{
             this.model.set('_show_flag',false);
         }
+        this.model.set('user',weego_user.globalUser);
         this.$el.html(this.template(this.model.toJSON()));
         this.initSelect();
         return this;
@@ -422,8 +424,8 @@ var LifeView = Backbone.View.extend({
     delLi:function(e){
         $(e.target).parent().remove();
     },
-    back: function(){
-        console.log('back!');
+    back: function(e){
+        e.preventDefault();
         window.history.back();
     },
     getTextInputValue: function(id){
@@ -467,7 +469,7 @@ var LifeView = Backbone.View.extend({
             show_flag : $('#show_flag').prop('checked'),
             recommand_flag : $('#recommand_flag').prop('checked'),
             local_flag : $('#local_flag').prop('checked'),
-            michelin_flag : $('#michelin_flag').prop('checked'),
+            michilin_flag : $('#michilin_flag').prop('checked'),
             ranking:$('#ranking').val(),
             rating:$('#rating').val(),
             reviews:$('#reviews').val(),
@@ -548,10 +550,10 @@ var LifeView = Backbone.View.extend({
                         auditingModel.save(null,{
                             success:function (model, res) {
                                 if (!res.isSuccess) {
-                                    alert('保存失败');
+                                    alert('保存信息成功，但auditing保存失败！');
                                 }else
-                                    alert('添加成功');
-                                    self.location = '/#lifes/1/'+type; 
+                                    alert('保存成功');
+                                    // self.location = '/#lifes/1/'+type; 
                             },
                             error:function () {
                                 alert('保存信息成功，但auditing保存失败！');
@@ -583,13 +585,15 @@ var LifeView = Backbone.View.extend({
                         auditingModel.save(null,{
                             success:function (model, res) {
                                 if (!res.isSuccess) {
-                                    alert('保存失败');
+                                    alert('保存信息成功，但auditing保存失败！');
                                 }else
                                     alert('修改成功');
-                                    self.location = '/#lifes/1/'+type; 
+                                window.history.back();
+                                    // self.location = '/#lifes/1/'+type; 
                             },
                             error:function () {
                                 alert('保存信息成功，但auditing保存失败！');
+                                window.history.back();
                             }
                         });
                     }else{
@@ -681,6 +685,7 @@ var LifeListView = Backbone.View.extend({
 //            currentPage: that.collection.currentPage,
 //            pageCount: (that.collection.total/that.collection.pageLimit) + 1,
 //            total: that.collection.total
+            user:weego_user.globalUser,
             type:this.type,
             search_cityname:this.cityname,
             search_lifename:isNull(this.lifename)?this.lifename:decodeURIComponent(this.lifename)
@@ -700,6 +705,7 @@ var LifeListItemView = Backbone.View.extend({
         'click #life-list-item-img' : 'manageimg'
     },
     render: function(){
+        this.model.set('user',weego_user.globalUser);
         this.$el.html(this.template(this.model.toJSON()));
         return this;
     },

@@ -14,3 +14,4 @@ exports.dataImport = require('./dataImport');
 exports.life = require('./life');
 exports.lifeImport = require('./lifeImport');
 exports.task = require('./task');
+exports.auth = require('../midderwares/auth');

@@ -87,6 +87,8 @@ $(weego.init());
                 new weego_user.EditorMainView();
             }else if(currentUser.type==1){
                 new weego_user.AdminMainView();
+            }else if(currentUser.type==-1){
+                new weego_user.GuestMainView();
             }
         },
         before:function (route) {
@@ -131,11 +133,16 @@ $(weego.init());
             new weego_user.LoginView().render();
         },
         list_user:function (pageno) {
-            $('#tab-user').siblings().removeClass('active');
-            $('#tab-user').addClass('active');
-            weego_city.currentPage = pageno;
-            weego_user.defaultView = new weego_user.AppView();
-            weego_user.defaultView.getData(weego_user.currentPage);
+            if(weego_user.globalUser.type==1){
+                $('#tab-user').siblings().removeClass('active');
+                $('#tab-user').addClass('active');
+                weego_city.currentPage = pageno;
+                weego_user.defaultView = new weego_user.AppView();
+                weego_user.defaultView.getData(weego_user.currentPage);
+            }else{
+                alert('权限不足！');
+                self.location = '#main';
+            }
         },
         list_label:function () {
             $('#tab-label').siblings().removeClass('active');
@@ -821,6 +828,7 @@ $(weego.init());
                 _this.model.set('_show_flag',false);
             }
             var template = Handlebars.compile($("#attractions_detail_template").html());
+            _this.model.set('user',weego_user.globalUser);
             $(template(_this.model.toJSON())).appendTo(_this.$el);
             this.delegateEvents(this.events);
             _this.initSelect();
@@ -856,7 +864,8 @@ $(weego.init());
 //            'change .labels':'savelabel',
             'focus .labels':'autoget',
             'focus #masterLabel':'autogetMasterLabel',
-            'click #cancel':'cancel'
+            'click #cancel':'cancel',
+            'click .close' : 'cancel'
         },
         selectContinent: function(){
             var continentCode =  $("#continents_select").val();
@@ -1034,6 +1043,7 @@ $(weego.init());
             return false;
         },
         cancel:function () {
+            window.history.back();
             //$("#attractionsDetailDialog").new_modal('hide');
         }
     });
@@ -1044,6 +1054,7 @@ $(weego.init());
             var _this = this;
             _this.model.fetch({
                 success:function () {
+                    _this.model.set('user',weego_user.globalUser);
                     var template = Handlebars.compile($("#attractionsView").html());
                     $(template(_this.model.toJSON())).appendTo(_this.$el);
                 }
@@ -1299,7 +1310,7 @@ $(weego.init());
             $('#app').empty();
             var _this = this;
             var template = Handlebars.compile($("#appView").html());
-            $(template()).appendTo(_this.$el);
+            $(template({user:weego_user.globalUser})).appendTo(_this.$el);
             _this.delegateEvents(_this.events);
             return this;
         },

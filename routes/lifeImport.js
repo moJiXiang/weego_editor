@@ -38,17 +38,17 @@ var bigs = require('../data/life/big');
 
 function getInitData(){
 	var cityItems = [];
-	// cityItems.push({cityname:'纽约',cityid:'516a34f958e3511036000001',items:newyork.items});
-	// cityItems.push({cityname:'巴塞罗那',cityid:'516a3519f8a6461636000003',items:barcelona.items});
-	// cityItems.push({cityname:'日内瓦',cityid:'516a35218902ca1936000003',items:geneva.items});
-	// cityItems.push({cityname:'伦敦',cityid:'516a35218902ca1936000005',items:london.items});
-	// cityItems.push({cityname:'洛杉矶',cityid:'516a34f958e3511036000003',items:losangeles.items});
-	// cityItems.push({cityname:'巴黎',cityid:'516a350ec221c21236000003',items:paris.items});
-	// cityItems.push({cityname:'罗马',cityid:'51d3d238e98bbb566a000001',items:roma.items});
-	// cityItems.push({cityname:'旧金山',cityid:'516a34f958e3511036000002',items:sanfrancisco.items});
-	// cityItems.push({cityname:'新加坡',cityid:'516a3535dac6182136000004',items:singapore.items});
-	// cityItems.push({cityname:'苏黎世',cityid:'516a35218902ca1936000002',items:zurich.items});
-	// cityItems.push({cityname:'威尼斯',cityid:'516a3519f8a6461636000001',items:venezia.items});
+	cityItems.push({cityname:'纽约',cityid:'516a34f958e3511036000001',items:newyork.items});
+	cityItems.push({cityname:'巴塞罗那',cityid:'516a3519f8a6461636000003',items:barcelona.items});
+	cityItems.push({cityname:'日内瓦',cityid:'516a35218902ca1936000003',items:geneva.items});
+	cityItems.push({cityname:'伦敦',cityid:'516a35218902ca1936000005',items:london.items});
+	cityItems.push({cityname:'洛杉矶',cityid:'516a34f958e3511036000003',items:losangeles.items});
+	cityItems.push({cityname:'巴黎',cityid:'516a350ec221c21236000003',items:paris.items});
+	cityItems.push({cityname:'罗马',cityid:'51d3d238e98bbb566a000001',items:roma.items});
+	cityItems.push({cityname:'旧金山',cityid:'516a34f958e3511036000002',items:sanfrancisco.items});
+	cityItems.push({cityname:'新加坡',cityid:'516a3535dac6182136000004',items:singapore.items});
+	cityItems.push({cityname:'苏黎世',cityid:'516a35218902ca1936000002',items:zurich.items});
+	cityItems.push({cityname:'威尼斯',cityid:'516a3519f8a6461636000001',items:venezia.items});
 	return cityItems;
 }
 
@@ -58,27 +58,66 @@ exports.initCategoryData = function(){
 		if(categorys){
 			global.categorys = categorys;
 			console.log('global.categorys='+global.categorys.length);
-			exports.initBigtypeData();
+			// exports.initBigtypeData();
 		}
 	});
 };
 
-exports.initBigtypeData = function(){
-	for(var i=0;i<bigs.items.length;i++){
-		var _ids = [];
-		for(var k=0;k<bigs.items[i].categorys.length;k++){
-			for(var j=0;j<global.categorys.length;j++){
-				if(bigs.items[i].categorys[k]== global.categorys[j].en_name){
-					_ids.push(global.categorys[j]._id);
-				}
-			}
-		}
-		bigs.items[i]._ids = _ids;
+// exports.initBigtypeData = function(){
+// 	for(var i=0;i<bigs.items.length;i++){
+// 		var _ids = [];
+// 		for(var k=0;k<bigs.items[i].categorys.length;k++){
+// 			for(var j=0;j<global.categorys.length;j++){
+// 				if(bigs.items[i].categorys[k]== global.categorys[j].en_name){
+// 					_ids.push(global.categorys[j]._id);
+// 				}
+// 			}
+// 		}
+// 		bigs.items[i]._ids = _ids;
 		
-	}
-	global.bigs = bigs.items;
-	// console.log(bigs);
-};
+// 	}
+// 	global.bigs = bigs.items;
+// 	// console.log(bigs);
+// 	for(var i=0;i<global.bigs.length;i++){
+// 		(function(k){
+// 			Category.getCategoryByEnName(global.bigs[k].en_name,function(err,one){
+// 				global.bigs[k]._id = one._id;
+// 			}); 
+// 		})(i);
+// 	}
+// };
+
+// exports.saveRestaurantCategory = function(req,res){
+// 	var flag = req.query.flag;
+// 	var cityItems = getInitData();
+// 	if(flag){
+
+// 		Restaurant.getRestaurantsByQuery({city_id:cityItems[10].cityid},function(err,data){
+// 			var ep = new EventProxy();
+// 			ep.bind('error', function (err) {
+// 		        ep.unbind();
+// 		        console.log("you wenti !");
+// 		        res.send('err');
+// 		    });
+// 		    ep.after('saveAll',data.length,function(list){
+// 		    	res.send(list);
+// 		    });
+// 			for(var i=0;i<data.length;i++){
+// 				(function(k){
+// 					for(var j=0;j<data[k].category.length;j++){
+// 						delete data[k].category[j]._ids;
+// 						delete data[k].category[j].categorys;
+// 					}
+// 					data[k].save(function(err){
+// 						ep.emit('saveAll',data[k]);
+// 					});
+// 				})(i);
+// 			}
+// 		});
+// 	}else{
+// 		res.send('err');
+// 	}
+// };
 
 exports.getMichilin = function(req,res){
 	var items = newyork_m.items,cityname='纽约',cityid='516a34f958e3511036000001';
