@@ -466,8 +466,11 @@ var LifeView = Backbone.View.extend({
             longitude : $('#longitude').val(),
             postal_code : $('#postal_code').val(),
             introduce : $('#introduce').val(),
+            tips : $('#tips').val(),
             show_flag : $('#show_flag').prop('checked'),
             recommand_flag : $('#recommand_flag').prop('checked'),
+            recommand_duration : $('#recommand_duration').val(),
+            index_flag : $('#index_flag').prop('checked'),
             local_flag : $('#local_flag').prop('checked'),
             michilin_flag : $('#michilin_flag').prop('checked'),
             ranking:$('#ranking').val(),
@@ -516,6 +519,11 @@ var LifeView = Backbone.View.extend({
         if(!isInt(item.price_level)){
             alert('价格level必须是1,2,3,4,5');
             $('#price_level').focus();
+            return false;
+        }
+        if(!isInt(item.recommand_duration)){
+            alert('推荐时间必须是整数！');
+            $('#recommand_duration').focus();
             return false;
         }
 

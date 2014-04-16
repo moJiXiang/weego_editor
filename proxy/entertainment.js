@@ -8,7 +8,7 @@ exports.getEntertainment = function (id, callback) {
 };
 
 exports.getEntertainments = function (skip,pageLimit,query, callback) {
-  Entertainment.find(query, [], {sort: [['city_name', 'asc'],['show_flag','desc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, entertainments) {
+  Entertainment.find(query, [], {sort: [['city_name', 'asc'],['index_flag','desc'],['show_flag','desc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, entertainments) {
 		if(err)
 			callback(err);
 		else{
@@ -48,6 +48,7 @@ exports.update = function(one,callback){
 			entertainment.address = one.address;
 			entertainment.postal_code = one.postal_code;
 			entertainment.introduce = one.introduce;
+			entertainment.tips = one.tips;
 			entertainment.tel = one.tel;
 			entertainment.category = one.category;
 			entertainment.lifetag = one.lifetag;
@@ -58,6 +59,8 @@ exports.update = function(one,callback){
 			entertainment.url = one.url;
 			entertainment.website = one.website;
 			entertainment.recommand_flag = one.recommand_flag;
+			entertainment.recommand_duration = one.recommand_duration;
+			entertainment.index_flag = one.index_flag;
 			entertainment.local_flag = one.local_flag;
 			if(one.area_id){
 				entertainment.area_id = one.area_id;
@@ -89,6 +92,7 @@ exports.newAndSave = function(one,callback){
 	entertainment.address = one.address;
 	entertainment.postal_code = one.postal_code;
 	entertainment.introduce = one.introduce;
+	entertainment.tips = one.tips;
 	entertainment.tel = one.tel;
 	entertainment.category = one.category;
 	entertainment.lifetag = one.lifetag;
@@ -99,6 +103,8 @@ exports.newAndSave = function(one,callback){
 	entertainment.url = one.url;
 	entertainment.website = one.website;
 	entertainment.recommand_flag = one.recommand_flag;
+	entertainment.recommand_duration = one.recommand_duration;
+	entertainment.index_flag = one.index_flag;
 	entertainment.local_flag = one.local_flag;
 	if(one.area_id){
 		entertainment.area_id = one.area_id;

@@ -112,6 +112,13 @@
             </div>
 
             <div class="control-group">
+                <label class="control-label" for="tips">Tips</label>
+                <div class="controls">
+                    <textarea id="tips" style="width:80%;height:100px">{{tips}}</textarea>
+                </div>
+            </div>
+
+            <div class="control-group">
                 <label class="control-label">是否推荐</label>
                 <div class="controls">
                     {{#ifCond recommand_flag '1'}}
@@ -121,6 +128,12 @@
                     <input type="radio" name="recommand_flag" value = "1" >推荐<br>
                     <input type="radio" name="recommand_flag" value = "0" checked>不推荐<br>
                     {{/ifCond}}
+                </div>
+            </div>
+            <div class="control-group" >
+                <label class="control-label">城市首页显示</label>
+                <div class="controls">
+                    <input id="index_flag" type="checkbox" {{#ifCond index_flag "1"}}checked{{/ifCond}}> 是否放在城市首页显示<span style="color:red">*</span>
                 </div>
             </div>
             <div class="control-group" >

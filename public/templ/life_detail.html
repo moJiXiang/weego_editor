@@ -125,9 +125,21 @@
         </div>
     </div>
     <div class="control-group">
+        <label class="control-label" for="tips">Tips</label>
+        <div class="controls">
+          <textarea id="tips" style="width:60%;height:60px">{{tips}}</textarea>
+        </div>
+    </div>
+    <div class="control-group">
         <label class="control-label" for="comments">评论</label>
         <div class="controls">
           <textarea id="comments" style="width:80%;height:80px">{{comments.[0]}}</textarea>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="recommand_duration">推荐游览时间</label>
+        <div class="controls">
+             <input type="text" id="recommand_duration" placeholder="选填" value="{{recommand_duration}}"> （数字，分钟）
         </div>
     </div>
     <div class="control-group">
@@ -319,6 +331,13 @@
           <div class="controls">
               <input type="checkbox" id="recommand_flag" {{#if recommand_flag}}checked{{/if}}>
               <label  class="control-label show_flag" for='recommand_flag'>是否推荐</label>
+          </div>
+      </div>
+      <div class="control-group">
+          <label class="control-label" for="index_flag">城市首页显示</label>
+          <div class="controls">
+              <input type="checkbox" id="index_flag" {{#if index_flag}}checked{{/if}}>
+              <label  class="control-label show_flag" for='index_flag'>是否放在城市首页显示</label><span style="color:red">*</span>
           </div>
       </div>
       <div class="control-group">

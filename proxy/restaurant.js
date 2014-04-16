@@ -12,7 +12,7 @@ exports.getRestaurantByName = function(name,callback){
 };
 
 exports.getRestaurants = function (skip,pageLimit,query, callback) {
-  Restaurant.find(query, [], {sort: [['city_name', 'asc'],['show_flag','desc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, restaurants) {
+  Restaurant.find(query, [], {sort: [['city_name', 'asc'],['index_flag','desc'],['show_flag','desc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, restaurants) {
 		if(err)
 			callback(err);
 		else{
@@ -60,7 +60,7 @@ var isInTmp = function(a,b){
 };
 
 exports.getRestaurantsByQuery = function(query,callback){
-	Restaurant.find(query, [], {sort: [['city_name', 'asc'],['show_flag','desc'],['ranking', 'asc']]}, function (err, restaurants) {
+	Restaurant.find(query, [], {sort: [['city_name', 'asc'],['index_flag','desc'],['show_flag','desc'],['ranking', 'asc']]}, function (err, restaurants) {
 		if(err)
 			callback(err);
 		else{
@@ -100,6 +100,7 @@ exports.update = function(one,callback){
 			restaurant.address = one.address;
 			restaurant.postal_code = one.postal_code;
 			restaurant.introduce = one.introduce;
+			restaurant.tips = one.tips;
 			restaurant.tel = one.tel;
 			restaurant.category = one.category;
 			restaurant.lifetag = one.lifetag;
@@ -110,6 +111,8 @@ exports.update = function(one,callback){
 			restaurant.url = one.url;
 			restaurant.website = one.website;
 			restaurant.recommand_flag = one.recommand_flag;
+			restaurant.recommand_duration = one.recommand_duration;
+			restaurant.index_flag = one.index_flag;
 			restaurant.local_flag = one.local_flag;
 			if(one.area_id){
 				restaurant.area_id = one.area_id;
@@ -143,6 +146,7 @@ exports.newAndSave = function(one,callback){
 	restaurant.address = one.address;
 	restaurant.postal_code = one.postal_code;
 	restaurant.introduce = one.introduce;
+	restaurant.tips = one.tips;
 	restaurant.tel = one.tel;
 	restaurant.category = one.category;
 	restaurant.lifetag = one.lifetag;
@@ -153,6 +157,8 @@ exports.newAndSave = function(one,callback){
 	restaurant.url = one.url;
 	restaurant.website = one.website;
 	restaurant.recommand_flag = one.recommand_flag;
+	restaurant.recommand_duration = one.recommand_duration;
+	restaurant.index_flag = one.index_flag;
 	restaurant.local_flag = one.local_flag;
 	if(one.area_id){
 		restaurant.area_id = one.area_id;
