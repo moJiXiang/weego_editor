@@ -112,6 +112,13 @@
             </div>
 
             <div class="control-group">
+                <label class="control-label" for="tips">Tips</label>
+                <div class="controls">
+                    <textarea id="tips" style="width:80%;height:100px">{{tips}}</textarea>
+                </div>
+            </div>
+
+            <div class="control-group">
                 <label class="control-label">是否推荐</label>
                 <div class="controls">
                     {{#ifCond recommand_flag '1'}}

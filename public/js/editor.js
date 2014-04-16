@@ -760,7 +760,8 @@ $(weego.init());
             var newAttractions = new weego.AttractionsModel({cityname:$("#city_select").find("option:selected").text(),
                 cityid:$("#city_select").val(), attractions_en:$("#attractions_en").val(),
                 address:$('#address').val(), price:$('#price').val(), opentime:$('#opentime').val(), traffic_info:$('#traffic_info').val(),
-				dayornight:$('input:radio[name="dayornight"]:checked').val(),website:$("#website").val(), telno:$("#telno").val(),
+				tips:$('#tips').val(),
+                dayornight:$('input:radio[name="dayornight"]:checked').val(),website:$("#website").val(), telno:$("#telno").val(),
                 attractions:$("#attractions").val(), introduce:$("#introduce").val(), short_introduce:$("#short_introduce").val(),
                 recommand_duration:$('#recommand_duration').val(),recommand_flag:$('input:radio[name="recommand_flag"]:checked').val(), 
                 show_flag:show_flag,index_flag:index_flag,
@@ -1004,9 +1005,12 @@ $(weego.init());
             var show_flag = $('#show_flag').prop('checked')?'1':'0';
             var index_flag = $('#index_flag').prop('checked')?'1':'0';
             _this.model.save({cityname:$("#city_select").find("option:selected").text(),
-                cityid:$("#city_select").val(), attractions_en:$("#attractions_en").val(), attractions:$("#attractions").val(), address:$('#address').val(), price:$('#price').val(), opentime:$('#opentime').val(),
+                cityid:$("#city_select").val(), attractions_en:$("#attractions_en").val(),
+                attractions:$("#attractions").val(), address:$('#address').val(), price:$('#price').val(), opentime:$('#opentime').val(),
                 traffic_info:$('#traffic_info').val(),dayornight:$('input:radio[name="dayornight"]:checked').val(),
-                website:$("#website").val(), telno:$("#telno").val(), introduce:$("#introduce").val(), short_introduce:$("#short_introduce").val(), recommand_flag:$('input:radio[name="recommand_flag"]:checked').val(),
+                website:$("#website").val(), telno:$("#telno").val(), introduce:$("#introduce").val(),
+                tips:$('#tips').val(),
+                short_introduce:$("#short_introduce").val(), recommand_flag:$('input:radio[name="recommand_flag"]:checked').val(),
                 recommand_duration:$('#recommand_duration').val(),show_flag:show_flag,index_flag:index_flag,
                 masterLabel:$("#masterLabel").attr('data-value'), subLabel:array_label,
                 latitude:$("#latitude").val(), longitude:$("#longitude").val()}, {

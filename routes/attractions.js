@@ -434,6 +434,7 @@ exports.updateAttractions = function (req, res) {
         telno:req.body.telno,
         attractions:req.body.attractions,
         introduce:req.body.introduce,
+        tips:req.body.tips,
         short_introduce:req.body.short_introduce,
         recommand_flag:req.body.recommand_flag,
         recommand_duration:req.body.recommand_duration,
