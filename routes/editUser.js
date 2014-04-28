@@ -52,7 +52,7 @@ exports.saveUser = function(req,res){
 };
 exports.updateUser = function(req,res){
     var data = req.body;
-    editUserProvider.update({_id:new ObjectID(req.params.userID)},{$set:{password:data.password}},{}, function (err) {
+    editUserProvider.update({_id:new ObjectID(req.params.userID)},{$set:{password:data.password,type:data.type}},{}, function (err) {
         if (err) {
             res.send({isSuccess:false});
             throw err;

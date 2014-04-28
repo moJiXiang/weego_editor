@@ -5,6 +5,7 @@ var ObjectId = Schema.ObjectId;
  //娱乐  catelog 游泳池、SPA水疗馆、歌舞厅、KTV、桌球房、保龄球馆、棋牌室、网球场。
 var EntertainmentSchema = new Schema({
   name: { type: String },
+  type: { type:String,default:'1'},
   city_name: { type: String },
   city_id: { type: ObjectId ,index: true },
   latitude: { type: String },
@@ -28,6 +29,9 @@ var EntertainmentSchema = new Schema({
   ranking: { type: Number },
   area_id: {type: ObjectId},
   area_name: {type: String},
+  am: {type:Boolean,default:true},
+  pm: {type:Boolean,default:true},
+  ev: {type:Boolean,default:true},
 
   rating: { type: Number ,default: 3},
   rating_service: { type: Number ,default: 3},

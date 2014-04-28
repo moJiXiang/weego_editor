@@ -5,6 +5,7 @@ var ObjectId = Schema.ObjectId;
  //餐馆
 var RestaurantSchema = new Schema({
   name: { type: String },
+  type: { type:String,default:'1'},
   city_name: { type: String },
   city_id: { type: ObjectId ,index: true },
   latitude: { type: String },
@@ -29,6 +30,9 @@ var RestaurantSchema = new Schema({
   area_id: {type: ObjectId},
   area_name: {type: String},
   michilin_flag:{ type: Boolean ,default: false},
+  am: {type:Boolean,default:true},
+  pm: {type:Boolean,default:true},
+  ev: {type:Boolean,default:true},
 
   rating: { type: Number ,default: 3},
   rating_service: { type: Number ,default: 3},

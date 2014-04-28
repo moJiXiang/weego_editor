@@ -95,6 +95,9 @@ exports.update = function(one,callback){
 			shopping.recommand_duration = one.recommand_duration;
 			shopping.index_flag = one.index_flag;
 			shopping.local_flag = one.local_flag;
+			shopping.am = one.am;
+			shopping.pm = one.pm;
+			shopping.ev = one.ev;
 			if(one.area_id){
 				shopping.area_id = one.area_id;
 				shopping.area_name = one.area_name;
@@ -142,6 +145,9 @@ exports.newAndSave = function(one,callback){
 	shopping.recommand_duration = one.recommand_duration;
 	shopping.index_flag = one.index_flag;
 	shopping.local_flag = one.local_flag;
+	shopping.am = one.am;
+	shopping.pm = one.pm;
+	shopping.ev = one.ev;
 	if(one.area_id){
 		shopping.area_id = one.area_id;
 		shopping.area_name = one.area_name;
