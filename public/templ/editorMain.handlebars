@@ -1,0 +1,100 @@
+<div class="container">
+    <div class="cmsEditorHistory">
+        
+        <div class="cmsPageNum">
+            <label class="icomoon_calendar">编辑历史</label>
+            <button id="auditing-first">第一页</button>
+            <button id="auditing-pre">上一页</button>
+            <button id="auditing-next">下一页</button>
+            当前页：<span id="auditing-list-current-page"></span>
+            总页数：<span id="auditing-list-page-count"></span>
+            总记录数：<span id="auditing-list-total"></span>
+        </div>
+        <ul>
+            <li>时间</li>
+            <li>类型</li>
+            <li>城市</li>
+            <li>名称</li>
+            <li>操作类型</li>
+            <li>任务名</li>
+            <li>状态</li>
+            <li>操作</li>
+            <li>详情</li>
+        </ul>
+        <div class="cmsEditorHistory-items">
+            <!--
+            <div class="ehitem">
+                <span>2013.10.12</span>
+                <span>景点</span>
+                <span>big ben</span>
+                <span>修改</span>
+                <span class="showDetail">查看详情</span>
+                <p>我修改了xxx</p>
+            </div>
+            -->
+        </div>
+        
+    </div>
+
+
+    <table class="cmsEditorTask">
+        <caption>
+            <div class="cmsPageNum">
+                <label class="icomoon_alarm">任务分配</label>
+                <button id="task-first">第一页</button>
+                <button id="task-pre">上一页</button>
+                <button id="task-next">下一页</button>
+                当前页：<span id="task-list-current-page"></span>
+                总页数：<span id="task-list-page-count"></span>
+                总记录数：<span id="task-list-total"></span>
+            </div>
+        </caption>
+        <thead>
+            <tr>
+                <th>任务</th>
+                <th>城市</th>
+                <th>开始时间</th>
+                <th>工作量</th>
+                <th>时长</th>
+                <th>详细</th>
+                <th>状态</th>
+            </tr>
+        </thead>
+       
+        <tbody id="myTask">
+            <!--
+            <tr>
+                <td>admin</td><td>2014/3/17</td><td>完善纽约城市信息</td><td>1天</td><td>未完成</td>
+            </tr>
+        -->
+        </tbody>
+    </table>
+
+    <table class="cmsEditorFeedback">
+        <caption>
+            <div class="cmsPageNum">
+                <label class="icomoon_bubbles">问题反馈</label>
+                <button id="taskquestion-first">第一页</button>
+                <button id="taskquestion-pre">上一页</button>
+                <button id="taskquestion-next">下一页</button>
+                当前页：<span id="taskquestion-list-current-page"></span>
+                总页数：<span id="taskquestion-list-page-count"></span>
+                总记录数：<span id="taskquestion-list-total"></span>
+            </div>
+        </caption>
+        <thead>
+            <tr>
+                <th>反馈者</th>
+                <th>时间</th>
+                <th>反馈内容</th>
+                <th>是否解决</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="myTaskquestion">
+            {{!-- <tr>
+                <td>data</td><td>data</td><td>data</td><td>data</td>
+            </tr> --}}
+        </tbody>
+    </table>
+</div>

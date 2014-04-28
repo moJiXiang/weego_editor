@@ -277,7 +277,13 @@ function httpAction(method, uri, data, outputFile, callback, opts) {
         headers.mkdir = 'true';
     }
 
-    var date = (new Date()).toUTCString();
+    //
+    // var date = (new Date()).toUTCString();
+    var date_a = new Date();
+    date_a = date_a.valueOf();
+    date_a = date_a -  8 * 60 * 60 * 1000;
+    date = (new Date(date_a)).toUTCString();
+    //mod by lb 2014-2-19
     headers.Date = date;
     headers.Authorization = sign(method, uri, date, length);
 

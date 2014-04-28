@@ -28,6 +28,7 @@ exports.login = function(req,res){
          if(err) throw err;
         if(result){
             result.login = true;
+            res.locals.session.user = result;
             res.send(result);
         }else{
             var data ={};
@@ -39,7 +40,7 @@ exports.login = function(req,res){
 
 exports.saveUser = function(req,res){
     var data = req.body;
-    editUserProvider.insert({username:data.username,password:data.password,type:0},{safe:true}, function (err, result) {
+    editUserProvider.insert({username:data.username,password:data.password,type:data.type},{safe:true}, function (err, result) {
         if (err) {
             res.send({isSuccess:false});
             throw err;
@@ -51,7 +52,7 @@ exports.saveUser = function(req,res){
 };
 exports.updateUser = function(req,res){
     var data = req.body;
-    editUserProvider.update({_id:new ObjectID(req.params.userID)},{$set:{password:data.password}},{}, function (err) {
+    editUserProvider.update({_id:new ObjectID(req.params.userID)},{$set:{password:data.password,type:data.type}},{}, function (err) {
         if (err) {
             res.send({isSuccess:false});
             throw err;
@@ -83,5 +84,15 @@ exports.getUserByPage = function(req,res){
             }
         });
     });
-}
+};
+
+exports.getAllEditor = function(req,res){
+    editUserProvider.find({type:0}, {sort:{'username':-1}}, function (err, result) {
+        if (err) {
+            res.send({status:false,err:err});
+        } else {
+            res.send({status:true,results:result});
+        }
+    });
+};
 

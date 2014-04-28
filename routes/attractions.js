@@ -18,6 +18,7 @@ var im = require('imagemagick');
 im.identify.path = global.imIdentifyPath;
 im.convert.path = global.imConvertPath;
 var upyunClient = require('./upyun/upyunClient');
+var Util = require('./util');
 
 exports.saveAttractions = function (req, res) {
     var data = req.body;
@@ -39,7 +40,7 @@ exports.saveAttractions = function (req, res) {
             res.send({isSuccess:false, info:err});
         } else {
             console.log("userProvider.insert result: ", result);
-            res.send({isSuccess:true, _id:result[0]._id});
+            res.send({isSuccess:true, _id:result[0]._id,user_id:req.session.user._id});
         }
     });
 };
@@ -68,28 +69,22 @@ exports.deleteAttractions = function (req, res) {
 };
 exports.getAllAttractionsByPage = function (req, res) {
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
-    var name = req.params.name;
-    if (name != '' && name !== undefined) {
-        attractionsProvider.count({cityname:name,checkFlag:'1'}, function (err, count) {
-            attractionsProvider.find({cityname:name,checkFlag:'1'}, {skip:skip, limit:req.params.pageLimit}, function (err, result) {
-                if (err) {
-                    res.send({err:err});
-                } else {
-                    res.send({attractions:result, count:count});
-                }
-            });
+    var cityname = req.query.cityname;
+    var attrname = req.query.attrname;
+    var query = {checkFlag:'1'};
+    if(!Util.isNull(cityname))
+        query.cityname = cityname;
+    if(!Util.isNull(attrname))
+        query.attractions = {$regex:attrname};
+    attractionsProvider.count(query, function (err, count) {
+        attractionsProvider.find(query, {skip:skip, limit:req.params.pageLimit,sort:{'index_flag':-1,'show_flag':-1,'recommand_flag':-1}}, function (err, result) {
+            if (err) {
+                res.send({err:err});
+            } else {
+                res.send({attractions:result, count:count});
+            }
         });
-    } else {
-        attractionsProvider.count({checkFlag:'1'}, function (err, count) {
-            attractionsProvider.find({checkFlag:'1'}, {skip:skip, limit:req.params.pageLimit}, function (err, result) {
-                if (err) {
-                    res.send({err:err});
-                } else {
-                    res.send({attractions:result, count:count});
-                }
-            });
-        });
-    }
+    });
 };
 exports.getAllUserCreateAttractionsByPage = function (req, res) {
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
@@ -226,9 +221,13 @@ exports.getAttractionsImage = function (req, res) {
 };
 exports.postimage = function (req, res) {
     var target_upload_name;
-    if (req.files.upload && req.body._id) {
+    // console.log(req.files.file.path);
+    // console.log(req.files.file.type);
+    // console.log(req.body._id);
+
+    if(req.files.file && req.body._id){
         var id = new ObjectID();
-        var tmp_upload = req.files.upload;
+        var tmp_upload = req.files.file;
         var tmp_upload_path = tmp_upload.path;
         var tmp_upload_type = tmp_upload.type;
         target_upload_name = validPic(tmp_upload_type);
@@ -255,6 +254,36 @@ exports.postimage = function (req, res) {
     } else {
         res.end();
     }
+    //原来的方法如下
+    // if (req.files.upload && req.body._id) {
+    //     var id = new ObjectID();
+    //     var tmp_upload = req.files.upload;
+    //     var tmp_upload_path = tmp_upload.path;
+    //     var tmp_upload_type = tmp_upload.type;
+    //     target_upload_name = validPic(tmp_upload_type);
+    //     var target_upload_path = global.imgpathAO + target_upload_name;
+    //     var filePathA1 = global.imgpathA1 + target_upload_name;
+    //     var filePathA2 = global.imgpathA2 + target_upload_name;
+    //     var filePathA3 = global.imgpathA3 + target_upload_name;
+    //     var filePathA4 = global.imgpathA4 + target_upload_name;
+    //     var filePathA5 = global.imgpathA5 + target_upload_name;
+    //     makeImageFile(req, tmp_upload_path, target_upload_path, filePathA1, filePathA2, filePathA3,filePathA4,filePathA5, function () {
+    //         upyunClient.upAttractionToYun(target_upload_name,function(err,data){
+    //             if(err) throw err;
+    //             attractionsProvider.update({_id:new ObjectID(req.body._id)}, {$push:{ 'image':target_upload_name}}, {safe:true}, function (err) {
+    //                 if (err) {
+    //                     throw err;
+    //                 } else {
+    //                     res.setHeader("Content-Type", "application/json");
+    //                     res.json(target_upload_name);
+    //                     res.end();
+    //                 }
+    //             });
+    //         });
+    //     });
+    // } else {
+    //     res.end();
+    // }
 };
 
 function makeImageFile(req, tmp_path, target_path, target_path_A1, target_path_A2,target_path_A3, target_path_A4, target_path_A5, callback) {
@@ -405,21 +434,27 @@ exports.updateAttractions = function (req, res) {
         telno:req.body.telno,
         attractions:req.body.attractions,
         introduce:req.body.introduce,
+        tips:req.body.tips,
         short_introduce:req.body.short_introduce,
         recommand_flag:req.body.recommand_flag,
         recommand_duration:req.body.recommand_duration,
+        traffic_info:req.body.traffic_info,
         show_flag:req.body.show_flag,
+        index_flag:req.body.index_flag,
         masterLabel:req.body.masterLabel,
         subLabel:data.subLabel,
         latitude:req.body.latitude,
         longitude:req.body.longitude,
+        am:req.body.am,
+        pm:req.body.pm,
+        ev:req.body.ev,
         createFlag:'0'
     };
     attractionsProvider.update({_id:new ObjectID(req.params.attractionsID)}, {$set:setJson}, {safe:true}, function (err, result) {
         if (err) {
             res.send({err:err});
         } else {
-            res.send({isSuccess:true});
+            res.send({isSuccess:true, _id:req.params.attractionsID,user_id:req.session.user._id});
         }
     });
 };
@@ -525,6 +560,20 @@ exports.addSubLabelToAttractions = function(req,res){
             res.send('issuccess',true);
         });
     });
-}
+};
 
+exports.getAttractionsByQuery = function(query,option,callback){
+    attractionsProvider.find(query,option,callback);
+};
+
+exports.countByQuery = function(query,callback){
+    attractionsProvider.count(query, callback);
+};
+
+exports.publishAttraction = function(_id,callback){
+    attractionsProvider.update({_id:_id},{$set:{show_flag:'1'}},{safe:true,multi:true},function(err,new_one){
+        if(err) callback(err);
+        else callback(null,new_one);
+    });
+};
 

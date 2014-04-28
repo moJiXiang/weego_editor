@@ -12,6 +12,7 @@ var im = require('imagemagick');
 im.identify.path = global.imIdentifyPath;
 im.convert.path = global.imConvertPath;
 var upyunClient = require('./upyun/upyunClient');
+var Util = require('./util');
 
 exports.addNewHotel = function(req, res){
     var hotelDetails = req.body;
@@ -48,9 +49,16 @@ exports.get = function(req, res){
 };
 
 exports.getHotelByPage = function (req, res) {
+    var cityname = req.query.cityname;
+    var hotelname = req.query.hotelname;
+    var query = {};
+    if(!Util.isNull(cityname))
+        query.city = cityname;
+    if(!Util.isNull(hotelname))
+        query.name = {$regex:hotelname};
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
-    hotelProvider.count({}, function (err, count) {
-        hotelProvider.find({}, {sort:{_id:1} , skip:skip, limit:req.params.pageLimit}, function (err, result) {
+    hotelProvider.count(query, function (err, count) {
+        hotelProvider.find(query, {sort:{_id:1} , skip:skip, limit:req.params.pageLimit}, function (err, result) {
             if (err) {
                 res.send({err:err});
             } else {

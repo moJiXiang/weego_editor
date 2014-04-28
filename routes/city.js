@@ -16,9 +16,14 @@ var im = require('imagemagick');
 im.identify.path = global.imIdentifyPath;
 im.convert.path = global.imConvertPath;
 var upyunClient = require('./upyun/upyunClient');
+var Country =  require('./country');
+var EventProxy = require('eventproxy');
+var Attraction = require('./attractions');
+var Restaurant = require('../proxy').Restaurant;
+var Shopping  = require('../proxy').Shopping;
+var Util = require('./util');
 
 exports.getAllCity = function (req, res) {
-
     cityProvider.find({}, {}, function (err, result) {
         if (err) {
             res.send({err:err});
@@ -28,10 +33,27 @@ exports.getAllCity = function (req, res) {
     });
 };
 
+exports.getAllCityBaseInfo = function(req,res){
+    cityProvider.find({}, {cityname:1}, function (err, result) {
+        if (err) {
+            res.send({status:false,err:err});
+        } else {
+            res.send({status:true,results:result});
+        }
+    });
+};
+
 exports.getCityByPage = function (req, res) {
+    var country = req.query.country;
+    var cityname = req.query.cityname;
+    var query = {};
+    if(!Util.isNull(country))
+        query.countryname = country;
+    if(!Util.isNull(cityname))
+        query.cityname = cityname;
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
-    cityProvider.count({}, function (err, count) {
-        cityProvider.find({}, {sort:{'hot_flag':-1}, skip:skip, limit:req.params.pageLimit}, function (err, result) {
+    cityProvider.count(query, function (err, count) {
+        cityProvider.find(query, {sort:{'show_flag':-1,'hot_flag':-1}, skip:skip, limit:req.params.pageLimit}, function (err, result) {
             if (err) {
                 res.send({err:err});
             } else {
@@ -141,10 +163,12 @@ exports.updateCity = function (req, res) {
     data.subLabel = sub;
     var setJson = {
         continents:data.continents,
+        continentscode:data.continentscode,
         cityname:data.cityname,
         cityname_en:data.cityname_en,
         cityname_py:data.cityname_py,
         countryname:data.countryname,
+        countrycode:data.countrycode,
         recommand_day:data.recommand_day,
         recommand_indensity:data.recommand_indensity,
         recommand_center:data.recommand_center,
@@ -592,7 +616,93 @@ exports.getCityCoverImage = function (req, res) {
     }
 };
 
+exports.getCountriesByContinent = function(req,res){
+    var continentCode = req.params.continentCode;
+    if(continentCode){
+        Country.getCountriesByContinent(continentCode ,function(err,countries){
+            if(err)
+                res.send({'status':false});
+            else
+                res.send({'status':true,'countries':countries});
+        });
+    }else{
+        res.send({'status':false});
+    }
+};
 
+exports.getCityByCountry = function(req,res){
+    var countryCode = req.params.countryCode;
+    if(countryCode){
+        cityProvider.find({countrycode:countryCode},{sort:{cityname:1}},function(err,cities){
+            if(err)
+                res.send({'status':false});
+            else
+                res.send({'status':true,'cities':cities});
+        });
+    }else{
+        res.send({'status':false});
+    }
+};
+
+exports.getCountryStatistic = function(req,res){
+    var countryCode = req.params.countryCode;
+    cityProvider.find({countrycode:countryCode},{cityname:1,show_flag:1},function(err,cities){
+        if(cities){
+            var ep = new EventProxy();
+            ep.after('getAll',cities.length,function(list){
+                var online = [];
+                var offline = [];
+                for(var i=0;i<list.length;i++){
+                    if(list[i].show_flag=='1'){
+                        online.push(list[i]);
+                    }else{
+                        offline.push(list[i]);
+                    }
+                }
+                res.send({status:true,online:online,offline:offline});
+            });
+            ep.bind('error', function (err) {
+                ep.unbind();
+                res.send({status:fasle,err:err});
+            });
+           for(var i=0;i<cities.length;i++){
+                (function(k){
+                    getCityItemDetail(cities[i],ep.done('getAll'));
+                })(i);
+           } 
+        }else{
+            res.send({status:false,err:err===null?'not found cities':err});
+        }
+    });
+};
+
+function getCityItemDetail(city,callback){
+    var ep = new EventProxy();
+    ep.all('attr_show','attr_not_show','rest_show','rest_not_show','shop_show','shop_not_show',
+        function(attr_show,attr_not_show,rest_show,rest_not_show,shop_show,shop_not_show){
+            var item = {city_id:city._id,
+                    city_name:city.cityname,
+                    show_flag:city.show_flag,
+                    attr_show:attr_show,
+                    attr_not_show:attr_not_show,
+                    rest_show:rest_show,
+                    rest_not_show:rest_not_show,
+                    shop_show:shop_show,
+                    shop_not_show:shop_not_show
+                };
+            callback(null,item);
+    });
+    ep.bind('error', function (err) {
+        ep.unbind();
+        callback(err);
+    });
+    Attraction.countByQuery({cityid:city._id+'',show_flag:'1'},ep.done('attr_show'));
+    Attraction.countByQuery({cityid:city._id+'',show_flag:'0'},ep.done('attr_not_show'));
+    Restaurant.count({city_id:city._id,show_flag:true},ep.done('rest_show'));
+    Restaurant.count({city_id:city._id,show_flag:false},ep.done('rest_not_show'));
+    Shopping.count({city_id:city._id,show_flag:true},ep.done('shop_show'));
+    Shopping.count({city_id:city._id,show_flag:false},ep.done('shop_not_show'));
+}
 
 
 
