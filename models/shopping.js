@@ -5,6 +5,7 @@ var ObjectId = Schema.ObjectId;
  //购物
 var ShoppingSchema = new Schema({
   name: { type: String },
+  type: { type:String,default:'1'},
   city_name: { type: String },
   city_id: { type: ObjectId ,index: true },
   latitude: { type: String },
@@ -31,6 +32,9 @@ var ShoppingSchema = new Schema({
   is_big:{ type: Boolean, default:false },
   in_big_id : { type: ObjectId },
   in_big_name : { type: String },
+  am: {type:Boolean,default:true},
+  pm: {type:Boolean,default:true},
+  ev: {type:Boolean,default:true},
 
   rating: { type: Number ,default: 3},
   rating_service: { type: Number ,default: 3},

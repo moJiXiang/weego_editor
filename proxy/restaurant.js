@@ -114,6 +114,9 @@ exports.update = function(one,callback){
 			restaurant.recommand_duration = one.recommand_duration;
 			restaurant.index_flag = one.index_flag;
 			restaurant.local_flag = one.local_flag;
+			restaurant.am = one.am;
+			restaurant.pm = one.pm;
+			restaurant.ev = one.ev;
 			if(one.area_id){
 				restaurant.area_id = one.area_id;
 				restaurant.area_name = one.area_name;
@@ -160,6 +163,9 @@ exports.newAndSave = function(one,callback){
 	restaurant.recommand_duration = one.recommand_duration;
 	restaurant.index_flag = one.index_flag;
 	restaurant.local_flag = one.local_flag;
+	restaurant.am = one.am;
+	restaurant.pm = one.pm;
+	restaurant.ev = one.ev;
 	if(one.area_id){
 		restaurant.area_id = one.area_id;
 		restaurant.area_name = one.area_name;

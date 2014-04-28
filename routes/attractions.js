@@ -445,6 +445,9 @@ exports.updateAttractions = function (req, res) {
         subLabel:data.subLabel,
         latitude:req.body.latitude,
         longitude:req.body.longitude,
+        am:req.body.am,
+        pm:req.body.pm,
+        ev:req.body.ev,
         createFlag:'0'
     };
     attractionsProvider.update({_id:new ObjectID(req.params.attractionsID)}, {$set:setJson}, {safe:true}, function (err, result) {

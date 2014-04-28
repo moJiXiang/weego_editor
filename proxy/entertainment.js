@@ -62,6 +62,9 @@ exports.update = function(one,callback){
 			entertainment.recommand_duration = one.recommand_duration;
 			entertainment.index_flag = one.index_flag;
 			entertainment.local_flag = one.local_flag;
+			entertainment.am = one.am;
+			entertainment.pm = one.pm;
+			entertainment.ev = one.ev;
 			if(one.area_id){
 				entertainment.area_id = one.area_id;
 				entertainment.area_name = one.area_name;
@@ -106,6 +109,9 @@ exports.newAndSave = function(one,callback){
 	entertainment.recommand_duration = one.recommand_duration;
 	entertainment.index_flag = one.index_flag;
 	entertainment.local_flag = one.local_flag;
+	entertainment.am = one.am;
+	entertainment.pm = one.pm;
+	entertainment.ev = one.ev;
 	if(one.area_id){
 		entertainment.area_id = one.area_id;
 		entertainment.area_name = one.area_name;

@@ -115,7 +115,8 @@ var LifeView = Backbone.View.extend({
         'focus #addLifetagValue':'autogetLifetag',
         'click #addLifetag':'addLifetag',
         'click #addOpentime':'addOpentime',
-        'click .li-del':'delLi'
+        'click .li-del':'delLi',
+        'click #allday':'selectAllDay'
     },
     render: function(){
         if(weego_user.globalUser.type == 1){
@@ -191,6 +192,12 @@ var LifeView = Backbone.View.extend({
                 }
             }
         });
+    },
+    selectAllDay:function(e){
+        e.preventDefault();
+        $('#am').attr('checked','checked');
+        $('#pm').attr('checked','checked');
+        $('#ev').attr('checked','checked');
     },
     selectType: function(){
         var type =$('#property-type').val();
@@ -485,7 +492,10 @@ var LifeView = Backbone.View.extend({
             lifetag:lifetags,
             open_time:opentimes,
             area_id:$('#area_select').val(),
-            area_name : $('#area_select').find("option:selected").text()
+            area_name : $('#area_select').find("option:selected").text(),
+            am:$('#am').prop('checked'),
+            pm:$('#pm').prop('checked'),
+            ev:$('#ev').prop('checked')
         };
         if(type=='1'){
             var info = {

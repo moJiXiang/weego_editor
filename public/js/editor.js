@@ -618,7 +618,14 @@ $(weego.init());
             'click #addlabel':'addlabel',
             'click .del':'dellabel',
             'focus .labels':'autoget',
-            'focus #masterLabel':'autogetMasterLabel'
+            'focus #masterLabel':'autogetMasterLabel',
+            'click #allday' : 'selectAllDay'
+        },
+        selectAllDay : function(e){
+            e.preventDefault();
+            $('#am').attr('checked','checked');
+            $('#pm').attr('checked','checked');
+            $('#ev').attr('checked','checked');
         },
         selectContinent: function(){
             var continentCode =  $("#continents_select").val();
@@ -748,6 +755,8 @@ $(weego.init());
             var name = $("#attractions").val();
             if(!cityid||!name){
                 alert('城市和景点名称均不能为空！');
+                if(!cityid) $("#city_select").focus();
+                else $("#attractions").focus();
                 return false;
             }
 
@@ -764,7 +773,7 @@ $(weego.init());
                 dayornight:$('input:radio[name="dayornight"]:checked').val(),website:$("#website").val(), telno:$("#telno").val(),
                 attractions:$("#attractions").val(), introduce:$("#introduce").val(), short_introduce:$("#short_introduce").val(),
                 recommand_duration:$('#recommand_duration').val(),recommand_flag:$('input:radio[name="recommand_flag"]:checked').val(), 
-                show_flag:show_flag,index_flag:index_flag,
+                show_flag:show_flag,index_flag:index_flag,am:$('#am').prop('checked'),pm:$('#pm').prop('checked'),ev:$('#ev').prop('checked'),
                 masterLabel:$("#masterLabel").attr('data-value'), subLabel:array_label, latitude:$("#latitude").val(), longitude:$("#longitude").val()});
             newAttractions.save(null, {
                 success:function (model, res) {
@@ -868,7 +877,14 @@ $(weego.init());
             'focus .labels':'autoget',
             'focus #masterLabel':'autogetMasterLabel',
             'click #cancel':'cancel',
-            'click .close' : 'cancel'
+            'click .close' : 'cancel',
+            'click #allday' : 'selectAllDay'
+        },
+        selectAllDay : function(e){
+            e.preventDefault();
+            $('#am').attr('checked','checked');
+            $('#pm').attr('checked','checked');
+            $('#ev').attr('checked','checked');
         },
         selectContinent: function(){
             var continentCode =  $("#continents_select").val();
@@ -1012,6 +1028,7 @@ $(weego.init());
                 tips:$('#tips').val(),
                 short_introduce:$("#short_introduce").val(), recommand_flag:$('input:radio[name="recommand_flag"]:checked').val(),
                 recommand_duration:$('#recommand_duration').val(),show_flag:show_flag,index_flag:index_flag,
+                am:$('#am').prop('checked'),pm:$('#pm').prop('checked'),ev:$('#ev').prop('checked'),
                 masterLabel:$("#masterLabel").attr('data-value'), subLabel:array_label,
                 latitude:$("#latitude").val(), longitude:$("#longitude").val()}, {
                 success:function (model, res) {
