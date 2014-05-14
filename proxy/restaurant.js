@@ -69,6 +69,9 @@ exports.getRestaurantsByQuery = function(query,callback){
 	});
 };
 
+exports.getRestaurantsByOptions = function(query,options,callback){
+	Restaurant.find(query,[],options,callback);
+};
 
 exports.count = function (query,callback) {
   Restaurant.count(query, callback);

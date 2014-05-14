@@ -18,6 +18,7 @@ require('./area');
 require('./task');
 require('./taskquestion');
 require('./auditing');
+require('./path');
 
 
 exports.Category = mongoose.model('Category');
@@ -30,3 +31,4 @@ exports.Area = mongoose.model('Area');
 exports.Task = mongoose.model('Task');
 exports.Taskquestion = mongoose.model('Taskquestion');
 exports.Auditing = mongoose.model('Auditing');
+exports.Path = mongoose.model('Path');
