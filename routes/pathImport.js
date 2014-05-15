@@ -4,7 +4,7 @@ var Shopping = require('../proxy/shopping');
 var EventProxy = require('eventproxy');
 var Path = require('../proxy/Path');
 var ObjectID = require('mongodb').ObjectID;
-var Path = require('../proxy/path');
+// var Path = require('../proxy/path');
 var sleep = require('sleep');
 
 var barcelona = '516a3519f8a6461636000003';
@@ -85,7 +85,8 @@ exports.importPathToDB = function(req,res){
 				one.b_longitude = items[j].longitude;
 				one.b_type = items[j].type;
 				saveOnePath(one,ep.done('save'));
-				sleep.usleep(300);
+				sleep.usleep(400000);
+				console.log(i + ':' + j);
 			}
 		}
 	}
