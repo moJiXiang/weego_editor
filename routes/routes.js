@@ -15,3 +15,4 @@ exports.life = require('./life');
 exports.lifeImport = require('./lifeImport');
 exports.task = require('./task');
 exports.auth = require('../midderwares/auth');
+exports.pathImport = require('./pathImport');

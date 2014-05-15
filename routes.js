@@ -172,6 +172,9 @@ module.exports = function(app) {
 	// app.get('/importCategoryRestaurantData?',routes.lifeImport.importCategoryRestaurantData);
 	// app.get('/importCategoryShoppingData?',routes.lifeImport.importCategoryShoppingData);
 	// app.get('/saveRestaurantCategory?',routes.lifeImport.saveRestaurantCategory);
+
+	app.get('/saveSpotToText?',routes.pathImport.saveSpotToText);
+	app.get('/importPathToDB?',routes.pathImport.importPathToDB);
 	
 };
 

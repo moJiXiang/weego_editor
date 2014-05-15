@@ -762,7 +762,9 @@ $(weego.init());
 
             var array_label = [];
             for (var i = 0; i < $('.labels').length; i++) {
-                array_label.push($('.labels').eq(i).attr('data-value'));
+                var tmp_label = $('.labels').eq(i).attr('data-value');
+                if(tmp_label!=null && tmp_label!='')
+                    array_label.push(tmp_label);
             }
             var show_flag = $('#show_flag').prop('checked')?'1':'0';
             var index_flag = $('#index_flag').prop('checked')?'1':'0';
@@ -1016,7 +1018,9 @@ $(weego.init());
             var _this = this;
             var array_label = [];
             for (var i = 0; i < $('.labels').length; i++) {
-                array_label.push($('.labels').eq(i).attr('data-value'));
+                var tmp_label = $('.labels').eq(i).attr('data-value');
+                if(tmp_label!=null && tmp_label!='')
+                    array_label.push(tmp_label);
             }
             var show_flag = $('#show_flag').prop('checked')?'1':'0';
             var index_flag = $('#index_flag').prop('checked')?'1':'0';
@@ -1053,10 +1057,12 @@ $(weego.init());
                                     alert('保存景点成功，但auditing保存失败！');
                                 }else
                                     alert('保存成功');
-                                self.location="#attractions";
+                                window.history.back();
+                                // self.location="#attractions";
                             },
                             error:function () {
                                 alert('保存景点成功，但auditing保存失败！');
+                                window.history.back();
                             }
                         });
                     }
