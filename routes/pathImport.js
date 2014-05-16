@@ -7,6 +7,10 @@ var ObjectID = require('mongodb').ObjectID;
 // var Path = require('../proxy/path');
 var sleep = require('sleep');
 
+
+var https = require('https');
+
+
 var barcelona = '516a3519f8a6461636000003';
 var geneva = '516a35218902ca1936000003';
 var london = '516a35218902ca1936000005';
@@ -85,7 +89,7 @@ exports.importPathToDB = function(req,res){
 				one.b_longitude = items[j].longitude;
 				one.b_type = items[j].type;
 				saveOnePath(one,ep.done('save'));
-				sleep.usleep(400000);
+				sleep.usleep(200000);
 				console.log(i + ':' + j);
 			}
 		}
@@ -96,3 +100,10 @@ exports.importPathToDB = function(req,res){
 function saveOnePath(one,callback){
 	Path.newAndSave(one,callback);
 }
+
+function getOnePath (one, callback) {
+	
+}
+
+
+//////////////////////////////////////////分割线

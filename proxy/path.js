@@ -98,3 +98,7 @@ exports.newAndSave = function(one,callback){
 	});
 	
 };
+
+exports.getOneWithNullSteps = function(mode, callback) {
+	Path.findOne({steps: null}, callback);
+};
