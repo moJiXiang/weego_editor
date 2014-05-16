@@ -175,6 +175,7 @@ module.exports = function(app) {
 
 	app.get('/saveSpotToText?',routes.pathImport.saveSpotToText);
 	app.get('/importPathToDB?',routes.pathImport.importPathToDB);
+	app.get('/runFillTaskQueen',routes.pathImport.runFillTaskQueen);
 	
 };
 

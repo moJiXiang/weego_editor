@@ -101,8 +101,23 @@ function saveOnePath(one,callback){
 	Path.newAndSave(one,callback);
 }
 
-function getOnePath (one, callback) {
-	
+function getOneEmptyPath (mode, callback) {
+	Path.getOneWithEmptySteps(mode, callback);
+}
+
+exports.runFillTaskQueen = function(req, res) {
+
+	var flag = true;
+	var i = 0;
+	while (flag) {
+		i ++;
+		console.log(i);
+		getOneEmptyPath('driver', function(data) {
+			console.log(data);
+		});
+		flag = false;
+	}
+
 }
 
 

@@ -99,6 +99,8 @@ exports.newAndSave = function(one,callback){
 	
 };
 
-exports.getOneWithNullSteps = function(mode, callback) {
-	Path.findOne({steps: null}, callback);
+exports.getOneWithEmptySteps = function(mode, callback) {
+	var options = '{"' + mode + '.steps": []}';
+	console.log(options);
+	Path.findOne(options, callback);
 };
