@@ -35,13 +35,13 @@ exports.getFullPathOfTwoPoint = function(a_id,b_id,callback){
 		else{
 			if(one){
 				var ep =  new EventProxy();
-		  	ep.all('a','b', function (a, b) {
-		  		one.a = a;
-		  		one.b = b;
-			    return callback(null, one);
-			  }).fail(callback);
-		  	findSpotByIdAndType(one.a_id,one.a_type,ep.done('a'));
-		  	findSpotByIdAndType(one.b_id,one.b_type,ep.done('b'));
+			  	ep.all('a','b', function (a, b) {
+			  		one.a = a;
+			  		one.b = b;
+				    return callback(null, one);
+				  }).fail(callback);
+			  	findSpotByIdAndType(one.a_id,one.a_type,ep.done('a'));
+			  	findSpotByIdAndType(one.b_id,one.b_type,ep.done('b'));
 			}
 			else
 				callback(null,one);
@@ -90,7 +90,6 @@ exports.newAndSave = function(one,callback){
 			path.a_longitude = one.a_longitude;
 			path.b_latitude = one.b_latitude;
 			path.b_longitude = one.b_longitude;
-
 			path.save(function (err) {
 				callback(err, path);
 			});
@@ -100,7 +99,6 @@ exports.newAndSave = function(one,callback){
 };
 
 exports.getOneWithEmptySteps = function(mode, callback) {
-	var options = '{"' + mode + '.steps": []}';
-	console.log(options);
+	var options = "{'" + mode + ".steps': []}";
 	Path.findOne(options, callback);
 };

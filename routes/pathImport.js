@@ -67,6 +67,10 @@ exports.importPathToDB = function(req,res){
 	}
 	var items = require('../data/path/'+title).items;
 	var n = items.length * (items.length-1);
+
+
+	var itemss = require('../data/path/resultfull').items;
+
 	var ep = new EventProxy();
 	ep.after('save',n,function(list){
 		// console.log(list);
@@ -74,6 +78,37 @@ exports.importPathToDB = function(req,res){
 	}).fail(function(err){
 		console.log(err);
 	});
+	for(var i=0;i<items.length;i++){
+		for(var j=0;j<itemss.length;j++){
+			if(i!=j){
+				var one = {};
+				one.city_id = newyork;
+				one.city_name = items[i].city_name;
+				one.a_id = items[i]._id;
+				one.a_latitude = items[i].latitude;
+				one.a_longitude = items[i].longitude;
+				one.a_type = items[i].type;
+				one.b_id = itemss[j]._id;
+				one.b_latitude = itemss[j].latitude;
+				one.b_longitude = itemss[j].longitude;
+				one.b_type = itemss[j].type;
+				saveOnePath(one,ep.done('save'));
+				sleep.usleep(600);
+				console.log(i + ':' + j);
+			}
+		}
+	}
+	console.log(items.length);
+};
+
+
+exports.importPathToDBSync = function(req, res) {
+	var title = req.query.title;
+	if(!title){
+		title = 'result';
+	}
+	var items = require('../data/path/'+title).items;
+	var n = items.length * (items.length-1);
 	for(var i=0;i<items.length;i++){
 		for(var j=0;j<items.length;j++){
 			if(i!=j){
@@ -88,14 +123,26 @@ exports.importPathToDB = function(req,res){
 				one.b_latitude = items[j].latitude;
 				one.b_longitude = items[j].longitude;
 				one.b_type = items[j].type;
-				saveOnePath(one,ep.done('save'));
-				sleep.usleep(200000);
-				console.log(i + ':' + j);
+				saveOnePath(one, function(err, data) {
+					if (err) {
+						console.log(err);
+					} else {
+						console.log(i + ':' + j);
+					}
+				});
+				sleep.usleep(1000);
+				
 			}
 		}
 	}
-	console.log(items.length);
+	//console.log(items.length);
 };
+
+
+
+
+
+
 
 function saveOnePath(one,callback){
 	Path.newAndSave(one,callback);
@@ -106,16 +153,24 @@ function getOneEmptyPath (mode, callback) {
 }
 
 exports.runFillTaskQueen = function(req, res) {
-
+	var type = req.query.type;
 	var flag = true;
-	var i = 0;
-	while (flag) {
-		i ++;
-		console.log(i);
-		getOneEmptyPath('driver', function(data) {
-			console.log(data);
+	var index = 0;
+	while (flag && index < 10) {
+		getOneEmptyPath('driver', function(err, data) {
+			if (err) {
+				console.log(err);
+				flag = false;
+			} else {
+				if (!data) {
+					flag = false;
+				} else {
+					// fetch google maps api
+					console.log(data.a_latitude + ',' + data.a_longitude + '|' + data.b_latitude + ',' + data.b_longitude);
+				}
+			}
 		});
-		flag = false;
+		index ++;
 	}
 
 }
