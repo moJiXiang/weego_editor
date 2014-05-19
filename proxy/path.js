@@ -102,3 +102,9 @@ exports.getOneWithEmptySteps = function(mode, callback) {
 	var options = "{'" + mode + ".steps': []}";
 	Path.findOne(options, callback);
 };
+
+exports.getOneWithEmptyStepsSync = function(mode, callback) {
+	var options = "{'" + mode + ".steps': [], limit = 2}";
+	Path.find(options, callback);
+};
+

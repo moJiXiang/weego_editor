@@ -152,28 +152,45 @@ function getOneEmptyPath (mode, callback) {
 	Path.getOneWithEmptySteps(mode, callback);
 }
 
+function getOneEmptyPathSync(mode, callback) {
+	Path.getOneWithEmptyStepsSync(mode, callback);
+}
+
 exports.runFillTaskQueen = function(req, res) {
 	var type = req.query.type;
 	var flag = true;
 	var index = 0;
-	while (flag && index < 10) {
-		getOneEmptyPath('driver', function(err, data) {
-			if (err) {
-				console.log(err);
-				flag = false;
-			} else {
-				if (!data) {
-					flag = false;
-				} else {
-					// fetch google maps api
-					console.log(data.a_latitude + ',' + data.a_longitude + '|' + data.b_latitude + ',' + data.b_longitude);
-				}
-			}
-		});
-		index ++;
-	}
+	// getOneEmptyPathSync('driver', function(err, data) {
+	// 	if (err) {
+	// 		console.log(err);
+	// 		flag = false;
+	// 	} else {
+	// 		if (!data) {
+	// 			flag = false;
+	// 		} else {
+	// 			console.log(data);
+	// 			// fetch google maps api
+	// 			// for (var i = 0; i < data.length; i ++) {
+	// 			// 	console.log(data[i].a_latitude + ',' + data[i].a_longitude + '|' + data[i].b_latitude + ',' + data[i].b_longitude);
+	// 			// };
+				
+	// 		}
+	// 	}
+	// });
+	// getOneEmptyPath('driver', function(err, data) {
+	// 	console.log(data);
+	// });
+	// for (var i = 0; i < 1000; i++) {
+	// 	console.log("fetch " + i);
+	// 	sleep.sleep(2);
+	// };
+	for (var i = 0; i < 3600; i++) {
+		console.log(i + "...");
+		sleep.sleep(2);
+	};
+	res.send("pending...");
 
-}
+};
 
 
 //////////////////////////////////////////分割线
