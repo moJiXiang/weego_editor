@@ -152,45 +152,165 @@ function getOneEmptyPath (mode, callback) {
 	Path.getOneWithEmptySteps(mode, callback);
 }
 
-function getOneEmptyPathSync(mode, callback) {
-	Path.getOneWithEmptyStepsSync(mode, callback);
+function getOneEmptyPathSync(mode, skip, limit, callback) {
+	Path.getOneWithEmptyStepsSync(mode, skip, limit, callback);
+}
+
+
+
+var https = require('https');
+
+var apiurl = 'https://maps.googleapis.com/maps/api/directions/json';
+
+function getGoogleUrl(o, d, mode, sensor, key) {
+	var url = apiurl;
+	url += "?origin=" + o;
+	url += "&destination=" + d;
+	url += "&mode=" + mode;
+	var departure_time = Math.round(new Date().getTime()/1000);
+	url += "&departure_time=" + departure_time;
+	url += "&sensor=" + sensor;
+	url += "&key=" + key;
+	return url;
+}
+
+function mydownload(url, obj, callback) {
+	var req = https.request(url, function(res) {
+	  // console.log("statusCode: ", res.statusCode);
+	  // console.log("headers: ", res.headers);
+	  var data = "";
+	  res.on('data', function(d) {
+	  	data += d;
+	    // process.stdout.write(d);
+	    if(data.length > 100000000)
+        res.emit('end');
+
+	  });
+	  res.on("end", function() {
+	  	callback(null, data, obj);
+	  });
+
+	});
+	req.end();
+
+	req.on('error', function(e) {
+	  console.log('error');
+	  callback(null);
+	});
 }
 
 exports.runFillTaskQueen = function(req, res) {
-	var type = req.query.type;
-	var flag = true;
-	var index = 0;
-	// getOneEmptyPathSync('driver', function(err, data) {
-	// 	if (err) {
-	// 		console.log(err);
-	// 		flag = false;
-	// 	} else {
-	// 		if (!data) {
-	// 			flag = false;
-	// 		} else {
-	// 			console.log(data);
-	// 			// fetch google maps api
-	// 			// for (var i = 0; i < data.length; i ++) {
-	// 			// 	console.log(data[i].a_latitude + ',' + data[i].a_longitude + '|' + data[i].b_latitude + ',' + data[i].b_longitude);
-	// 			// };
-				
-	// 		}
-	// 	}
-	// });
-	// getOneEmptyPath('driver', function(err, data) {
-	// 	console.log(data);
-	// });
-	// for (var i = 0; i < 1000; i++) {
-	// 	console.log("fetch " + i);
+	var mode = req.query.mode;
+	var googlekey = req.query.key;
+	var skip = req.query.skip;
+	var limit = req.query.limit;
+	
+	getOneEmptyPathSync(mode, skip, limit, function(err, data) {
+		if (err) {
+			res.send(err);
+		} else {
+			if (!data) {
+				//stop the request google
+				res.send("no data");
+
+			} else {
+				// res.send(data);
+				//fetch google maps api
+				var epcount = data.length;
+
+				var ep = new EventProxy();
+				ep.after('save', epcount, function(list){
+					console.log(list);
+					console.log('save success!');
+				}).fail(function(err){
+					console.log(err);
+				});
+
+				for (var i = 0; i < epcount; i ++) {
+					var o = data[i].a_latitude + ',' + data[i].a_longitude;
+					var d = data[i].b_latitude + ',' + data[i].b_longitude;
+					var googlemode = "transit";
+					var sensor = "false";
+
+					var myurl = getGoogleUrl(o, d, googlemode, sensor, googlekey);
+					
+					console.log('(________' + i + '________)' + myurl);
+					
+
+					var obj = data[i];
+
+					mydownload(myurl, obj, function(error, data) {
+						if (error) {
+							console.log(error);
+							return;
+						}
+						var inner_data = JSON.parse(data);
+						if (inner_data.status == "OK") {
+							var legs = inner_data.routes[0].legs[0];
+							var steps = [];
+							for (var mini = 0; mini < legs.steps.length; mini++) {
+		                       steps.push(getStepObjByGmInfo(legs.steps[mini]));
+		                       // obj.bus.steps.push(getStepObjByGmInfo(legs.steps[mini]));
+		                   	}
+		                   	// console.log(steps);
+		     //               	var cityname = destinations.cityname==undefined?origin.cityname:destinations.cityname;
+			    //       		var origin_b = origin.attractions==undefined?origin.name==undefined?origin.id:origin.name:origin.attractions;
+			    //       		var destinations_e = destinations.attractions==undefined?destinations.name==undefined?destinations.id:destinations.name:destinations.attractions;
+			    //       		var setJson = {'cityname':cityname,'origin':origin_b,'oLatLng':o,
+							// 			'distance':legs.distance.text,'duration':legs.duration.text,
+							// 			'steps':steps,'destinations':destinations_e,'dLatLng':d,'travelMode':travelMode};
+							// saveMe(o,d,setJson,function(err,result){
+							// 	destinations.path = result;
+							// 	return callback(null,destinations);
+							// });
+							// console.log(steps);
+
+							obj.bus.steps = steps;
+
+							console.log(obj);
+
+							saveOnePath(obj, ep.done('save'));
+
+						} else {
+							console.log("Google maps api error, VPN or something else happen, please stop");
+						}
+
+
+
+					});
+					sleep.sleep(2);
+
+
+					var one = data[i];
+					
+				}
+			}
+
+			res.send("success!");
+		}
+	});
+
+
+
+	// for (var i = 0; i < 3600; i++) {
+	// 	console.log(i + "...");
 	// 	sleep.sleep(2);
 	// };
-	for (var i = 0; i < 3600; i++) {
-		console.log(i + "...");
-		sleep.sleep(2);
-	};
-	res.send("pending...");
+
+
+
+	//res.send("pending...");
 
 };
+
+function getStepObjByGmInfo(step){
+	var mystep = {};
+	mystep.travel_mode = step.travel_mode;
+	mystep.duration = step.duration.text;
+	mystep.distance = step.distance.text;
+	mystep.html = step.html_instructions;
+	return mystep;
+}
 
 
 //////////////////////////////////////////分割线
