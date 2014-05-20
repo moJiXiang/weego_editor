@@ -252,18 +252,6 @@ exports.runFillTaskQueen = function(req, res) {
 		                       steps.push(getStepObjByGmInfo(legs.steps[mini]));
 		                       // obj.bus.steps.push(getStepObjByGmInfo(legs.steps[mini]));
 		                   	}
-		                   	// console.log(steps);
-		     //               	var cityname = destinations.cityname==undefined?origin.cityname:destinations.cityname;
-			    //       		var origin_b = origin.attractions==undefined?origin.name==undefined?origin.id:origin.name:origin.attractions;
-			    //       		var destinations_e = destinations.attractions==undefined?destinations.name==undefined?destinations.id:destinations.name:destinations.attractions;
-			    //       		var setJson = {'cityname':cityname,'origin':origin_b,'oLatLng':o,
-							// 			'distance':legs.distance.text,'duration':legs.duration.text,
-							// 			'steps':steps,'destinations':destinations_e,'dLatLng':d,'travelMode':travelMode};
-							// saveMe(o,d,setJson,function(err,result){
-							// 	destinations.path = result;
-							// 	return callback(null,destinations);
-							// });
-							// console.log(steps);
 
 							obj.bus.steps = steps;
 
@@ -271,8 +259,10 @@ exports.runFillTaskQueen = function(req, res) {
 
 							saveOnePath(obj, ep.done('save'));
 
+
+
 						} else {
-							console.log("Google maps api error, VPN or something else happen, please stop");
+							console.log("Google maps api error, please stop！");
 						}
 
 
