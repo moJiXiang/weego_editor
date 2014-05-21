@@ -91,11 +91,11 @@ exports.newAndSave = function(one,callback){
 			path.b_latitude = one.b_latitude;
 			path.b_longitude = one.b_longitude;
 			//steps
-			path.bus.steps = one.bus.steps;
-			path.driver.steps = one.driver.steps;
-			path.walk.steps = one.walk.steps;
-			console.log("____1_____" + path.bus.steps);
-			console.log("____2_____" + one.bus.steps);
+			// path.bus.steps = one.bus.steps;
+			// path.driver.steps = one.driver.steps;
+			// path.walk.steps = one.walk.steps;
+			// console.log("____1_____" + path.bus.steps);
+			// console.log("____2_____" + one.bus.steps);
 			path.save(function (err) {
 				callback(err, path);
 			});
