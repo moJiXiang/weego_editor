@@ -8,3 +8,4 @@ exports.Area = require('./area');
 exports.Task = require('./task');
 exports.Taskquestion = require('./taskquestion');
 exports.Auditing = require('./auditing');
+exports.Path = require('./path');

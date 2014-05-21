@@ -50,6 +50,9 @@ exports.getShoppingsByQuery = function(query,callback){
 	});
 };
 
+exports.getShoppingsByOptions = function(query,options,callback){
+	Shopping.find(query,[],options,callback);
+};
 
 exports.count = function (query,callback) {
   Shopping.count(query, callback);
