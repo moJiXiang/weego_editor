@@ -227,6 +227,9 @@ exports.runFillTaskQueen = function(req, res) {
 				});
 
 				for (var i = 0; i < epcount; i ++) {
+
+
+
 					var o = data[i].a_latitude + ',' + data[i].a_longitude;
 					var d = data[i].b_latitude + ',' + data[i].b_longitude;
 					var googlemode = "transit";
@@ -303,6 +306,13 @@ exports.runFillTaskQueen = function(req, res) {
 					var one = data[i];
 					
 				}
+
+					
+
+
+
+
+
 			}
 
 			res.send("success!");
