@@ -1,5 +1,5 @@
-global.mongodbHost = '192.168.1.103';
-//global.mongodbHost = 'localhost';
+// global.mongodbHost = '192.168.1.103';
+global.mongodbHost = 'localhost';
 global.mongodbPort = 27017;
 global.mongodbDB = 'travel';//travel
 global.listenerPort = 3003;
