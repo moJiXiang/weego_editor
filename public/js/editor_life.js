@@ -320,6 +320,7 @@ var LifeView = Backbone.View.extend({
         var _this = this;
         var type =$('#property-type').val();
         var name = $('#addCategoryValue').val();
+        console.log(type,name);
         $("#addCategoryValue").autocomplete({
             source:function (request, response) {
                 $.ajax({
@@ -327,6 +328,7 @@ var LifeView = Backbone.View.extend({
                     dataType:"json",
                     data:request,
                     success:function (data) {
+                        console.log(data);
                         response(
                             $.map(
                                 data.result, function (item) {
@@ -361,12 +363,12 @@ var LifeView = Backbone.View.extend({
         var open_day = $('#open-day').val();
         var open_time_begin = $('#open-time-begin').val();
         var open_time_end = $('#open-time-end').val();
-        if(open_time_begin!='allday' && open_time_begin!='close' &&
-            open_time_end!='allday' && open_time_end!='close' &&
-            open_time_end < open_time_begin){
-            alert('请正确选择！');
-            return false;
-        }
+        // if(open_time_begin!='allday' && open_time_begin!='close' &&
+        //     open_time_end!='allday' && open_time_end!='close' &&
+        //     open_time_end < open_time_begin){
+        //     alert('请正确选择！');
+        //     return false;
+        // }
         var open_time = {
             desc : $('#open-day').find("option:selected").text()+' '+this.getOpenTimeDesc(),
             value : open_day+'-'+open_time_begin+'-'+open_time_end
