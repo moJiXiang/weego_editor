@@ -2,7 +2,7 @@ var Attractions = require('./attractions');
 var Restaurant = require('../proxy/restaurant');
 var Shopping = require('../proxy/shopping');
 var EventProxy = require('eventproxy');
-var Path = require('../proxy/Path');
+var Path = require('../proxy/path');
 var ObjectID = require('mongodb').ObjectID;
 var PathsModel = require('../models').Path;
 var sleep = require('sleep');
@@ -22,6 +22,30 @@ var sanfrancisco = '516a34f958e3511036000002';
 var singapore = '516a3535dac6182136000004';
 var zurich = '516a35218902ca1936000002';
 var venezia = '516a3519f8a6461636000001';
+
+
+var googlekeys = [
+				'AIzaSyDMRyBL9sn1vA3MbjDtX4W54Si-vXmVI9I',
+				'AIzaSyAZLPKceML58HmRhUilEAJk7eVzX-YWvDk',
+				'AIzaSyC3C4H0cmeDg_zsdClUmTHZawfX4ud0KJg',
+				'AIzaSyBs_-L-SJd6jRs1lDg7or9ML9-f6qSyJPY',
+				'AIzaSyD2yN3H6AZo2ZRVV1TKE1Qgjwp_aihXgIg',
+				'AIzaSyBE6jCDCiCYiiWte8mHU2eCWRpnesg9wi0',
+				'AIzaSyB8k898ceQQQRP8E7d6MGV7uR70SjglIRs',
+				'AIzaSyAAqiB8LKdAO2TFce938JhYxRzV5iocYnA',
+				'AIzaSyBWdhuY4bvEvpXFUXmd0f-CVPI7bPeDIrI',
+				'AIzaSyAyB1quLjB8AQJX7uIFI4CccScGtIQo_Iw',
+				'AIzaSyDXZs4uH6GfJvty_d5lxSdAYOIGni4ONpA',
+				'AIzaSyD3bSBcHxhXnbGNmOMyZIq0yZQKT5SK5vE',
+				'AIzaSyA6VApU2NvCe6_vXP-uUVR3tp7tytXmktk',
+				'AIzaSyCxbK33U4sc03RiMYvbGjv842fu3CauQMw',
+				'AIzaSyBBZ5PfjvzlJmnJP6UOZwulnXkUka10jtU',
+				'AIzaSyAQlkUmxuKywJhQHjhPeNqHq64x4GYboxU',
+				'AIzaSyCfxoIPMR1XCX7oKQYHJUq1v7sJnIBU5Zo',
+				'AIzaSyA7hNXWKhdQAsdJrA382YqdfwHdGOD4ERQ',
+				'AIzaSyD0iTaXf4_7iwV-XwHHAR7G-NtegrOfJn0',
+				'AIzaSyBfgNQ9uBdEgUaWBJQhupDVb37D8s5aIzQ'
+				];
 
 exports.saveSpotToText = function(req,res){
 	var title = req.query.title;
@@ -201,7 +225,8 @@ function mydownload(url, obj, callback) {
 
 exports.runFillTaskQueen = function(req, res) {
 	var mode = req.query.mode;
-	var googlekey = req.query.key;
+	var kk = req.query.key;
+	var googlekey = googlekeys[kk];
 	var skip = req.query.skip;
 	var limit = req.query.limit;
 	
@@ -307,7 +332,7 @@ exports.runFillTaskQueen = function(req, res) {
 					
 				}
 
-					
+
 
 
 
