@@ -1,9 +1,9 @@
-global.mongodbHost = '192.168.1.103';
+global.mongodbHost = '192.168.1.118';
 //global.mongodbHost = 'localhost';
 global.mongodbPort = 27017;
 global.mongodbDB = 'travel';//travel
 global.listenerPort = 3003;
-global.db = 'mongodb://localhost/travel',
+global.db = 'mongodb://192.168.1.118/travel',
 
 //global.imgasizeMiddle = "572x176";
 //global.imgasizeSmall = "266x176";
