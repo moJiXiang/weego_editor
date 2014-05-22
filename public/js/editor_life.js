@@ -241,11 +241,13 @@ var LifeView = Backbone.View.extend({
         });
     },
     selectCountry: function(){
+        console.log('selectCountry');
         var countryCode =  $("#country_select").val();
         $.ajax({
             url:"/getCityByCountry/"+countryCode,
             success:function (data) {
                 if(data.status){
+                    console.log(data);
                     var cities = data.cities;
                     var option = '<option value=""></option>';
                     for(var i=0;i<cities.length;i++){
@@ -482,6 +484,8 @@ var LifeView = Backbone.View.extend({
             index_flag : $('#index_flag').prop('checked'),
             local_flag : $('#local_flag').prop('checked'),
             michilin_flag : $('#michilin_flag').prop('checked'),
+            best_dinnerchoics : $('#best_dinnerchoics').prop('checked'),
+            most_popular : $('#most_popular').prop('checked'),
             ranking:$('#ranking').val(),
             rating:$('#rating').val(),
             reviews:$('#reviews').val(),

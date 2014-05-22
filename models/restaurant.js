@@ -30,6 +30,8 @@ var RestaurantSchema = new Schema({
   area_id: {type: ObjectId},
   area_name: {type: String},
   michilin_flag:{ type: Boolean ,default: false},
+  best_dinnerchoics:{ type: Boolean, default: false},
+  most_popular:{ type: Boolean, default: false},
   am: {type:Boolean,default:true},
   pm: {type:Boolean,default:true},
   ev: {type:Boolean,default:true},
