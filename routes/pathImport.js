@@ -198,7 +198,7 @@ function getGoogleUrl(o, d, mode, sensor, key) {
 	return url;
 }
 
-function mydownload(url, obj, callback) {
+function mydownload(url, obj, index, count, callback) {
 	var req = https.request(url, function(res) {
 	  // console.log("statusCode: ", res.statusCode);
 	  // console.log("headers: ", res.headers);
@@ -211,7 +211,7 @@ function mydownload(url, obj, callback) {
 
 	  });
 	  res.on("end", function() {
-	  	callback(null, data, obj);
+	  	callback(null, data, obj, index, count);
 	  });
 
 	});
@@ -223,7 +223,19 @@ function mydownload(url, obj, callback) {
 	});
 }
 
+
+exports.autoReloadPage = function (req, res) {
+	sleep.sleep(4);
+	console.log("hello");
+	res.redirect('/autoreload?test');
+}
+
+function getRequestURl() {
+
+}
+
 exports.runFillTaskQueen = function(req, res) {
+	
 	var mode = req.query.mode;
 	var kk = req.query.key;
 	var googlekey = googlekeys[kk];
@@ -253,94 +265,90 @@ exports.runFillTaskQueen = function(req, res) {
 
 				for (var i = 0; i < epcount; i ++) {
 
+					(function(k) {
 
+						var o = data[k].a_latitude + ',' + data[k].a_longitude;
+						var d = data[k].b_latitude + ',' + data[k].b_longitude;
+						var googlemode = "transit";
+						var sensor = "false";
 
-					var o = data[i].a_latitude + ',' + data[i].a_longitude;
-					var d = data[i].b_latitude + ',' + data[i].b_longitude;
-					var googlemode = "transit";
-					var sensor = "false";
-
-					var myurl = getGoogleUrl(o, d, googlemode, sensor, googlekey);
-					
-					console.log('(________' + i + '________)' + myurl);
-					
-					var one = data[i];
-
-					mydownload(myurl, one, function(error, data) {
-						if (error) {
-							console.log("fetch the google api error, VPN or connection ");
-							return;
-						} else {
-							// console.log(data);
-							if (data != undefined) {
-
-								var inner_data = JSON.parse(data);
-
-								if (inner_data.status == "OK") {
-									var legs = inner_data.routes[0].legs[0];
-									var steps = [];
-									for (var mini = 0; mini < legs.steps.length; mini++) {
-				                       steps.push(getStepObjByGmInfo(legs.steps[mini]));
-				                       // one.bus.steps.push(getStepObjByGmInfo(legs.steps[mini]));
-				                   	}
-
-									one.bus.steps = steps;
-
-									// console.log(one);
-
-									// saveOnePath(obj, ep.done('save'));
-									var path = new PathsModel();
-									path.city_id = new ObjectID(one.city_id+'');
-									path.city_name = one.city_name;
-									path.a_id = new ObjectID(one.a_id+'');
-									path.a_type = one.a_type;
-									path.b_id = new ObjectID(one.b_id+'');
-									path.b_type = one.b_type;
-									path.a_latitude = one.a_latitude;
-									path.a_longitude = one.a_longitude;
-									path.b_latitude = one.b_latitude;
-									path.b_longitude = one.b_longitude;
-									//steps
-									path.bus.steps = one.bus.steps;
-									path.driver.steps = one.driver.steps;
-									path.walk.steps = one.walk.steps;
-									one.save(function(err, one_data){
-										if (err) {
-											console.log("get the data to database error,fail to read");
-										}
-										console.log("one data success!");
-									});
-								} else {
-									console.log("data error");
-								}
-
-								
-
-							} else {
-								console.log("Google maps api error, please stop~");
-							}
-						}
+						var myurl = getGoogleUrl(o, d, googlemode, sensor, googlekey);
 						
+						console.log('(________' + k + '________)' + myurl);
+						
+						var one = data[k];
+						mydownload(myurl, one, k, epcount, function(error, data) {
+							if (error) {
+								console.log("fetch the google api error, VPN or connection ");
+								return;
+							} else {
+								// console.log(data);
+								if (data != undefined) {
+
+									var inner_data = JSON.parse(data);
+
+									if (inner_data.status == "OK") {
+										var legs = inner_data.routes[0].legs[0];
+										var steps = [];
+										for (var mini = 0; mini < legs.steps.length; mini++) {
+					                       steps.push(getStepObjByGmInfo(legs.steps[mini]));
+					                       // one.bus.steps.push(getStepObjByGmInfo(legs.steps[mini]));
+					                   	}
+
+										one.bus.steps = steps;
+
+										// console.log(one);
+
+										// saveOnePath(obj, ep.done('save'));
+										var path = new PathsModel();
+										path.city_id = new ObjectID(one.city_id+'');
+										path.city_name = one.city_name;
+										path.a_id = new ObjectID(one.a_id+'');
+										path.a_type = one.a_type;
+										path.b_id = new ObjectID(one.b_id+'');
+										path.b_type = one.b_type;
+										path.a_latitude = one.a_latitude;
+										path.a_longitude = one.a_longitude;
+										path.b_latitude = one.b_latitude;
+										path.b_longitude = one.b_longitude;
+										//steps
+										path.bus.steps = one.bus.steps;
+										path.driver.steps = one.driver.steps;
+										path.walk.steps = one.walk.steps;
+										one.save(function(err, one_data){
+											if (err) {
+												console.log("get the data to database error,fail to read");
+											}
+											console.log("one data success!");
+										});
+									} else {
+										console.log("data error");
+									}
+									if( k == epcount - 1) {
+										var redurl = '/runFillTaskQueen?';
+										redurl += 'mode=' + mode;
+										redurl += '&skip=' + skip;
+										redurl += '&limit=' + limit;
+										redurl += '&key=' + kk;
+										res.redirect(redurl);
+									}
+
+								} else {
+									console.log("Google maps api error, please stop~");
+								}
+							}
+							
 
 
 
-					});
-					sleep.sleep(2);
+						});
+						sleep.sleep(1);
 
-
-					var one = data[i];
-					
+					})(i);
+				
 				}
 
-
-
-
-
-
-
 			}
-
-			res.send("success!");
 		}
 	});
 
