@@ -660,7 +660,7 @@ var LifeListView = Backbone.View.extend({
             isMichilinFlag = $('#michilin_flag').prop('checked'),
             isBestDinnerchoics = $('#best_dinnerchoics').prop('checked'),
             isMostPopular = $('#most_popular').prop('checked');
-        self.location = '/#lifes/1/'+type+'/q_'+cityname+'/q_'+encodeURIComponent(lifename);
+        self.location = '/#lifes/1/'+type+'/q_'+cityname+'/q_'+encodeURIComponent(lifename)+'/q_';
     },
     selectType: function(){
         var type = $('#life_type').val();
