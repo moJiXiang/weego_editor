@@ -2,7 +2,8 @@ var Attractions = require('./attractions');
 var Restaurant = require('../proxy/restaurant');
 var Shopping = require('../proxy/shopping');
 var EventProxy = require('eventproxy');
-var Path = require('../proxy/Path');
+//Path to paht
+var Path = require('../proxy/path');
 var ObjectID = require('mongodb').ObjectID;
 var PathsModel = require('../models').Path;
 var sleep = require('sleep');
