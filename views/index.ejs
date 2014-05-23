@@ -1,4 +1,12 @@
 <%- test %>
 <script>
-location='<%- url%>';
+var mode = '<%- mode%>';
+var skip = <%- skip%>;
+var limit = <%- limit%>;
+var key = <%- key%>;
+if (<%- changekey%> == true) {
+	key ++;
+}
+skip += limit;
+location='<%-url %>' + 'mode=' + mode + '&skip=' + skip + '&limit=' + limit + '&key=' + key;
 </script>
