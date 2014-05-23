@@ -177,6 +177,7 @@ module.exports = function(app) {
 	app.get('/importPathToDB?',routes.pathImport.importPathToDB);
 	app.get('/importPathToDBSync',routes.pathImport.importPathToDBSync);
 	app.get('/runFillTaskQueen',routes.pathImport.runFillTaskQueen);
+	app.get('/autoreload',routes.pathImport.autoReloadPage);
 	
 };
 

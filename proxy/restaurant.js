@@ -129,7 +129,8 @@ exports.update = function(one,callback){
 			restaurant.reviews = one.reviews;
 			restaurant.comments = comments;
 			restaurant.michilin_flag = one.michilin_flag;
-			
+			restaurant.best_dinnerchoics = one.best_dinnerchoics;
+			restaurant.most_popular = one.most_popular;
 			restaurant.info = one.info;
 			restaurant.save(function(err){
 				callback(err,restaurant);
