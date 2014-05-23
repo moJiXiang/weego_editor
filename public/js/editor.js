@@ -37,6 +37,7 @@ $(weego.init());
             "lifes/:pageno/:type":"showLifeListView",
             "lifes/:pageno/:type/:cityname":"showLifeListView",
             "lifes/:pageno/:type/:cityname/:lifename":"showLifeListView",
+            "lifes/:pageno/:type/:cityname/:lifename/:isLocalFlag/:isMichilinFlag/:isBestDinnerchoics/:isMostPopular":"showLifeListView",
             "life/new":"showLifeDetailView",
             "life/:id/:type":"showLifeDetailView",
 
@@ -274,7 +275,7 @@ $(weego.init());
                 .addClass('active')
                 .siblings().removeClass('active');
         },
-        showLifeListView: function(page,type,cityname,lifename){
+        showLifeListView: function(page,type,cityname,lifename,isLocalFlag,isLocalFlag,isBestDinnerchoics,isMostPopular){
             $('#app').off();
             $('#app').empty();
             if(type == null)
@@ -293,6 +294,10 @@ $(weego.init());
                     model.lifename = a[1];
                 }
             }
+            model.isLocalFlag = isLocalFlag;
+            model.isMichilinFlag = isLocalFlag;
+            model.isBestDinnerchoics = isBestDinnerchoics;
+            model.isMostPopular = isMostPopular;
             if(page == null){
                 var lifeListView = new LifeListView(model);
                 lifeListView.render().showFirstPage();
