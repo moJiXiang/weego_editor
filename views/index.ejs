@@ -7,6 +7,6 @@ var key = <%- key%>;
 if (<%- changekey%> == true) {
 	key ++;
 }
-skip += 10;
+skip += limit;
 location='<%-url %>' + 'mode=' + mode + '&skip=' + skip + '&limit=' + limit + '&key=' + key;
 </script>
