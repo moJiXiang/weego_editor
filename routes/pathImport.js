@@ -226,12 +226,10 @@ function mydownload(url, obj, index, count, callback) {
 
 exports.autoReloadPage = function (req, res) {
 
-	var astr = req.query.a;
-	var bstr = req.query.b;
-	var cstr = req.query.c;
-	console.log(astr + bstr + cstr);
 	sleep.sleep(4);
-	res.render("index", {test:"hello,world", a: astr, b: bstr, c : '20'});
+	var achangekey = false;
+	achangekey = true;
+	res.render("index", {test:"hello,world", url : "aaaa", changekey : achangekey});
 }
 
 exports.runFillTaskQueen = function(req, res) {
@@ -241,6 +239,8 @@ exports.runFillTaskQueen = function(req, res) {
 	var googlekey = googlekeys[kk];
 	var skip = req.query.skip;
 	var limit = req.query.limit;
+
+	var changekey = false;
 	
 	getOneEmptyPathSync(mode, skip, limit, function(err, data) {
 		if (err) {
@@ -292,10 +292,11 @@ exports.runFillTaskQueen = function(req, res) {
 										if (inner_data.status == "OK") {
 											var legs = inner_data.routes[0].legs[0];
 											var steps = [];
-											for (var mini = 0; mini < legs.steps.length; mini++) {
-						                       steps.push(getStepObjByGmInfo(legs.steps[mini]));
-						                       // one.bus.steps.push(getStepObjByGmInfo(legs.steps[mini]));
-						                   	}
+											steps = legs.steps;
+											// for (var mini = 0; mini < legs.steps.length; mini++) {
+						     //                   steps.push(getStepObjByGmInfo(legs.steps[mini]));
+						     //                   // one.bus.steps.push(getStepObjByGmInfo(legs.steps[mini]));
+						     //               	}
 
 											one.bus.steps = steps;
 
@@ -363,17 +364,21 @@ exports.runFillTaskQueen = function(req, res) {
 
 
 
+										} else if (inner_data.status == "OVER_QUERY_LIMIT") {
+											changekey = true;
 										}
 										 else {
 											console.log("data error");
 										}
 										if( k == epcount - 1) {
+
 											var redurl = '/runFillTaskQueen?';
-											redurl += 'mode=' + mode;
-											redurl += '&skip=' + skip;
-											redurl += '&limit=' + limit;
-											redurl += '&key=' + kk;
-											res.render('index', {url : redurl, test : "hello,world"});
+											var modee = mode;
+											var skipp = skip;
+											var limitt = limit;
+											var changekeyy = changekey;
+
+											res.render('index', {url : redurl, test : "hello,world", changekey : changekeyy, mode : modee, skip : skipp, limit : limitt, key : kk});
 										}
 
 									} else {
