@@ -225,13 +225,13 @@ function mydownload(url, obj, index, count, callback) {
 
 
 exports.autoReloadPage = function (req, res) {
+
+	var astr = req.query.a;
+	var bstr = req.query.b;
+	var cstr = req.query.c;
+	console.log(astr + bstr + cstr);
 	sleep.sleep(4);
-	console.log("hello");
-	res.redirect('/autoreload?test');
-}
-
-function getRequestURl() {
-
+	res.render("index", {test:"hello,world", a: astr, b: bstr, c : '20'});
 }
 
 exports.runFillTaskQueen = function(req, res) {
@@ -255,13 +255,13 @@ exports.runFillTaskQueen = function(req, res) {
 				//fetch google maps api
 				var epcount = data.length;
 
-				var ep = new EventProxy();
-				ep.after('save', epcount, function(list){
-					console.log(list);
-					console.log('save success!');
-				}).fail(function(err){
-					console.log(err);
-				});
+				// var ep = new EventProxy();
+				// ep.after('save', epcount, function(list){
+				// 	console.log(list);
+				// 	console.log('save success!');
+				// }).fail(function(err){
+				// 	console.log(err);
+				// });
 
 				for (var i = 0; i < epcount; i ++) {
 
@@ -269,6 +269,7 @@ exports.runFillTaskQueen = function(req, res) {
 
 						var o = data[k].a_latitude + ',' + data[k].a_longitude;
 						var d = data[k].b_latitude + ',' + data[k].b_longitude;
+						if (!data[k].b_latitude || !data[k].b_longitude || data[k].a_latitude || ) {};
 						var googlemode = "transit";
 						var sensor = "false";
 
@@ -319,9 +320,50 @@ exports.runFillTaskQueen = function(req, res) {
 											if (err) {
 												console.log("get the data to database error,fail to read");
 											}
-											console.log("one data success!");
+											console.log("update success!");
 										});
-									} else {
+									} else if (inner_data.status == "NOT_FOUND") {
+
+
+										var steps = [];
+										
+										console.log(one.id);
+
+										var onestep = '{"html" : "Google Not Found"}';
+
+										steps.push(onestep);
+
+										one.bus.steps = steps;
+
+										// console.log(one);
+
+										// saveOnePath(obj, ep.done('save'));
+										var path = new PathsModel();
+										path.city_id = new ObjectID(one.city_id+'');
+										path.city_name = one.city_name;
+										path.a_id = new ObjectID(one.a_id+'');
+										path.a_type = one.a_type;
+										path.b_id = new ObjectID(one.b_id+'');
+										path.b_type = one.b_type;
+										path.a_latitude = one.a_latitude;
+										path.a_longitude = one.a_longitude;
+										path.b_latitude = one.b_latitude;
+										path.b_longitude = one.b_longitude;
+										//steps
+										path.bus.steps = one.bus.steps;
+										path.driver.steps = one.driver.steps;
+										path.walk.steps = one.walk.steps;
+										one.save(function(err, one_data){
+											if (err) {
+												console.log("get the data to database error,fail to read");
+											}
+											console.log("not found data");
+										});
+
+
+
+									}
+									 else {
 										console.log("data error");
 									}
 									if( k == epcount - 1) {
@@ -330,7 +372,7 @@ exports.runFillTaskQueen = function(req, res) {
 										redurl += '&skip=' + skip;
 										redurl += '&limit=' + limit;
 										redurl += '&key=' + kk;
-										res.redirect(redurl);
+										res.render('index', {url : redurl, test : "hello,world"});
 									}
 
 								} else {
