@@ -10,7 +10,6 @@ function upToYun(src_path_name,target_path_name,callback){
 	var fileContent = fs.readFileSync(src_path_name);
 	upyun.writeFile(target_path_name, fileContent, false, function(err, data){
 	    if (err) {
-	    	console.log(err);
 	       callback(err);
 	    }else
 	    	callback(null,data);
@@ -203,8 +202,6 @@ exports.delCityBgFromYun = function(fileName,callback){
 exports.upLifeToYun = function(type,fileName,callback){
 	var src_path_name0 = getSrcPathByType(type) + fileName;
 	var target_path_name0 = getTargetPathByType(type) + fileName;
-	console.log(src_path_name0);
-	console.log(target_path_name0);
 	
 	upToYun(src_path_name0,target_path_name0,function(err,data0){
 		if(err) throw err;
