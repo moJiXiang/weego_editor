@@ -632,7 +632,30 @@
                 城市：<input type="text" id="search-life-cityname" value="{{search_cityname}}"> 
             </span>
 
-
+            <div class="control-group">
+              <div class="controls">
+                <input type="checkbox" id="local_flag">
+                  <label  class="control-label show_flag" for='local_flag'>是否是当地特色</label>
+              </div>
+          </div>
+          <div class="control-group">
+              <div class="controls">
+                <input type="checkbox" id="michilin_flag">
+                  <label  class="control-label show_flag" for='michilin_flag'>是否是米其林推荐</label>
+              </div>
+          </div>
+          <div class="control-group">
+            <div class="controls">
+              <input type="checkbox" id="best_dinnerchoics">
+              <label class="control-label show_flag" for="best_dinnerchoics">是否最适合晚餐</label>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="controls">
+              <input type="checkbox" id="most_popular">
+              <label  class="control-label show_flag" for="most_popular">是否最流行</label>
+            </div>
+          </div>
             <select id="life_type">
                 <option value="1" {{#ifCond type '1'}} selected {{/ifCond}}>餐馆</option>
                 <option value="2" {{#ifCond type '2'}} selected {{/ifCond}}>购物</option>

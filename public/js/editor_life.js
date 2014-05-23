@@ -546,7 +546,7 @@ var LifeView = Backbone.View.extend({
         if(item.city_id==''||item.city_id==null || item.city_id==undefined){
             alert('城市不能为空！');
             $('#city_select').focus();
-            return false;
+            return true; 
         }
         
         if(this.model == null || this.model.get('_id') == null)
@@ -656,8 +656,11 @@ var LifeListView = Backbone.View.extend({
         var type = $('#life_type').val();
         var cityname =$('#search-life-cityname').val();
         var lifename =$('#search-life-name').val();
-        
-        self.location = '/#lifes/1/'+type+'/q_'+cityname+'/q_'+encodeURIComponent(lifename);
+        var isLocalFlag = $('#local_flag').prop('checked'),
+            isMichilinFlag = $('#michilin_flag').prop('checked'),
+            isBestDinnerchoics = $('#best_dinnerchoics').prop('checked'),
+            isMostPopular = $('#most_popular').prop('checked');
+        self.location = '/#lifes/1/'+type+'/q_'+cityname+'/q_'+encodeURIComponent(lifename)+'/q_';
     },
     selectType: function(){
         var type = $('#life_type').val();
