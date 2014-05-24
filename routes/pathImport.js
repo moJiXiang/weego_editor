@@ -378,7 +378,9 @@ exports.runFillTaskQueen = function(req, res) {
 											var skipp = skip;
 											var limitt = limit;
 											var changekeyy = changekey;
-											changekey = false;
+											if (changekey) {
+												changekey = false;
+											}
 											res.render('index', {url : redurl, test : "hello,world", changekey : changekeyy, mode : modee, skip : skipp, limit : limitt, key : kk});
 										}
 
