@@ -44,7 +44,14 @@ var googlekeys = [
 				'AIzaSyCfxoIPMR1XCX7oKQYHJUq1v7sJnIBU5Zo',
 				'AIzaSyA7hNXWKhdQAsdJrA382YqdfwHdGOD4ERQ',
 				'AIzaSyD0iTaXf4_7iwV-XwHHAR7G-NtegrOfJn0',
-				'AIzaSyBfgNQ9uBdEgUaWBJQhupDVb37D8s5aIzQ'
+				'AIzaSyBfgNQ9uBdEgUaWBJQhupDVb37D8s5aIzQ',
+				'AIzaSyB_vWuGUWaWWhktecHv4B4nz3aTNRjEx80',
+				'AIzaSyBvZC8G3vNfydxNvgYRckIy26LdlndyMGM',
+				'AIzaSyBisf0JQtCzfdE05v0J0hTUc3j89jjylWA',
+				'AIzaSyC-8sfK-tKRyklKblFh8snjK3vLY2AVigE',
+				'AIzaSyCH0q4aMCz2eQ5Tj7Z4JNUx5uBmEZ9kihA',
+				'AIzaSyBXm-NF0xvl8wx2ocwTwXHjMFbd8D9ueLw',
+				'AIzaSyAA9NumbHg8GdK96n5TPTqMQy3OIR4iFyo'
 				];
 
 exports.saveSpotToText = function(req,res){
@@ -255,6 +262,8 @@ exports.runFillTaskQueen = function(req, res) {
 				//fetch google maps api
 				var epcount = data.length;
 
+				// res.send(data);
+
 				// var ep = new EventProxy();
 				// ep.after('save', epcount, function(list){
 				// 	console.log(list);
@@ -270,6 +279,7 @@ exports.runFillTaskQueen = function(req, res) {
 						var o = data[k].a_latitude + ',' + data[k].a_longitude;
 						var d = data[k].b_latitude + ',' + data[k].b_longitude;
 						var one = data[k];
+
 
 						if (data[k].b_latitude || data[k].b_longitude || data[k].a_latitude || data[k].a_longitude) {
 
@@ -393,7 +403,7 @@ exports.runFillTaskQueen = function(req, res) {
 
 
 							});
-							sleep.sleep(1);
+							sleep.usleep(1000);
 
 							////////////////
 
