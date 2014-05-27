@@ -44,7 +44,14 @@ var googlekeys = [
 				'AIzaSyCfxoIPMR1XCX7oKQYHJUq1v7sJnIBU5Zo',
 				'AIzaSyA7hNXWKhdQAsdJrA382YqdfwHdGOD4ERQ',
 				'AIzaSyD0iTaXf4_7iwV-XwHHAR7G-NtegrOfJn0',
-				'AIzaSyBfgNQ9uBdEgUaWBJQhupDVb37D8s5aIzQ'
+				'AIzaSyBfgNQ9uBdEgUaWBJQhupDVb37D8s5aIzQ',
+				'AIzaSyB_vWuGUWaWWhktecHv4B4nz3aTNRjEx80',
+				'AIzaSyBvZC8G3vNfydxNvgYRckIy26LdlndyMGM',
+				'AIzaSyBisf0JQtCzfdE05v0J0hTUc3j89jjylWA',
+				'AIzaSyC-8sfK-tKRyklKblFh8snjK3vLY2AVigE',
+				'AIzaSyCH0q4aMCz2eQ5Tj7Z4JNUx5uBmEZ9kihA',
+				'AIzaSyBXm-NF0xvl8wx2ocwTwXHjMFbd8D9ueLw',
+				'AIzaSyAA9NumbHg8GdK96n5TPTqMQy3OIR4iFyo'
 				];
 
 exports.saveSpotToText = function(req,res){
@@ -255,6 +262,8 @@ exports.runFillTaskQueen = function(req, res) {
 				//fetch google maps api
 				var epcount = data.length;
 
+				// res.send(data);
+
 				// var ep = new EventProxy();
 				// ep.after('save', epcount, function(list){
 				// 	console.log(list);
@@ -269,6 +278,9 @@ exports.runFillTaskQueen = function(req, res) {
 
 						var o = data[k].a_latitude + ',' + data[k].a_longitude;
 						var d = data[k].b_latitude + ',' + data[k].b_longitude;
+						var one = data[k];
+
+
 						if (data[k].b_latitude || data[k].b_longitude || data[k].a_latitude || data[k].a_longitude) {
 
 							var googlemode = "transit";
@@ -278,7 +290,7 @@ exports.runFillTaskQueen = function(req, res) {
 							
 							console.log('(________' + k + '________)' + myurl);
 							
-							var one = data[k];
+							
 							mydownload(myurl, one, k, epcount, function(error, data) {
 								if (error) {
 									console.log("fetch the google api error, VPN or connection ");
@@ -366,8 +378,7 @@ exports.runFillTaskQueen = function(req, res) {
 
 										} else if (inner_data.status == "OVER_QUERY_LIMIT") {
 											changekey = true;
-										}
-										 else {
+										} else {
 											console.log("data error");
 										}
 										if( k == epcount - 1) {
@@ -377,7 +388,9 @@ exports.runFillTaskQueen = function(req, res) {
 											var skipp = skip;
 											var limitt = limit;
 											var changekeyy = changekey;
-
+											if (changekey) {
+												changekey = false;
+											}
 											res.render('index', {url : redurl, test : "hello,world", changekey : changekeyy, mode : modee, skip : skipp, limit : limitt, key : kk});
 										}
 
@@ -390,13 +403,63 @@ exports.runFillTaskQueen = function(req, res) {
 
 
 							});
-							sleep.sleep(1);
+							sleep.usleep(1000);
 
 							////////////////
 
 
 						} else {
+
+
+							//
 							console.log("geo data error");
+
+							var steps = [];
+											
+							console.log('geo ' + one.id);
+
+							var onestep = '{"html" : "Geo data error"}';
+
+							steps.push(onestep);
+
+							one.bus.steps = steps;
+
+							// console.log(one);
+
+							// saveOnePath(obj, ep.done('save'));
+							var path = new PathsModel();
+							path.city_id = new ObjectID(one.city_id+'');
+							path.city_name = one.city_name;
+							path.a_id = new ObjectID(one.a_id+'');
+							path.a_type = one.a_type;
+							path.b_id = new ObjectID(one.b_id+'');
+							path.b_type = one.b_type;
+							path.a_latitude = one.a_latitude;
+							path.a_longitude = one.a_longitude;
+							path.b_latitude = one.b_latitude;
+							path.b_longitude = one.b_longitude;
+							//steps
+							path.bus.steps = one.bus.steps;
+							path.driver.steps = one.driver.steps;
+							path.walk.steps = one.walk.steps;
+							one.save(function(err, one_data){
+								if (err) {
+									console.log("get the data to database error,fail to read");
+								}
+								console.log("Geo data error saved!");
+							});
+
+
+
+
+
+
+							/////////// geo data error
+
+
+
+
+
 						}
 						
 
