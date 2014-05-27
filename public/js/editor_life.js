@@ -226,6 +226,7 @@ var LifeView = Backbone.View.extend({
             url:"/getCountriesByContinent/"+continentCode,
             success:function (data) {
                 if(data.status){
+                    console.log(data);
                     var countries = data.countries;
                     var option = '';
                     for(var i=0;i<countries.length;i++){

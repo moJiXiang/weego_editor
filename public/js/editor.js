@@ -658,6 +658,7 @@ $(weego.init());
                 url:"/getCityByCountry/"+countryCode,
                 success:function (data) {
                     if(data.status){
+                        console.log(data);
                         var cities = data.cities;
                         var option = '<option value=""></option>';
                         for(var i=0;i<cities.length;i++){
