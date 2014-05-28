@@ -436,8 +436,8 @@ var importOne = function(one, callback){
 			var item = items[k];
 			var categorystrlist = item.categorystrlist;
 			if(isNotNull(item.ogtitle)){
-				// var one = new RestaurantModel();
-				var one = new ShoppingModel();
+				var one = new RestaurantModel();
+				// var one = new ShoppingModel();
 				one.name = item.ogtitle;
 				one.city_id = cityid;
 				one.city_name = cityname;
@@ -493,9 +493,9 @@ var importOne = function(one, callback){
 					one.open_time = getOpenTime(item.hours);
 				}
 
-				// if(!isEmptyObject(item.businessinfos)){
-				// 	one.info = getInfo(item.businessinfos);
-				// }
+				if(!isEmptyObject(item.businessinfos)){
+					one.info = getInfo(item.businessinfos);
+				}
 
 				if(isNotNull(item.rating)){
 					one.rating = parseFloat(item.rating);

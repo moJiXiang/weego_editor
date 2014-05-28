@@ -62,32 +62,44 @@ exports.importPathToDB = function(req,res){
 		title = 'result';
 	}
 	var items = require('../data/path/'+title).items;
-	var n = items.length * (items.length-1);
+	// var n = items.length * (items.length-1);
+	var n = items.length;
 	var ep = new EventProxy();
 	ep.after('save',n,function(list){
 		// console.log(list);
 		console.log('success!');
+		res.send(list);
 	}).fail(function(err){
 		console.log(err);
 	});
 	for(var i=0;i<items.length;i++){
-		for(var j=0;j<items.length;j++){
-			if(i!=j){
-				var one = {};
-				one.city_id = newyork;
-				one.city_name = items[i].city_name;
-				one.a_id = items[i]._id;
-				one.a_latitude = items[i].latitude;
-				one.a_longitude = items[i].longitude;
-				one.a_type = items[i].type;
-				one.b_id = items[j]._id;
-				one.b_latitude = items[j].latitude;
-				one.b_longitude = items[j].longitude;
-				one.b_type = items[j].type;
-				saveOnePath(one,ep.done('save'));
-				sleep.usleep(300);
+		(function(k){
+			for(var j=0;j<items.length;j++){
+				var epx = new EventProxy();
+				epx.after('a'+k,items.length-1,function(list){
+					ep.emit('save',list);
+				}).fail(function(err){
+					console.log(err);
+				});
+				if(k!=j){
+					var one = {};
+					one.city_id = newyork;
+					one.city_name = items[k].city_name;
+					one.a_id = items[k]._id;
+					one.a_latitude = items[k].latitude;
+					one.a_longitude = items[k].longitude;
+					one.a_type = items[k].type;
+					one.b_id = items[j]._id;
+					one.b_latitude = items[j].latitude;
+					one.b_longitude = items[j].longitude;
+					one.b_type = items[j].type;
+					saveOnePath(one,ep.done('a'+k));
+					sleep.usleep(10);
+				}
 			}
-		}
+		})(i);
+		console.log('i = '+i);
+		sleep.sleep(10);
 	}
 	console.log(items.length);
 };

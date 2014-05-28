@@ -92,6 +92,7 @@ exports.newAndSave = function(one,callback){
 			path.b_longitude = one.b_longitude;
 
 			path.save(function (err) {
+				console.log(err);
 				callback(err, path);
 			});
 		}
