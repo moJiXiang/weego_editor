@@ -40,10 +40,8 @@
             <option value='OC'>大洋洲</option>
         </select>
         <select id="country_select" style="width:150px">
-            <option value=''></option>
         </select>
         <select id="city_select" style="width:150px">
-            <option value='{{city_id}}'>{{city_name}}</option>
         </select>
     </div>
     <div class="control-group">
@@ -362,6 +360,20 @@
             <input type="checkbox" id="michilin_flag" {{#if michilin_flag}}checked{{/if}}>
               <label  class="control-label show_flag" for='michilin_flag'>是否是米其林推荐</label>
           </div>
+      </div>
+      <div class="control-group">
+        <label for="" class="control-label">最适合晚餐</label>
+        <div class="controls">
+          <input type="checkbox" id="best_dinnerchoics" {{#if best_dinnerchoics}}checked{{/if}}>
+          <label class="control-label show_flag" for="best_dinnerchoics">是否最适合晚餐</label>
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="" class="control-label">最流行</label>
+        <div class="controls">
+          <input type="checkbox" id="most_popular" {{#if most_popular}}checked{{/if}}>
+          <label  class="control-label show_flag" for="most_popular">是否最流行</label>
+        </div>
       </div>
       <div class="control-group">
           <label class="control-label" for="tese">游客最爱</label>

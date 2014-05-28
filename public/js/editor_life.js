@@ -226,6 +226,7 @@ var LifeView = Backbone.View.extend({
             url:"/getCountriesByContinent/"+continentCode,
             success:function (data) {
                 if(data.status){
+                    console.log(data);
                     var countries = data.countries;
                     var option = '';
                     for(var i=0;i<countries.length;i++){
@@ -241,11 +242,13 @@ var LifeView = Backbone.View.extend({
         });
     },
     selectCountry: function(){
+        console.log('selectCountry');
         var countryCode =  $("#country_select").val();
         $.ajax({
             url:"/getCityByCountry/"+countryCode,
             success:function (data) {
                 if(data.status){
+                    console.log(data);
                     var cities = data.cities;
                     var option = '<option value=""></option>';
                     for(var i=0;i<cities.length;i++){
@@ -320,6 +323,7 @@ var LifeView = Backbone.View.extend({
         var _this = this;
         var type =$('#property-type').val();
         var name = $('#addCategoryValue').val();
+        console.log(type,name);
         $("#addCategoryValue").autocomplete({
             source:function (request, response) {
                 $.ajax({
@@ -327,6 +331,7 @@ var LifeView = Backbone.View.extend({
                     dataType:"json",
                     data:request,
                     success:function (data) {
+                        console.log(data);
                         response(
                             $.map(
                                 data.result, function (item) {
@@ -361,12 +366,12 @@ var LifeView = Backbone.View.extend({
         var open_day = $('#open-day').val();
         var open_time_begin = $('#open-time-begin').val();
         var open_time_end = $('#open-time-end').val();
-        if(open_time_begin!='allday' && open_time_begin!='close' &&
-            open_time_end!='allday' && open_time_end!='close' &&
-            open_time_end < open_time_begin){
-            alert('请正确选择！');
-            return false;
-        }
+        // if(open_time_begin!='allday' && open_time_begin!='close' &&
+        //     open_time_end!='allday' && open_time_end!='close' &&
+        //     open_time_end < open_time_begin){
+        //     alert('请正确选择！');
+        //     return false;
+        // }
         var open_time = {
             desc : $('#open-day').find("option:selected").text()+' '+this.getOpenTimeDesc(),
             value : open_day+'-'+open_time_begin+'-'+open_time_end
@@ -480,6 +485,8 @@ var LifeView = Backbone.View.extend({
             index_flag : $('#index_flag').prop('checked'),
             local_flag : $('#local_flag').prop('checked'),
             michilin_flag : $('#michilin_flag').prop('checked'),
+            best_dinnerchoics : $('#best_dinnerchoics').prop('checked'),
+            most_popular : $('#most_popular').prop('checked'),
             ranking:$('#ranking').val(),
             rating:$('#rating').val(),
             reviews:$('#reviews').val(),
@@ -540,7 +547,7 @@ var LifeView = Backbone.View.extend({
         if(item.city_id==''||item.city_id==null || item.city_id==undefined){
             alert('城市不能为空！');
             $('#city_select').focus();
-            return false;
+            return true; 
         }
         
         if(this.model == null || this.model.get('_id') == null)
@@ -650,8 +657,15 @@ var LifeListView = Backbone.View.extend({
         var type = $('#life_type').val();
         var cityname =$('#search-life-cityname').val();
         var lifename =$('#search-life-name').val();
-        
-        self.location = '/#lifes/1/'+type+'/q_'+cityname+'/q_'+encodeURIComponent(lifename);
+        var isLocalFlag = $('#local_flag').prop('checked'),
+            isMichilinFlag = $('#michilin_flag').prop('checked'),
+            isBestDinnerchoics = $('#best_dinnerchoics').prop('checked'),
+            isMostPopular = $('#most_popular').prop('checked');
+        if (isLocalFlag || isMichilinFlag || isBestDinnerchoics || isMostPopular) {
+            self.location = '/#lifes/1/' + type + '/q_' + cityname + '/q_' + encodeURIComponent(lifename) + '/isLocalFlag=' + isLocalFlag + '/isMichilinFlag=' + isMichilinFlag + '/isBestDinnerchoics=' + isBestDinnerchoics + '/isMostPopular=' + isMostPopular;
+        } else {
+            self.location = '/#lifes/1/' + type + '/q_' + cityname + '/q_' + encodeURIComponent(lifename);
+        }
     },
     selectType: function(){
         var type = $('#life_type').val();
