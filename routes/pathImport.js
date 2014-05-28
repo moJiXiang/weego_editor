@@ -51,7 +51,9 @@ var googlekeys = [
 				'AIzaSyC-8sfK-tKRyklKblFh8snjK3vLY2AVigE',
 				'AIzaSyCH0q4aMCz2eQ5Tj7Z4JNUx5uBmEZ9kihA',
 				'AIzaSyBXm-NF0xvl8wx2ocwTwXHjMFbd8D9ueLw',
-				'AIzaSyAA9NumbHg8GdK96n5TPTqMQy3OIR4iFyo'
+				'AIzaSyAA9NumbHg8GdK96n5TPTqMQy3OIR4iFyo',
+				'AIzaSyBrjpofIznjAkRecp0ZqYjxLTJXVGuV_mc',
+				'AIzaSyDLrfPCMaTFBqch09oqKacumoSAmhfTEgM'
 				];
 
 exports.saveSpotToText = function(req,res){

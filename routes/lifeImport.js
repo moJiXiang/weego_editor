@@ -22,6 +22,15 @@ var singapore_m = require('../data/life/restaurant/michilin/singaporemichelin_da
 var zurich_m = require('../data/life/restaurant/michilin/zurichmichelin_data');
 var venezia_m = require('../data/life/restaurant/michilin/veneziamichelin_data');
 
+var barcelona_k = require('../data/life/restaurant/full/barcelona_1000restaurants_data');
+var newyork_k = require('../data/life/restaurant/full/newyork_1000restaurants_data');
+var london_k = require('../data/life/restaurant/full/london_1000restaurants_data');
+var losangeles_k = require('../data/life/restaurant/full/losangeles_1000restaurants_data');
+var paris_k = require('../data/life/restaurant/full/paris_1000restaurants_data');
+var roma_k = require('../data/life/restaurant/full/roma_1000restaurants_data');
+var sanfrancisco_k = require('../data/life/restaurant/full/sanfrancisco_1000restaurants_data');
+var zurich_k = require('../data/life/restaurant/full/zurich_1000restaurants_data.js');
+
 
 var CategoryR = require('../data/life/restaurant/category_restaurant');
 var CategoryS = require('../data/life/shopping/category_shopping');
@@ -38,17 +47,14 @@ var bigs = require('../data/life/big');
 
 function getInitData(){
 	var cityItems = [];
-	cityItems.push({cityname:'纽约',cityid:'516a34f958e3511036000001',items:newyork.items});
-	cityItems.push({cityname:'巴塞罗那',cityid:'516a3519f8a6461636000003',items:barcelona.items});
-	cityItems.push({cityname:'日内瓦',cityid:'516a35218902ca1936000003',items:geneva.items});
-	cityItems.push({cityname:'伦敦',cityid:'516a35218902ca1936000005',items:london.items});
-	cityItems.push({cityname:'洛杉矶',cityid:'516a34f958e3511036000003',items:losangeles.items});
-	cityItems.push({cityname:'巴黎',cityid:'516a350ec221c21236000003',items:paris.items});
-	cityItems.push({cityname:'罗马',cityid:'51d3d238e98bbb566a000001',items:roma.items});
-	cityItems.push({cityname:'旧金山',cityid:'516a34f958e3511036000002',items:sanfrancisco.items});
-	cityItems.push({cityname:'新加坡',cityid:'516a3535dac6182136000004',items:singapore.items});
-	cityItems.push({cityname:'苏黎世',cityid:'516a35218902ca1936000002',items:zurich.items});
-	cityItems.push({cityname:'威尼斯',cityid:'516a3519f8a6461636000001',items:venezia.items});
+	cityItems.push({cityname:'纽约',cityid:'516a34f958e3511036000001',items:newyork_k.items});
+	cityItems.push({cityname:'巴塞罗那',cityid:'516a3519f8a6461636000003',items:barcelona_k.items});
+	cityItems.push({cityname:'伦敦',cityid:'516a35218902ca1936000005',items:london_k.items});
+	cityItems.push({cityname:'洛杉矶',cityid:'516a34f958e3511036000003',items:losangeles_k.items});
+	cityItems.push({cityname:'巴黎',cityid:'516a350ec221c21236000003',items:paris_k.items});
+	cityItems.push({cityname:'罗马',cityid:'51d3d238e98bbb566a000001',items:roma_k.items});
+	cityItems.push({cityname:'旧金山',cityid:'516a34f958e3511036000002',items:sanfrancisco_k.items});
+	cityItems.push({cityname:'苏黎世',cityid:'516a35218902ca1936000002',items:zurich_k.items});
 	return cityItems;
 }
 
@@ -459,7 +465,7 @@ var importOne = function(one, callback){
 					images.push(image);
 					one.cover_image = fileName;
 					one.image.push(fileName);
-					writeImgFile(image,cityname);
+					// writeImgFile(image,cityname);
 				}
 
 				if(isNotNull(item.ogdescription)){
