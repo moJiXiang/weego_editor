@@ -51,9 +51,7 @@ var googlekeys = [
 				'AIzaSyC-8sfK-tKRyklKblFh8snjK3vLY2AVigE',
 				'AIzaSyCH0q4aMCz2eQ5Tj7Z4JNUx5uBmEZ9kihA',
 				'AIzaSyBXm-NF0xvl8wx2ocwTwXHjMFbd8D9ueLw',
-				'AIzaSyAA9NumbHg8GdK96n5TPTqMQy3OIR4iFyo',
-				'AIzaSyBrjpofIznjAkRecp0ZqYjxLTJXVGuV_mc',
-				'AIzaSyDLrfPCMaTFBqch09oqKacumoSAmhfTEgM'
+				'AIzaSyAA9NumbHg8GdK96n5TPTqMQy3OIR4iFyo'
 				];
 
 exports.saveSpotToText = function(req,res){
@@ -99,50 +97,19 @@ exports.importPathToDB = function(req,res){
 		title = 'result';
 	}
 	var items = require('../data/path/'+title).items;
-<<<<<<< HEAD
-	// var n = items.length * (items.length-1);
-	var n = items.length;
-=======
 	var n = items.length * (items.length-1);
 
 
 	var itemss = require('../data/path/resultfull').items;
 
->>>>>>> a482eb3f8815f669efcf6981921acbe003dc8979
 	var ep = new EventProxy();
 	ep.after('save',n,function(list){
 		// console.log(list);
 		console.log('success!');
-		res.send(list);
 	}).fail(function(err){
 		console.log(err);
 	});
 	for(var i=0;i<items.length;i++){
-<<<<<<< HEAD
-		(function(k){
-			for(var j=0;j<items.length;j++){
-				var epx = new EventProxy();
-				epx.after('a'+k,items.length-1,function(list){
-					ep.emit('save',list);
-				}).fail(function(err){
-					console.log(err);
-				});
-				if(k!=j){
-					var one = {};
-					one.city_id = newyork;
-					one.city_name = items[k].city_name;
-					one.a_id = items[k]._id;
-					one.a_latitude = items[k].latitude;
-					one.a_longitude = items[k].longitude;
-					one.a_type = items[k].type;
-					one.b_id = items[j]._id;
-					one.b_latitude = items[j].latitude;
-					one.b_longitude = items[j].longitude;
-					one.b_type = items[j].type;
-					saveOnePath(one,ep.done('a'+k));
-					sleep.usleep(10);
-				}
-=======
 		for(var j=0;j<itemss.length;j++){
 			if(i!=j){
 				var one = {};
@@ -196,11 +163,8 @@ exports.importPathToDBSync = function(req, res) {
 				});
 				sleep.usleep(1000);
 				
->>>>>>> a482eb3f8815f669efcf6981921acbe003dc8979
 			}
-		})(i);
-		console.log('i = '+i);
-		sleep.sleep(10);
+		}
 	}
 	//console.log(items.length);
 };
