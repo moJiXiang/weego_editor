@@ -300,6 +300,7 @@ exports.runFillTaskQueen = function(req, res) {
 
 				// res.send(data);
 
+
 				// var ep = new EventProxy();
 				// ep.after('save', epcount, function(list){
 				// 	console.log(list);
@@ -379,9 +380,7 @@ exports.runFillTaskQueen = function(req, res) {
 											
 											console.log(one.id);
 
-											var onestep = '{"html" : "Google Not Found"}';
-
-											steps.push(onestep);
+											steps.push({ html : "Google Not Found"});
 
 											one.bus.steps = steps;
 
@@ -407,15 +406,57 @@ exports.runFillTaskQueen = function(req, res) {
 												if (err) {
 													console.log("get the data to database error,fail to read");
 												}
-												console.log("not found data");
+												console.log("Google not found data");
 											});
 
 
 
+										} else if (inner_data.status == "ZERO_RESULTS") {
+
+
+
+											var steps = [];
+											
+											console.log(one.id);
+
+											steps.push({ html : "Zero results error"});
+
+											one.bus.steps = steps;
+
+											// console.log(one);
+
+											// saveOnePath(obj, ep.done('save'));
+											var path = new PathsModel();
+											path.city_id = new ObjectID(one.city_id+'');
+											path.city_name = one.city_name;
+											path.a_id = new ObjectID(one.a_id+'');
+											path.a_type = one.a_type;
+											path.b_id = new ObjectID(one.b_id+'');
+											path.b_type = one.b_type;
+											path.a_latitude = one.a_latitude;
+											path.a_longitude = one.a_longitude;
+											path.b_latitude = one.b_latitude;
+											path.b_longitude = one.b_longitude;
+											//steps
+											path.bus.steps = one.bus.steps;
+											path.driver.steps = one.driver.steps;
+											path.walk.steps = one.walk.steps;
+											one.save(function(err, one_data){
+												if (err) {
+													console.log("get the data to database error,fail to read");
+												}
+												console.log("Google zero results");
+											});
+
+
+
+											
 										} else if (inner_data.status == "OVER_QUERY_LIMIT") {
 											changekey = true;
-										} else {
-											console.log("data error");
+										}
+										 else {
+
+											console.log("data error " + inner_data.status);
 										}
 										if( k == epcount - 1) {
 
@@ -447,16 +488,12 @@ exports.runFillTaskQueen = function(req, res) {
 						} else {
 
 
-							//
-							console.log("geo data error");
-
 							var steps = [];
 											
 							console.log('geo ' + one.id);
 
-							var onestep = '{"html" : "Geo data error"}';
 
-							steps.push(onestep);
+							steps.push({html : "Geo data error"});
 
 							one.bus.steps = steps;
 
@@ -482,7 +519,7 @@ exports.runFillTaskQueen = function(req, res) {
 								if (err) {
 									console.log("get the data to database error,fail to read");
 								}
-								console.log("Geo data error saved!");
+								console.log("Error data saved!");
 							});
 
 

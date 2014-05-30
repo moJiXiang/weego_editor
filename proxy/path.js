@@ -111,9 +111,9 @@ exports.getOneWithEmptySteps = function(mode, callback) {
 };
 
 exports.getOneWithEmptyStepsSync = function(mode, skipcount, limitcount, callback) {
-	var options = '{"' + mode + '.steps": []}';
-	var query = Path.find(options);
-	query.skip(skipcount);
+	// var options = '{"' + mode + '.steps": []}';
+	var query = Path.find({'bus.steps' : []});
+	//query.skip(skipcount);
 	query.limit(limitcount);
 
 	query.exec(callback);
