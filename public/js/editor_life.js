@@ -25,6 +25,7 @@ var LifeCollection = Backbone.Collection.extend({
     query:'',
     type:'1',
     initialize: function(data){
+        console.log(data);
         var type = '1';
         if(data && data.type)
             type = data.type;
@@ -34,6 +35,20 @@ var LifeCollection = Backbone.Collection.extend({
         if(data.lifename){
             this.query += "lifename="+data.lifename+"&";
         }
+        if(data.isMostPopular){
+             this.query += "most_popular="+data.isMostPopular+"&";
+        }
+        if(data.isBestDinnerchoics){
+             this.query += "best_dinnerchoics="+data.isBestDinnerchoics+"&";
+        }
+        if(data.isMichilinFlag){
+             this.query += "michilin_flag="+data.isMichilinFlag+"&";
+        }
+        if(data.isLocalFlag){
+            this.query += "local_flag="+data.isLocalFlag+"&";
+        }
+        
+        
         if(type=='1'){
             this.type='1';
             this.model = RestaurantModel;
@@ -662,6 +677,7 @@ var LifeListView = Backbone.View.extend({
             isBestDinnerchoics = $('#best_dinnerchoics').prop('checked'),
             isMostPopular = $('#most_popular').prop('checked');
         if (isLocalFlag || isMichilinFlag || isBestDinnerchoics || isMostPopular) {
+            console.log(isLocalFlag);
             self.location = '/#lifes/1/' + type + '/q_' + cityname + '/q_' + encodeURIComponent(lifename) + '/isLocalFlag=' + isLocalFlag + '/isMichilinFlag=' + isMichilinFlag + '/isBestDinnerchoics=' + isBestDinnerchoics + '/isMostPopular=' + isMostPopular;
         } else {
             self.location = '/#lifes/1/' + type + '/q_' + cityname + '/q_' + encodeURIComponent(lifename);
@@ -684,6 +700,7 @@ var LifeListView = Backbone.View.extend({
     showFirstPage: function(){
         var that = this;
         this.collection.getFirstPage(function(collection){
+            console.log(collection);
             that.showLifeList(that.type,collection);
         });
     },

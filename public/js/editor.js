@@ -37,7 +37,7 @@ $(weego.init());
             "lifes/:pageno/:type":"showLifeListView",
             "lifes/:pageno/:type/:cityname":"showLifeListView",
             "lifes/:pageno/:type/:cityname/:lifename":"showLifeListView",
-            "lifes/:pageno/:type/:cityname/:lifename/:isLocalFlag/:isMichilinFlag/:isBestDinnerchoics/:isMostPopular":"showLifeListView",
+            "lifes/:pageno/:type/:cityname/:lifename/:isMostPopular/:isBestDinnerchoics/:isMichilinFlag/:isLocalFlag":"showLifeListView",
             "life/new":"showLifeDetailView",
             "life/:id/:type":"showLifeDetailView",
 
@@ -275,7 +275,8 @@ $(weego.init());
                 .addClass('active')
                 .siblings().removeClass('active');
         },
-        showLifeListView: function(page,type,cityname,lifename,isLocalFlag,isLocalFlag,isBestDinnerchoics,isMostPopular){
+        showLifeListView: function(page,type,cityname,lifename,isLocalFlag,isMichilinFlag,isBestDinnerchoics,isMostPopular){
+            console.log(page,type,cityname,lifename,typeof(isLocalFlag),isMichilinFlag);
             $('#app').off();
             $('#app').empty();
             if(type == null)
@@ -294,10 +295,34 @@ $(weego.init());
                     model.lifename = a[1];
                 }
             }
-            model.isLocalFlag = isLocalFlag;
-            model.isMichilinFlag = isLocalFlag;
-            model.isBestDinnerchoics = isBestDinnerchoics;
-            model.isMostPopular = isMostPopular;
+            if(isLocalFlag){
+                var a=isLocalFlag.split('=');
+                if(a[1]){
+                    model.isLocalFlag = a[1];
+                }
+            }
+            if(isMichilinFlag){
+                var a=isMichilinFlag.split('=');
+                if(a[1]){
+                    model.isMichilinFlag = a[1];
+                }
+            }
+            if(isBestDinnerchoics){
+                var a=isBestDinnerchoics.split('=');
+                if(a[1]){
+                    model.isBestDinnerchoics = a[1];
+                }
+            }
+            if(isMostPopular){
+                var a=isMostPopular.split('=');
+                if(a[1]){
+                    model.isMostPopular = a[1];
+                }
+            }
+            // model.isLocalFlag = isLocalFlag;
+            // model.isMichilinFlag = isMichilinFlag;
+            // model.isBestDinnerchoics = isBestDinnerchoics;
+            // model.isMostPopular = isMostPopular;
             if(page == null){
                 var lifeListView = new LifeListView(model);
                 lifeListView.render().showFirstPage();
