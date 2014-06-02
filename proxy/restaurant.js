@@ -60,7 +60,7 @@ var isInTmp = function(a,b){
 };
 
 exports.getRestaurantsByQuery = function(query,callback){
-	Restaurant.find(query, [], {sort: [['city_name', 'asc'],['index_flag','desc'],['show_flag','desc'],['ranking', 'asc']]}, function (err, restaurants) {
+	Restaurant.find(query, [], {sort: [['city_name', 'asc'],['index_flag','desc']]}, function (err, restaurants) {
 		if(err)
 			callback(err);
 		else{
@@ -68,6 +68,17 @@ exports.getRestaurantsByQuery = function(query,callback){
 		}
 	});
 };
+
+// exports.getRestaurantsByflag = function(query,callback) {
+// 	console.log('222222222222222222222222222222');
+// 	Restaurant.find(query, function(err, restaurants){
+// 		if(err)
+// 			callback(err);
+// 		else{
+// 			callback(null, restaurants);
+// 		}
+// 	});
+// }
 
 exports.getRestaurantsByOptions = function(query,options,callback){
 	Restaurant.find(query,[],options,callback);
