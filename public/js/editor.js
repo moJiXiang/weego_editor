@@ -86,10 +86,12 @@ $(weego.init());
             $('.cmsNav').css('display','');
             if(currentUser.type==0){
                 new weego_user.EditorMainView();
+                $('.cmsNav .admin').remove();
             }else if(currentUser.type==1){
                 new weego_user.AdminMainView();
             }else if(currentUser.type==-1){
                 new weego_user.GuestMainView();
+                $('.cmsNav .admin').remove();
             }
         },
         before:function (route) {
@@ -204,7 +206,7 @@ $(weego.init());
             }
             // weego.name = '';
             weego.currentPage = (pageno == null ? 1 : pageno);
-            weego.defaultView = new weego.AppView();
+            weego.defaultView = new weego.AppView({cityname:cityname});
             weego.defaultView.getData(weego.currentPage,query);
         },
         showAttractionView: function(id){
@@ -312,6 +314,8 @@ $(weego.init());
             $('#tab-life')
                 .addClass('active')
                 .siblings().removeClass('active');
+
+            $('.back_cur_city').prop("href","/index.html#city/1/q_/"+cityname);
         },
         showLifeDetailView: function(id,type){
             $('#app').off();
@@ -1337,17 +1341,22 @@ $(weego.init());
     weego.AppView = Backbone.View.extend({
         el:'#app',
         query:{},
-        initialize:function () {
+
+        initialize:function (options) {
+            var thisView=this;
+            console.log(options.cityname+"的景点");
+            thisView.cityname=options.cityname;
             _.bindAll(this, 'render', 'nextPage', 'prePage', 'appendAttractions', 'addAttractions', 'getData');
             this.collection = new weego.AttractionsColletion();
             this.collection.on('add', this.appendAttractions);
         },
-        render:function () {
+        render:function (cityname) {
+            var thisView=this;
             $('#app').off();
             $('#app').empty();
             var _this = this;
             var template = Handlebars.compile($("#appView").html());
-            $(template({user:weego_user.globalUser})).appendTo(_this.$el);
+            $(template({user:weego_user.globalUser,cityname:thisView.cityname})).appendTo(_this.$el);
             _this.delegateEvents(_this.events);
             return this;
         },
@@ -1452,8 +1461,8 @@ $(weego.init());
                     thisView.initBar();
                 });
             }
-
         },
+        //fake data
         initBar:function(){
             $('.statistics_bar').highcharts({
                 chart: {

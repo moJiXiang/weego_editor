@@ -669,7 +669,8 @@ var LifeListView = Backbone.View.extend({
     },
     selectType: function(){
         var type = $('#life_type').val();
-        self.location = '#lifes/1/'+type;
+        var cityname=$.trim($('#search-life-cityname').val());
+        self.location = '#lifes/1/'+type+'/q_'+cityname;
     },
     showLifeList: function(type,collection){
         var that = this;
