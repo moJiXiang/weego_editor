@@ -29,6 +29,7 @@ var ShoppingSchema = new Schema({
   ranking: { type: Number },
   area_id: {type: ObjectId},
   area_name: {type: String},
+  area_enname: {type: String},
   is_big:{ type: Boolean, default:false },
   in_big_id : { type: ObjectId },
   in_big_name : { type: String },
