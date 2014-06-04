@@ -13,7 +13,15 @@
     "node-markdown": "0.1.0",
     "eventproxy":"*",
     "mongoose": "2.7.3",
-    "mocha": "*",
     "sleep":"*"
+  },
+  
+  "devDependencies" : {
+    "mocha" : "*",
+    "supertest" : "*"
+  },
+
+  "scripts" : {
+    "test" : "mocha -R spec"
   }
 }
