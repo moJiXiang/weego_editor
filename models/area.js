@@ -10,8 +10,13 @@ var ObjectId = Schema.ObjectId;
 var AreaSchema = new Schema({
 	city_id: { type: ObjectId ,index: true },
 	city_name: { type: String },
-	name: { type: String },
-	en_name: { type: String }
+	area_name: { type: String },
+	area_enname: { type: String },
+	introduce: {type: String},
+	address: {type: String},
+	latitude: { type: String },
+  	longitude: { type: String },
+  	cover_image: {type : String}
 });
 
 mongoose.model('Area', AreaSchema);

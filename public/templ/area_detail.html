@@ -1,34 +1,56 @@
 <form class="form-horizontal">
     <fieldset>
         <legend>基本信息</legend>
-    <div class="control-group">
-        <label class="control-label">城市</label>
-        <input type="text" id="city" readonly placeholder="必填" value="{{city_name}}" style="width:60px;margin-left:20px">
-        <select id="continents_select" name="continents" style="width:100px">
-            <option value='AS'>亚洲</option>
-            <option value='EU'>欧洲</option>
-            <option value='NA'>美洲</option>
-            <option value='SA'>南美</option>
-            <option value='AF'>非洲</option>
-            <option value='OC'>大洋洲</option>
-        </select>
-        <select id="country_select" style="width:150px">
-            <option value=''></option>
-        </select>
-        <select id="city_select" style="width:150px">
-            <option value='{{city_id}}'>{{city_name}}</option>
-        </select>
-    </div>
+        <div class="control-group">
+            <label class="control-label">城市</label>
+            <input type="text" id="city" readonly placeholder="必填" value="{{city_name}}" style="width:60px;margin-left:20px">
+            <select id="continents_select" name="continents" style="width:100px">
+                <option value='AS'>亚洲</option>
+                <option value='EU'>欧洲</option>
+                <option value='NA'>美洲</option>
+                <option value='SA'>南美</option>
+                <option value='AF'>非洲</option>
+                <option value='OC'>大洋洲</option>
+            </select>
+            <select id="country_select" style="width:150px">
+                <option value=''></option>
+            </select>
+            <select id="city_select" style="width:150px">
+                <option value='{{city_id}}'>{{city_name}}</option>
+            </select>
+        </div>
         <div class="control-group">
             <label class="control-label" for="area-name">区域名称</label>
             <div class="controls">
-                <input type="text" id="area-name" placeholder="必填" value="{{name}}">
+                <input type="text" id="area-name" placeholder="必填" value="{{area_name}}">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="area-en_name">英文名</label>
             <div class="controls">
-                <input type="text" id="area-en_name" placeholder="必填" value="{{en_name}}">
+                <input type="text" id="area-en_name" placeholder="必填" value="{{area_enname}}">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="area-introduce">介绍</label>
+            <div class="controls">
+                <input type="text" id="area-introduce" placeholder="必填" value="{{introduce}}">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="area-address">地址</label>
+            <div class="controls">
+                <input type="text" id="area-address" placeholder="必填" value="{{address}}">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="area-latitude">经度</label>
+            <div class="controls">
+                <input type="text" id="area-latitude" placeholder="必填" value="{{-latitude}}">
+            </div>
+            <label class="control-label" for="area-longitude">纬度</label>
+            <div class="controls">
+                <input type="text" id="area-longitude" placeholder="必填" value="{{longitude}}">
             </div>
         </div>
     </fieldset>

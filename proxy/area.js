@@ -51,8 +51,13 @@ exports.newAndSave = function(one,callback){
 	var area = new Area();
 	area.city_id = new ObjectID(one.city_id+'');
 	area.city_name = one.city_name;
-	area.name = one.name;
-	area.en_name = one.en_name;
+	area.area_name = one.area_name;
+	area.area_enname = one.area_enname;
+	area.introduce = one.introduce;
+	area.address = one.address;
+	area.latitude = one.latitude;
+	area.longitude = one.longitude;
+	area.cover_image = one.cover_image;
 	area.save(function (err) {
 		callback(err, area);
 	});

@@ -236,6 +236,17 @@ var AreaListItemView = Backbone.View.extend({
     events: {
         'click #area-list-item-edit' : 'editArea',
         'click #area-list-item-remove' : 'removeArea',
+        'click #manageimg':'manageimg'
+
+    },
+    manageimg: function(e) {
+        var manageImageView = new weego.ManageImageView();
+        manageImageView.model = this.model;
+        manageImageView.render().$el.modal({
+            "show": true,
+            "z_index": weego.z_index++
+        });
+        manageImageView.unloadPic();
     },
     render: function(){
         this.model.set('user',weego_user.globalUser);

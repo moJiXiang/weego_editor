@@ -719,7 +719,8 @@
                 <option value="2" {{#ifCond type '2'}} selected {{/ifCond}}>购物</option>
                 <option value="3" {{#ifCond type '3'}} selected {{/ifCond}}>娱乐</option>
             </select>
-
+            <select id="shopping-areas">
+            </select>
             <span>
                 名称：<input type="text" id="search-life-name" value="{{search_lifename}}"> 
             </span>
@@ -820,6 +821,7 @@
                 <th>英文名</th>
                 <th>编辑</th>
                 <th>删除</th>
+                <th>图片管理</th>
                 </thead>
                 <tbody></tbody>
             </table>
@@ -828,14 +830,16 @@
     </script>
     <script id="area-list-item-view" type="text/x-handlebars-template">
         <td>{{city_name}}</td>
-        <td>{{name}}</td>
-        <td>{{en_name}}</td>
+        <td>{{area_name}}</td>
+        <td>{{area_enname}}</td>
         {{#ifCond user.type '-1'}}
-        <td><a id="area-list-item-edit" class="btn" href="#area/{{_id}}">查看</a></td>
-        <td></td>
+            <td><a id="area-list-item-edit" class="btn" href="#area/{{_id}}">查看</a></td>
+            <td></td>
+            <td><button data-value="{{_id}}" id="manageimg">图片管理</button></td>
         {{else}}
-        <td><a id="area-list-item-edit" class="btn" href="#area/{{_id}}">编辑</a></td>
-        <td><button id="area-list-item-remove" class="btn btn-danger">删除</button></td>
+            <td><a id="area-list-item-edit" class="btn" href="#area/{{_id}}">编辑</a></td>
+            <td><button id="area-list-item-remove" class="btn btn-danger">删除</button></td>
+            <td><button data-value="{{_id}}" id="manageimg">图片管理</button></td>
         {{/ifCond}}
     </script>
     <script id="areaDetailView" type="text/x-handlebars-template">

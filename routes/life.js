@@ -211,6 +211,7 @@ exports.removeArea = function(req, res){
 
 exports.addNewArea = function(req, res){
     var area = req.body;
+    console.log(area);
     Area.newAndSave(area,  function (err, result) {
         if (err) {
             res.send({isSuccess:false, info:err});
