@@ -368,12 +368,16 @@ exports.getShopping = function(req, res){
 exports.getShoppingByPage = function (req, res) {
     var lifename = req.query.lifename;
     var cityname = req.query.cityname;
+    var areaname = req.query.areaname;
     var con = {};
     if(lifename){
         con.name = {$regex:Util.trim(lifename)};
     }
     if(cityname){
         con.city_name = Util.trim(cityname);
+    }
+    if (areaname) {
+        con.$or = [{area_name : {$regex : areaname}, area_enname : {$regex : areaname}}];
     }
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
     Shopping.count(con,function (err, count) {
