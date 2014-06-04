@@ -331,6 +331,7 @@ $(weego.init());
                 lifeListView.$el.appendTo($('#app'));
             }else{
                 var lifeListView = new LifeListView(model);
+
                 lifeListView.render();
                 lifeListView.showByPage(page);
                 lifeListView.$el.appendTo($('#app'));
@@ -364,6 +365,7 @@ $(weego.init());
                     restaurantModel.fetch({success: function(){
                         restaurantModel.set('type','1');
                          var restaurantView = new LifeView({model: restaurantModel});
+                         console.log(restaurantView);
                          restaurantView.render().$el.appendTo($('#app'));
                     }});
                 }else if(type == '2'){

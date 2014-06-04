@@ -288,10 +288,10 @@ exports.getRestaurantsByFlag = function(req, res) {
 exports.getRestaurantByPage = function (req, res) {
     var lifename = req.query.lifename;
     var cityname = req.query.cityname,
-        most_popular = req.query.most_popular || false,
-        best_dinnerchoics = req.query.best_dinnerchoics || false,
-        michilin_flag = req.query.michilin_flag || false,
-        local_flag = req.query.local_flag || false;
+        most_popular = req.query.most_popular ,
+        best_dinnerchoics = req.query.best_dinnerchoics ,
+        michilin_flag = req.query.michilin_flag ,
+        local_flag = req.query.local_flag ;
     var con = {};
     if(lifename){
         con.name = {$regex:Util.trim(lifename)};
@@ -299,10 +299,21 @@ exports.getRestaurantByPage = function (req, res) {
     if(cityname){
         con.city_name = Util.trim(cityname);
     }
+    if(most_popular){
         con.most_popular = most_popular;
+    }
+    if(best_dinnerchoics){
         con.best_dinnerchoics = best_dinnerchoics;
+
+    }
+    if(michilin_flag){
         con.michilin_flag = michilin_flag;
+        
+    }
+    if(local_flag){
         con.local_flag = local_flag;
+        
+    }
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
     Restaurant.count(con,function (err, count) {
         Restaurant.getRestaurants(skip,req.params.pageLimit,con, function (err, result) {

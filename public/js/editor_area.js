@@ -122,8 +122,13 @@ var AreaView = Backbone.View.extend({
         return this.$el.find('#'+id).val();
     },
     saveArea: function(e){
-        var name = this.getTextInputValue('area-name');
         var city_name = $('#city_select').find("option:selected").text();
+        var area_name = this.getTextInputValue('area-name');
+        var area_enname = this.getTextInputValue('area_enname');
+        var introdouce = this.getTextInputValue('area_enname');
+
+
+
         if(name=='' || name==null || name==undefined){
             alert('名称不能为空！');
             return false;

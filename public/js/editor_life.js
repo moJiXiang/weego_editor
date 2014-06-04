@@ -659,6 +659,10 @@ var LifeListView = Backbone.View.extend({
         this.type = data.type;
         this.cityname = isNull(data.cityname)?'':data.cityname;
         this.lifename = isNull(data.lifename)?'':data.lifename;
+        this.isLocalFlag = isNull(data.isLocalFlag)?"":data.isLocalFlag;
+        this.isMichilinFlag = isNull(data.isMichilinFlag)?"":data.isMichilinFlag;
+        this.isBestDinnerchoics = isNull(data.isBestDinnerchoics)?"":data.isBestDinnerchoics;
+        this.isMostPopular = isNull(data.isMostPopular)?"":data.isMostPopular;
         this.collection = new LifeCollection(data);
 
         this.collection.on('all', function(){
@@ -769,6 +773,7 @@ var LifeListItemView = Backbone.View.extend({
         manageImageView.unloadPic();
     },
     editLife : function(e){
+        console.log("id");
         e.preventDefault();
         var type = $('#life_type').val();
         var item_id= $(e.currentTarget).attr('item_id');
