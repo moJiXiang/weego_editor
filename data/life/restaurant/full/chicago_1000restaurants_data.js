@@ -984,9 +984,7 @@
 "Caters" : "No"}},
 {"ranking":"28",
 "ogurl":"http://www.yelp.com/biz/joes-seafood-prime-steak-and-stone-crab-chicago",
-"categorystrlist":"Seafood,         Steakhouses
-    
-                Seafood,         Steakhouses",
+"categorystrlist":"Seafood,         Steakhouses ,Seafood,         Steakhouses",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/GnCXNvLn0ntZWJoiK2IQ5g/l.jpg",
 "rating":"4.5",
 "reviewcomment":"Best Sea bass I had in my life<br>And the shrimp and scallop ceviche was great<br>I can&#39;t wait to go back",
@@ -1864,9 +1862,7 @@
 "Caters" : "Yes"}},
 {"ranking":"52",
 "ogurl":"http://www.yelp.com/biz/shaws-crab-house-chicago",
-"categorystrlist":"Seafood,         Sushi Bars,         Jazz & Blues
-    
-                Piatti a base di pesce",
+"categorystrlist":"Seafood,         Sushi Bars,         Jazz & Blues ,Piatti a base di pesce",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/h6UZdjTaOP9wOlsW51Q7UQ/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Okay, so from my last visit here I wasn&#39;t sure I would be back any time soon. Yesterday I decided to celebrate my birthday with a sea food dinner at Shaw&#39;s crab house. And I am so glad I did. We planned ahead and secured 5:45 reservations. What a difference it was from our previous 8 o&#39;clock reservations. The restaurant was not busy at all. We got sat immediately. Our server was the sweetest man there. An older Hispanic gentleman who didn&#39;t cut corners with his service. Which I believe our last server did when she saw my bf and I ; young Mexican couple who superficially doesn&#39;t &#34;fit&#34; in. But anywho we started off with the house special lobster bisque and the appetizer combination which included calamari, mini crab cakes, and French fried shrimp. Everything came out in a timely matter and very hot. Everything was delicious! I was in shock, even the lobster bisque was delicious. The mini crab cakes where so full of fresh crab meat and full of flavor I almost opted for a mini crab cake platter!! <br>For dinner, I ordered the red king crab legs and the 6oz filet mignon. My boyfriend order the lobster tail and 6oz filet mignon. Let me just say everything was absolutely amazing. My crab legs were actually meaty and hot! The filet was cooked perfectly. A beautiful chard outside and perfect pink inside. I cannot say anything bad about my experience. I think my last experience had many factors that contributed to the less than perfect experience. And in my gut I believe it was due to our waitress. Because yesterday&#39;s time there was only made possible by our server, food runner, and busser. Well let&#39;s not forget the delicious food! <br>We didn&#39;t order any dessert but the server overheard my bf say it was my bday and without hesitation he brought to the table a slice of chocolate cake with a candle. :) what a perfect end to a beautiful time out. Thank you. Oh the cake was absolutely deliciously! I would buy it on our next visit",
@@ -3339,15 +3335,7 @@
 "Caters" : "Yes"}},
 {"ranking":"91",
 "ogurl":"http://www.yelp.com/biz/the-smoke-daddy-chicago",
-"categorystrlist":"Barbeque,         Music Venues
-    
-                Burgers
-    
-                American (Traditional),         Bars
-    
-                Wine Bars
-    
-                Wine Bars,         Pizza,         Italian",
+"categorystrlist":"Barbeque,         Music Venues ,Burgers ,American (Traditional),         Bars ,Wine Bars ,Wine Bars,         Pizza,         Italian",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/05i02xcgmtpoH_spxzR4Zg/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Good ribs, good smoke chicken and good price.<br><br>Anti-hero IPA also made the day.",
@@ -4418,9 +4406,7 @@
 "Caters" : "Yes"}},
 {"ranking":"112",
 "ogurl":"http://www.yelp.com/biz/mana-food-bar-chicago",
-"categorystrlist":"Vegetarian,         Vegan,         Juice Bars & Smoothies
-    
-                Sushi Bars,         Japanese",
+"categorystrlist":"Vegetarian,         Vegan,         Juice Bars & Smoothies ,Sushi Bars,         Japanese",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/RXtq_utwDRbgJYHRXwNpbQ/l.jpg",
 "rating":"4.5",
 "reviewcomment":"Got a hot date with Lisa Simpson? Mana might be the best advice I could offer you. It&#39;s extremely cute, affordable, and has tons of vegetarian options many of which you wouldn&#39;t even know were meatless. Perfect to satisfy your protein cravings without killing your chances at some after dinner dessert. ;-)<br><br>Tis true. You wouldn&#39;t want to go if you were in a time crunch. It&#39;s about the size of a Smart Car, super popular, and they don&#39;t take reservations so you can imagine the wait at times. If you do decide to try your patience in line or grab a drink nearby (which they let you do) the menu is absolutely amazing from start to finish. <br><br>You can share almost everything and I suggest you do. Between the two times I&#39;ve visited I&#39;ve only gotten through about half of the menu but can verify that the trio of salads, sliders, mushroom polenta, veggie burrito, brussels, goat cheese dip, toasted ravioli, and beet salad are all unbelievable. <br><br>They serve beer and wine as well, but drink wise the most buzzworthy option is the freshly squeezed juices. Finish off your meal with one of those and you&#39;ll feel way more amazing that anything you&#39;d have at a steakhouse. <br><br>In short Mana is amazing.",
@@ -5075,15 +5061,7 @@
 "Caters" : "Yes"}},
 {"ranking":"135",
 "ogurl":"http://www.yelp.com/biz/goose-island-clybourn-chicago-2",
-"categorystrlist":"Bars,         Breweries,         American (Traditional)
-    
-                Breweries
-    
-                Gastropubs,         Breweries
-    
-                Stadiums & Arenas,         Venues & Event Spaces
-    
-                Caterers,         Breweries",
+"categorystrlist":"Bars,         Breweries,         American (Traditional) ,Breweries ,Gastropubs,         Breweries ,Stadiums & Arenas,         Venues & Event Spaces ,Caterers,         Breweries",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/174MeVxZHz2ZVZRsszLRfg/l.jpg",
 "rating":"3.5",
 "reviewcomment":"It was a great experience!<br><br>First of all I want to say that I am not a beer drinker- Our party of 8 was there due to a birthday, we took the tour, which was interesting and informative :) and surprisingly extensive, then we stayed for dinner.  The dinner was phenomenal- we ordered the onion rings and wings for starters yumm! some thought the wings were too spicy but they admitted a low tolerance for spiciness.  Then we ordered the black earth burger, pulled pork sandwich, idk what it&#39;s called but the burger with the egg, and a few other (can&#39;t remember- sorry)<br><br>Everything was just really delicious, definitely going back.",
@@ -5422,11 +5400,7 @@
 "Caters" : "No"}},
 {"ranking":"143",
 "ogurl":"http://www.yelp.com/biz/southport-grocery-and-cafe-chicago",
-"categorystrlist":"Grocery,         Breakfast & Brunch,         Cafes
-    
-                Coffee & Tea,         Bakeries,         Bagels
-    
-                Pets",
+"categorystrlist":"Grocery,         Breakfast & Brunch,         Cafes ,Coffee & Tea,         Bakeries,         Bagels ,Pets",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/klRq8wjKOTlcd3pG4Q9sqw/l.jpg",
 "rating":"4.0",
 "reviewcomment":"My wife &amp; I have been coming here for years! It is, by far, the best &amp; our favorite brunch spot in Chicago.<br><br>The menu has something for anyone and everyone. We almost always go breakfast but occasionally dabble in the lunch side of things. There isn&#39;t one thing that we always get, but I would say the Hash, Bread Pudding Pancakes, and Sweet &amp; Savory French Toast are on the top of our list- but literally- you can&#39;t go wrong with anything on the menu.<br><br>Service - on point. Not only is everyone so unbelievably nice, understanding, and accommodating but everything is served timely and as ordered. Everyone there is so genuine and kind.<br><br>AND C&#39;MON, you can purchase almost all of the ingredients plus some other pretty tasty &amp; fresh goods to take home before you close your tab.<br><br>I do have one warning. DO NOT come here if you plan on never returning again, because you will be HOOKED!",
@@ -5692,9 +5666,7 @@
 "Caters" : "No"}},
 {"ranking":"150",
 "ogurl":"http://www.yelp.com/biz/cheesies-pub-and-grub-chicago",
-"categorystrlist":"Sandwiches,         Pubs
-    
-                Dance Clubs",
+"categorystrlist":"Sandwiches,         Pubs ,Dance Clubs",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/Qq9gHX1Moc6XUPHYlMEThw/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I first heard about Cheesie&#39;s when I was looking for a place to live in Chicago. I was staying at the Hotel across the street and asked for a good place to get a bite to eat. From there I went to Cheesie&#39;s and now I know just about everyone who works there. The bartenders are more like friends especially if they have a little down time to talk. $4 Craft Beers? Hit me again! Everything on tap is $4 except the Root Beer Beer which is completely worth the price. Also Game days are CRAY!<br><br>I read earlier about someone talking poorly about the &#34;Bouncers&#34;. I know the &#34;Bouncers&#34; and they have been nothing but nice to me. They are there because there&#39;s a register for walk ins. Which, more often than not, are not of a legal drinking age. This is to cover the bartenders when the place becomes standing room only. (which is also more often than not) It&#39;s a business and smart businesses make sure they don&#39;t get their liquor license revoked and that their amazing bartenders don&#39;t get jail time n fined because of how instantly slammed they can get. I&#39;ve been there when there were only 5 or 6 people tops talking about how dead it was. 10 minutes later the bar was packed. True story. So yeah, If you&#39;re not old enough to drink your hand is gonna get marked. And yeah.. If you give the &#34;Bouncers&#34; attitude you&#39;re gonna get some in return (which I&#39;m almost positive is what happened)-Welcome to Chicago. And the biggest &#34;Bouncer&#34; there is as chill as they come. <br><br>Everyone there is family, You&#39;re welcome to be as well. I love this place and everyone that works there. <br><br>Keep Calm and Be Cheesie.",
@@ -5775,9 +5747,7 @@
 "Caters" : "No"}},
 {"ranking":"154",
 "ogurl":"http://www.yelp.com/biz/minghin-cuisine-chicago-3",
-"categorystrlist":"Seafood,         Dim Sum
-    
-                Chinese,         Cafes",
+"categorystrlist":"Seafood,         Dim Sum ,Chinese,         Cafes",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/rP1Hiwgg07iymOxMA5FqSQ/l.jpg",
 "rating":"4.0",
 "reviewcomment":"The dim sum house with modern setting is quite refreshing and unorthodox.  The good dim sum house is not measured by the decoration of the restaurant but the texture and taste of dim sum. This house passes the thinness test on all hakao, suemai, and hofun. The only disappointment is the congee or joke with thousand year old eggs. It is definitely not at the level of Big Wong in NYC Chinatown for sure. <br><br>Although they open at 8, the vegetable dishes are available after 10 am. $20 per person, tips included. Not bad but not cheap.",
@@ -6037,9 +6007,7 @@
 "Caters" : "Yes"}},
 {"ranking":"160",
 "ogurl":"http://www.yelp.com/biz/bourgeois-pig-cafe-chicago",
-"categorystrlist":"Coffee & Tea,         Vegetarian,         Sandwiches
-    
-                Mediterranean",
+"categorystrlist":"Coffee & Tea,         Vegetarian,         Sandwiches ,Mediterranean",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/-Cv335PULjEKpVvuquV6RQ/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Overall: An interesting and fun cafe in the heart of fullerton. Great food and atmosphere, just a little too high priced. Still great!<br><br>The good: A TON of sandwiches, all great tasting. Great salads as well. Haven&#39;t had the soups/breakfast yet. The &#39;treats&#39; are also great tasting, and they have great coffee! Cool atmosphere and outside seating too.<br><br>The bad: Not much, just that it&#39;s a little overpriced for what you get. The sandwich I had was great, but it was small for $9. If I hadn&#39;t gotten a full salad as well, I would&#39;ve left hungry. $20 for both...<br><br>Atmosphere: 9/10<br>Service: 9/10<br>Food: 8/10",
@@ -6559,9 +6527,7 @@
 "Caters" : "No"}},
 {"ranking":"175",
 "ogurl":"http://www.yelp.com/biz/honky-tonk-bbq-chicago",
-"categorystrlist":"Barbeque,         Dive Bars
-    
-                Cucina italiana",
+"categorystrlist":"Barbeque,         Dive Bars ,Cucina italiana",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/uq_12Gfb-hTJF5Kdnpzf0w/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I showed up for a couch surfing meet so there was a total of 7 of us.<br><br>I split the sampler ($32) with a friend<br><br>It came with a pulled pork sandwhich (4/5) you put the sweet sauce on the burger and it was tasted and nice and soft<br><br>ribs (3/5) the ribs were good but I felt were a little too charred<br><br>Sausage (3/5) it was alright I don&#39;t know how to describe it<br><br>Chicken (4/5) The chicken was awesome nice grilled and not too dry<br><br>Beans (5/5)  Awesome<br><br>I think I&#39;m missing something else, but the vibe of the place was simple and there was a blues band playing (I personally didn&#39;t want music but it was a good feel)<br><br>Place is awesome and it doesn&#39;t hurt your wallet<br><br>B++++++ would do business again",
@@ -7512,11 +7478,7 @@
 "Caters" : "No"}},
 {"ranking":"193",
 "ogurl":"http://www.yelp.com/biz/la-gondola-chicago",
-"categorystrlist":"Pizza,         Italian
-    
-                Office Equipment,         Computers
-    
-                Car Dealers",
+"categorystrlist":"Pizza,         Italian ,Office Equipment,         Computers ,Car Dealers",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/vvZXtZPplT-XBG5mhInuvQ/l.jpg",
 "rating":"4.0",
 "reviewcomment":"i&#39;ve been dreaming about this damn lobster ravioli since my last visit in october. why&#39;d it take me so long to come back? holidays, travels, chiberia... you know the drill. but i finally made my way to my holy grail tiny italian find. i ordered the same thing because 1) i&#39;m a creature of habit and 2) basically it&#39;s the only pasta that matters to me anymore. <br><br>and i&#39;m not sure why i didn&#39;t mention it on my last review but the bread? it&#39;s kind of the best bread ever. perfectly crispy on the outside and warm, soft, comforting deliciousness on the inside. i dipped it in my sauce from the ravioli with no regards or concern for my waistline and i absolutely don&#39;t regret it.",
@@ -7553,13 +7515,7 @@
 "Caters" : "Yes"}},
 {"ranking":"199",
 "ogurl":"http://www.yelp.com/biz/ethiopian-diamond-restaurant-chicago",
-"categorystrlist":"Ethiopian,         Vegetarian
-    
-                American (New),         Breakfast & Brunch,         Gluten-Free
-    
-                American (New),         Breakfast & Brunch
-    
-                American (New),         Breakfast & Brunch",
+"categorystrlist":"Ethiopian,         Vegetarian ,American (New),         Breakfast & Brunch,         Gluten-Free ,American (New),         Breakfast & Brunch ,American (New),         Breakfast & Brunch",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/Mcz7A0sh7IqDPJ5OMkO9eg/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Anybody that knows me knows that I don&#39;t cross into the north side much. Ironically, most of my friends and even a cousin of mine currently reside there. In the last ten years, I&#39;ve opened my mind to types of food that didn&#39;t involve pepperoni, hot giardiniera (what!),  and celery salt. <br><br>With that being said, I&#39;m kind of like a pioneer to my immediate family. When I suggested to my mother that we go to an Ethiopian restaurant on the way to visit my cousin&#39;s new baby, she looked at me as if I&#39;d grown another head. <br>&#34;Ethi-what?&#34; she said.<br>&#34;Ethiopian...you know, African..on the eastern side. Trust me, it&#39;s amaaaazing.&#34;<br><br>The look on my mother&#39;s face was more than distrustful. To my surprise, she succumbed to the peer pressure from my wife and I. I&#39;ve only tried one Ethiopian restaurant before (it was actually Erirtrean, but cut me a break, they used to be one country,) but I was already in love. We went for lunch time, guaranteeing that there would be plenty of room to eat. After all, I like to keep my elbows out! Enough with the pleasantries, le&#39;s get to it!<br><br>THE GOOD: <br>-The service was awesome. Both servers tended to us as was needed. The young man working there explained everything patiently and with enthusiasm to our party. He was even a good sport to my teasing when I playfully grilled him on who actually made their honey-wine. When the food was brought out, he explained what was what, and made sure that we had everything we needed (napkins, water, honey-wine, injera.) <br>-Fooooood! My mother and I split the &#34;E2,&#34; which is a combo meat dish that has two veggie sides. My Mom was impressed with the mature and complex flavors of all of the dishes. She enjoyed the chicken and lamb portions the best, with the beef taking third place. As was I, she was mesmerized with the concept of injera. <br>- Honey-wine!  The best I&#39;ve had yet! Yes, it&#39;s only the second one I tried, but it was smoooooth and tasty!<br><br>THE BAD: Nothing, although the fatty in me wishes there were bigger portions! It fills you up for sure though.<br><br>THE UGLY: The site of me shoving various dishes in my mouth! um yum!<br><br>I think its safe to say that I&#39;ve converted my mother to having an open mind to trying new foods!<br><br>Hip hip, huzzah!",
@@ -7793,9 +7749,7 @@
 "Caters" : "No"}},
 {"ranking":"205",
 "ogurl":"http://www.yelp.com/biz/opart-thai-house-restaurant-chicago",
-"categorystrlist":"Thai
-    
-                Thai",
+"categorystrlist":"Thai ,Thai",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/wtg9WFvKIAmABraX4s-9yA/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Easily the BEST Thai food on chicago. <br><br>Everything is always so delicious here. The food is more than affordable! Some if the staff could stand to be more attentive and polite.... But the food makes up for it.",
@@ -7906,13 +7860,7 @@
 "Caters" : "Yes"}},
 {"ranking":"207",
 "ogurl":"http://www.yelp.com/biz/uncommon-ground-chicago-2",
-"categorystrlist":"American (New),         Breakfast & Brunch
-    
-                Breweries
-    
-                Breweries
-    
-                Breweries,         Tours",
+"categorystrlist":"American (New),         Breakfast & Brunch ,Breweries ,Breweries ,Breweries,         Tours",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/1WpibkurgmM3ZAP-Q8LwlQ/l.jpg",
 "rating":"3.5",
 "reviewcomment":"The food is a little pricey, but we had a great experience this past Saturday night with tasty flatbread, a solid burger/fries combo, calamari and mac-and-cheese.  Green/organic/free-range or not, $15 for a plate of mac-and-cheese half the size of the cheaper and much tastier mac-and-cheese at Kuma&#39;s is ridiculous.  But I had to find out for myself, so shame on me there.  $12 for the calamari was also hefty; the calamari was basically Costco fish with incredible homemade seasoning, not bad but not getting that again.<br><br>Cool vibe and a big shout to the hostess for seating my wife and I at a table next to the fireplace for our date night (didn&#39;t even request it, so a happy random accident).  We didn&#39;t stay late enough for the music, but I&#39;m sure to check that out next time.",
@@ -8141,9 +8089,7 @@
 "Caters" : "No"}},
 {"ranking":"215",
 "ogurl":"http://www.yelp.com/biz/heartland-cafe-chicago",
-"categorystrlist":"Vegetarian,         Breakfast & Brunch,         American (Traditional)
-    
-                Do-It-Yourself Food,         Farmers Market",
+"categorystrlist":"Vegetarian,         Breakfast & Brunch,         American (Traditional) ,Do-It-Yourself Food,         Farmers Market",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/hQxjX4S86hvNaDsqiB6fbw/l.jpg",
 "rating":"3.0",
 "reviewcomment":"I went to Heartland last week after a hiatus of about 7 years and was pleasantly surprised by the experience. The place was empty, which ironically sometimes compromises service, but in this case made for a very (but not overly) attentive waitress. The food was really good and totally affordable. Being someone who basically has to modify ever dish for my weird eating habits I appreciate a restaurant that expects and accepts that of their customers, rather than being put off by it. <br><br>I missed you my friend, and I&#39;ll be back soon.",
@@ -8292,13 +8238,7 @@
 "Caters" : "Yes"}},
 {"ranking":"217",
 "ogurl":"http://www.yelp.com/biz/coobah-chicago",
-"categorystrlist":"Latin American,         Asian Fusion,         Filipino
-    
-                Bars
-    
-                American (New),         Gastropubs
-    
-                Bars,         Sandwiches",
+"categorystrlist":"Latin American,         Asian Fusion,         Filipino ,Bars ,American (New),         Gastropubs ,Bars,         Sandwiches",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/0GPkp2iPep4rM-Z5i83iow/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Outstanding first experience at Coobah. We started with Caipirinhas and decided to go the tapas route. Tommy the waiter was very friendly and suggested we just order as we go. We started with some very fresh, zesty guacamole. The next dish, scallops, were probably the low light of the meal although still good. We then enjoyed the fundido. The fundido came with 3 delicious sauces, the best of which was a spicy cherry mix. <br><br>Overall terrific atmosphere and experience. Would definitely recommend.",
@@ -8528,13 +8468,7 @@
 "Caters" : "No"}},
 {"ranking":"226",
 "ogurl":"http://www.yelp.com/biz/jam-chicago",
-"categorystrlist":"Breakfast & Brunch
-    
-                Coffee & Tea,         Sandwiches
-    
-                Professional Services
-    
-                Latin American,         Korean,         Asian Fusion",
+"categorystrlist":"Breakfast & Brunch ,Coffee & Tea,         Sandwiches ,Professional Services ,Latin American,         Korean,         Asian Fusion",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/W1AEiqbGAWW5r_0imhE5Dg/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Jam is definitely towards the top of my favorite brunch spots.<br><br>I&#39;ve been here several times and have always ordered a different item. The eggs benedict is a good choice if you find yourself on the struggle bus when deciding. Not once was I ever disappointed with regards to food. There was one occasion where I was absolutely mortified by a drink... sadly I don&#39;t recall what it was so I can&#39;t warn you to stay away from it.<br><br>Service has always been outstanding. Brandon has been simply amazing and consistent with each time I&#39;ve had him as a waiter. Polite, charming, very knowledgeable and on point with everything on the menu. A good sport as well... particularly when my friend&#39;s mother&#39;s friend (Southern California housewife) became a bit aggressively friendly over the course of our brunch last summer. Errr... these things happen?<br><br>I have never had a terribly long wait but maybe I&#39;ve just been lucky? I would still play it safe or prepare myself to wait on weekends.",
@@ -8833,11 +8767,7 @@
 "Caters" : "Yes"}},
 {"ranking":"228",
 "ogurl":"http://www.yelp.com/biz/siena-tavern-chicago",
-"categorystrlist":"Italian
-    
-                Lounges,         Sports Bars,         Breakfast & Brunch
-    
-                American (New),         Sports Bars,         Burgers",
+"categorystrlist":"Italian ,Lounges,         Sports Bars,         Breakfast & Brunch ,American (New),         Sports Bars,         Burgers",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/FGKa_cWAI1XMvBI338vj8Q/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Went to a private event where they rented out the whole restaurant, it was a pretty awesome time. They for sure know how to handle a very large party if that&#39;s what you are looking for. <br><br>Myself and a few other people stationed ourselves at the back pizza bar and had an absolutely wonderful bartender. She was perfectly attentive and made very good innovative drinks. <br><br>Their signature appetizer the coccoli is delicious, my main regret is not eating more of it. I also really loved their truffle pizza, tiramisu and fried donuts. Unfortunately I was not a fan of the rest of the food that I tried, lasagna, steak and some ravioli. It seemed kind of hit or miss, very good to a bit unremarkable, the food landed on both ends of the spectrum.  <br><br>If I was in the area I would probably go back again even if it&#39;s just to get the coccoli and drinks.",
@@ -9024,9 +8954,7 @@
 "Caters" : "Yes"}},
 {"ranking":"233",
 "ogurl":"http://www.yelp.com/biz/naha-chicago",
-"categorystrlist":"American (New)
-    
-                French",
+"categorystrlist":"American (New) ,French",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/cr-6oi5JaIO8KZGFcbGsqA/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I&#39;ve been here twice now. I&#39;m Armenian and I just love the little hints of Armenian food in Naha&#39;s menu. I will say I think it&#39;s a bit overpriced, which is truly the only reason I haven&#39;t been back more. I love that the restaurant has so many windows - what&#39;s the point of dining downtown if you don&#39;t feel like you&#39;re downtown?! <br><br>As for the food, the menu changes, but you can definitely count on taste and creativity on the menu. The Greek salad comes with an Armenian cheese boereg on top (think cheese pastry fattening goodness) so that&#39;s always a nice treat. The chef also makes the ultimate bulgur pilaf. I grew up with some amazing Armenian cooks around, and Naha&#39;s is truly THE BEST bulgur pilaf I&#39;ve ever had: buttery, garlic-y, made the old-fashioned way, according to my parents. Anyway, even if it&#39;s not on the menu (which, come on Naha, it should always be on the menu), ask for it. You&#39;ve got the inside scoop now.",
@@ -9555,17 +9483,7 @@
 "Caters" : "Yes"}},
 {"ranking":"252",
 "ogurl":"http://www.yelp.com/biz/medici-on-57th-chicago",
-"categorystrlist":"Bakeries,         Delis,         Sandwiches
-    
-                Frutta e verdura,         Supermarket
-    
-                Pub
-    
-                Librerie
-    
-                Librerie
-    
-                Supermarket",
+"categorystrlist":"Bakeries,         Delis,         Sandwiches ,Frutta e verdura,         Supermarket ,Pub ,Librerie ,Librerie ,Supermarket",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/0rmoLfJNjd8WjazUPli-Ow/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I love Medici.<br><br>They&#39;ve got a huge variety of food for all tastes-- sandwiches, salads, pizzas. And the desserts are also amazing. At this point I think I&#39;ve tried every vegetarian appetizer on their menu--guacamole and chips is probably the best. My current favorite entrée is the Garbage salad with blue cheese. It&#39;s better than you ever thought a salad could be and you will not walk away hungry.<br>The drinks are also great--creative concoctions from the cafe next door, excellent loose-leaf teas from Benjamin Teas, and fabulous shakes, particularly the weekly specials. I feel the pumpkin pie one deserves a special shout-out... although I think they only serve it for part of November.<br>The service can be a little slow, especially at busy times or near closing, but all in all, a great place to grab a bite.",
@@ -9793,9 +9711,7 @@
 "Caters" : "Yes"}},
 {"ranking":"258",
 "ogurl":"http://www.yelp.com/biz/chicago-bagel-authority-chicago-3",
-"categorystrlist":"Bagels,         Sandwiches
-    
-                Mexican",
+"categorystrlist":"Bagels,         Sandwiches ,Mexican",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/BoMqaAwGGXaZqNCNXbzIZw/l.jpg",
 "rating":"4.0",
 "reviewcomment":"I am a fan. <br><br>Came here for a friend&#39;s birthday. Apparently, this place is based off of a famous bagel deli at Miami University... in Ohio. It&#39;s a magical place where you can put anything you can ever imagine on a bagel (yes, including jalapenos chips &amp; Doritos). AND if your bagel qualifies and is good enough, it is then drawn on a piece of paper, hung on the wall, and all future customers can order your creation. <br><br>This is also a place where they make bacon cookies...<br><br>I had the Messy Katie (order this mostly because of the avocado + turkey + honey mustard combination), and it was heavily recommended by 3 Miami alums. Crunch n&#39; Munch was also a big favorite in our group.<br><br>It looks like they have some dessert bagels too! I will be trying that next time.",
@@ -11149,11 +11065,7 @@
 "Caters" : "No"}},
 {"ranking":"293",
 "ogurl":"http://www.yelp.com/biz/kitschn-on-roscoe-chicago",
-"categorystrlist":"Breakfast & Brunch,         American (New)
-    
-                American (New),         Wine Bars,         American (Traditional)
-    
-                American (New),         Burgers",
+"categorystrlist":"Breakfast & Brunch,         American (New) ,American (New),         Wine Bars,         American (Traditional) ,American (New),         Burgers",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/PnhmeqZIjHxQ9KVT21syxg/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Funky decor. I like it. Friendly staff. Good coffee.<br><br>Go with the coconut french toast! I had the chicken and waffles. Bleh, I&#39;ve had way better. I am looking forward to trying other things on the menu.",
@@ -11308,11 +11220,7 @@
 "Caters" : "No"}},
 {"ranking":"296",
 "ogurl":"http://www.yelp.com/biz/paramount-room-chicago",
-"categorystrlist":"American (New),         Burgers
-    
-                Breakfast & Brunch,         American (New)
-    
-                American (New),         Wine Bars,         American (Traditional)",
+"categorystrlist":"American (New),         Burgers ,Breakfast & Brunch,         American (New) ,American (New),         Wine Bars,         American (Traditional)",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/VnMHGqJc5TiBIqF12xC1dg/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Stopped through Paramount Room to take a look at their Monda - Wednesday burger lunch special, which was quite the deal - Wagyu beef / brioche bun / lettuce / onion / tomato + a pint of beer for $12! +$1 for cheese (you can get Gruyere, which is impressive) and +2 for fries. All in all, a really solid lunch spot - spoke with the owner &amp; the bartender about the joint, and both were very friendly - everyone is excited about Craft Beer Week!<br><br>Will definitely be back for another lunchtime burger fix and probably a happy hour or two at some point... Good job Paramount Room",
@@ -11350,9 +11258,7 @@
 "Caters" : "No"}},
 {"ranking":"297",
 "ogurl":"http://www.yelp.com/biz/los-nopales-chicago",
-"categorystrlist":"Mexican
-    
-                Mexicaans",
+"categorystrlist":"Mexican ,Mexicaans",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/91cUOma-iAxp0UHcWAz10g/l.jpg",
 "rating":"4.0",
 "reviewcomment":"I think I just found my favorite Mexican restaurant! And I&#39;ve been searching high and low for years. It shouldn&#39;t be this hard to find such a great Mexican restaurant in Chicago but this was worth the wait. Food was perfect. Service was so great. Our waitress was so kind and sweet. The only thing I regret was not leaving room for dessert. They had mango cheesecake tonight and I had to pass since I didn&#39;t come here in sweatpants. Next time you&#39;re craving Mexican, run here!",
@@ -11995,15 +11901,7 @@
 "Caters" : "Yes"}},
 {"ranking":"315",
 "ogurl":"http://www.yelp.com/biz/the-fifty-50-chicago",
-"categorystrlist":"Sports Bars,         Burgers
-    
-                Pizza
-    
-                American (New),         Desserts,         Cocktail Bars
-    
-                Diners,         Bakeries
-    
-                Donuts,         Cafes,         Bakeries",
+"categorystrlist":"Sports Bars,         Burgers ,Pizza ,American (New),         Desserts,         Cocktail Bars ,Diners,         Bakeries ,Donuts,         Cafes,         Bakeries",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/elX8cvFLAY-pgdHehho0Cw/l.jpg",
 "rating":"3.5",
 "reviewcomment":"A group of us met up here for a birthday celebration. The first impression was good due to the awesome door guy who was very friendly and extremely helpful. The table we got was downstairs which was fun because we got to see the whole place. We had a booth and we were surrounded by TVs which was great because we had several sports fans and none of them had to crane their necks because there was a tv in every view. <br><br>Then our server came, Stacy. What can I say about Stacy, other than she was spectacular!!!! She made our group, especially the birthday boy feel special. She was personable, helpful and friendly. At the end of the night the wife of the birthday boy decided she was coming back to have her party in a few weeks. I believe a good time was had by all and Stacy played a big role in that. <br><br>Now on to the fun stuff, drinks and food. I had a Lagerita, totally tasty!! We shared several appetizers but my absolute favorite was the poutine. It was HEAVEN!! I highly recommend it. The beers are reasonably priced and certain sizes of drinks come with a take home cup. (Clever marketing)<br><br>All in all it was great. Why only four stars? The bathroom was kind of a train wreck. :(",
@@ -12091,17 +11989,7 @@
 "Caters" : "Yes"}},
 {"ranking":"316",
 "ogurl":"http://www.yelp.com/biz/the-boundary-chicago",
-"categorystrlist":"Sports Bars,         American (New)
-    
-                Bars
-    
-                American (New)
-    
-                American (New)
-    
-                Bars,         American (New)
-    
-                Gluten-Free,         American (New)",
+"categorystrlist":"Sports Bars,         American (New) ,Bars ,American (New) ,American (New) ,Bars,         American (New) ,Gluten-Free,         American (New)",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/Iq7lZplmLeqz-BAdQ49_mQ/l.jpg",
 "rating":"3.0",
 "reviewcomment":"We went for brunch, and we both ordered omelettes. Food came out quickly, and it was pretty good. Personally ordered the veggie egg white omelet. The answer is yes. The breakfast potatoes are pretty average brunch food.<br><br>What was great was our server! (Brenda?) Very kind, quick, and attentive. The bussers/food runners were also on point. One of them stopped what he was doing to get us an umbrella. The host was friendly and sat us immediately.",
@@ -13199,17 +13087,7 @@
 "Caters" : "Yes"}},
 {"ranking":"341",
 "ogurl":"http://www.yelp.com/biz/sweetwater-tavern-and-grille-chicago",
-"categorystrlist":"American (New)
-    
-                Bars
-    
-                Sports Bars,         American (New)
-    
-                American (New)
-    
-                Bars,         American (New)
-    
-                Gluten-Free,         American (New)",
+"categorystrlist":"American (New) ,Bars ,Sports Bars,         American (New) ,American (New) ,Bars,         American (New) ,Gluten-Free,         American (New)",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/WZUJN4k69dhnOviwmmH8MQ/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I have been here several times and the service is always excellent. Great place to watch a game. Several tv&#39;s all over the restaurant. It was too cold to sit outside yesterday, but with warmer weather you can take advantage of the outdoor patio. Only downfall is it&#39;s on Michigan Avenue and I try to avoid this street at all costs (glazed eye tourists who don&#39;t know how to put one foot in front of the other and walk.....I digress)<br><br>We ordered two items to share. The Santa Fe wrap with tater tots on the side and the margherita  pizza special. I liked the crust of the pizza and you can&#39;t go wrong with tater tots :) The part I was most impressed with was since they knew we were splitting the meal they split it for us and brought out on separate plates, without charging extra I should add. Way to go the extra mile!",
@@ -13882,11 +13760,7 @@
 "Caters" : "Yes"}},
 {"ranking":"364",
 "ogurl":"http://www.yelp.com/biz/the-berghoff-restaurant-chicago",
-"categorystrlist":"Bars,         German
-    
-                German,         American (New),         Polish
-    
-                German",
+"categorystrlist":"Bars,         German ,German,         American (New),         Polish ,German",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/W5ogwAeMseNC8PyEQ0-W4w/l.jpg",
 "rating":"3.5",
 "reviewcomment":"It&#39;s a good place! It&#39;s a lot of dark wood and breaded cutlets, but that is what german cuisine is all about! It sure beats the faux food-court you see downstairs next to the bathrooms when you peek in at the &#34;café&#34; instead of the restaurant.<br><br>I had the Rahm Schnitzel, and it&#39;s clearly named after the mayor. It was a little strange but ultimately I liked it.",
@@ -14084,13 +13958,7 @@
 "Caters" : "No"}},
 {"ranking":"368",
 "ogurl":"http://www.yelp.com/biz/l-woods-tap-and-pine-lodge-lincolnwood",
-"categorystrlist":"Barbeque,         American (Traditional)
-    
-                Ice Cream & Frozen Yogurt
-    
-                Car Dealers,         Tires,         Auto Repair
-    
-                Burgers,         Fast Food",
+"categorystrlist":"Barbeque,         American (Traditional) ,Ice Cream & Frozen Yogurt ,Car Dealers,         Tires,         Auto Repair ,Burgers,         Fast Food",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/NENoe4BU08KA6K5f20k0gA/l.jpg",
 "rating":"4.0",
 "reviewcomment":"My family and I stopped in for a late night dinner. We arrived a half hour before closing. Not only were we greeted right away but also got a table. <br>Usually most restaurants are in a hurry as they are getting ready to close. But Greg, our server treated us the same as if we were their first customers in the door. He made sure we had enough to drink and if we needed anything else to let him know. <br>Always a great place to eat anytime of the day!",
@@ -14245,9 +14113,7 @@
 "Waiter Service" : "Yes"}},
 {"ranking":"362",
 "ogurl":"http://www.yelp.com/biz/janes-chicago",
-"categorystrlist":"Breakfast & Brunch,         American (Traditional),         Vegetarian
-    
-                Florists,         Event Planning & Services",
+"categorystrlist":"Breakfast & Brunch,         American (Traditional),         Vegetarian ,Florists,         Event Planning & Services",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/Jm8hs1BfUV2XHZWQ9xn3ZQ/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Jane&#39;s is a super cute and quaint restaurant that&#39;s perfect for a girls night out session. I&#39;ve tried a couple of dishes here and my favorite is the Housemade Quinoa Vegetable Garden Burger with sauteed mushrooms. Yea I know what you&#39;re thinking - quinoa vegetable burger?? I was surprised myself but for a vegetarian burger, this is hands down the best. Tasty and fresh, no guilt whatsoever and unlike any other burger you&#39;ve ever eaten. Jane&#39;s is also known for their corn chowder but it&#39;s not my favorite. It was too milky and the consistency wasn&#39;t thick enough for me. For dessert I highly recommend the Apple Oatmeal Crisp and Creme Brulee. <br><br>I also know that they switch out menu items based on seasons so the desserts may or may not be on the menu when you get there. Also, be sure to call and make a reservation so you don&#39;t have to wait. They are quite busy on Fridays and weekends.",
@@ -14359,9 +14225,7 @@
 "Caters" : "No"}},
 {"ranking":"376",
 "ogurl":"http://www.yelp.com/biz/kamehachi-chicago-8",
-"categorystrlist":"Sushi Bars,         Japanese
-    
-                Sushi Bars,         Japanese",
+"categorystrlist":"Sushi Bars,         Japanese ,Sushi Bars,         Japanese",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/WvRg07-lRdIus4jTixpaNw/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Another great FAMILY owned restaurant. The owners are there. Atmosphere is very classy, waitstaff sophisticated and attractive. Sushi is excellent and presented with artistic flair combining flowers, sculpture and creative plating. <br>for desert: try Green tea Mochi ice cream this is is a Japanese confection made from mochi (pounded sticky rice) with an ice cream filling. Very GOOD!<br>This is a restaurant good for well-behaved children who sit in their seats.",
@@ -15280,9 +15144,7 @@
 "Caters" : "Yes"}},
 {"ranking":"398",
 "ogurl":"http://www.yelp.com/biz/the-grafton-chicago",
-"categorystrlist":"Pubs,         Irish
-    
-                Gastropubs,         American (New)",
+"categorystrlist":"Pubs,         Irish ,Gastropubs,         American (New)",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/4BsfrLbthi0X7e3T11qGXg/l.jpg",
 "rating":"4.0",
 "reviewcomment":"The host seating us was a bit out there.  I&#39;m guessing because its Good Friday, so some folks likely wont be out to eat/drink like a typical Friday factored into the reason for the host acting as weird as he did.  The host was aloof and kind of disinterested.  First he told me and a friend he had a table, then he said 30 minute wait a minute later, then 15 minute wait a minute after.  After about 5 minutes and confusion/guessing what he was going to tell us next, we finally got seated.<br><br>From then on, it was excellence.  My friend got the fish and chips and me the Irish breakfast plate.  Excellent black pudding, better than most Irish/English breakfasts at other restaurants I&#39;ve sampled.  Great beer and great food prices for a restaurant in a trendy area, though plenty of foot traffic inside.  Comes with the territory though.<br><br>Will definitely be back.",
@@ -15438,11 +15300,7 @@
 "Caters" : "No"}},
 {"ranking":"404",
 "ogurl":"http://www.yelp.com/biz/rodan-chicago",
-"categorystrlist":"Restaurants
-    
-                Abbigliamento femminile,         Abbigliamento maschile,         Accessori
-    
-                Musica e DVD,         Dischi in vinile",
+"categorystrlist":"Restaurants ,Abbigliamento femminile,         Abbigliamento maschile,         Accessori ,Musica e DVD,         Dischi in vinile",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/CiI5JdvKQTnbW2kt1-yMBQ/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Top fav spots to chill and dance! My guy spins here from time to time but everytime I have been here it has been a great night! <br>Bartenders always friendly and quick. I love that there is always Soultrain or great graphic movie like Kill Bill playing on the screen. Who doesn&#39;t like to dance along with Soultrain?!?<br>I have also been here for lunch on a summer day and dined in the front on I guess you would say patio, I say front sidewalk lol. Food was good but service was a bit slow. So slow that we nearly just walked away because we were waiting forever but you know what Rodan, I still got a love for you. Come to Rodan when you don&#39;t want to deal with the Wicker Park douche bags that love Crocodile (despise that spot!) and former Empire Liquor. It&#39;s a chill spot with chill good people.",
@@ -15978,9 +15836,7 @@
 "Caters" : "Yes"}},
 {"ranking":"415",
 "ogurl":"http://www.yelp.com/biz/nori-neighborhood-sushi-bar-chicago",
-"categorystrlist":"Sushi Bars,         Japanese,         Asian Fusion
-    
-                Japanese,         Thai,         Asian Fusion",
+"categorystrlist":"Sushi Bars,         Japanese,         Asian Fusion ,Japanese,         Thai,         Asian Fusion",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/YPpMA0x-Om5PEugpHDq8OQ/l.jpg",
 "rating":"4.0",
 "reviewcomment":"I live in between Tanuki and Nori. This place is hands down a better place based on 1) price and 2) taste. First off, I eat Sushi 2-3 times a week. My main rolls are spicy tuna and Alaskan salmon. I order these rolls at almost every sushi place I eat. I also order miso soup at almost every place I go. <br>The rolls were perfect. Fresh, sweet, perfectly sized and they give you 8 rolls instead of 6!  I ordered them during lunch so they were 1/2 the price. <br>Miso was good but nothing extraordinary. Portion size was slightly larger than average for takeout and I also got 10% off when ordering online as a first time customer. Seriously so convenient, so good.",
@@ -16983,11 +16839,7 @@
 "Caters" : "Yes"}},
 {"ranking":"444",
 "ogurl":"http://www.yelp.com/biz/broadway-cellars-chicago",
-"categorystrlist":"American (New),         Breakfast & Brunch
-    
-                Bars
-    
-                Italien",
+"categorystrlist":"American (New),         Breakfast & Brunch ,Bars ,Italien",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/fp32jD-lG28kTh8dAN5uiQ/l.jpg",
 "rating":"4.0",
 "reviewcomment":"I&#39;m a pretty regular Sunday Bruncher at Broadway Cellars.  I mean, who could turn down $10 Bottomless Mimosas?  Everything I&#39;ve ever tasted on the Brunch menu has been delicious and the atmosphere is always lively.  However, sometimes when I&#39;ve been there the staff gives off a weird &#34;we don&#39;t really want you here&#34; vibe, which is not cool.  The hosts have occasionally been far from friendly and I&#39;ve gone when the wait service was just okay or not very good.  I also have been there and Wade (I believe that is his name) was our server and he was fantastic! He was attentive and personable, the perfect combination. All I can hope for is that there is a little consistency on the part of the staff at Broadway Cellars and then I could give it a perfect review!<br><br>Do yourself a favor and make a reservation for Brunch... hope that everybody is in a good mood when you go!",
@@ -17104,9 +16956,7 @@
 "Caters" : "No"}},
 {"ranking":"439",
 "ogurl":"http://www.yelp.com/biz/dixie-kitchen-and-bait-shop-evanston",
-"categorystrlist":"Southern,         Cajun/Creole
-    
-                Dim Sum,         Asian Fusion",
+"categorystrlist":"Southern,         Cajun/Creole ,Dim Sum,         Asian Fusion",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/-4b7RBEENGQZ7BHxFYAeKQ/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Nestled in between Le Peep and Panera is this  gem of a Southern restaurant.  My friend recommended this place since she lives in Evanston.  A small band of us decided to head over here and give this place a try.  It&#39;s a quaint little restaurant, that has a nice country feel to it. <br><br>My eyes zoomed immediately to the fried chicken. A part of me did want to try the country steak, luckily someone else ordered it and I was able to have a taste.  We started off with the hush puppies, and it was damn delicious!  I was salivating with anticipation for my fried chicken...and finally the moment of truth.<br><br>This is the quintessential fried chicken. The crunch of the first bite. The flavor, and the tender white meat. This was an absolutely awesome fried chicken.  This place gets 5 stars from me just from the first bite alone.  I also got to sample the Country steak, and it was also worthy of praise.<br><br>I love going to places like this. I am sure glad my friend recommended. I feel like I owe her some money, just for telling about this place. It was that damn good. Head on over <br>and get you grub-a-dub on!!!",
@@ -17457,9 +17307,7 @@
 "Caters" : "No"}},
 {"ranking":"454",
 "ogurl":"http://www.yelp.com/biz/als-beef-chicago",
-"categorystrlist":"Fast Food,         Hot Dogs,         Burgers
-    
-                Cucina mediorientale,         Halal",
+"categorystrlist":"Fast Food,         Hot Dogs,         Burgers ,Cucina mediorientale,         Halal",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/5xpyLhe9Hb660o2NA7gk9Q/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Ok after reading a ton of reviews and seeing all the celebs thru here, I&#39;m back 3 decades later to try it again....not that I was disappointed but it was close.<br>I ordered the combo, beef and sausage, and some fries.   First the fries, they were good and made from whole potatoes, but honestly I think they were precut and frozen before cooking.  They just needed some flavor.<br>The sandwich was SMALL, I could have easily eaten two with the fries.  The sausage was a bit greasy- good flavor, a little spicy- like a chorizo more than Italian sausage.   And if it wasn&#39;t for the beef we would be looking at a three star, but the beef was definitely tender. I&#39;m talking about tender that you don&#39;t often find with any cut of beef but a filet mignon. Good flavor, but it needed some more.  I was really looking for that flavor experience instead, the sausage just overwhelmed it.<br>Now, you can&#39;t have a great sandwich without great bread, and they have it.<br>So as I make my round of great Italian beef places, look for my reviews elsewhere.<br>50+ years an Italian beef aficionado.",
@@ -17683,9 +17531,7 @@
 "Caters" : "No"}},
 {"ranking":"462",
 "ogurl":"http://www.yelp.com/biz/city-winery-chicago-chicago",
-"categorystrlist":"Wineries,         American (New)
-    
-                Wine Bars,         Music Venues",
+"categorystrlist":"Wineries,         American (New) ,Wine Bars,         Music Venues",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/oIu2pktfOAK32R5cK_7_Cw/l.jpg",
 "rating":"3.0",
 "reviewcomment":"I saw Thao Nguyen perform here on a Friday night.  It&#39;s definItely a plus that you get reserved seats and can arrive early to settle in and eat/drink.  Parking is tough to find directly in front but there are plenty of spaces if you don&#39;t mind walking. As for the space itself, it&#39;s great for a restaurant and OK for a show.  I had a seat in back, and couldn&#39;t decide if it was better or worse than being inches from the stage, since they didn&#39;t seem the most comfortable.  Thao herself mentioned that she would have shaved her legs if she knew people would be sitting that close!  <br><br>The staff was friendly and had some good food and wine recommendations.  The prices were what you&#39;d expect: kind of high, but the quality of the food and drink are high so you don&#39;t mind so much.  All in all, I liked it!",
@@ -19284,9 +19130,7 @@
 "Caters" : "Yes"}},
 {"ranking":"501",
 "ogurl":"http://www.yelp.com/biz/club-lucky-chicago",
-"categorystrlist":"Italian,         Lounges
-    
-                Print Media,         Printing Services",
+"categorystrlist":"Italian,         Lounges ,Print Media,         Printing Services",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/lHxKbXJWesQBpA7U7qoCfw/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I loved the experience of dining at Club Lucky.  I went there on Valentine&#39;s Day, so obviously it was bustling. Still, we got greeted quickly by a maitre&#39;d, who suggested we have a cocktail at the bar while we waited for our table (we were about 15 minutes early).  I had a well-made Manhattan and took in the happy scene.  The old-fashioned feel, the great smells, the cheerful bartenders. <br><br>Then we were lead to our table, in the dining room that was crowded but not cramped. We shared a Caprese salad, which was delicious (even though it&#39;s hard to find acceptable tomatoes in February in Chicago).  For my entree, I had homemade tortellini, filled with chicken and herbs, finished with peas, pinenuts, and vodka sauce.  Delicious!  <br><br>Our waitress, Samantha, was cheerful and didn&#39;t make us feel rushed at all, even though it was obviously a busy night. (And it took us a while to get through our bottle of wine.)  <br><br>Prices are on par with similar Italian restaurants in the city ... pastas in the $10 to $18 range, second courses are $18 to $35.  <br><br>The menu features relatively basic Italian fare -- nothing shi-shi or over the top, but the food is made well.  I would definitely go back soon to try another entree and enjoy the atmosphere.",
@@ -19367,17 +19211,7 @@
 "Caters" : "Yes"}},
 {"ranking":"503",
 "ogurl":"http://www.yelp.com/biz/moes-cantina-chicago-2",
-"categorystrlist":"Mexican
-    
-                American (New),         Sports Bars
-    
-                Nightlife,         Mexican
-    
-                Bars,         Restaurants
-    
-                Ticket Sales,         Bars
-    
-                American (New),         Bars",
+"categorystrlist":"Mexican ,American (New),         Sports Bars ,Nightlife,         Mexican ,Bars,         Restaurants ,Ticket Sales,         Bars ,American (New),         Bars",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/JEQ7MoYe4fFS8ZydUzRfrw/l.jpg",
 "rating":"2.5",
 "reviewcomment":"Venue: Nice place to come to drink, hang with friends or catch a game of Bball or Hockey. I also like that this place is expansive with lots of TV&#39;s across wall. <br><br>Food: The skillets we ordered tasted like just a bunch of ingredients were put together, devoid of any flavor. I&#39;d rather eat Ramen than that. Anyway, I&#39;m glad it was through a Groupon deal, otherwise I&#39;d have regretted paying out of pocket for the meal. Not a place for brunch. The food value does not keep up to the price tag.<br><br>A for decor, B for food.",
@@ -19649,17 +19483,7 @@
 "Caters" : "Yes"}},
 {"ranking":"511",
 "ogurl":"http://www.yelp.com/biz/between-peruvian-cafe-and-lounge-chicago",
-"categorystrlist":"Lounges,         Peruvian
-    
-                American (New)
-    
-                Lounges,         American (New)
-    
-                Japanese,         French
-    
-                American (New),         Breakfast & Brunch,         Bars
-    
-                Tapas Bars",
+"categorystrlist":"Lounges,         Peruvian ,American (New) ,Lounges,         American (New) ,Japanese,         French ,American (New),         Breakfast & Brunch,         Bars ,Tapas Bars",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/SeJ7iTwFup5hATUBEGdkPA/l.jpg",
 "rating":"3.5",
 "reviewcomment":"If your looking for something low key, romantic, good price point, and accepts walk ins....this is your place. I&#39;ve  been here quite a few times using a Groupon. You can normally find a groupon around $30 for a dinner for two which includes: 2 drinks, 2 appetizers, 2 entrees, and 1 dessert. The food is excellent and I would recommend trying the Lomo Saltado. It&#39;s a chicken dish with hand cut fries and amazing burst of flavor. <br><br>The decor of this place is cute. You can either sit at a table or a romantic booth like setting with bead curtains. The service was excellent and I will definitely be going back.",
@@ -19737,11 +19561,7 @@
 "Waiter Service" : "No"}},
 {"ranking":"513",
 "ogurl":"http://www.yelp.com/biz/volo-restaurant-wine-bar-chicago-2",
-"categorystrlist":"American (New),         Wine Bars,         American (Traditional)
-    
-                Breakfast & Brunch,         American (New)
-    
-                American (New),         Burgers",
+"categorystrlist":"American (New),         Wine Bars,         American (Traditional) ,Breakfast & Brunch,         American (New) ,American (New),         Burgers",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/6G8nH-sUOeZ_HvxncDfzMA/l.jpg",
 "rating":"3.5",
 "reviewcomment":"My wife and I are glad we discovered this place. It&#39;s a hidden gem with great food, friendly &amp; knowledgeable staff and a great atmosphere.<br><br>The night began with us being seated in a cabana at the back garden area. The night was cold, but the garden was sealed &amp; heated very well. The cabana was also in front of a cute little water fountain, so all ingredients of a romantic night began when our wine flights arrived. <br><br>The food here is very good. Though these are &#34;small plates&#34;, the portions are generous. We had the duck confit and mussles, plus a cheese plate with some cured meat and pate. All very good stuff to go with wine. And oh, try their chocolate mousse and sorbets, it&#39;s a great way to end the night. A recommendation we have is to have more cushions available in the cabana so people could sit back and relax a bit more.<br><br>All single guys should take note that this is a great place for a date. Ask for a cabana to set the mood for a romantic night.",
@@ -19820,11 +19640,7 @@
 "Caters" : "No"}},
 {"ranking":"515",
 "ogurl":"http://www.yelp.com/biz/big-bowl-chicago-2",
-"categorystrlist":"Asian Fusion,         Chinese,         Thai
-    
-                Buchhandlung
-    
-                Coffee Shop",
+"categorystrlist":"Asian Fusion,         Chinese,         Thai ,Buchhandlung ,Coffee Shop",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/M_UfwWW4dJPUmWwAgnDPhQ/l.jpg",
 "rating":"3.5",
 "reviewcomment":"General: Went for a casual date on a busy weekend. Unique menu, good drinks (white sangria was very tasty), but the food was a little salty for our taste. Great service.<br><br>Lettuce wrap- looked nice, tasted fine but had too much soy sauce. The sauce with it was nothing special, I would rather have a couple to choose from. Asked waiter for a different sauce and he brought a good horse radish-based one.<br><br>Orange chicken- very good. Chicken seemed good quality, brown rice was good.<br><br>Yellow Thai curry with chicken- good taste but was very salty which sort of ruined it for me.<br><br>The Lowdown: unique twist on Chinese and Thai food. Healthy options, great service, hip atmosphere.",
@@ -20413,11 +20229,7 @@
 "Caters" : "No"}},
 {"ranking":"530",
 "ogurl":"http://www.yelp.com/biz/brownstone-tavern-and-grill-chicago",
-"categorystrlist":"Sports Bars,         American (New)
-    
-                Sports Bars
-    
-                American (Traditional),         Bars",
+"categorystrlist":"Sports Bars,         American (New) ,Sports Bars ,American (Traditional),         Bars",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/vhZIKHfJCUVrbvZDprSC7g/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Bartender knew his stuff, loves his job, so knowledgable, and still not all holier-than-thou about it, and got every bit of our order correct (all too rare these days!). Best veggie burger I&#39;ve ever had...and I&#39;ve had a LOT of em!  Everything was amazing.  I dig it, will definitely be back.  <br><br>But wait a minute. Don&#39;t go there. I don&#39;t want to be waiting on a table!... <br><br>Just kidding.  See you there. :)",
@@ -20537,9 +20349,7 @@
 "Caters" : "No"}},
 {"ranking":"533",
 "ogurl":"http://www.yelp.com/biz/enoteca-roma-ristorante-chicago",
-"categorystrlist":"Wine Bars,         Italian
-    
-                Bakeries,         Italian",
+"categorystrlist":"Wine Bars,         Italian ,Bakeries,         Italian",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/0eeSIp8_Gh-tYcWCQisd1Q/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Solid 4 stars for this place. Came here randomly one night with the gf after our original plans fell through. Pretty lucky choice. First walked in and thought the place was empty. No one inside, and then no one in the front either. Then we saw the back patio and wow, really nice. Lights and decorations make it have a really good atmosphere. Especially once they add flowers. Be aware though, the sun went down and it got pretty cold pretty fast. May not be the case in the summer but bring a sweater just in case. They do provide blankets which is a nice touch.<br><br>And now down to the food. First we started with the bruschetta appetizer. Our 5 choices, in order of my opinion of most to least favorite, were napoli, roma, proscutto cristina and piemonte. I&#39;m looking at a not updated menu online, so the cristina here says raspberry but ours was strawberry, but anyway that was my 2nd to last favorite.<br><br>Then for the main course, I ordered risotto alla pescatora (seafood place) and it was pretty good. A bunch of mussels and clams but only 2 scallops and 2 shrimps though. The rice thing it was over was pretty good. I didn&#39;t really like the mussels though since it seemed like there was no seasoning or flavor and it was just steamed. But hey, maybe that&#39;s how they intended it though. All that for about $17 so yeah. The gf got the Pera which is the pear ravioli and that was pretty good. Good flavor, though it was just 6 ravioli&#39;s for about $16 so money wise, that would not be a good filler dish.<br><br>For dessert we had a trio of something that I can&#39;t remember the name of, but there were 3 small cups of it. One was caramel, the other was chocolate, and the last was berries. That was pretty good, just pretty small. But i mean this is more of a quality over quantity place. One thing that bugged me though is that there was only one waitress for the whole back patio and there was just a lot of waiting. Was probably there an extra 30-40 minutes that we needed to be which would have been fine if it didn&#39;t get so cold.",
@@ -21505,11 +21315,7 @@
 "Caters" : "Yes"}},
 {"ranking":"559",
 "ogurl":"http://www.yelp.com/biz/rise-sushi-and-sake-lounge-chicago",
-"categorystrlist":"Japanese,         Sushi Bars
-    
-                Sushi Bars,         Asian Fusion
-    
-                Sushi Bars,         Japanese",
+"categorystrlist":"Japanese,         Sushi Bars ,Sushi Bars,         Asian Fusion ,Sushi Bars,         Japanese",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/KrpSeEGRSvq_J_CwHgD1mw/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I came in here on a late Saturday afternoon before the crowd appeared for dinner with my sister-in-law and brother-in-law for an early dinner. The ambiance was neat, black and white perfect for those &#39;first dates&#39; or a fine dining experience with Sushi with out it being over the pocket expensive. With an extensive sushi roll menu with specialities, we started with the calamari. <br><br>Calamari and me are not best friends, but I couldn&#39;t help it, it was delicious. Crispy and not too oily, I couldn&#39;t help to take bite after bite. It was a large entree, so it&#39;s perfect to start off by sharing. We then got a few rolls and I don&#39;t remember what they are ever called, but you can&#39;t go wrong. I like spice, but it was the perfect hint of spice in each roll we ordered as &#39;spicy&#39;. It wasn&#39;t overbearing, and you can taste each ingredient on it&#39;s own. The service was great- enough servers going around and the ambiance was turning chatty. <br><br>This is perfect for families because it&#39;s between a budget sushi restaurant and a fine dining one, just a family one with accommodations for kids. It&#39;s in a perfect location of Lakeview and must be a town favorite for sushi. I believe with a yelp check in you get something out of it too!",
@@ -21620,9 +21426,7 @@
 "Caters" : "No"}},
 {"ranking":"560",
 "ogurl":"http://www.yelp.com/biz/tecalitlan-restaurant-chicago-3",
-"categorystrlist":"Mexican
-    
-                Shoe Stores,         Hats",
+"categorystrlist":"Mexican ,Shoe Stores,         Hats",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/yyipIggMuG2MNn1_B2eGPg/l.jpg",
 "rating":"3.5",
 "reviewcomment":"In an area of town where seemingly every other storefront is a Mexican restaurant, one has to be good to compete.  And Tecalitlan (don&#39;t ask me how to pronounce it) is great.  First, it is less divey than most of its competition, with a spacious dining room and bar that is relatively comfortable to sit in.  I&#39;ve never had trouble getting seated immediately (and in the summer, they have a few outdoor tables on the sidewalk overlooking Chicago Ave.)  <br><br>Secondly, the margaritas are tasty and they have a good selection of Mexican beer as well.  Thirdly, the food is affordably priced and awesome! I almost always get the same thing -- the two tostada dinner, one chicken, one vegetarian.  <br><br>The chicken is shredded and moist with just the right amount of spice, and they don&#39;t skimp on the avocado.  It is a TON of food, but I like the variety! Rice and beans are well done as well, and the service is speedy.   I&#39;ve had their breakfast dishes as well (Huevos Mexicana), which is also solid. They do offer carry out, which takes about 10 minutes.  <br><br>This is my go-to place if I have a rare weekday lunch break in Chicago and I can sit down and read for a while, enjoying a high-calorie but delicious Mexican meal.",
@@ -21659,9 +21463,7 @@
 "Caters" : "Yes"}},
 {"ranking":"562",
 "ogurl":"http://www.yelp.com/biz/letizias-natural-bakery-chicago",
-"categorystrlist":"Bakeries,         Italian
-    
-                Wine Bars,         Italian",
+"categorystrlist":"Bakeries,         Italian ,Wine Bars,         Italian",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/b1pIAEFgOOGJ74a9xZx4fQ/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Love their pastries. Some of the best in the city. Hazelnut kiss, cherry turnovers, almond biscotti, caramel cheesecake. Pizzas, soups, sandwiches, bread. All made by hand. <br><br>Excellent espresso drinks. 2 outdoor patio&#39;s! And comfortable seating. <br><br>Love you Letizia&#39;s.....thank you for being the comfortable place you are",
@@ -21994,9 +21796,7 @@
 "Caters" : "Yes"}},
 {"ranking":"568",
 "ogurl":"http://www.yelp.com/biz/chens-chicago",
-"categorystrlist":"Chinese,         Sushi Bars
-    
-                Music Venues,         Dance Clubs,         Ethnic Food",
+"categorystrlist":"Chinese,         Sushi Bars ,Music Venues,         Dance Clubs,         Ethnic Food",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/OHWFl3rH47BlI5PCngNXww/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I used to live a block away from this place and it was very dangerous... Loveee Chens! It&#39;s my go-to Chinese place. Always consistent and if you order delivery, they are SO fast. Some of my favorite menu items are: beef and broccoli, beef dumplings (pan fried), won tons and the spicy chicken wings. Actually, the wings are some of the best wings in Chicago. It&#39;s so random but they are so good, don&#39;t miss out on them!",
@@ -22742,9 +22542,7 @@
 "Caters" : "No"}},
 {"ranking":"592",
 "ogurl":"http://www.yelp.com/biz/salam-restaurant-chicago",
-"categorystrlist":"Middle Eastern
-    
-                Middle Eastern",
+"categorystrlist":"Middle Eastern ,Middle Eastern",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/-RWF1LkxMYyodF5WAFN5QA/l.jpg",
 "rating":"4.0",
 "reviewcomment":"ZABIHA HALAL! Yay! I had dinner here on a Sunday night at about 9:30PM. The place was packed! It was a good sign as it was our first time here and we were worried if it would be good lol. There is a parking lot in the front which is awesomeeee. And the restaurant is separated into a dining area and one side is like the kitchen, right when u enter. The decor is simple - there are large, beautiful pictures of different structures in the Middle East. Looks stunning. Lots of space for people sit. <br><br>Ok food was awesome. I would recommend the Middle Eastern fare over the American burgers etc. Those were good...but not amazing. We got a small bowl of salad and another plate of olives and beets when we sat down. My husband and i shared an entree and had a cheeseburger and a hamburger. The entree was their combination (shish taouk, kefta kabob and shish kabob) ... O.M.G. The shish taouk is grilled chicken breast marinated in spices and it was SO GOOD - moist &amp; smokey. The shish kabob was epic too...cooked perfectly! We did not order the rice for anything...just had fries...but next time we go, will definitely try their rice.<br><br>One thing that was kind of annoying - we initially wanted to order gyros, but they were out. But...i mean we were there on a Sunday night half an hour before closing. I don&#39;t blame them. The service was prompt and polite...made up for it :)",
@@ -22904,9 +22702,7 @@
 "Caters" : "No"}},
 {"ranking":"595",
 "ogurl":"http://www.yelp.com/biz/mrs-murphy-and-sons-irish-bistro-chicago",
-"categorystrlist":"Irish,         Pubs
-    
-                Sports Bars",
+"categorystrlist":"Irish,         Pubs ,Sports Bars",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/zEA-JXonJes7eoAMx96qMQ/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Mrs. Murphy&#39;s has a little bit of everything.  They have a great brunch and make a mighty fine Bloody Murphy (a Bloody Mary with Murphy&#39;s stout) and have plenty of solid dishes.<br><br>As for dinner the ribs are top notch, and as one would expect they have a huge beer and whiskey selection.<br><br>Plus if you use OpenTable they often have 1,000 point nights.<br><br>Come for the craic!<br><br>73/365",
@@ -22949,9 +22745,7 @@
 "Caters" : "Yes"}},
 {"ranking":"594",
 "ogurl":"http://www.yelp.com/biz/cafe-con-leche-chicago",
-"categorystrlist":"Latin American,         Breakfast & Brunch
-    
-                Beer, Wine & Spirits",
+"categorystrlist":"Latin American,         Breakfast & Brunch ,Beer, Wine & Spirits",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/7GrT6zCkjzQrp5dwdsPN3A/l.jpg",
 "rating":"4.0",
 "reviewcomment":"The chilaquiles and cafe con leche in the patio on a sunny Saturday morning. What more can a girl ask for?<br><br>Oh yeah, how about delicious bread pudding baked fresh to order.  And awesome service.  Estefania made awesome recommendations.",
@@ -22988,9 +22782,7 @@
 "Caters" : "Yes"}},
 {"ranking":"597",
 "ogurl":"http://www.yelp.com/biz/arturos-tacos-chicago-2",
-"categorystrlist":"Mexican
-    
-                Latin American",
+"categorystrlist":"Mexican ,Latin American",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/AAj0fKUW5DmXJWEUWMORhA/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Ok. So 24/7 Mexican places tend to have...second-rate reputations. Arturo&#39;s however, I find to exceed those reputations.<br><br>The first thing to note is the bang for your buck. Portions are generous, bottomless chips and salsa with your meal, the drinks (from Horchata to Margaritas) are very large as well as delicious. I should warn you thought that this can go both ways, one drink and you will probably need to call a cab. One pitcher and you better be more than two people splitting.<br><br>Now the food. I&#39;ve tried plenty of things here, but what keeps me coming back is the Al Pastor, this place has some of the better Al Pastor that I have had in Chicago. The only place that clearly tops it is in LA... not exactly within reach on a late night around town. The taco dinner and burrito dinner are the go to options for me, although I make my girlfriend order the Tampiqueña only so I can consume half of the gargantuan plate after finishing my own. They sometimes tend to overcook the steak though, so if you&#39;re not a fan of shoe-leather steak, let them now! The dinner comes well equipped, with a few sides, it&#39;s delicious and filling.<br><br>Now the service. This is were I take away a star. There is one server here, Marta, that will take care of you like you were her child. If it were up to her I would have to roll myself out of this place every time, she knows what I want before I want it and brings plenty of it. She&#39;s polite and friendly. Some of the other staff can be really off-putting. They don&#39;t greet you, or even acknowledge you until they are ready to take your order.  It happens even when it&#39;s not busy, which is what is annoying. If I am the only table in there say hi! If you are swarmed I totally understand. <br><br>Ultimately, this colorfully decorated place is worth the visit if you ever need some hangover food. God knows there is nothing better for hangover food than Mexican, and this place will spare you the trouble of visiting something like Flash Taco! <br>Not that you have to be drunk to enjoy the meal though",
@@ -23181,9 +22973,7 @@
 "Caters" : "No"}},
 {"ranking":"601",
 "ogurl":"http://www.yelp.com/biz/telegraph-chicago",
-"categorystrlist":"American (New),         Basque,         Wine Bars
-    
-                Beer, Wine & Spirits",
+"categorystrlist":"American (New),         Basque,         Wine Bars ,Beer, Wine & Spirits",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/sm07gqvlSkmaappBHulDWQ/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Small bites, attentiveness and ambiance (and yummy wine of course) have rounded the 3.5 rating I would like to give up to a 4.  We stopped in on a Saturday night without a reservation and were able to snag a few seats at the bar.  The bar seating was very comfortable and was completely accommodating a nice full meal - Not all bar seating is created equal - am I right?!  Asked a lot of questions and the bartenders were very knowledgeable about food and drink.  We were also very pleased with the wine that was recommended to us.  <br><br>We ordered a couple cheeses as a starter, very generous cuts for imports ($9-$10 per cheese), came with an accompaniment of delish onion jam, fruit, currants, nuts, and house made bread.  More bread is available upon request if you run out. Really glad we opted for just 2 cheeses vs. the platter with all cheeses - it would have been huge!  That would be great for a party of 4 or more.  I got the scallops as an entree, and was not blown away, but my partner in cheese crime got the farro vegetable bowl and enjoyed it.  We will certainly be back for wine and cheese (the other apps we saw coming out all looked very nice as well) and I loved the bar seating so much, I might purposefully go without a reservation!",
@@ -24036,9 +23826,7 @@
 "Caters" : "No"}},
 {"ranking":"624",
 "ogurl":"http://www.yelp.com/biz/tandoor-chicago",
-"categorystrlist":"Indian,         Pakistani,         Barbeque
-    
-                Pizza,         Italian",
+"categorystrlist":"Indian,         Pakistani,         Barbeque ,Pizza,         Italian",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/xNevImuADO-T_EYsn4afTQ/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Tandoor is some of the best Indian food in the city.  It&#39;s a small place, very intimate - but small!  So be SURE to make a reservation in advance if you want any chance of eating here on the weekend.<br><br>I&#39;ve been several times and always been very happy with the food, portions, service, etc.<br><br>I&#39;ll be back again!",
@@ -24119,11 +23907,7 @@
 "Caters" : "No"}},
 {"ranking":"626",
 "ogurl":"http://www.yelp.com/biz/holiday-club-chicago",
-"categorystrlist":"Bars,         American (Traditional)
-    
-                Desserts
-    
-                Kleine restaurants,         Vis",
+"categorystrlist":"Bars,         American (Traditional) ,Desserts ,Kleine restaurants,         Vis",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/jRwYrl-i-Ik34BYP6UzY2g/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I wanted to go dancing at a club, but since I&#39;m 32 and married I didn&#39;t want to go somewhere with just people a decade younger than me.  I wanted to go out at like 10 not like 12, and I didn&#39;t want to pay a huge cover and a ton for drinks.  I&#39;m too old for that shit.<br><br>This was the perfect place!  It&#39;s half restaurant/bar and half club.  You can just walk back and forth between the two.<br><br>I went with friends Friday night, and I think everyone liked the place.<br><br>There is no cover, no dress code, and well drinks were $6.50.  They even had a couple of $4 shots!<br><br>I will say that my rum and cokes were some of the weakest ones I&#39;ve ever had, so beer or shots might be better.<br><br>The music was good, there were plenty of people dancing.  The crowd was quite diverse.  There was a good mix of all types of people.<br><br>I plan to return soon!",
@@ -24400,9 +24184,7 @@
 "Caters" : "No"}},
 {"ranking":"633",
 "ogurl":"http://www.yelp.com/biz/pizza-metro-chicago",
-"categorystrlist":"Pizza,         Italian
-    
-                Italian,         Pizza,         Seafood",
+"categorystrlist":"Pizza,         Italian ,Italian,         Pizza,         Seafood",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/pqjEXG0Z-XAETfmA3NNQuA/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Walk into Pizza Metro and your first impression is that the place is a dump. The place is dimly lit, narrow, has no tables (only a long bar along the side wall with stools) and has a chalk wall full of customers&#39; doodles. Walk along the barstools to the way back and you&#39;ll be greeted at the register by the most helpful, laidback dudes. Look at their menu and you&#39;re like, &#34;What? This all sounds like gourmet pizza!&#34; Eat the pizza and you&#39;ll be sold by the crispy, almost-tastes-like-it-was-fried-by-the-cheese-­grease crust. <br><br>My party of four ordered a large Patate e Rosmarino pizza, it was delicious and huge. (We took home about a quarter of the pizza and snacked on it all night). The wait time for a pizza made from scratch was pretty reasonable, and actually a lot faster than I anticipated. Pizza Metro is BYOB so don&#39;t forget to pick up some beers on your way there. I can&#39;t wait to come back and try some of their other creations!",
@@ -25184,9 +24966,7 @@
 "Caters" : "Yes"}},
 {"ranking":"655",
 "ogurl":"http://www.yelp.com/biz/epic-burger-chicago-2",
-"categorystrlist":"Burgers
-    
-                Recruitment Agencies",
+"categorystrlist":"Burgers ,Recruitment Agencies",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/oRY1_zGG4B6bcjjdi05rog/l.jpg",
 "rating":"3.5",
 "reviewcomment":"1000 W. North Ave. was where we decided to stop for a late lunch. Great burger, fresh cut french fries, nice salad and yummy cookie! Everyone is friendly, place is clean and very pleasant!<br><br>Andrea helped us to choose the burger, add-ons and sides. She was so helpful, professional and friendly; definitely a people person!",
@@ -25370,9 +25150,7 @@
 "Waiter Service" : "Yes"}},
 {"ranking":"661",
 "ogurl":"http://www.yelp.com/biz/m-henrietta-chicago",
-"categorystrlist":"Breakfast & Brunch,         American (New)
-    
-                Breakfast & Brunch,         American (New),         Cafes",
+"categorystrlist":"Breakfast & Brunch,         American (New) ,Breakfast & Brunch,         American (New),         Cafes",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/b4XPxqjqZDzVWfl0viWy2w/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Went on a Saturday around 10. Didn&#39;t have to wait. Great brunch. Had lemon raspberry French toast. Boyfriend had egg sandwich w/ best fried potatoes I&#39;ve ever had! So well seasoned!<br>Parking is pay on street. But was easy. <br>Will be back!",
@@ -25747,9 +25525,7 @@
 "Caters" : "Yes"}},
 {"ranking":"669",
 "ogurl":"http://www.yelp.com/biz/thalia-spice-chicago-2",
-"categorystrlist":"Thai,         Sushi Bars,         Caterers
-    
-                Italian",
+"categorystrlist":"Thai,         Sushi Bars,         Caterers ,Italian",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/6yRQPfiMlZuEU2iYbup7xg/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I&#39;ve ordered take-out from here a bunch of times and the food has always been excellent.  My girlfriend and I finally decided to dine in last night.  The bar area is on the smaller side, but with nice decor.  There is a dining room as well, but most of the patrons were in the bar area and we did not want to dine in silence.  <br><br>For apps we ordered the spicy edamame, lettuce wraps and samosas.  The edamame was good and not too spicy, the lettuce wraps were small but tasty, and the samosas were some of the most flavorful I&#39;ve ever had.<br><br>My better half ordered the Yaya Noodles with chicken.  The dish was excellent and very light considering it was a noodle dish.  Thalia Spice loses a few points because they were out of my first choice of an entree, the Filipino adobo chicken, but the Indian Chicken Makhani was more than an adequate substitute.<br><br>Finally, as an added bonus we learned they have drink specials every night, and stumbled into $5 lychee and mango (and a couple of other flavors I cannot remember) martinis on Thursdays.  A check-in on Yelp also earned me a buy 1 get 1 brunch voucher.<br><br>Our only complaint was the table of loud, f-bomb dropping and obnoxious millennials next to us complaining about their jobs, co-workers and supervisors.  This is of course was no fault of the restaurant and they were more than happy to let us move tables before our food arrived.<br><br>We will be back for great food and whatever the daily drink special is again.",
@@ -26211,15 +25987,7 @@
 "Caters" : "Yes"}},
 {"ranking":"682",
 "ogurl":"http://www.yelp.com/biz/saigon-sisters-chicago-2",
-"categorystrlist":"Vietnamese
-    
-                Hotels
-    
-                American (New),         Steakhouses
-    
-                Hotels
-    
-                American (New)",
+"categorystrlist":"Vietnamese ,Hotels ,American (New),         Steakhouses ,Hotels ,American (New)",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/-fq9ENhLoB5e0Qmj_ovQ_g/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I&#39;ve been here a few times, but have been to their French Market location probably a hundred times. We usually hit this place up when we want a banh bao. I need to go back in the evening and buy some alcohol sometime (I can&#39;t drink during the work day :( )<br><br>Service here is inconsistent. We&#39;ve had to ask for utensils a couple times. My water glass is often empty.<br><br>It&#39;s still a good place for lunch, though!",
@@ -26785,11 +26553,7 @@
 "Waiter Service" : "Yes"}},
 {"ranking":"693",
 "ogurl":"http://www.yelp.com/biz/kirkwood-bar-and-grille-chicago",
-"categorystrlist":"Bars,         American (Traditional)
-    
-                Pubs,         American (Traditional)
-    
-                Sports Bars",
+"categorystrlist":"Bars,         American (Traditional) ,Pubs,         American (Traditional) ,Sports Bars",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/09XyObTZ6APSGe3s4J5B0g/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Came here for Trivia night Monday. The bar itself is clean and somewhat split into two sections. Pretty nice inside as well. The trivia was very organized and was available on the tv screens so you were able to read the questions clearly, very little announcing from the dj. There were some screens still showing some sports so it was good for those not participating in trivia.<br><br>The specials are good and cheap.<br><br>The only downside is the food. Nothing great here. If anything, come for the atmosphere, drinks and trivia, NOT the food.",
@@ -27202,17 +26966,7 @@
 "Caters" : "Yes"}},
 {"ranking":"707",
 "ogurl":"http://www.yelp.com/biz/j-p-graziano-grocery-co-chicago",
-"categorystrlist":"Grocery,         Delis,         Sandwiches
-    
-                Grocery,         Delis,         Sandwiches
-    
-                Bakeries,         Sandwiches
-    
-                Grocery
-    
-                Meat Shops
-    
-                Beer, Wine & Spirits",
+"categorystrlist":"Grocery,         Delis,         Sandwiches ,Grocery,         Delis,         Sandwiches ,Bakeries,         Sandwiches ,Grocery ,Meat Shops ,Beer, Wine & Spirits",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/S6tqY1DRiiXSA1tGrWK97w/l.jpg",
 "rating":"4.5",
 "reviewcomment":"This place is great! i have never been disappointed. The tuna is made to order MMMM!!!!<br><br>thanks guys!!",
@@ -27528,17 +27282,7 @@
 "Caters" : "No"}},
 {"ranking":"716",
 "ogurl":"http://www.yelp.com/biz/thai-lagoon-chicago",
-"categorystrlist":"Thai
-    
-                Bar
-    
-                Ristoranti
-    
-                Massaggi,         Agopuntura,         Cura della pelle
-    
-                Panifici,         Dolci e pasticceria
-    
-                Design d'interni,         Imbianchini,         Imprese edili",
+"categorystrlist":"Thai ,Bar ,Ristoranti ,Massaggi,         Agopuntura,         Cura della pelle ,Panifici,         Dolci e pasticceria ,Design d'interni,         Imbianchini,         Imprese edili",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/p0i_smiJ0MBReSSsm7tovw/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Decent Thai food. I always saw this restaurant on Grub Hub but always kind of skimmed right past it.<br><br>One night I thought to myself &#34;Why haven&#39;t I ever tried this place?&#34; So I did. Their paht thai is good, and their ability to give you a proper spice level is spot-on. It&#39;s a very solid example of good paht thai. Their paht si io was good too.<br><br>Delivery was kind of slow. About an hour and 20 minutes slow. The driver was apologetic. Prices are pretty good. No chopsticks/plastic silverware in the delivery.",
@@ -27730,17 +27474,7 @@
 "Caters" : "No"}},
 {"ranking":"720",
 "ogurl":"http://www.yelp.com/biz/o-donovans-chicago-2",
-"categorystrlist":"Restaurants,         Pubs,         Sports Bars
-    
-                Barbeque
-    
-                Bars,         American (Traditional)
-    
-                Sports Bars
-    
-                Sports Bars,         American (Traditional)
-    
-                Mexican,         Bars",
+"categorystrlist":"Restaurants,         Pubs,         Sports Bars ,Barbeque ,Bars,         American (Traditional) ,Sports Bars ,Sports Bars,         American (Traditional) ,Mexican,         Bars",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/Q1xoaSF0xRGLnMU96K2IMQ/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I&#39;m definitely a fan of O&#39;Donovan&#39;s. Decent bar food, good atmosphere/space, and an AMAZING outdoor patio perfect for an outdoor lunch get together with the co-workers. My favorite thing on their menu is seriously their chicken fingers and honey mustard.. perfectly breaded, not crunchy/hard, just YUM. So good! They also have drink/food specials every day that are worth the trip alone. <br><br>I will say that my experience of their servers has not always been the best - they tend to be slow on the uptake and disappear for lengthy amounts of time. It almost makes me want to leave 3 stars instead of 4.. but I&#39;ll give it another visit before I penalize on that.<br><br>Final Verdict:<br><br>If I&#39;m at work and we want to go to a bar and sit outside to eat - O&#39;Donovan&#39;s is always our first choice!",
@@ -28429,9 +28163,7 @@
 "Caters" : "No"}},
 {"ranking":"739",
 "ogurl":"http://www.yelp.com/biz/blue-star-bistro-and-wine-bar-chicago",
-"categorystrlist":"Tapas/Small Plates,         Wine Bars,         American (New)
-    
-                Performing Arts",
+"categorystrlist":"Tapas/Small Plates,         Wine Bars,         American (New) ,Performing Arts",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/xP7QIEVjuOijqCPtz08UEQ/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Took advantage of the Livingsocial deal to come here, and after our experience we&#39;ll be coming back, coupon our not!<br><br>Very romantic setting without being too serious. Service was prompt and attentive.<br><br>We had the bacon-wrapped dates for our appetizer, and they were delicious. Nicely balanced between the sweet and savory. For entrees my wife got the scallops and l got the pork chop- both were so flavorful we over-ate and barely had room for dessert (fried Nutella- yes!).<br><br>All in all, this place is a wonderful find for us.",
@@ -28661,9 +28393,7 @@
 "Caters" : "No"}},
 {"ranking":"745",
 "ogurl":"http://www.yelp.com/biz/kabul-house-skokie",
-"categorystrlist":"Afghan
-    
-                Halal,         Afghan",
+"categorystrlist":"Afghan ,Halal,         Afghan",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/bbahxPOR9zG6DV_EuHdezA/l.jpg",
 "rating":"4.5",
 "reviewcomment":"It&#39;s wild to me how many Michelin rated restaurants are now available in Skokie, IL!  Which should mean that it&#39;s wise for you to bookmark these places and create a chance to stop by while it&#39;s still hot shit.  And let&#39;s remember a very important detail here.. parking is regulated by Skokie meters which still accept nickels and dimes to purchase time.  Unlike Chicago&#39;s costly and unwise choice of using LAZ parking.<br><br>In the realm of Mediterranean &amp; Middle eastern cuisine, if that is of interest, this is a worthy venture.  If having a chance to stop in during a weekday, I insist trying their lunch special.  Get the plate with succulent chicken kabobs, Afghan rice and grilled veggies.  It&#39;s a grand feast that won&#39;t break the bank.  The Afghan rice is Basmati rice topped with caramelized carrot strips and raisins.  The colors will entice you and the taste will leave you wanting.  Another entree served with Afghan rice is the Kabuli Palau where the tasteful addition to the wonderful rice are tender morsels of braised lamb shank.  Very tasty.  Whenever I go back, it&#39;s my usual choice.  The food is very good and there aren&#39;t many items that would turn you off to Afghan cuisine.  Instead, perhaps turn you on to trying other Middle Eastern cuisines.<br><br>Service is alright.  Depending on whom is serving that day, you&#39;ll typically get a good, warm welcome and exit greeting.  Some servers fill the space with small talk and recommendations and others are shyer about it.  Check out the two hundred plus photos to get a feel for the place.  Quaint &amp; cozy to suit a date night or entertaining of a group.  Don&#39;t wait.",
@@ -28782,11 +28512,7 @@
 "Caters" : "No"}},
 {"ranking":"747",
 "ogurl":"http://www.yelp.com/biz/shine-restaurant-chicago",
-"categorystrlist":"Sushi Bars,         Asian Fusion
-    
-                Japanese,         Sushi Bars
-    
-                Sushi Bars,         Japanese",
+"categorystrlist":"Sushi Bars,         Asian Fusion ,Japanese,         Sushi Bars ,Sushi Bars,         Japanese",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/5oCDA4eGozjPftFa18xizA/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I of course has tk try the flaming maki. Boy am I glad I did!! This roll is fun, delicious and beautiful!<br><br>Also had rainbow roll and honey sesame (?) roll. Wow. Fantastic! Service was fine, but my fire in the table totally made up for it!!!",
@@ -29012,9 +28738,7 @@
 "Caters" : "No"}},
 {"ranking":"751",
 "ogurl":"http://www.yelp.com/biz/trader-todds-chicago",
-"categorystrlist":"Karaoke,         Bars,         Caribbean
-    
-                Hotels",
+"categorystrlist":"Karaoke,         Bars,         Caribbean ,Hotels",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/TlCiOEmZCjnAmsDnIib6fQ/l.jpg",
 "rating":"3.0",
 "reviewcomment":"Trader Todd&#39;s is a chain that feeds off the recent college graduate crowd -- but I don&#39;t care! It&#39;s great!<br><br>It had all the right stuff: a house Mai Tai in a jug, chatty patrons and staff, and an assortment of decorations designed to give you that authentic Caribbean-in-the-Mid-West feel! You know: exposed wood, sticky floors, tiki this-and-that, and lights on faux palm trees straight out of a Corona commercial.<br><br>Hey! In the mood to sing? Then say &#34;OK!&#34; to KaraOKe! Sure as sugar beats a trip to Koreatown!<br><br>You get what you pay for, folks, and unless you are paying to fly to St. Lucia, content yourself with the offerings of Todd&#39;s. Don&#39;t judge: just let your eyes unfocus (Mai Tais will do this for you) as the Jimmy Buffet washes over you. I mean, if you&#39;re like me and inTrader Todd&#39;s at 3:30pm on a Tuesday, you don&#39;t really have the right to judge anyway...",
@@ -29133,15 +28857,7 @@
 "Caters" : "No"}},
 {"ranking":"754",
 "ogurl":"http://www.yelp.com/biz/howells-and-hood-chicago",
-"categorystrlist":"Gluten-Free,         American (New)
-    
-                Sports Bars,         American (New)
-    
-                American (New)
-    
-                American (New)
-    
-                Bars,         American (New)",
+"categorystrlist":"Gluten-Free,         American (New) ,Sports Bars,         American (New) ,American (New) ,American (New) ,Bars,         American (New)",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/DcBK7wkuGwv14DYTtSe2Ag/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Very consistent and a great location. If you reserve on opentable and want outdoor seating you may not get it. You have to call and ask for it or else you will be waiting or be seated inside. I don&#39;t think a lot of ppl want to be seated inside when it&#39;s super nice out!  <br><br>Most of the servers and bartenders are good and attentive, some needs some polishing but overall pretty good.  Last time I sat at the outdoor bar and they had a little bee problem. Hopefully that will be fixed this summer. <br><br>Food is all right, great location, beer selection is outstanding and if you get to sit outside it&#39;s pretty nice.",
@@ -29178,13 +28894,7 @@
 "Caters" : "No"}},
 {"ranking":"755",
 "ogurl":"http://www.yelp.com/biz/el-mariachi-chicago-3",
-"categorystrlist":"Mexican
-    
-                Mexican
-    
-                Italian
-    
-                Steakhouses",
+"categorystrlist":"Mexican ,Mexican ,Italian ,Steakhouses",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/FSWtVLN31lLLITfMVp2W4Q/l.jpg",
 "rating":"3.5",
 "reviewcomment":"¡Más margaritas! Their classic margarita is delicious, but deadly! Be warned! They serve them in huge wide margarita glasses, like all margaritas should be served. It may not look trendy but it sure hold a lot more liquor!<br><br>On Wednesdays, margs are five bucks! So skip your Starbucks in the morning and finish your day with one, two... Or five margaritas. Because let&#39;s be honest, who doesn&#39;t need a good drink on hump-day?<br><br>Not to be forgotten, is their chips and salsa. I&#39;m pretty sure they just deep fry tortillas. So leave your diet at home and just indulge in the bottomless basket of chips!",
@@ -30809,13 +30519,7 @@
 "Caters" : "Yes"}},
 {"ranking":"798",
 "ogurl":"http://www.yelp.com/biz/marcellos-lincoln-park-chicago",
-"categorystrlist":"Pizza,         Italian
-    
-                Pizza,         Gluten-Free,         Italian
-    
-                Pizza,         Italian,         Gluten-Free
-    
-                Italian,         Gluten-Free,         Pizza",
+"categorystrlist":"Pizza,         Italian ,Pizza,         Gluten-Free,         Italian ,Pizza,         Italian,         Gluten-Free ,Italian,         Gluten-Free,         Pizza",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/rIQSCu4sdyge8Jb2UKWvFw/l.jpg",
 "rating":"3.5",
 "reviewcomment":"My girlfriend took me here last night under the guise of attending a poetry slam fund raiser for a friend&#39;s theater company. <br><br>It turned out to be a surprise birthday party for me!  The restaurant handled it very well. They had lots of party room and all had an event in swing. Still, I was treated like royalty by the wait staff. Our food was all delivered in a timely manner and we all had a wonderful time. <br><br>For big groups, this place is ideal. They really know what they&#39;re doing.",
@@ -31193,9 +30897,7 @@
 "Caters" : "No"}},
 {"ranking":"810",
 "ogurl":"http://www.yelp.com/biz/citizen-bar-chicago",
-"categorystrlist":"Bars,         American (Traditional)
-    
-                Lounges",
+"categorystrlist":"Bars,         American (Traditional) ,Lounges",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/g9IVv-5p5vHa4Nr-pPQfrQ/l.jpg",
 "rating":"3.0",
 "reviewcomment":"Bartender Philippe is amazing!!! Must go see if you&#39;re looking for great drinks for a fair price. Great service too!",
@@ -31858,9 +31560,7 @@
 "Caters" : "No"}},
 {"ranking":"827",
 "ogurl":"http://www.yelp.com/biz/rakki-kyu-sushi-chicago",
-"categorystrlist":"Sushi Bars,         Japanese
-    
-                Thai",
+"categorystrlist":"Sushi Bars,         Japanese ,Thai",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/tknxzrf_2KAgkzfSnDHAEQ/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I live right down the street from Butterfly and so go there normally. It was closed and couldn&#39;t leave the idea of not getting Sushi so tried this spot. Great place! Best Nigri I have had in a while. <br><br>I was skeptical when my girlfriend and I walked in, but we had a Groupon, so what hell ya know?<br><br>Had a great time and a great meal. My girl friend loves the salad becasue of the dressing and i don&#39;t blame her, great stuff. Can Cun roll, mini Godzilla and the Rock and roll roll were great! seriously cannot say enough how good the nigri was, best yellow fin I&#39;ve seen in a while. So good didn&#39;t even get to try it was gone so fast. (you know who you are)<br><br>Can&#39;t beat BYOB. Little pricey but again best Sushi I have had in a while.<br><br>I will be making this a go to sushi spot!<br><br>-Ryan",
@@ -32394,9 +32094,7 @@
 "Waiter Service" : "Yes"}},
 {"ranking":"841",
 "ogurl":"http://www.yelp.com/biz/o-shaughnessys-public-house-chicago",
-"categorystrlist":"Pubs,         Irish,         Breakfast & Brunch
-    
-                Pubs,         Music Venues,         Cultural Center",
+"categorystrlist":"Pubs,         Irish,         Breakfast & Brunch ,Pubs,         Music Venues,         Cultural Center",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/Vde-q4FoU99wXowtFg62PA/l.jpg",
 "rating":"3.5",
 "reviewcomment":"What keeps me going back here every time? Probably the best shepherd&#39;s pie I&#39;ve ever had. The key point for me is the cheese crust on top of the potatoes. Most places don&#39;t do that but it&#39;s the only way I&#39;ll eat my pie now. And everything in it is great- the gravy is perfect with the meat in veggies. Defiantly not dry at all. <br><br>Also their curry fries are delicious and they have a great beer list. I can&#39;t personally vouch for their other food since I get the same thing, but every time I&#39;ve been there everyone else has loved their food.<br><br>Tip: if you really love curry fries and have about three other friends, do yourself a favor and order the traditional irish curry over fries in place of just curry fries for an appetizer. It&#39;s $4.50 more for easily twice-if not three times-the amount of delicious food.",
@@ -33181,13 +32879,7 @@
 "Caters" : "Yes"}},
 {"ranking":"861",
 "ogurl":"http://www.yelp.com/biz/etno-village-grill-chicago",
-"categorystrlist":"Burgers,         Sandwiches
-    
-                Performing Arts
-    
-                Parks
-    
-                Arcades,         Bars",
+"categorystrlist":"Burgers,         Sandwiches ,Performing Arts ,Parks ,Arcades,         Bars",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/RfLy5krtDu7PxxIh_k4AhQ/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Amazing sandwiches!  I don&#39;t really care that everything&#39;s organic and the meat is grass fed, but the final product you get from Etno is hearty and filling without ever being greasy. <br><br>Burgers are great but the Balkan selections are why this place deserves five stars. Get the &#39;spicy Balkan&#39; with Etno sauce, spicy red pepper paste and coleslaw and you will see the light.<br><br>Bottom line: Great selection of sandwiches that are worth every penny and beyond delicious!",
