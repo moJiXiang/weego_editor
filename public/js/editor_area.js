@@ -64,7 +64,7 @@ var AreaView = Backbone.View.extend({
         'change #country_select': 'selectCountry',
         'change #city_select': 'selectCity',
         'click #save': 'saveArea',
-        'click #cancel': 'back'
+        'click #cancel': 'back',
     },
     render: function(){
         this.model.set('user',weego_user.globalUser);
@@ -122,26 +122,33 @@ var AreaView = Backbone.View.extend({
         return this.$el.find('#'+id).val();
     },
     saveArea: function(e){
+        var city_id = $('#city_select').val();
         var city_name = $('#city_select').find("option:selected").text();
-        var area_name = this.getTextInputValue('area-name');
-        var area_enname = this.getTextInputValue('area_enname');
-        var introdouce = this.getTextInputValue('area_enname');
-
-
-
-        if(name=='' || name==null || name==undefined){
-            alert('名称不能为空！');
-            return false;
-        }
+        var area_name = $('#area_name').val();
+        var area_enname = $('#area_enname').val();
+        var introdouce = $('#area-introduce').val();
+        var address = $('#area-address').val();
+        var latitude = $('#area-latitude').val();
+        var longitude = $('#area-longitude').val();
+        
         if(city_name=='' || city_name==null || city_name==undefined){
             alert('城市不能为空！');
             return false;
         }
+        if(area_name=='' || area_name==null || area_name==undefined){
+            alert('名称不能为空！');
+            return false;
+        }
+        console.log(introdouce);
         var areaDetails = {
-            name: name,
+            city_id : city_id,
             city_name : city_name,
-            city_id : $('#city_select').val(),
-            en_name: this.getTextInputValue('area-en_name')
+            area_name: area_name,
+            area_enname: area_enname,
+            area_introduce: introdouce,
+            address: address,
+            latitude: latitude,
+            longitude: longitude
         };
         if(this.model == null || this.model.get('_id') == null)
         {
@@ -245,6 +252,7 @@ var AreaListItemView = Backbone.View.extend({
 
     },
     manageimg: function(e) {
+        e.preventDefault();
         var manageImageView = new weego.ManageImageView();
         manageImageView.model = this.model;
         manageImageView.render().$el.modal({
@@ -269,4 +277,100 @@ var AreaListItemView = Backbone.View.extend({
         this.$el.remove();
     }
 });
+// var ManageImageView = Backbone.View.extend({
+//     tagName: "div",
+//     className: "modal hide fade",
+//     "id": "manageImageDialog",
+//     initialize: function() {
+//         _.bindAll(this, 'render');
+//     },
+//     render: function() {
+//         var _this = this;
+//         this.$el.css({
+//             width: "100%",
+//             height: "100%",
+//             left: 0,
+//             right: 0,
+//             top: 0,
+//             bottom: 0,
+//             margin: 'auto',
+//             position: 'relative'
+//         });
+//         var template = Handlebars.compile($('#manageImageView').html());
+//         $(template()).appendTo(_this.$el);
+//         _this.$('#zxx_id').val(_this.model.get('_id'));
+//         var image = _this.model.get('image');
+//         if (image && image.length > 0) {
+//             for (var i = 0; i < image.length; i++) {
+//                 var uploadImageView = new UploadImageView();
+//                 uploadImageView.model = image[i];
+//                 uploadImageView.render().$el.appendTo(_this.$("#uploadedName"));
+//             }
+//         }
+//         var coverImageName = _this.model.get('coverImageName');
+//         if (coverImageName) {
+//             _this.$('#coverImageName').empty().append($('<img src="/attractionsimage/' + coverImageName + '?rev=' + Math.random() + '">'));
+//         }
+//         return this;
+//     },
+//     unloadPic: function() {
+//         var _this = this;
+//         var oBtn = document.getElementById("unloadPic");
+//         var oShow = document.getElementById("uploadedName");
+//         new AjaxUpload(oBtn, {
+//             action: "/postimage",
+//             name: "upload",
+//             data: {
+//                 _id: _this.$('#zxx_id').val()
+//             },
+//             responseType: "json",
+//             onSubmit: function(file, ext) {},
+//             onComplete: function(file, response) {
+//                 var uploadImageView = new UploadImageView();
+//                 uploadImageView.model = response;
+//                 uploadImageView.render().$el.appendTo(_this.$("#uploadedName"));
+//             }
+//         });
+//     }
+// });
+// var UploadImageView = Backbone.View.extend({
+//     tagName: 'li',
+//     initialize: function() {
+//         _.bindAll(this, 'render', 'remove', 'setCoverImg');
+//     },
+//     render: function() {
+//         var _this = this;
+//         var template = Handlebars.compile($('#uploadImageView').html());
+//         $(template(_this.model)).appendTo(_this.$el);
+//         return this;
+//     },
+//     events: {
+//         'click .btn-remove': 'remove',
+//         'click .setCoverImg': 'setCoverImg'
+//     },
+//     setCoverImg: function() {
+//         var _this = this;
+//         var _id = $('#zxx_id').val();
+//         $.ajax({
+//             url: '/setCoverImg/' + _id + '/' + _this.model,
+//             success: function(data) {
+//                 if (data) {
+//                     $('#coverImageName').empty().append($('<img src="/attractionsimage/' + data + '?rev=' + Math.random() + '">'));
+//                 }
+//             }
+//         });
+//     },
+//     remove: function(e) {
+//         var _this = this;
+//         var _id = $('#zxx_id').val();
+//         $.ajax({
+//             url: '/delUploadImage/' + _id + '/' + _this.model,
+//             success: function(data) {
+//                 if (data.status == 'success') {
+//                     _this.$el.remove();
+//                 }
+//             }
+//         })
+//     }
+// });
 

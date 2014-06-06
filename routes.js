@@ -109,6 +109,7 @@ module.exports = function(app) {
 	app.post('/area', routes.life.addNewArea);
 	app.get('/areas/:pageLimit/:pageIndex', routes.life.getAreaByPage);
 	app.get('/getAreasByCityId/:cityId',routes.life.getAreasByCityId);
+	app.get('/getAreasByCityName/:cityName',routes.life.getAreasByCityName);
 
 	//restaurant
 	app.get('/restaurant/:restaurantId', routes.life.getRestaurant);
@@ -126,6 +127,7 @@ module.exports = function(app) {
 	app.post('/shopping', routes.life.addNewShopping);
 	app.get('/shoppings/:pageLimit/:pageIndex?', routes.life.getShoppingByPage);
 	app.get('/getBigShoppingByCityId/:cityId', routes.life.getBigShoppingByCityId);
+	app.post('/shoppings/:areaname', routes.life.getShoppingByPage);
 
 	//entertainment
 	app.get('/entertainment/:entertainmentId', routes.life.getEntertainment);

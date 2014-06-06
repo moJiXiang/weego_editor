@@ -12,7 +12,7 @@ var AreaSchema = new Schema({
 	city_name: { type: String },
 	area_name: { type: String },
 	area_enname: { type: String },
-	introduce: {type: String},
+	area_introduce: {type: String},
 	address: {type: String},
 	latitude: { type: String },
   	longitude: { type: String },
