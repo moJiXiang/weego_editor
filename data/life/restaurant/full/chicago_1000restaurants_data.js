@@ -1,4 +1,4 @@
-{"ranking":"1",
+exports.items = [{"ranking":"1",
 "ogurl":"http://www.yelp.com/biz/kumas-corner-chicago",
 "categorystrlist":"Pubs,         Burgers",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/5CYa0Y8fftsnYsOsTLt3_Q/l.jpg",
@@ -984,9 +984,7 @@
 "Caters" : "No"}},
 {"ranking":"28",
 "ogurl":"http://www.yelp.com/biz/joes-seafood-prime-steak-and-stone-crab-chicago",
-"categorystrlist":"Seafood,         Steakhouses
-    
-                Seafood,         Steakhouses",
+"categorystrlist":"Seafood,         Steakhouses, Seafood,         Steakhouses",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/GnCXNvLn0ntZWJoiK2IQ5g/l.jpg",
 "rating":"4.5",
 "reviewcomment":"Best Sea bass I had in my life<br>And the shrimp and scallop ceviche was great<br>I can&#39;t wait to go back",
@@ -36262,4 +36260,4 @@
 "Has TV" : "No",
 "Waiter Service" : "No",
 "Drive-Thru" : "No",
-"Caters" : "No"}},
+"Caters" : "No"}}];
