@@ -348,30 +348,59 @@ $(weego.init());
             $('#app').empty();
             if(type == null)
                 type = '1';
+            console.log(id);
             if(id == null){
                 var lifeListView  = null;
                 if(type=='1')
+                {
                     lifeListView = new LifeView({model: new RestaurantModel()});
-                else if(type=='2')
+                }
+                else if(type=='2'){
                     lifeListView = new LifeView({model: new ShoppingModel()});
-                else
-                    lifeListView = new LifeView({model: new EntertainmentModel()});
+                }
+                else{
+                     lifeListView = new LifeView({model: new EntertainmentModel()});
+                }
                 lifeListView.render().$el.appendTo($('#app'));
             }
             else{
                 if(type == '1'){
                     var restaurantModel = new RestaurantModel();
                     restaurantModel.set('_id', id);
-                    restaurantModel.fetch({success: function(){
-                        restaurantModel.set('type','1');
-                         var restaurantView = new LifeView({model: restaurantModel});
-                         console.log(restaurantView);
-                         restaurantView.render().$el.appendTo($('#app'));
+                    restaurantModel.fetch({success: function(data){
+                        console.log(data);
+                        console.log(restaurantModel);
+                        restaurantModel.set('type', '1');
+                        var restaurantView = new LifeView({
+                            model: restaurantModel
+                        });
+                        restaurantView.render().$el.appendTo($('#app'));
                     }});
+                    // $.ajax({
+                    //     url: '/restaurant/'+ id ,
+                    //     success: function(data){
+                    //         console.log(data);
+                    //         // $('#lifeDetailView').html(data.toJSON());
+                    //         // var template = Handlebars.compile($('#lifeDetailView').html());
+                    //         // console.log(template);
+                    //         // $('#app').append(template(data[0]));
+                    //         // console.log(template(data[0]));
+                    //         var restaurantModel = new RestaurantModel();
+                    //         restaurantModel.set({
+                    //             '_id', id
+
+                    //         });
+                    //         var restaurantView = new LifeView({
+                    //             model: restaurantModel
+                    //         });
+                    //         restaurantView.render().$el.appendTo($('#app'));
+                    //     }
+                    // })
                 }else if(type == '2'){
                     var shoppingModel = new ShoppingModel();
                     shoppingModel.set('_id', id);
-                    shoppingModel.fetch({success: function(){
+                    shoppingModel.fetch({success: function(a){
+                        console.log(shoppingModel);
                         shoppingModel.set('type','2');
                          var shoppingView = new LifeView({model: shoppingModel});
                          shoppingView.render().$el.appendTo($('#app'));
