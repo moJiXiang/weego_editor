@@ -5,6 +5,9 @@
 //---------------------------------model and collection-------------------------------------------------
 
 var RestaurantModel = Backbone.Model.extend({
+    defaults: {
+
+    },
     idAttribute: "_id",
     urlRoot: '/restaurant'
 });
@@ -105,7 +108,6 @@ var LifeCollection = Backbone.Collection.extend({
 
 //-----------------------------------begin view--------------------------------------------------------------
 var LifeView = Backbone.View.extend({
-    template: Handlebars.compile($('#lifeDetailView').html()),
     initialize: function(){
         // alert('');
         this.template = Handlebars.compile($('#lifeDetailView').html());
@@ -139,7 +141,10 @@ var LifeView = Backbone.View.extend({
         }else{
             this.model.set('_show_flag',false);
         }
+
+        console.log(this.model);
         this.model.set('user',weego_user.globalUser);
+        console.log(this.model.toJSON());
         this.$el.html(this.template(this.model.toJSON()));
         this.initSelect();
         return this;
@@ -659,6 +664,10 @@ var LifeListView = Backbone.View.extend({
         this.type = data.type;
         this.cityname = isNull(data.cityname)?'':data.cityname;
         this.lifename = isNull(data.lifename)?'':data.lifename;
+        this.isLocalFlag = isNull(data.isLocalFlag)?"":data.isLocalFlag;
+        this.isMichilinFlag = isNull(data.isMichilinFlag)?"":data.isMichilinFlag;
+        this.isBestDinnerchoics = isNull(data.isBestDinnerchoics)?"":data.isBestDinnerchoics;
+        this.isMostPopular = isNull(data.isMostPopular)?"":data.isMostPopular;
         this.collection = new LifeCollection(data);
 
         this.collection.on('all', function(){
@@ -773,9 +782,9 @@ var LifeListItemView = Backbone.View.extend({
         var type = $('#life_type').val();
         var item_id= $(e.currentTarget).attr('item_id');
         self.location = '/#life/'+item_id+'/'+type;
-//        $('#app').off();
-//        $('#app').empty();
-//        (new RestaurantView({model: this.model})).render().$el.appendTo($('#app'));
+       // $('#app').off();
+       // $('#app').empty();
+       // (new RestaurantView({model: this.model})).render().$el.appendTo($('#app'));
     },
     removeLife : function(){
         console.log(this.model);

@@ -59,14 +59,29 @@ var isInTmp = function(a,b){
 	return false;
 };
 
-exports.getRestaurantsByQuery = function(query,callback){
-	Restaurant.find(query, [], {sort: [['city_name', 'asc'],['index_flag','desc']]}, function (err, restaurants) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,restaurants);
-		}
-	});
+// exports.getRestaurantsByQuery = function(query,callback){
+// 	console.info();
+// 	Restaurant.find(query, function (err, restaurants) {
+// 		console.log(">>>>>"+restaurants);
+// 		if(err)
+// 			callback(err);
+// 		else{
+// 			callback(null,restaurants);
+// 		}
+// 	});
+// };
+exports.getRestaurantOne = function (id, callback) {
+  Restaurant.findOne({_id: id}, callback);
+};
+
+exports.getRestaurantsByQuery = function(id,callback){
+	exports.getRestaurantOne(id, function(err,restaurant){
+	  	if(restaurant){
+  			callback(null,restaurant);
+	  	}else{
+	  		callback(err,restaurant);
+	  	}
+    });
 };
 
 // exports.getRestaurantsByflag = function(query,callback) {
