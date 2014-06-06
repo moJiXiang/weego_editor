@@ -1,4 +1,4 @@
-{"ranking":"1",
+exports.items = [{"ranking":"1",
 "ogurl":"http://www.yelp.com/biz/el-tigre-madrid",
 "categorystrlist":"Spanish",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/czyLWvTo3fq-8glsbLKJCQ/l.jpg",
@@ -29970,4 +29970,4 @@
 "website":"null",
 "avgprice":"€21-50",
 "hours":["Closed","12:00 pm - 12:00 am","12:00 pm - 12:00 am","12:00 pm - 12:00 am","12:00 pm - 2:00 am","Open now","12:00 pm - 2:00 am","12:00 pm - 12:00 am"],
-"businessinfos":{}},
+"businessinfos":{}}];

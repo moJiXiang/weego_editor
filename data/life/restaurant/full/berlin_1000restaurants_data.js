@@ -1,4 +1,4 @@
-{"ranking":"1",
+exports.items = [{"ranking":"1",
 "ogurl":"http://www.yelp.com/biz/curry-36-berlin",
 "categorystrlist":"Food Stands,         Curry Sausage",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/B46UrBKcUXFCFZffQWQ5Dg/l.jpg",
@@ -30956,4 +30956,4 @@
 "website":"berlinischegalerie.de",
 "avgprice":"null",
 "hours":["10:00 am - 6:00 pm","Closed","10:00 am - 6:00 pm","10:00 am - 6:00 pm","10:00 am - 6:00 pm","10:00 am - 6:00 pm","10:00 am - 6:00 pm"],
-"businessinfos":{}},
+"businessinfos":{}}];

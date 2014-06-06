@@ -1,4 +1,4 @@
-{"ranking":"3",
+exports.items = [{"ranking":"3",
 "ogurl":"http://www.yelp.com/biz/giacomos-ristorante-boston",
 "categorystrlist":"Restaurants",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/fk1fkMSj5YoNlCw-CviFRw/l.jpg",
@@ -272,13 +272,7 @@
 "Caters" : "No"}},
 {"ranking":"7",
 "ogurl":"http://www.yelp.com/biz/gaslight-brasserie-du-coin-boston",
-"categorystrlist":"French
-    
-                Bars à vins,         Méditerranéen
-    
-                Magasins de meubles,         Décoration d’intérieur
-    
-                Français",
+"categorystrlist":"French,                Bars à vins,         Méditerranéen,                Magasins de meubles,         Décoration d’intérieur,                Français",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/pRfnu3Mxp2e4B77D06ALiw/l.jpg",
 "rating":"4.0",
 "reviewcomment":"I&#39;ll keep it simple.<br><br>Awesome service, talented and knowledgable staff. Food is ridiculous. <br><br>Matt the magician behind the bar has some of the best bar skills in town.<br><br>Wish it were closer to home or in a busier part of town, but will definitely make the trip!",
@@ -587,11 +581,7 @@
 "Caters" : "No"}},
 {"ranking":"17",
 "ogurl":"http://www.yelp.com/biz/sunset-grill-and-tap-allston",
-"categorystrlist":"Bars,         American (Traditional)
-    
-                Pool Halls,         American (New),         Pizza
-    
-                Mexican,         Bars",
+"categorystrlist":"Bars,         American (Traditional),                Pool Halls,         American (New),         Pizza,                Mexican,         Bars",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/CmjUSMmEuNCnP8PKMZtBJA/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Hmmmmmm......<br><br>I used to come tonthisnpalce all the time when my friend live down the street! I live this place for what it is :) unfortunately things always change when time passes by :( and usually not for the better :(( double sad...<br>Great beer selection as always!! The food is so so.... The staff needs to learn hospitality skills! I know it&#39;s a college town but you want to make money right?! <br><br>Well Sissy that walk!! <br><br>The bartender is handsome great eye candy but lacks bartending skills Waaahhh  took the beer order disappeared for a bit. Place an order and that&#39;s the last time a spoke to him.... Dint ask me how the food was or how I was doing. A few questions go a long way. Instead he was more interested in the bar regular two seats down from me talking about god knows what. I myself being in the hospitality industry know when to turn it up and make everyone feel somewhat special! But don&#39;t make them feel to special it goes to their heads... <br><br>In overall the staff needs to learn how to speak to all customers and make sure there time there is a good one! <br><br>My rule if thumb the bartender should know three things about each person sitting at the bar :) make that a priority they will happy guest and more $$$$ in their pocket!<br><br>4stars based on beer!",
@@ -903,13 +893,7 @@
 "Caters" : "No"}},
 {"ranking":"26",
 "ogurl":"http://www.yelp.com/biz/fugakyu-brookline",
-"categorystrlist":"Sushi Bars,         Japanese
-    
-                Japanese
-    
-                Chinese,         Seafood
-    
-                Japanese",
+"categorystrlist":"Sushi Bars,         Japanese,                Japanese,                Chinese,         Seafood,                Japanese",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/9yZHQk0eFn_LKjRToXyN_Q/l.jpg",
 "rating":"4.0",
 "reviewcomment":"We were looking for a special place to celebrate our son&#39;s graduation. He specifically wanted Japanese cuisine and more specifically sushi with fresh salmon. The service was very good. Even though the restaurant cannot guarantee a tiny private booth (with shogi screens to maintain a nice private experience), they did their best to advise us as to when to come to improve our chances. And upon arrival, we were seated in the private booth.<br><br>As my husband is very picky about his Japanese  and prefers to order in his native tongue, I was relieved to find the server spoke perfect Japanese. This helped to ensure our evening flowed smoothly and that what we ordered was what we expected.<br><br>The sushi is traditionally prepared and the salmon and hamachi belly just melted in our mouths. All in all, we had a very memorable evening.",
@@ -1824,17 +1808,7 @@
 "Caters" : "No"}},
 {"ranking":"49",
 "ogurl":"http://www.yelp.com/biz/grendels-den-restaurant-and-bar-cambridge",
-"categorystrlist":"Bars,         Sandwiches
-    
-                Hardware Stores
-    
-                Cinema
-    
-                Used, Vintage & Consignment
-    
-                Performing Arts,         Colleges & Universities
-    
-                Office Equipment,         Art Supplies",
+"categorystrlist":"Bars,         Sandwiches,                Hardware Stores,                Cinema,                Used, Vintage & Consignment,                Performing Arts,         Colleges & Universities,                Office Equipment,         Art Supplies",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/l6ihwVNpmlnUThysMTg0OA/l.jpg",
 "rating":"3.5",
 "reviewcomment":"We came here on a Saturday night looking for a casual fun place to have a few drinks, and we were not disappointed. If you&#39;re not familiar with the place you might miss it, as it lives up to the &#34;den&#34; part of it&#39;s name with it&#39;s underground location.  There is a big bar area and lots of small tables which can get a little cramped if it gets too busy.  It happened to be a perfect sized crowd for a Saturday night, certainly helped by the fact that it was late May and the college crowd had all ready evacuated for the summer.   Drink prices were phenomenal ($3 for a pint of Cisco Grey Lady) and they had a great selection of beers and mixed drinks. There is a somewhat pretentious sign over the bar pronouncing that they don&#39;t serve any of your standard Coors and Bud lights, but of course no one really needs those beers anyway. I heard someone try to order an Irish Car Bomb and the bartender&#39;s response was &#34;not at this bar.&#34;   Again fairly pretentious, however it&#39;s kind of nice to know they aren&#39;t into the whole blackout college scene.  The bartender was really pleasant and attentive to us as customers, which was much appreciated. <br><br>I would definitely come back !",
@@ -2255,13 +2229,7 @@
 "Caters" : "No"}},
 {"ranking":"60",
 "ogurl":"http://www.yelp.com/biz/aquitaine-boston",
-"categorystrlist":"French
-    
-                ワインバー,         地中海料理
-    
-                家具屋,         室内装飾
-    
-                フレンチ",
+"categorystrlist":"French,                ワインバー,         地中海料理,                家具屋,         室内装飾,                フレンチ",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/w1gOxb-S86cMtqb3YwbdjA/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Headed to Aquitaine for dessert after dinner at The Gallows. 4 of us got a seat at the bar, and took a good long look at the dessert menu (and incredible cocktails). The bartender was great an would chime in in helping us make a decision.<br><br>I went with a calvados cocktail that came in a martini glass, my fiancé had a beer, and our friends ordered sparkling wine and another cocktail. I think we all loved our choices, and they paired well with the desserts.<br><br>I chose the crème brûlée, and my friends had chocolate mousse and tarte tatin. The bartender laid out napkins as placemats for us, and it set the tone nicely. My crème brûlée was beautiful, perfect in every way. I tried my friend&#39;s chocolate mousse, which was thick, dark and delicious. And all of them were around $7...a good price for the quality. It&#39;s such a beautiful restaurant with great service, that I will most certainly be back for dessert and cocktails quite soon!",
@@ -2298,15 +2266,7 @@
 "Caters" : "No"}},
 {"ranking":"62",
 "ogurl":"http://www.yelp.com/biz/mistral-restaurant-boston",
-"categorystrlist":"American (New)
-    
-                Italian
-    
-                Italian
-    
-                Steakhouses
-    
-                Italian,         Steakhouses,         Seafood",
+"categorystrlist":"American (New),                Italian,                Italian,                Steakhouses,                Italian,         Steakhouses,         Seafood",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/TIELLvqQva0VmnwY8wSTsw/l.jpg",
 "rating":"4.0",
 "reviewcomment":"May 27th is my birthday and this one was my 45th. When we arrived the Valet ( Tony ) was quick to open my door and escorted us inside the front door quickly ( as it was raining ) with a friendly smile and manner.  The people at the front were all smiles and very pleasant, we were there a little early but were still seated promptly, with the hostess pulling out the chair for my date ( noticed and greatly appreciated )<br><br>The server ( Youssef ) was right there within 1 minute and in a very friendly calm non rushed way welcomed us, and asked if he may get us something from the bar. I actually knew what bottle of wine I wanted and he was happy to take that order and suggested a bottle of sparkling pellegrino which we agreed would be perfect. Before he left he gave us an incredibly detailed synopsis of the specials for the evening, and told us his personal favorites.( well done ) <br><br>He was back in approx 2 minutes presented the wine perfectly and after the taste poured a good amount into each glass. The warm chewy bread was served by a friendly but not familar back server in black who also was the master of the crumber! ( well done ) <br><br>Youssef gave us about 5 minutes asked if we had any questions, to which I said well yes if you had to choose between the sirloin and the tenderloin which one would you choose and why?  He said well if you are looking for a butter smooth soft texture go tenderloin, if you prefer a little more flavor profile, and texture go with the sirloin, ( I went sirloin ) My girl went for suggested Pork Milanese special. Overall we ordered the Foie Gras and duck confit with cranberry brioche, tuna tartare, and a caesar salad to start us off. I got the aforementioned sirloin Med and she the Pork with a side of the mistral fries. <br><br>The apps were out in less than 15 min and they were awesome!! That Foie Gras is worth any amount of PETA grief I will be getting from my Liberal tree hugging friends lol, ( yes you know who you are )  My girls tartare was equally well executed and very fresh!  The Caesar was made with white anchovies, super crisp, and very flavorful!<br><br>At this point we had sipped our way through the original bottle of wine, and being as I was driving decided to go to a wine by the glass instead of risk another bottle. I asked Youssef his recommendation on the wines by the glass selection he gave me two suggestions of red one a french cab from Bordeaux and the other an American  cab from Napa. I went Bordeaux! =) My accomplice went for the Napa chard, Both went perfectly with our entree&#39;s. <br><br>The entrees were actually larger than expected, my sirloin was perfectly cooked to a nice pink medium with an excellent carmelization on the outside! My lady friends Pork Milanese was HUGE lol and crispy with nice roasted tomatoes and a tasty sauce the name of which escapes me at this moment. The Mistral fries were crispy but not over cooked and we enjoyed every bit of them. <br><br>After finishing the entrees, Youssef came over and we were having a bit of a chat, he said so what brought you here tonight ? are you celebrating something? I sheepishly said well if you promise not to make a big deal about it ill tell you, its my 45th birthday!<br><br>Wouldn&#39;t you know it, that crafty so and so quietly brought over a nice little birthday dessert sampler! =) ( again well done!! ) On the way out the front door staff was super helpful with our jackets and umbrellas and there was Tony our valet right there to help us back into our car! <br><br>In closing, this experience really happened, and it was just about as perfect as I have ever encountered anywhere EVER!  So go see Youssef and have yourself a great time!",
@@ -2507,11 +2467,7 @@
 "Caters" : "No"}},
 {"ranking":"65",
 "ogurl":"http://www.yelp.com/biz/the-daily-catch-boston",
-"categorystrlist":"Italian,         Seafood
-    
-                Seafood,         Italian
-    
-                Seafood",
+"categorystrlist":"Italian,         Seafood,                Seafood,         Italian,                Seafood",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/b6X3fu8w-nBpxUwjKga3IA/l.jpg",
 "rating":"4.0",
 "reviewcomment":"After hearing so much about this &#34;little&#34; place, I decided to give it a try.<br>To start with be prepared for a wait, because it only seats 20 people at a time. If you can eat desert first, leave a friend in line, and then run across the street and treat yourself to some wonderful pastries from Mike&#39;s, bring them back and eat them while waiting in line.<br><br>The atmosphere inside was a lot of fun, we ended up sharing a table with some other people and instead of letting the close quarters be awkward we just joked around and had fun.<br><br>The best part was eating the owner recommended the soft shell crab linguini, which just came into season, so I bit on it and ordered.<br><br>The fried calamari came out first and was good, but nothing I got salivating over.<br><br>When the crab came out, I almost wet myself with excitement.<br>The presentation was epic, the worst part was that my phone died so I could not take a picture. <br>After tearing it apart, and sharing with some of the new comers at our table, everyone else ordered it as well.<br><br>Everyone else seemed to love their dishes as much as I did.<br><br>Finally the  owner was cool enough to take my dead phone back and charge it while I ate.<br><br>Great experience.",
@@ -2605,11 +2561,7 @@
 "businessinfos":{}},
 {"ranking":"64",
 "ogurl":"http://www.yelp.com/biz/mike-and-pattys-boston",
-"categorystrlist":"Sandwiches,         Breakfast & Brunch
-    
-                Hot Dogs,         Burgers
-    
-                Coffee & Tea",
+"categorystrlist":"Sandwiches,         Breakfast & Brunch,                Hot Dogs,         Burgers,                Coffee & Tea",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/d3nABADdMPetGWwCch7a8Q/l.jpg",
 "rating":"4.5",
 "reviewcomment":"Visiting from Oakland, CA, and while the love of my life is at a conference all day, I get to explore the city. I wake up late and hungry for a good breakfast sandwich. Referring to my trusty yelp app, I find this spot along with several others. I decide to walk the extra blocks to Mike &amp; Patty&#39;s. I encounter this tiny shop on the corner of Church and Fayette St. It&#39;s tiny, but I wouldn&#39;t call it a hole-in-the-wall; too cute for that.  I&#39;m immediately told it&#39;ll be a 40-min wait for a sandwich. Since I have nothing to do, I decide to sit and wait. Boy, was it worth it! First of all, the employees are extremely friendly (I watched as many people rolled through, and responded rudely to the disclaimer of the 40-minute wait and still the employees remained kind...I actually appreciated the disclaimer ahead of time).  Okay, finally on to the sandwich...I ordered the breakfast torta. It was delicious!  The ingredients were fresh, and they were very generous with the avocado. I loved it!  If we weren&#39;t heading home early tomorrow morning, I&#39;d bring my partner back to try the Fancy or one of their other delicious looking sandwiches. <br><br>I would say that if you&#39;re hungry or in a hurry call ahead and order in advance. If you have time on your hands, order here, hang out and enjoy the cheerful ambiance.",
@@ -3095,15 +3047,7 @@
 "Caters" : "No"}},
 {"ranking":"82",
 "ogurl":"http://www.yelp.com/biz/dorado-tacos-and-cemitas-brookline",
-"categorystrlist":"Mexican,         Gluten-Free
-    
-                Thai
-    
-                Seafood Markets,         Grocery
-    
-                Sushi Bars,         Japanese
-    
-                Pet Groomers,         Dog Walkers,         Pet Stores",
+"categorystrlist":"Mexican,         Gluten-Free,                Thai,                Seafood Markets,         Grocery,                Sushi Bars,         Japanese,                Pet Groomers,         Dog Walkers,         Pet Stores",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/AweeOEOV-BhSWfJSGCxlug/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Classic staple location for great Mexican food.  It is quick, has outside seating and the food is delicious. <br><br>We go here almost every weekend.  There is always some awesome fresh made cool drinks, and wonderful quesadillas.<br><br>Chicken quesadilla is the best ever.",
@@ -3565,11 +3509,7 @@
 "Caters" : "Yes"}},
 {"ranking":"92",
 "ogurl":"http://www.yelp.com/biz/grill-23-and-bar-boston",
-"categorystrlist":"Steakhouses,         Wine Bars
-    
-                American (Traditional)
-    
-                Bars,         American (Traditional)",
+"categorystrlist":"Steakhouses,         Wine Bars,                American (Traditional),                Bars,         American (Traditional)",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/JdhQM16wokldhFdwosJmQw/l.jpg",
 "rating":"4.0",
 "reviewcomment":"This place is one to mark for a special occasion. Lots of big parties here celebrating one thing or another. The ambiance is good - I felt like I was in a really nice place as soon as I walked in. But - the light&#39;s were WAY too bright. They need to dim them down a bit. <br><br>Food was excellent and while some really nice places tend to go a bit far, in my opinion, when it comes to the menu and being &#39;over the top&#39;, Grill 23 is spot-on. I knew what everything was and it was delicious. <br><br>Dont leave before you devour the profiteroles either ;)",
@@ -3612,11 +3552,7 @@
 "Caters" : "No"}},
 {"ranking":"94",
 "ogurl":"http://www.yelp.com/biz/ol%C3%A9-mexican-grill-cambridge-4",
-"categorystrlist":"Mexican
-    
-                Mexican
-    
-                Mexican",
+"categorystrlist":"Mexican,                Mexican,                Mexican",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/-ThlTDC4WTP1BtpHsw8dKg/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Visiting here quite often because the food here is hands down our favorite Mexican restaurant in the Boston region (and just fyi, this reviewer worked for 2 years in a Hospital in Mexico City).<br><br>This time we came to celebrate Cinco de Mayo ( a family tradition for us). The band of 2 was the best Mariachi Music that place ever hosted for 5/5 celebrations!<br><br>We had guacamole (must), Tequila and Margarita (must), enchiladas for the hubby and pork carnitas for the kid.<br>I took posole soup (<a href='/redir?url=http%3A%2F%2Fwww.foodnetwork.com%2Frecipes%2Fbobby-flay%2Fchicken-posole-soup-recipe.html&amp;s=9b016a8cc95d8c421d8b7eb72c9fcb14ce0e5806da19261e99a60fc163354296' target='_blank' rel='nofollow'>foodnetwork.com/recipes/…</a>), which was missing dome onions, cilantro and hot papers- but all was supplied upon reqest.<br><br>We ended this lovely meal with flan. Haven on a plate.",
@@ -5058,9 +4994,7 @@
 "Caters" : "No"}},
 {"ranking":"130",
 "ogurl":"http://www.yelp.com/biz/cafeteria-boston-boston",
-"categorystrlist":"American (New)
-    
-                Tanning",
+"categorystrlist":"American (New),                Tanning",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/BKgS4r2DEZ4H0zcJUwWw4A/l.jpg",
 "rating":"3.0",
 "reviewcomment":"A lot of harsh comments from other reviewers, but I liked this spot. Great outdoor area and open space / natural lighting on the inside.<br><br>Perfect way to start the weekend with a mimosa, breakfast pizza, and yogurt parfait. The breakfast pizza is delicious, definitely worth a try!",
@@ -5366,11 +5300,7 @@
 "Caters" : "Yes"}},
 {"ranking":"141",
 "ogurl":"http://www.yelp.com/biz/union-bar-and-grille-boston-2",
-"categorystrlist":"American (New)
-    
-                Beer, Wine & Spirits
-    
-                Home Decor",
+"categorystrlist":"American (New),                Beer, Wine & Spirits,                Home Decor",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/iY1V3J9YCnYzkK8mr5DcZA/l.jpg",
 "rating":"4.0",
 "reviewcomment":"We were aiming for an evening in the South End for my birthday. The plan was a cocktail in one location followed by dinner somewhere else.  We walked into Union for cocktails and soon were marveling at the great aromas coming from the kitchen. The cocktails were all great. I personally tried the Dubbel Down (made with Allagash Dubbel) and El Diablo, which thanks to it being my birthday the barmaid gave me with a floating umbrella. Both were great. Our friend asked for a Kamikaze which not on the menu, she rated as perfect.  So after cocktails we strolled further along Washington Street hoping to have as much luck finding another place. But minimum waits were 45 mins, so we made the easy choice to return to Union.  Glad we did<br><br>The maître d&#39;e welcomed us back and immediately brought us to a great table from where we could see the whole restaurant. Brilliant! So to the food. Though the menu looks great the four of us opted for the prie fixe option. I had the mussel appetizer (small, sweet, well seasoned, great sauce) and sole in parchment ... A great way to serve this fish. Really simple yet maximum flavor from the fish. Thankfully we&#39;d asked for another cornbread so none of the juices from the fish escaped. Everyone loved their meals - my wife went with the beet salad and the gnocchi &amp; loved them both. <br><br>Everyone finished with the banana foster bread pudding. Let that sink in for a while. And know that it was as good as it sounds. What was fantastic was that at the end of this pretty decent sized meal, no one was stuffed. The waitress told us that the portions on the prix fixe menu were designed to ensure you could eat all 3 comfortably and she was spot on.<br><br>Service, from the door, to the bar, to the table was exemplary, friendly and really light hearted. We had a lot of fun, a great meal and a definite addition to the &#39;must return&#39; list.<br><br>Thanks folks",
@@ -6489,9 +6419,7 @@
 "Caters" : "Yes"}},
 {"ranking":"170",
 "ogurl":"http://www.yelp.com/biz/joes-american-bar-and-grill-boston-3",
-"categorystrlist":"American (Traditional)
-    
-                Seafood,         Pubs",
+"categorystrlist":"American (Traditional),                Seafood,         Pubs",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/l7yuHBonNWt0cO9mhuQMtA/l.jpg",
 "rating":"3.0",
 "reviewcomment":"I&#39;m writing this based on a one-time, tourist experience so don&#39;t get your scrotum twisted if you disagree with my opinion. <br><br>It was a really nice day so we sat on the patio during a Friday lunch hour. It was busy but we only waited about 10 minutes for a table so that was cool. Our server was super cute so that automatically defaults to 3 stars. He brought our beers right away and was super attentive. I ordered the crab cakes and they were freakin delicious. Also their French fries were big and awesome. My brother got the lobster roll and that nailed it too. My mom ordered the fish sandwich and really liked it. We enjoyed the food, the service, and the atmosphere. Highly recommend it.",
@@ -6608,9 +6536,7 @@
 "Caters" : "Yes"}},
 {"ranking":"173",
 "ogurl":"http://www.yelp.com/biz/greek-corner-restaurant-cambridge",
-"categorystrlist":"Greek,         Mediterranean
-    
-                Diners",
+"categorystrlist":"Greek,         Mediterranean,                Diners",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/SgRdML0yqalaOz3UAT30hA/l.jpg",
 "rating":"4.0",
 "reviewcomment":"<a href='/redir?url=http%3A%2F%2FBomb.com&amp;s=716853a54974befb18bd2a2079d876386c9ebd876290947c699fc1e3eaccf129' target='_blank' rel='nofollow'>Bomb.com</a> (don&#39;t click that)<br><br>Gyro and Lamb plate are great. Don&#39;t expect the best service in the world but it&#39;s not bad either. All very nice, seems like they get a little stressed when busy.",
@@ -7232,15 +7158,7 @@
 "Caters" : "Yes"}},
 {"ranking":"186",
 "ogurl":"http://www.yelp.com/biz/caff%C3%A9-vittoria-boston-3",
-"categorystrlist":"Coffee & Tea,         Italian
-    
-                Italian,         Cafes
-    
-                Italian
-    
-                Tobacco Shops,         Lounges,         Hookah Bars
-    
-                Italian",
+"categorystrlist":"Coffee & Tea,         Italian,                Italian,         Cafes,                Italian,                Tobacco Shops,         Lounges,         Hookah Bars,                Italian",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/G3SyvlkkWeTMXuYL5YCIkw/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Two words: lobster tail ... you won&#39;t be disappointed!<br><br>Caffe Vittoria is well-known for being the first Italian caffe in Boston. I was visiting from LA, and was very impressed. They have four levels within two main areas for seating: the smaller one by the main entrance, and a larger spot in the back which is reserved for when they have more patrons. <br><br>It&#39;s the area in the back that truly gives this place the &#34;old world charm&#34; with a unique set of decorations and wall paintings. Though they had the room locked, we asked nicely and the owner was kind enough to allow us in - he even took pictures for us! The whole place has a vintage look and a very friendly vibe. <br><br>We tried the lobster tail, their famous cappuccino, and even though it was freezing cold outside, I could not pass-up their gelato. Everything was great, and I highly recommend this place. Good luck finding parking tough - we just happened to be lucky that night and found a spot right  in front.",
@@ -7277,15 +7195,7 @@
 "Caters" : "No"}},
 {"ranking":"190",
 "ogurl":"http://www.yelp.com/biz/sorellina-boston",
-"categorystrlist":"Italian
-    
-                American (New)
-    
-                Italian
-    
-                Steakhouses
-    
-                Italian,         Steakhouses,         Seafood",
+"categorystrlist":"Italian,                American (New),                Italian,                Steakhouses,                Italian,         Steakhouses,         Seafood",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/d-2A2R7IsNOa3X1BnKS9pA/l.jpg",
 "rating":"4.0",
 "reviewcomment":"From the moment we walked in I could tell we picked the right place. The ambience of this restaurant is elegant and inviting. From the lighting to the decor it&#39;s simplistic but upscale details are perfect. <br><br>We started with the fettuccine appetizer. It was decadent. The pasta was cooked perfectly and the buttery sauce was filled with mushrooms and truffles that made every creamy bite better than the last. <br><br>My husband and I both ordered the chicken entree. The portion was large and came with 4 pieces of chicken. The skin was crunchy and the meat was hot and moist. The sides of whipped mashed potatoes and peas were also exceptional. <br><br>We didn&#39;t have any room left in our stomachs for dessert but judging from what we saw on other people&#39;s table that looked great as well. Also forgot to mention they have a bar with a fantastic wine list. <br><br>Our service was perfect and I would recommend this restaurant to anyone looking to have a fantastic Italian dinner in the Back Bay Area.",
@@ -7360,11 +7270,7 @@
 "Caters" : "No"}},
 {"ranking":"189",
 "ogurl":"http://www.yelp.com/biz/post-390-boston",
-"categorystrlist":"Bars,         American (Traditional)
-    
-                Steakhouses,         Wine Bars
-    
-                American (Traditional)",
+"categorystrlist":"Bars,         American (Traditional),                Steakhouses,         Wine Bars,                American (Traditional)",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/CHrJP5a1TXn_CE_Hb7qAPQ/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Lovely place for a nice dinner. We were here for a business event, so the second level was reserved for our party. There was a lot of people, so the standing area was tight. Otherwise, the food was good. I like how the restaurant accommodated those with dietary restrictions. A huge plus for me since I&#39;m a pescatarian. <br><br>I had the following three course meal: <br>- Salad - Salad came with berries, bleu cheese, almonds, and raspberry vinaigrette. This came with duck prosciutto, but I asked for it to be removed.<br><br>- Salmon with brussels sprouts, cauliflower puree, and bacon and maple vinegar. Salmon was cooked perfectly since I requested it to be on the rarer side. Plus, the vinegar did not have the bacon. <br><br>- Creme brulee with a chocolate chip cookie - Wow. This was a huge portion but really good. I liked how it was paired with a chocolate chip cookie too.",
@@ -7709,11 +7615,7 @@
 "Caters" : "Yes"}},
 {"ranking":"200",
 "ogurl":"http://www.yelp.com/biz/tangierino-charlestown",
-"categorystrlist":"Moroccan,         African
-    
-                Bars,         American (New)
-    
-                American (New),         French,         Breakfast & Brunch",
+"categorystrlist":"Moroccan,         African,                Bars,         American (New),                American (New),         French,         Breakfast & Brunch",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/N5pDkAF8eLOmzn0RcZdRZg/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Beautiful place! Amazing service. Great food.<br><br>It was sooooooo relaxing, I swear you could fall asleep in there. Except of course, you were too busy eating the amazing food. I had never had Moroccan food before and I was happily surprised!<br><br>There were belly dancers and the place was beautiful. It was orange with elegant lights and stunning curtains. I can&#39;t wait to return!",
@@ -8134,17 +8036,7 @@
 "Caters" : "Yes"}},
 {"ranking":"209",
 "ogurl":"http://www.yelp.com/biz/kingston-station-boston",
-"categorystrlist":"American (New),         Bars
-    
-                Hairdressers
-    
-                Leather Goods,         Shoe Shops
-    
-                Japanese
-    
-                Yoga
-    
-                Vietnamese,         Chinese",
+"categorystrlist":"American (New),         Bars,                Hairdressers,                Leather Goods,         Shoe Shops,                Japanese,                Yoga,                Vietnamese,         Chinese",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/Z2xCfVJ3eJChiygLV5tX-w/l.jpg",
 "rating":"3.5",
 "reviewcomment":"We came here on a savored deal offering 25% off. We were looking for a place with scallops and truffle fries and this place fit the bill.<br><br>We arrived at 7:30 on a Monday night to find a place that was all but abandoned. Perhaps 5 other groups present, 3 of which were at the bar.<br><br>We ordered a couple drinks, which were good but not particularly memorable.<br><br>We had truffle fries and mussels to start. The truffle fries were smothered in gruyere and are deserving of their reviews. They&#39;re a must. The mussels were on the mediocre side.<br><br>Both of us ordered the scallops for dinner. They were a little on the chewy side for my liking, but the flavors paired well and the gnocchi were just about perfect. The other half didn&#39;t find them chewy at all and thought they were quite good. If anything, she&#39;s the scallop expert (read: addict), so I&#39;ll give them the benefit on this one.",
@@ -8538,13 +8430,7 @@
 "Caters" : "Yes"}},
 {"ranking":"222",
 "ogurl":"http://www.yelp.com/biz/four-burgers-cambridge",
-"categorystrlist":"Burgers
-    
-                American (New)
-    
-                Ice Cream & Frozen Yogurt
-    
-                Lounges,         American (New)",
+"categorystrlist":"Burgers,                American (New),                Ice Cream & Frozen Yogurt,                Lounges,         American (New)",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/tRQulNu-vQdTMTMA1fSmyw/l.jpg",
 "rating":"3.5",
 "reviewcomment":"yummy, creative burgers.  <br><br>i had a really good lamb burger here once and that differentiated this burger joint from the rest.  there&#39;s something unique about this burger place.  <br><br>Other choices include salmon burger, veggie burger, grassfed beef burger, and whatever the specials are at the moment.",
@@ -9499,9 +9385,7 @@
 "Caters" : "No"}},
 {"ranking":"248",
 "ogurl":"http://www.yelp.com/biz/joses-mexican-restaurant-cambridge",
-"categorystrlist":"Mexican
-    
-                Kitchen & Bath",
+"categorystrlist":"Mexican,                Kitchen & Bath",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/QAoKTZbIT0Zj7wTQHPT1WQ/l.jpg",
 "rating":"3.5",
 "reviewcomment":"If you can handle a little bit of a wait and a small restaurant, Jose&#39;s is worth it!  Small purple house that you wouldn&#39;t imagine being as good as it is.  From the Chips &amp; Salsa to the margaritas to the full meals this place has it figured out!  I currently live around the corner and frequent there quite often!  Fresh chips and tacos, delicious fajitas and burritos too!  The food isn&#39;t overly covered by sauces, instead the food itself is delicious and tastes fresh!  Outdoor seating in the summer is great, minus the commuter rail being right outside.<br><br>There is a full parking lot too because the street is always packed.",
@@ -9952,13 +9836,7 @@
 "Caters" : "Yes"}},
 {"ranking":"258",
 "ogurl":"http://www.yelp.com/biz/teatro-boston",
-"categorystrlist":"Italian
-    
-                Italian
-    
-                Steakhouses
-    
-                Italian,         Steakhouses,         Seafood",
+"categorystrlist":"Italian,                Italian,                Steakhouses,                Italian,         Steakhouses,         Seafood",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/GDUNTBMh7ffRD-14ehAuRA/l.jpg",
 "rating":"4.0",
 "reviewcomment":"I did not know there is such a good Italian restaurant outside of North End. I came here on a Friday night with a reservation in case there was a full house. I think it&#39;s possible to come without a reservation if you are willing to sit at the bar.<br><br>I was super hungry that night and tried 4 of their pastas. I tried the rigatoni, gnocchi, conchiglie, and aborio. My favorites were the conchiglie and aborio. The aborio is a risotto with wild mushrooms, parmesan, truffle oil. You can&#39;t go wrong with anything that has truffle! The dish was very rich and earthy. The risotto was al dente. The conchiglie was also really good. The sauce for the pasta was very buttery.<br><br>My least favorite was the gnocchi. The presentation was nice, but it was kind of bland. It is good for someone who is looking for something light to eat. I also had the meatball for appetizer. The meatball was too bread-y and mushy for me. There was not enough texture. <br><br>The server was very nice. However, when we first ordered our drinks, we waited for what seemed like hours... I was starting to wonder if they were trying to make the wines fresh in the kitchen. I will definitely come back again if I ever crave their conchiglie!",
@@ -10701,11 +10579,7 @@
 "Caters" : "No"}},
 {"ranking":"277",
 "ogurl":"http://www.yelp.com/biz/harvest-cambridge",
-"categorystrlist":"American (Traditional)
-    
-                Steakhouses,         Wine Bars
-    
-                Bars,         American (Traditional)",
+"categorystrlist":"American (Traditional),                Steakhouses,         Wine Bars,                Bars,         American (Traditional)",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/HCUkZCQ-juDjgc-pb7f3rw/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Ok, restaurant, for most people.  Very unusually mediocre for allergies.  Most restaurants of this caliber can easily accommodate allergies, Harvest struggles.  <br><br>At, literally, every other restaurant of this caliber I request the chef cook anything and they do.  I am not picky as to what it is as long as it isn&#39;t the duck without the sauce or chicken without the chutney and bed of spinach.  <br><br>I like food, I am disappointed that Harvest is the 1st restaurant I have gone to in 3 years that couldn&#39;t think of anything to serve but a plain burger.<br><br>:-(<br><br>And then I had to wait 1/2 hr for the burger",
@@ -10742,11 +10616,7 @@
 "Caters" : "Yes"}},
 {"ranking":"278",
 "ogurl":"http://www.yelp.com/biz/flat-patties-cambridge",
-"categorystrlist":"American (Traditional),         Burgers
-    
-                Mexican
-    
-                Coffee & Tea,         Cafes",
+"categorystrlist":"American (Traditional),         Burgers,                Mexican,                Coffee & Tea,         Cafes",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/egwVAL4Rg-Rlu5WuSfWbFw/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I have no idea what they put in these burgers but they are quite simply amazing. I got a cheeseburger. For under $5 I wasn&#39;t expecting much but the burger was ready quickly. The lettuce was fresh and crispy, the beef patty was freshly made, not from a frozen patty. The tomato was thickly cut and wasn&#39;t an end piece. Their buns are homemade and grilled with butter and some sort of spice that added quite a bit to the flavor of the burger. <br>Seating was fairly limited. There were maybe 10 tables upstairs, one on the main level and some seats in front facing out the window. There are a few more tables outside. Prices are very reasonable. My two teenage boys and I were able to eat and get drinks for under $25 and were all quite full when we left. <br>Overall a great little burger place unlike any other I have ever encountered.",
@@ -11919,13 +11789,7 @@
 "Caters" : "No"}},
 {"ranking":"308",
 "ogurl":"http://www.yelp.com/biz/metropolis-cafe-boston",
-"categorystrlist":"Wine Bars,         Mediterranean
-    
-                Furniture Stores,         Home Decor
-    
-                French
-    
-                French",
+"categorystrlist":"Wine Bars,         Mediterranean,                Furniture Stores,         Home Decor,                French,                French",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/nZt3O45HY43mEOD3GbMORg/l.jpg",
 "rating":"4.0",
 "reviewcomment":"I adore this place. Its the only spot in the south end without horrendus wait times for sunday brunch, probably because they don&#39;t have a liquor license, but they make a mean mimosa. <br><br>The service is consistent, the food is straightforward and delicious, and the coffee never stops pouring. <br><br>I recommend this place anytime someone asks for a good breakfast!",
@@ -12681,11 +12545,7 @@
 "Caters" : "No"}},
 {"ranking":"329",
 "ogurl":"http://www.yelp.com/biz/estragon-boston",
-"categorystrlist":"Tapas Bars,         Spanish
-    
-                Bakeries
-    
-                Bars,         American (Traditional)",
+"categorystrlist":"Tapas Bars,         Spanish,                Bakeries,                Bars,         American (Traditional)",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/Rfr7zadNBu5UT7TnnrQtGA/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Went here on a Friday night and I really liked the following:<br><br>-offers craft hard cider like Bantam <br>-NOT crowded since really deep in the south end (easy bar seats)<br>-good food choices; the brussel sprouts were awesome!<br>-bartender was really nice and made me a great tequila spicy cocktail! yum!<br><br>My only thing was the steak was not pretty cold/not that good but maybe you were supposed to put the blue cheese on it but we had it on the side. Would def come back here; good vibe + fun for a stress free friday night at a local spot that is on par with all the other places in the south that are always packed on the weekends!",
@@ -12834,9 +12694,7 @@
 "Caters" : "Yes"}},
 {"ranking":"333",
 "ogurl":"http://www.yelp.com/biz/the-haven-jamaica-plain",
-"categorystrlist":"Gastropubs,         Scottish,         Fish & Chips
-    
-                American (New)",
+"categorystrlist":"Gastropubs,         Scottish,         Fish & Chips,                American (New)",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/6V1kPx6TrNFVBj0bi-ERsw/l.jpg",
 "rating":"4.0",
 "reviewcomment":"I&#39;m 1/4 Scottish, and I just have to say... Scots are given undue praise for their exceptionally rich and delicious food. My fiance and I went on a pretty mild April evening on his birthday weekend, and we got to catch the bagpipe player playing on the street and in the restaurant. It&#39;s really fun to see bagpipes in a non-funeral or memorial setting as dark as that might sound. The Scotch egg was so... so good, and the fish supper was perfect. The potato fries are very thick.<br><br>I look forward to coming back here again for a few pints and more savory, filling good. Good energy, and very friendly, attentive service. A very unique point of interest in Jamaica Plain.",
@@ -13842,9 +13700,7 @@
 "Caters" : "No"}},
 {"ranking":"360",
 "ogurl":"http://www.yelp.com/biz/back-bay-social-club-boston",
-"categorystrlist":"American (New)
-    
-                American (New),         Wine Bars",
+"categorystrlist":"American (New),                American (New),         Wine Bars",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/ecbD95JzoHFsr3lQ24cPCQ/l.jpg",
 "rating":"3.5",
 "reviewcomment":"This review is solely for lunch. <br><br>Their outdoor patio is perfect on a nice day. I was able to bring my pup, and my friends and I enjoyed the warm weather over some cocktails and lunch. They have incredibly fresh $1 oysters before 4 pm that are shucked well. Their sangria is great, but a little weak. I got the turkey burger and it was delicious. Prices are reasonable, and service is also good. I&#39;ll definitely be back for those oysters!",
@@ -13882,13 +13738,7 @@
 "Caters" : "No"}},
 {"ranking":"361",
 "ogurl":"http://www.yelp.com/biz/summer-shack-boston-3",
-"categorystrlist":"Seafood,         Bars,         American (Traditional)
-    
-                Seafood,         Sports Bars
-    
-                Seafood,         Fast Food
-    
-                Seafood,         American (Traditional)",
+"categorystrlist":"Seafood,         Bars,         American (Traditional),                Seafood,         Sports Bars,                Seafood,         Fast Food,                Seafood,         American (Traditional)",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/-o16WIQS5CqA48IKHUHdqQ/l.jpg",
 "rating":"3.0",
 "reviewcomment":"I came here for friends hang-out and assignment for my hospitality course on a Sunday night. It is a nice, semi-casual seafood restaurant that makes me feel like I&#39;m eating by the beach. One of the best restaurant location you can find in Boston because public parking complex and Green Line stops public transportation are both right next to it. You can also get discount from the restaurant on your parking ticket.<br><br>The waiter is very friendly and knowledgeable. A few of us asked about items on the menu, he was patient and explained the ingredient and differences between dishes so we can order the dish that we would like the most.<br><br>I ordered &#34;Summer Shack Seafood Paella&#34; serves two on the special menu. It was the best seafood dish I&#39;ve ever tasted!! The lobster, clams, mussels taste so fresh, and the sauce and rice together is very delicious with all the seafood mixed together. I highly recommend this dish if you don&#39;t care about the price because this dish is $58. At least it serves two people; it was in a wok when it&#39;s served, so it&#39;s $29 per person. You should also have a bit left to take home. I had a small box to take the leftover home, but I forgot and left it on the table. When I got home, I was so angry at myself for forgetting it because I really want to eat that again.<br><br>The food is so good that even made my friend who doesn&#39;t like seafood liked his dish. He never had lobster before he came here with me, so he ordered a whole lobster dish. Although he didn&#39;t like the lobster because he just doesn&#39;t like seafood overall, he loved the sauce, so he kept wiping the corn cob on the plate, so he can get all the sauce on his corn and enjoy it.<br><br>There are five of us. No appetizer, 3 drinks, 4 entree (one of the entrees serves two), and 5 desserts. It was about $45 per person include tax and tips.<br><br>Overall<br>Pro: great location, delicious food, nice ambiance, great service.<br>Con: a bit too expensive (especially for the dessert)",
@@ -15456,13 +15306,7 @@
 "Caters" : "Yes"}},
 {"ranking":"403",
 "ogurl":"http://www.yelp.com/biz/summer-shack-cambridge",
-"categorystrlist":"Seafood,         Sports Bars
-    
-                Seafood,         Bars,         American (Traditional)
-    
-                Seafood,         Fast Food
-    
-                Seafood,         American (Traditional)",
+"categorystrlist":"Seafood,         Sports Bars,                Seafood,         Bars,         American (Traditional),                Seafood,         Fast Food,                Seafood,         American (Traditional)",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/KPo4wMmEvzvBYja0RqaWaA/l.jpg",
 "rating":"3.0",
 "reviewcomment":"Went here with my girlfriend for restaurant week two weeks ago. I had never been, but driven by many times and sort of assumed it was run down based on the tourtisty, hokey spinning sign outside. I was wrong. This place is not what I had always assumed it was.<br><br>It&#39;s a nice open restaurant, you can see the lobster cookers and the entire place has a nice feel to it. Makes you totally forget how many delicious lobsters are &#34;meating&#34; their demise to end up on my plate. But my God, the deliciousness makes me forget about any guilt that might have crept into my mind. <br><br>The Rhode Island Calamari that is &#34;fried and greasy&#34; according to the menu, is not any greasier than regular calamari. I don&#39;t know why referring to it as greasy would be considered appetizing by whoever wrote the menu, but I was willing to try it anyway. Frankly I couldn&#39;t say no to fried calamari if it said it was deep fried in a toilet..<br><br>Both my girlfriend&#39;s and my lobsters were cooked to perfection, very meaty, succulent and drool worthy. We both made it a &#34;clam bake&#34; where they add clams and steamers, both of which were awesome as well. I don&#39;t have lobster super often, but when at restaurants sometimes they don&#39;t cook it properly. Here they certainly do.<br><br>Our waiter was great. Never overeager or anything but helpful. He answered all our questions with ease. i wish I could remember his name to give him credit, but alas I was too focused on devouring as much seafood as I could.<br><br>Also, their creme brulee desert is UNREAL. I&#39;ve never had anything so delicious in my life. I honestly want to go back just for dessert. It would be worth the waiter looking at me like I was on lithium when I said I only wanted dessert at a seafood restaurant... I have no shame.",
@@ -16041,9 +15885,7 @@
 "Waiter Service" : "No"}},
 {"ranking":"415",
 "ogurl":"http://www.yelp.com/biz/les-zygomates-boston",
-"categorystrlist":"French,         Jazz & Blues,         Venues & Event Spaces
-    
-                Italian,         Venues & Event Spaces",
+"categorystrlist":"French,         Jazz & Blues,         Venues & Event Spaces,                Italian,         Venues & Event Spaces",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/TS5JMa7RNXvyKNWqn_bltg/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Was here last week with my girlfriend and we really enjoyed the atmosphere.<br>They have live jazz playing week nights after 6 and a pretty decent crowd forms around the bar just to chat and to enjoy the music.<br>Drinks are strong and the wine menu is extensive. Food was great but I have to say it did take a little long to arrive at the table.<br>Creme brûlée was fantastic.  Would definitely go back.",
@@ -19919,9 +19761,7 @@
 "Caters" : "Yes"}},
 {"ranking":"516",
 "ogurl":"http://www.yelp.com/biz/cinderellas-cambridge",
-"categorystrlist":"Italian,         Pizza
-    
-                Ice Cream & Frozen Yogurt",
+"categorystrlist":"Italian,         Pizza,                Ice Cream & Frozen Yogurt",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/w28HOGBxiMavxVfaGyM_DQ/l.jpg",
 "rating":"3.0",
 "reviewcomment":"Fairy tale allusions aside, if ever your esophagus has - much to your chagrin - downed too much nutrient leaching liquid, far too quickly, at some pub down the road, and you feel your kidneys, liver and entire circulatory system collapsing onto itself, do your best to crawl to Cinderella&#39;s.<br><br>The expertly tossed pizza has a crust that falls somewhere between the oily crispiness of a well baked Greek dough and the hand-tossed scrumptiousness of your childhood. Toppings are much to the discretion of the consumer: the white pizza has enough cheese to keep a cardiac surgeon busy for at least a week, but is seasoned with the delicate essence of requisite Italian herbs such that even a sober palate will be pleased. <br><br>The garlic bread, however, is just a simple baguette, sliced in half, and smattered with enough garlic to stun the entire Cullen family. Unlike its cheese topped sibling, it is not amenable to even the drunkest of papillae.",
@@ -21615,17 +21455,7 @@
 "Caters" : "Yes"}},
 {"ranking":"556",
 "ogurl":"http://www.yelp.com/biz/anthem-kitchen-and-bar-boston",
-"categorystrlist":"American (New),         Bars
-    
-                Pubs,         American (Traditional)
-    
-                Pubs,         Music Venues
-    
-                Pubs,         Irish
-    
-                Lounges,         American (New)
-    
-                Bars,         American (New)",
+"categorystrlist":"American (New),         Bars,                Pubs,         American (Traditional),                Pubs,         Music Venues,                Pubs,         Irish,                Lounges,         American (New),                Bars,         American (New)",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/Mtv1SfMRTNJ1pro176YTOg/l.jpg",
 "rating":"3.0",
 "reviewcomment":"<a href='/redir?url=http%3A%2F%2Finstagram.com%2Fp%2Fotnx1xGxnO%2F&amp;s=7cb6a9ddbf78f9eba6fac47a253499e86ea5f2c86c1928088a9b26574f532418' target='_blank' rel='nofollow'>instagram.com/p/otnx1xGx…</a><br><br>Brunch was so delicious! I got the house cured Scottish salmon with arugula and cream cheese, not only was it really filling but the food was so fresh! I usually find restaurant to be too salty when I eat out but this dish suited my taste buds perfectly.<br><br>Other plates pictured: the breakfast burger and the lobster eggs Benedict. YUM this place should have better reviews on yelp! <br><br>Only reason I&#39;m giving 4 stars out of 5 is service - they seated us on their back patio even though there was clearly room in the front when they said there wasn&#39;t. Also the food took a while to come out and we were starving (this meal was my friend&#39;a first meal after a three day juice cleanse)",
@@ -23974,9 +23804,7 @@
 "Caters" : "Yes"}},
 {"ranking":"624",
 "ogurl":"http://www.yelp.com/biz/back-deck-boston",
-"categorystrlist":"Burgers,         American (Traditional)
-    
-                Performing Arts",
+"categorystrlist":"Burgers,         American (Traditional),                Performing Arts",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/Z6cwB7X3R8aZpNcMvXbfzA/l.jpg",
 "rating":"3.0",
 "reviewcomment":"Looking from the outside in was what first drew me to Back Deck- the clever use of a spatula flipper for sign was very creative. The whole concept of homey in-your-own-back-yard feel made me feel right at home.<br><br>Service was wonderful, everyone was friendly and offered the right amount of service without being over bearing.<br><br>The food was also tasty- I had the roasted cauliflower and bacon salad and my friend had the classic ceasar. We both enjoyed our salads and they were actually pretty filling. Over all we really liked it and would definitely come back again.",
@@ -24241,11 +24069,7 @@
 "Caters" : "Yes"}},
 {"ranking":"629",
 "ogurl":"http://www.yelp.com/biz/eat-at-jumbos-somerville",
-"categorystrlist":"Burgers,         Pizza,         Vegan
-    
-                Barbers
-    
-                Comic Books",
+"categorystrlist":"Burgers,         Pizza,         Vegan,                Barbers,                Comic Books",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/mCPHatNJCATFOpy-8HEzbA/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Rumor has it there&#39;s an ex-employee or two ripping these guys up on Yelp. I&#39;m here to say Jumbo&#39;s doesn&#39;t deserve it. <br><br>I&#39;ve been ordering delivery from these folks for about 2 years, and with one exception, the food has always arrived PERFECTLY prepared (try the Bada-bing-ini; it&#39;s amazing). Now, I&#39;m not saying it&#39;s gourmet dining; this is late-night guilt-food all the way ... but it&#39;s delicious.<br><br>The one time the food wasn&#39;t up to spec wasn&#39;t even a big deal: my panini was a little thinner than I was used to. Reason: they&#39;d just gotten a new panini press. I know this because I called them up and the owner came on the line and took ten minutes (on a Saturday night) to explain the entire situation to me. I&#39;ve never seen customer service like that at another late-night delivery joint.<br><br>Add to that the courtesy of the delivery drivers and the fair prices, and I don&#39;t see how you can go wrong with this place. Five stars for being exactly what they advertise themselves to be - nothing more, but certainly nothing less.",
@@ -24597,13 +24421,7 @@
 "Caters" : "Yes"}},
 {"ranking":"641",
 "ogurl":"http://www.yelp.com/biz/lala-rokh-boston-2",
-"categorystrlist":"Middle Eastern
-    
-                Italian,         Wine Bars
-    
-                Italian
-    
-                Specialty Food,         Italian",
+"categorystrlist":"Middle Eastern,                Italian,         Wine Bars,                Italian,                Specialty Food,         Italian",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/ETZFY00NcnLd0KsKXLrD7Q/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I was recommended by my good Iranian friend to come here, who doesn&#39;t live in Boston but remembered this restaurant from the last time he visited the city. My boyfriend and I went on a Saturday night at 7. We booked our reservation through Open Table, which was extremely convenient! We arrived early and were promptly seated. It was relatively busy with a couple of big groups this evening. The atmosphere in the restaurant is very classy but comfortable. Dimmed lights with interesting art pieces on the walls. <br><br>The food was really good! We ordered both of the Sultani kabobs (chicken and beef) and shared. It was very decently sized and I loved the onion that comes on the side! Eating kabobs with onion is the right way to do it. I only wished that there was less rice but instead some more roasted veggies on the side, but it&#39;s alright. The meat was good and that&#39;s what was important. After dinner we shared baklava (which was kind of overpriced for the amount we got) but delicious and coffee. We left very satisfied! <br><br>I&#39;m not sure why so many other yelp reviewers say the service is below average. Everything was served in a very timely manner and we had a pleasant waiter. My boyfriend works as a waiter and gave them compliments on their service. <br><br>Overall, will definitely return with my family and friends.",
@@ -24639,9 +24457,7 @@
 "Waiter Service" : "Yes"}},
 {"ranking":"637",
 "ogurl":"http://www.yelp.com/biz/tommy-doyles-irish-pub-and-restaurant-cambridge",
-"categorystrlist":"Irish,         Pubs,         Music Venues
-    
-                Irish,         Bars",
+"categorystrlist":"Irish,         Pubs,         Music Venues,                Irish,         Bars",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/MdI6GPtIUWs5FQACMow2Mg/l.jpg",
 "rating":"3.0",
 "reviewcomment":"Great place. <br>Good pour of Guinness.<br>Solid pub food.<br>Kinda dark.<br>Very warm.<br>Good music at nice volume.<br>Great escape from the cold, the rain, the sleet. <br>Staff very nice.<br>Had my 2nd Guinness ready as 1st was finished.<br>I will return.",
@@ -25217,9 +25033,7 @@
 "Caters" : "No"}},
 {"ranking":"655",
 "ogurl":"http://www.yelp.com/biz/tryst-arlington",
-"categorystrlist":"American (New)
-    
-                Diners,         Breakfast & Brunch",
+"categorystrlist":"American (New),                Diners,         Breakfast & Brunch",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/-jNvt1VErcq6KcnhulZ3-w/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Overall it was a very nice meal.  My four stars is really because I think it is a little pricey for small portions.  My $11 kale and brussel sprout salad is delicious BUT it was so small.<br><br>Other highilghts:<br>Beet Ravioli--very good with good texture.  Not very beety (if that makes sense).<br>Truffle fries--some of the best--clearly fresh potatoes.<br><br>Good:<br>Ceasar Salad--very cheesy (a strong cheese on top)<br>Carrot hummus and eggplant tzikzki with pita chips...strong flavors and the chips were homemade--very good.<br><br>Food was great and clearly of good quality and fresh.  Would come back but not if I wanted a big meal.<br>Great local beer selection too--a Jack&#39;s Abbey, a Slumdog and a Sam.",
@@ -26157,11 +25971,7 @@
 "Caters" : "Yes"}},
 {"ranking":"679",
 "ogurl":"http://www.yelp.com/biz/stone-hearth-pizza-cambridge",
-"categorystrlist":"Pizza,         Gluten-Free
-    
-                Pizza,         Gluten-Free
-    
-                Pizza,         Gluten-Free",
+"categorystrlist":"Pizza,         Gluten-Free,                Pizza,         Gluten-Free,                Pizza,         Gluten-Free",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/YFF8jMHELVhQcrS8gZtuKA/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I am updating my review from 1 to 4.  After a delivery fiasco (they got the wrong number and thus failed to deliver the pizza), the food and the manager turned out to be great.  The Bacon&amp;Blue and Cheeseburger pizzas are both amazing.",
@@ -26808,9 +26618,7 @@
 "Caters" : "No"}},
 {"ranking":"696",
 "ogurl":"http://www.yelp.com/biz/tres-gatos-jamaica-plain",
-"categorystrlist":"Tapas Bars,         American (New),         Wine Bars
-    
-                Gastropubs,         Scottish,         Fish & Chips",
+"categorystrlist":"Tapas Bars,         American (New),         Wine Bars,                Gastropubs,         Scottish,         Fish & Chips",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/oh-HacTAgdXJ9K2oJPbtdg/l.jpg",
 "rating":"4.0",
 "reviewcomment":"Lovely small place. They only have a few seats outdoors, but they seem to put as many as the can inside without being too overcrowded or loud. The drinks are interesting &amp; well mixed. Tired the one with cava, elderflower cucumber and gin. Perfect for the sunny spring day I visited on. The Sangria was a little heavy on the alcohol side &amp; light on the fruit side. But still nice. <br><br>The cheese selection was great. I had one of the sheep milk options, which was true to the description. The homemade pickles were delicious- though you have to like olive oil. Also ate the mussels (escabeche), which was my favorite thing... I ate it too quickly. After that I was still hungry from my day of spring adventures, so I opted for one more thing, an empanada. Decent, but not nearly as hear as the mussels.",
@@ -28919,9 +28727,7 @@
 "Caters" : "No"}},
 {"ranking":"754",
 "ogurl":"http://www.yelp.com/biz/ecco-east-boston",
-"categorystrlist":"American (New),         Bars
-    
-                Pizza",
+"categorystrlist":"American (New),         Bars,                Pizza",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/E8Fp6vHXwqU53-6dB6eKHA/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I&#39;ve lived in East Boston for a couple of years and just this weekend stopped into Ecco for the first time. It&#39;s nice, clean, and their drinks are great. Even their beer is pretty young-professional. The atmosphere is relaxed and sophisticated and the crowd was diverse. <br><br>Their food looked very good, though I didn&#39;t eat, and the bartenders were very nice.",
@@ -30209,13 +30015,7 @@
 "Caters" : "Yes"}},
 {"ranking":"788",
 "ogurl":"http://www.yelp.com/biz/pho-hoa-restaurant-dorchester",
-"categorystrlist":"Vietnamese
-    
-                Bars,         American (New)
-    
-                Indian,         Bangladeshi
-    
-                Dance Clubs,         American (New)",
+"categorystrlist":"Vietnamese,                Bars,         American (New),                Indian,         Bangladeshi,                Dance Clubs,         American (New)",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/3hywkgFnI5oOqdr_LY3nzg/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I can honestly say this is the best pho in the Boston area. Everything about it is amazing -from the well seasoned broth to the perfectly cooked noodles and tender meat. <br><br>Came here last night and brought my boyfriend who was a Pho First-timer. He&#39;s now a fan and thanked me numerous times for introducing him to Pho. <br><br>1 star off due to the service but I have learned as long as you raise your hand to signal them, they come over with no problems. <br><br>I almost always start with an appetizer of either the grilled pork spring rolls or the fried egg rolls. 99% of the time I go with the beef pho, #30 to be exact which comes with eyeround steak. &#34;No thanks&#34; to the tripe and tendon, I&#39;m not adventurous enough for that just yet! My sister has gotten the chicken pho and said it was very good. Maybe I&#39;ll go with that next time.<br><br>Ask for the chili pepper sauce. They don&#39;t have it on the table but tell them you want both kinds, they&#39;ll bring it over. Trust me! You&#39;ll thank me later<br><br>I keep meaning to try a plate but I just really can&#39;t say no to the Pho. What can I say? I&#39;m a Pho Ho!",
@@ -31940,17 +31740,7 @@
 "Caters" : "No"}},
 {"ranking":"834",
 "ogurl":"http://www.yelp.com/biz/the-harp-boston",
-"categorystrlist":"Sports Bars,         American (Traditional)
-    
-                Pubs,         American
-    
-                Pubs,         Music Venues
-    
-                Pubs,         American
-    
-                Pubs,         Irish
-    
-                Bars",
+"categorystrlist":"Sports Bars,         American (Traditional),                Pubs,         American,                Pubs,         Music Venues,                Pubs,         American,                Pubs,         Irish,                Bars",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/RWwRSV2H7yI51CLhTPU3pw/l.jpg",
 "rating":"2.5",
 "reviewcomment":"Okay, so we have all been to the harp for dancing. We have all waited in the ridiculous line, or come here to watch a sports game. And yes, danced in the &#34;boom boom room&#34;. It&#39;s a Boston bar, and with that, it would get 3 stars. But this is for the food.<br><br>I had the luxury of eating here. At first when my friend suggested to meet there, I was a little hap-hazard. I mean, it&#39;s a bar. A club. However, I was beyond beyond pleased with my entire experience. Their chicken fingers are by far, in my top 3 best chicken fingers I have ever had. And if you know me, you know how competitive this ranking is. Like, I could live off of these. Overall, everyone&#39;s food was very very good (nachos, salad, fries). <br><br>Looking for a sports bar? Looking for young 20&#39;s? Looking for good bar food? Looking for a sports game? Yes yes yes.",
@@ -32938,11 +32728,7 @@
 "Caters" : "No"}},
 {"ranking":"858",
 "ogurl":"http://www.yelp.com/biz/empire-boston",
-"categorystrlist":"Lounges,         Asian Fusion
-    
-                Asian Fusion,         Sushi Bars,         Yum Cha
-    
-                Lounges,         Italian",
+"categorystrlist":"Lounges,         Asian Fusion,                Asian Fusion,         Sushi Bars,         Yum Cha,                Lounges,         Italian",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/Cg0BRSJVuDwZDMEhcCBTtA/l.jpg",
 "rating":"3.0",
 "reviewcomment":"This place has excellent sushi. The special rolls have unique flavors that combine well. It&#39;s a great experience for the taste buds. Inside, the decor is trendy/club like...it&#39;s a huge place. Too large for Boston IMO...but the place was full when I was there. Overall, the place reminds me of Sushi Samba a little, but I prefer Empire I think.<br><br>Empire also has my new favorite appetizer of all time, the lobster cupcake! I&#39;m going back again just for this.<br><br>The only way this place would get lower than 4 stars is if the reviewer couldn&#39;t stomach the menu prices. Personally, I think they are in line.",
@@ -34327,15 +34113,7 @@
 "Caters" : "No"}},
 {"ranking":"896",
 "ogurl":"http://www.yelp.com/biz/savin-bar-and-kitchen-dorchester",
-"categorystrlist":"American (Traditional),         Bars
-    
-                American (Traditional),         Breakfast & Brunch
-    
-                Dry Cleaning & Laundry
-    
-                Public Transportation
-    
-                Coffee & Tea,         Ice Cream & Frozen Yogurt",
+"categorystrlist":"American (Traditional),         Bars,                American (Traditional),         Breakfast & Brunch,                Dry Cleaning & Laundry,                Public Transportation,                Coffee & Tea,         Ice Cream & Frozen Yogurt",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/0iqK256p4ex53IIGJc_qag/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Met here for dinner and drinks because of a suggestion from a friend who lives in the area.  <br>I got there first and sat at the bar, the bar tender came over and I asked for a few suggestions on drinks, they all sounded pretty good.  I am a huge fan of Bloody Mary&#39;s and they had a Dirty Tomato. The bar tender said it was tasty, she was right! It was strong but she told me it would be.  Very nice drink.  <br>The have a soup and egg roll special of the day. The different egg roll a day is an interesting idea.  <br>We ended up eating at the bar. We started with the Mac and Cheese Bites- amazing! They were plated on a red pepper sauce that was very good.  We later got a flat bread with steak, mashed potatoes, bacon and blue cheese- another good eat.  The steak was very tasty.  All of the plates were smallish- just right to snack and share.  <br>For dessert and the whole reason for going here was the ice cream cookie sandwich.  We got it with chocolate ice cream and it was worth it! Homemade cookies with chocolate cream and jimmies.  It was also cut up so we could share.  <br>The bar tender was good about checking in but not being annoying.  <br>I would go back again for dinner and drinks, brunch also sounds really good.",
@@ -34520,9 +34298,7 @@
 "Caters" : "No"}},
 {"ranking":"899",
 "ogurl":"http://www.yelp.com/biz/aquitaine-chestnut-hill",
-"categorystrlist":"French
-    
-                Bars,         Steakhouses",
+"categorystrlist":"French,                Bars,         Steakhouses",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/50LCKYCzHV9Kwtw8YIVHHw/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Not all Aquitaine restaurants are created equal...<br><br>I&#39;m generous with my 3-star rating for Aquitaine in Dedham. That restaurant is a major disappointment for me. Maybe my rating is generous because I&#39;m a sucker for French bistro food.<br><br>So I came here for brunch one Saturday, after realizing that Shake Shack was going to be at least a 30 min wait to order and get food. Aquitaine was quiet, but felt more charming than Dedham. Although I had bad experiences there, I decided to give this one a shot.<br><br>I really liked the omelettes here, as they&#39;re large and cooked well. They&#39;re not overcooked but you won&#39;t have a puddle of egg at the end. You get a lot of filling inside. There&#39;s also the prix fixe brunch here as well.<br><br>I came recently for Restaurant Week lunch and though it was pretty nice. Overall, the RW menu for this Aquitaine is far more attractive than Dedham. The watercress soup was stronger than I thought and I could really taste the watercress. I liked the consistency of the soup. The wolf-fish was delicate but flavorful. The lobster nage with the wolf-fish had lobster taste but didn&#39;t have any trace of lobster at all, so it was more of a sauce.<br><br>But the winner of the 3-course lunch was the lavender creme brulee. It didn&#39;t taste burnt at all but had a nice caramel flavor. The vanilla cigar cookie was a wonderful accompaniment. <br><br>The only disappointment from this lunch was that the restaurant had already ran out of bone marrow appetizer and this was only the second day of RW. That, unfortunately, is poor planning in my book.<br><br>Service here is generally professional and polite. This location is so much better than Dedham, but you&#39;ve figured that out already, right?",
@@ -34594,9 +34370,7 @@
 "Caters" : "Yes"}},
 {"ranking":"901",
 "ogurl":"http://www.yelp.com/biz/mumbai-chopstix-cambridge",
-"categorystrlist":"Chinese,         Indian
-    
-                Indian",
+"categorystrlist":"Chinese,         Indian,                Indian",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/--szDWY5Oki7VSUlJCiC3A/l.jpg",
 "rating":"2.5",
 "reviewcomment":"Went there to try Indian Chinese in Boston Downtown. we are basically from Mumbai and NYC (in USA ) so it is tough to replicate the taste and texture of indian chinese food but some places are really worth the effort and ambience.<br><br>It is nothing like Nanking and Chinese Mirch in NYC or Gloden dragon in Mumbai but my wife liked them a lot. I will say i was happy with the dishes ( specially the soup and okra appetizers ) but they can surely do much better with the service and quality of food.<br><br>It is a fusion restaurant but lacks that kick and effect which will always draw you back when you are in town.",
@@ -34817,13 +34591,7 @@
 "Caters" : "No"}},
 {"ranking":"907",
 "ogurl":"http://www.yelp.com/biz/city-table-boston",
-"categorystrlist":"Bars,         American (New)
-    
-                Pubs,         Irish
-    
-                Lounges
-    
-                Bars",
+"categorystrlist":"Bars,         American (New),                Pubs,         Irish,                Lounges,                Bars",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/pITZ8-UKDKqkyntgqkpIcw/l.jpg",
 "rating":"3.5",
 "reviewcomment":"I first have to say the location is great, a little off the beaten path of Newbury, but close enough to do dinner and drinks or dinner and some shopping. <br><br>The decor is very modern and the presentation of the drinks and food was very traditional which was interesting but worked for the type of menu and drinks they served. <br><br>I had the Sirloin steak with the blue cheese butter and whipped potatoes. The food was amazing, perfectly cooked and the potatoes were very smooth and velvety, and the sauces and blue cheese butter accented perfectly. <br><br>The drinks were very good, however the presentation was a touch sloppy, my martini was a bit too full (not a bad thing at all). <br><br>Overall the dinner was fantastic and a great experience. The atmosphere was also perfect and a great date night type of restaurant for a reasonable cost.",
@@ -34903,11 +34671,7 @@
 "Caters" : "Yes"}},
 {"ranking":"912",
 "ogurl":"http://www.yelp.com/biz/emmets-irish-pub-and-restaurant-boston",
-"categorystrlist":"Pubs,         Irish,         Burgers
-    
-                Pubs,         Irish
-    
-                Lounges",
+"categorystrlist":"Pubs,         Irish,         Burgers,                Pubs,         Irish,                Lounges",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/ebwFkYN6vTMsS7qzh67YFw/l.jpg",
 "rating":"3.5",
 "reviewcomment":"We went here to celebrate St. Patrick&#39;s Day and so went with a [perfectly poured] pint of Guinness but they have a great beer selection!  Much more variety than I expected.  <br><br>We just wanted a small bite to eat so we ordered the Irish potato skins.  They were delicious...potato skins filled with shepherds pie! Genius! <br><br>Great food and good service!",
@@ -35062,17 +34826,7 @@
 "Caters" : "Yes"}},
 {"ranking":"913",
 "ogurl":"http://www.yelp.com/biz/m-j-o-connors-irish-pub-boston",
-"categorystrlist":"Pubs,         American (Traditional)
-    
-                Pubs,         Music Venues
-    
-                Pubs,         Irish
-    
-                Lounges,         American (New)
-    
-                Bars,         American (New)
-    
-                American (New),         Bars",
+"categorystrlist":"Pubs,         American (Traditional),                Pubs,         Music Venues,                Pubs,         Irish,                Lounges,         American (New),                Bars,         American (New),                American (New),         Bars",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/3uzfb-Hf1RmIcBbbNtSoDQ/l.jpg",
 "rating":"3.0",
 "reviewcomment":"Great, warm and energetic atmosphere on a cold January Saturday night.  An Irish music jam session is happening over my shoulder as I write.  Perfect. <br><br>The service was outstanding.  <br><br>Now for the food;<br><br>Dad:  Buffalo Mac &amp; Cheese.  5 stars.  Side salad was lightly dressed and a great accompaniment.   <br><br>Mom: Steak Frittes.  Medium Rare and cooked to perfection.  5 stars.  <br><br>Daughter (almost 16):  Buffalo Chicken Wrap.  Spicy and delicious.  5 stars.  <br><br>Son (11 &amp; picky):  Kids Chix Fingers and fries.  Kids portion?   It was huge.  Taking both his and hers home as leftovers.  5 stars.  <br><br>You can&#39;t beat an Irish Pub to  come in from the cold.  Definitely coming back.  Now let me just sip my coffee and enjoy the vibe......",
@@ -35152,9 +34906,7 @@
 "Caters" : "No"}},
 {"ranking":"916",
 "ogurl":"http://www.yelp.com/biz/india-palace-somerville",
-"categorystrlist":"Indian,         Pakistani
-    
-                Indian",
+"categorystrlist":"Indian,         Pakistani,                Indian",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/h7P0OiK63995gLJDCFMdlg/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Hell yes.  They are just down the street from me, and I have literally been down the menu with these guys.<br><br>I always order online (there are $2 off/$20 and $3 off/$30 coupons always available) and get it for take out.  I can&#39;t speak for the actual service in the restaurant.<br><br>Food is excellent.  The individual veggie pakoras and samosa appetizers are amazing but I recommend the vegetable appetizer platter (much better value).  The meat appetizers are ok but not quite as good, except the salmon pakoras which are yum.<br><br>Main courses always hit the spot.  Anything saag is a favorite.  Not as big a fan of their tikka masala.  Great rogan josh... their lamb is never fatty.  The veggie curries are also good.  Naan is terrific.. recommend the garlic or paneer.<br><br>One thing I&#39;d recommend: Guys.. buy a new credit card machine already.  For years I&#39;ve watched you slide my card five and sometimes ten times trying to get the machine to work.<br><br>Overall, highly recommended for take out.  I probably would never eat there... it&#39;s a nice environment but tack on drinks and service, and the kinda high prices would become very high.",
@@ -35227,9 +34979,7 @@
 "Caters" : "No"}},
 {"ranking":"918",
 "ogurl":"http://www.yelp.com/biz/fuji-at-kendall-cambridge",
-"categorystrlist":"Sushi Bars,         Japanese
-    
-                Sushi Bars,         Japanese,         Karaoke",
+"categorystrlist":"Sushi Bars,         Japanese,                Sushi Bars,         Japanese,         Karaoke",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/UXSiQCD8MGz1lLZyn7pBnQ/l.jpg",
 "rating":"3.5",
 "reviewcomment":"This place is pricey, but has some of the most interesting dishes among the Asian fusion-y places in Boston. I&#39;d say it gives Douzo a run for its money, but I find the latter to be a better value given its better location (you can shop and walk around if you eat at Douzo... obviously if you live in Kendall Fuji is more convenient but there honestly isn&#39;t much else other than restaurants in the area).<br><br>The food really is close.",
@@ -35689,9 +35439,7 @@
 "Caters" : "Yes"}},
 {"ranking":"930",
 "ogurl":"http://www.yelp.com/biz/desi-dhaba-cambridge",
-"categorystrlist":"Indian
-    
-                Indian,         Pakistani",
+"categorystrlist":"Indian,                Indian,         Pakistani",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/jMCRJLKRBTk_VoN0LN3Aag/l.jpg",
 "rating":"3.0",
 "reviewcomment":"The food was good, just a little spicy.<br><br>Service was good, but a little slow.  Folks there are very kind.<br><br>We were worried that the food wasn&#39;t going to be good because<br>there was hardly anyone in the place, but it was excellent and they<br>gave us plenty.<br><br>would visit again",
@@ -36036,11 +35784,7 @@
 "Caters" : "Yes"}},
 {"ranking":"940",
 "ogurl":"http://www.yelp.com/biz/terramia-ristorante-boston",
-"categorystrlist":"Italian
-    
-                Italian
-    
-                American (Traditional)",
+"categorystrlist":"Italian,                Italian,                American (Traditional)",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/OEqE8pSvV5CPPRkFSG7pmw/l.jpg",
 "rating":"4.0",
 "reviewcomment":"This place is incredible. It&#39;s REAL Italian food made by people who are amazing and barely speak English. The place only has 10 tables, but an incredible Little Italy experience! <br><br>I had steak (hardly Italian) but it was excellent. My friend had mushroom ravioli, it looked amazing. <br><br>Give it a try, you&#39;ll like it!",
@@ -36727,9 +36471,7 @@
 "Caters" : "Yes"}},
 {"ranking":"955",
 "ogurl":"http://www.yelp.com/biz/bin-26-enoteca-boston",
-"categorystrlist":"Italian,         Wine Bars
-    
-                Middle Eastern",
+"categorystrlist":"Italian,         Wine Bars,                Middle Eastern",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/YDs8V0J_pINUPgIDLhq4hw/l.jpg",
 "rating":"3.5",
 "reviewcomment":"Agree with previous review.  Good place for brunch but just okay for dinner.  Our server was super awesome though giving 4 stars",
@@ -36889,11 +36631,7 @@
 "Caters" : "No"}},
 {"ranking":"962",
 "ogurl":"http://www.yelp.com/biz/daily-catch-boston",
-"categorystrlist":"Seafood,         Italian
-    
-                Italian,         Seafood
-    
-                Seafood",
+"categorystrlist":"Seafood,         Italian,                Italian,         Seafood,                Seafood",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/R1KiPjZvdPd5JlSZ_1d48w/l.jpg",
 "rating":"2.5",
 "reviewcomment":"My husband and I were visiting Boston and were on foot when we walked by this restaurant. I was wanting some good seafood, so we decided to go ahead and eat an early dinner.<br><br>It was late afternoon so we were about the only ones at the restaurant. We were seated outside with a nice waterfront view. Although I went in wanting my usual shrimp, scallops, or fish, I was intrigued by this &#34;black pasta&#34; on the menu. I had no idea that black pasta made from squid ink existed! It must not be very popular in the South. Anyways, being the adventurous eater that I am, I ordered the black pasta &#34;aglio olio.&#34; It was delicious. The pasta was hearty and chewy, with plenty of garlic, ground squid, and anchovies to give it incredible flavor. The pasta came out served in the sauté pan and was nice and hot. My husband enjoyed his entree as well. I was definitely stuffed and couldn&#39;t finish mine as much as I wanted to continue eating!<br><br>Our server was friendly although at times inattentive. Although we were one of 2-3 other couples at the restaurant, it took her forever to come back to get our order, waters refilled, and check to us.<br><br>If I&#39;m ever back in Boston, I&#39;d definitely come back just for the black pasta aglio olio. It&#39;s a very unique dish that I probably won&#39;t find in the South.",
@@ -38271,4 +38009,4 @@
 "Wi-Fi" : "Free",
 "Has TV" : "No",
 "Waiter Service" : "No",
-"Caters" : "Yes"}},
+"Caters" : "Yes"}}];

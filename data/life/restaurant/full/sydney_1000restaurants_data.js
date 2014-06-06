@@ -1,4 +1,4 @@
-{"ranking":"1",
+exports.items = [{"ranking":"1",
 "ogurl":"http://www.yelp.com/biz/el-tigre-madrid",
 "categorystrlist":"Spanish",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/czyLWvTo3fq-8glsbLKJCQ/l.jpg",
@@ -1781,15 +1781,7 @@
 "Waiter Service" : "No"}},
 {"ranking":"49",
 "ogurl":"http://www.yelp.com/biz/pocket-bar-darlinghurst",
-"categorystrlist":"Modern European,         Lounges,         Wine Bars
-    
-                Lounges
-    
-                Bars
-    
-                Cafes,         Tapas Bars,         Modern European
-    
-                Cocktail Bars",
+"categorystrlist":"Modern European,         Lounges,         Wine Bars,                Lounges,                Bars,                Cafes,         Tapas Bars,         Modern European,                Cocktail Bars",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/LeppE1RYlBx7mcd4J6uelA/l.jpg",
 "rating":"4.0",
 "reviewcomment":"I&#39;ve been coming to this place on-and-off since it opened, and while it hasn&#39;t changed much, it was great to start with so that&#39;s a Good Thing™.<br><br>The cocktails a finely made - they know their stuff as good as any in the city, and the drinks menu is fresh.<br><br>Just off Oxford St, this place has a great inner-city vibe. It&#39;s small and cosy without being squished. While great for catching up with friends, it&#39;s also a good venue for events, so if you get a chance to hit one up here then you should totally go.<br><br>They (used to? It&#39;s been a long time since I was there in the daytime) serve fantastic crepes (banana &amp; chocolate was the best) during the day, along with Little Marionette coffee (one of my favorite blends).<br><br>It&#39;s a small venue, and can easily fill up on the busy nights, and they definitely enforce the limit for number of people allowed inside at once.",
@@ -9465,11 +9457,7 @@
 "Waiter Service" : "Yes"}},
 {"ranking":"277",
 "ogurl":"http://www.yelp.com/biz/the-cut-bar-and-grill-the-rocks-2",
-"categorystrlist":"Steakhouses,         Modern Australian
-    
-                Japansk,         Barer
-    
-                Fransk,         Middelhavsstil",
+"categorystrlist":"Steakhouses,         Modern Australian,                Japansk,         Barer,                Fransk,         Middelhavsstil",
 "ogimage":"http://s3-media1.ak.yelpcdn.com/bphoto/2sEgMQzYA0GClr4t_1iTGQ/l.jpg",
 "rating":"3.5",
 "reviewcomment":"This place is actually quite amazing. It is the closest thing you can get to American steak. I didn&#39;t realize that steak in the US was so good but after a year in Australia I finally understand I had a great thing going. It is definitely pricey, but the service is actually the best I&#39;ve seen in Australia, and the mix drinks are without equal. There is a steak sampler for $56, do not pass this up. It is the perfect example of what steak is like on a low medium and high-end. Unfortunately the low and at this restaurant is better than most restaurants high-end in Australia. <br><br>Call to make a reservation, show up early and head to the bar for a great drink, and get the cherry dessert to finish off the night. Quite a wine selection as well but again pretty expensive.",
@@ -10462,9 +10450,7 @@
 "Caters" : "No"}},
 {"ranking":"307",
 "ogurl":"http://www.yelp.com/biz/the-white-horse-surry-hills",
-"categorystrlist":"Gastropubs,         French,         Wine Bars
-    
-                Dance Clubs,         Jazz & Blues",
+"categorystrlist":"Gastropubs,         French,         Wine Bars,                Dance Clubs,         Jazz & Blues",
 "ogimage":"http://s3-media2.ak.yelpcdn.com/bphoto/-NQhh2pUV2hEAVdTViLB8A/l.jpg",
 "rating":"3.0",
 "reviewcomment":"I like this place.<br><br>Pretty good atmosphere. Like the outdoor tables upstarts.<br><br>The food is really nice. I had pizza and salad and was really yummy.",
@@ -12280,9 +12266,7 @@
 "Drive-Thru" : "No"}},
 {"ranking":"365",
 "ogurl":"http://www.yelp.com/biz/essen-restaurant-and-beer-cafe-ultimo",
-"categorystrlist":"German,         Eastern European
-    
-                Yelp Events",
+"categorystrlist":"German,         Eastern European,                Yelp Events",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/sO1ig6HWn4d83LLZagJhjg/l.jpg",
 "rating":"3.0",
 "reviewcomment":"Great German food! I was expecting sausages but there was so much more. Of course the sausage platter had a great variety and the sweet mustard went well with the white sausage. I would have been happy right there! <br><br>The schnitzel was crisp and delicious and thin! The potatoes and sauerkraut with it was perfect. But that&#39;s not all. What I found surprising was the spiciness in the spatzle! The pulled pork spatzle was excellent - Germany&#39;s pasta. For the pork knuckle, the meat fell apart beautifully yet the outside was crispy - a perfect combo. <br><br>You might think there is no room for dessert after all that but no - actually managed to try the strudel. It was warm and delicious. <br><br>The beer selection is enough to bring you to Essen as well! The wait staff know their beers (real Germans!) and i described what I liked and they came up with two suggestions. I liked the first one so much I had a second and didn&#39;t deviate from the decision. Obviously I have to go back to try more beer. <br><br>I&#39;ve been disappointed with other German restaurants in Sydney in the past so I set my expectations low and the experience at Essen was great! I didn&#39;t think I could eat that much so really glad to have been sharing and sampling. I will definitely be back for the beer and especially the food!!!",
@@ -28173,9 +28157,7 @@
 "Caters" : "Yes"}},
 {"ranking":"919",
 "ogurl":"http://www.yelp.com/biz/cousin-jacks-pasty-co-bondi-junction",
-"categorystrlist":"Breakfast & Brunch,         Bakeries
-    
-                Kahve & Çay",
+"categorystrlist":"Breakfast & Brunch,         Bakeries,                Kahve & Çay",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/MDVREizbL0Pt_Wn5E6tKfw/l.jpg",
 "rating":"4.5",
 "reviewcomment":"Best pasties I have ever eaten.<br><br>The pastry is thick and crispy. Just like biting into a crunchy hashbrown made of yummy pastry. I think what makes the pasties awesome though is the filling. Unlike the dodgy ones which used to be served at primary school canteens prior to the health regulations, these pasties have real food inside their fillings. When you bite into the warm, gooey goodness wrapped inside the golden pastry, you will be able to see exactly what you&#39;re eating. So if it&#39;s the chicken tikka masala, it&#39;s 100% big chunks of chicken breast pieces with a lovely curry sauce. Or if it&#39;s the bacon and potato, you get exactly what you ordered, fluffy potato(not that powdered stuff) with crunchy real bacon pieces and melted cheese. <br><br>Unfortunately, I have a daily calorie limit but if I could come in just one sitting, I would play pastie Pokemon. There&#39;s so many different pasties here that I would use my mouth as a giant pokeball and try them all. I&#39;m sure I would be so fat but happy after.",
@@ -30276,4 +30258,4 @@
 "Accepts Credit Cards" : "No",
 "Noise Level" : "Average",
 "Outdoor Seating" : "Yes",
-"Waiter Service" : "Yes"}},
+"Waiter Service" : "Yes"}}];

@@ -1,4 +1,4 @@
-{"ranking":"1",
+exports.items = [{"ranking":"1",
 "ogurl":"http://www.yelp.com/biz/%E3%83%96%E3%83%AB%E3%83%83%E3%82%AF%E3%83%AA%E3%83%B3-%E3%83%91%E3%83%BC%E3%83%A9%E3%83%BC-%E6%96%B0%E5%AE%BF%E5%8C%BA",
 "categorystrlist":"Bars,         American (Traditional)",
 "ogimage":"http://s3-media4.ak.yelpcdn.com/bphoto/UrCZJYm9HVbamrW0MYksFA/l.jpg",
@@ -23363,4 +23363,4 @@
 "website":"null",
 "avgprice":"null",
 "hours":["11:00 am - 8:00 pm","Open now","11:00 am - 8:00 pm","11:00 am - 8:00 pm","11:00 am - 8:00 pm","11:00 am - 8:00 pm","Closed","Closed"],
-"businessinfos":{"Attire" : "Casual"}},
+"businessinfos":{"Attire" : "Casual"}}];

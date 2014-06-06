@@ -87,7 +87,7 @@ var googlekeys = [
 				'AIzaSyDAKIT7fqfoYfLNtMXxWMI_ru-TofF46Rs',
 				'AIzaSyBJ37BTXWsyAVhVpp6yUeZWLO_1UEU4EXo',
 				'AIzaSyCGKBoEkQBGm04AwYCZ46X_uAUICJuDSRI',
-				' AIzaSyDNMCIMaOJoieVJ_mZRk5Nolz7QKxG6BTE'
+				'AIzaSyDNMCIMaOJoieVJ_mZRk5Nolz7QKxG6BTE'
 				];
 
 exports.saveSpotToText = function(req,res){
@@ -130,13 +130,13 @@ exports.saveSpotToText = function(req,res){
 exports.importPathToDB = function(req,res){
 	var title = req.query.title;
 	if(!title){
-		title = 'result';
+		title = 're';
 	}
-	var items = require('../data/path/'+title).items;
+	var items = require('../data/path/core/' + title).items;
 	var n = items.length * (items.length-1);
 
 
-	var itemss = require('../data/path/resultfull').items;
+	var itemss = require('../data/path/core/' + title + 'res').items;
 
 	var ep = new EventProxy();
 	ep.after('save',n,function(list){
@@ -147,7 +147,7 @@ exports.importPathToDB = function(req,res){
 	});
 	for(var i=0;i<items.length;i++){
 		for(var j=0;j<itemss.length;j++){
-			if(i!=j){
+			if(true){
 				var one = {};
 				one.city_id = newyork;
 				one.city_name = items[i].city_name;
@@ -411,6 +411,13 @@ exports.runFillTaskQueen = function(req, res) {
 
 
 
+										} else if (inner_data.status == "REQUEST_DENIED") {
+
+
+											
+
+
+
 										} else if (inner_data.status == "ZERO_RESULTS") {
 
 
@@ -480,7 +487,8 @@ exports.runFillTaskQueen = function(req, res) {
 
 
 							});
-							sleep.usleep(1000);
+							// sleep.usleep(1000);
+							sleep.usleep(10000);
 
 							////////////////
 

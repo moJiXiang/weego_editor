@@ -1,4 +1,4 @@
-{"ranking":"1",
+exports.items = [{"ranking":"1",
 "ogurl":"http://www.yelp.com/biz/die-kuh-die-lacht-frankfurt-2",
 "categorystrlist":"Burgers,         American",
 "ogimage":"http://s3-media3.ak.yelpcdn.com/bphoto/gudvjD8Eu5T294bh-0zK_A/l.jpg",
@@ -29749,7 +29749,7 @@
 "reviewcount":"6",
 "pricelevel":"€€",
 "placelocationlongitude":"8.6141441",
-"ogtitle":"Restaurant "Zur Waldau"",
+"ogtitle":"Restaurant \"Zur Waldau\"",
 "placelocationlatitude":"50.0788557",
 "ogdescription":"Greek in Frankfurt, Hessen",
 "address":"Zur Waldau 27",
@@ -29861,4 +29861,4 @@
 "Good for Groups" : "Yes",
 "Attire" : "Formal (Jacket Required)",
 "Alcohol" : "Beer & Wine Only",
-"Outdoor Seating" : "No"}},
+"Outdoor Seating" : "No"}}];
