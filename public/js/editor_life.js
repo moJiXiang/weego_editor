@@ -35,6 +35,9 @@ var LifeCollection = Backbone.Collection.extend({
         if(data.cityname){
             this.query += "cityname="+data.cityname + "&";
         }
+        if(data.areaname){
+            this.query += "areaname="+data.areaname + "&";
+        }
         if(data.lifename){
             this.query += "lifename="+data.lifename+"&";
         }
@@ -290,12 +293,13 @@ var LifeView = Backbone.View.extend({
             $.ajax({
                 url:"/getAreasByCityId/"+cityid,
                 success:function (data) {
+                    console.log(data);
                     if(data.status){
                         var areas = data.results;
                         var option = '';
                         for(var i=0;i<areas.length;i++){
                             var area = areas[i];
-                            option +='<option value="'+area._id+'">'+area.name+'</option>';
+                            option +='<option value="'+area._id+'">'+area.area_name+'</option>';
                         }
                         $('#area_select').html(option);
                     }else{
@@ -657,7 +661,8 @@ var LifeListView = Backbone.View.extend({
         'click #life-list-prev-page': 'showPrevPage',
         'click #life-list-next-page': 'showNextPage',
         'change #life_type': 'selectType',
-        'click #search-button': 'serach'
+        'click #search-button': 'serach',
+        'click #search-areabtn': 'getAreasByCityId'
     },
     initialize: function(data){
         var that = this;
@@ -677,18 +682,44 @@ var LifeListView = Backbone.View.extend({
         });
         
     },
+    getAreasByCityId: function(){
+        var cityname = $("#search-life-cityname").val();
+        console.log(cityname);
+        if (cityname != '') {
+            $.ajax({
+                url: "/getAreasByCityName/" + cityname,
+                success: function(data) {
+                    console.log(data);
+                    if (data.status) {
+                        var areas = data.results;
+                        var option = '';
+                        for (var i = 0; i < areas.length; i++) {
+                            var area = areas[i];
+                            option += '<option>' + area.area_name + '</option>';
+                        }
+                        $('#shopping-areas').html(option);
+                    } else {
+                        alert('数据库异常！');
+                    }
+                }
+            });
+        }
+    },
     serach: function(){
         var type = $('#life_type').val();
         var cityname =$('#search-life-cityname').val();
         var lifename =$('#search-life-name').val();
+        var areaname = $('#shopping-areas').val();
         var isLocalFlag = $('#local_flag').prop('checked'),
             isMichilinFlag = $('#michilin_flag').prop('checked'),
             isBestDinnerchoics = $('#best_dinnerchoics').prop('checked'),
             isMostPopular = $('#most_popular').prop('checked');
+            console.log(areaname);
         if (isLocalFlag || isMichilinFlag || isBestDinnerchoics || isMostPopular) {
-            console.log(isLocalFlag);
             self.location = '/#lifes/1/' + type + '/q_' + cityname + '/q_' + encodeURIComponent(lifename) + '/isLocalFlag=' + isLocalFlag + '/isMichilinFlag=' + isMichilinFlag + '/isBestDinnerchoics=' + isBestDinnerchoics + '/isMostPopular=' + isMostPopular;
-        } else {
+        } else if(areaname != null){
+            self.location = '/#lifes/1/' + type + '/q_' + cityname + '/q_' + areaname + '/q_' + encodeURIComponent(lifename);
+        } else{
             self.location = '/#lifes/1/' + type + '/q_' + cityname + '/q_' + encodeURIComponent(lifename);
         }
     },

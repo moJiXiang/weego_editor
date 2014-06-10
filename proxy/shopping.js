@@ -31,10 +31,13 @@ exports.getFullShopping = function(id,callback){
 };
 
 exports.getShoppings = function (skip,pageLimit,query, callback) {
+	console.log(query);
   Shopping.find(query, [], {sort: [['city_name', 'asc'],['index_flag','desc'],['show_flag','desc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, shoppings) {
 		if(err)
 			callback(err);
 		else{
+			console.log("+++++++++++++++++++++++++++");
+			console.log(shoppings);
 			callback(null,shoppings);
 		}
 	});

@@ -20,39 +20,43 @@
             </select>
         </div>
         <div class="control-group">
-            <label class="control-label" for="area-name">区域名称</label>
+            <label class="control-label" for="area_name">区域名称</label>
             <div class="controls">
                 <input type="text" id="area_name" placeholder="必填" value="{{area_name}}">
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="area-en_name">英文名</label>
+            <label class="control-label" for="area_enname">英文名</label>
             <div class="controls">
-                <input type="text" id="area_enname" placeholder="必填" value="{{area_enname}}">
+                <input type="text" id="area_enname"  value="{{area_enname}}">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="area-introduce">介绍</label>
             <div class="controls">
-                <input type="text" id="area-introduce" placeholder="必填" value="{{introduce}}">
+                <textarea type="text" style="width:300px;height:100px;" id="area-introduce">{{area_introduce}}</textarea>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="area-address">地址</label>
             <div class="controls">
-                <input type="text" id="area-address" placeholder="必填" value="{{address}}">
+                <input type="text" id="area-address"  value="{{address}}">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="area-latitude">经度</label>
             <div class="controls">
-                <input type="text" id="area-latitude" placeholder="必填" value="{{-latitude}}">
+                <input type="text" id="area-latitude"  value="{{latitude}}">
             </div>
             <label class="control-label" for="area-longitude">纬度</label>
             <div class="controls">
-                <input type="text" id="area-longitude" placeholder="必填" value="{{longitude}}">
+                <input type="text" id="area-longitude" value="{{longitude}}">
             </div>
         </div>
+        <!-- <div class="control-group">
+            <label class="control-label">封面图片</label>
+            <input type="file" id="area-picture">
+        </div> -->
     </fieldset>
     <div class="pull-right">
         {{#ifCond user.type "-1"}}

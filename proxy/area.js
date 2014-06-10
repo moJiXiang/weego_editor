@@ -48,12 +48,13 @@ exports.update = function(one,callback){
 };
 
 exports.newAndSave = function(one,callback){
+	console.log(one.area_introduce);
 	var area = new Area();
 	area.city_id = new ObjectID(one.city_id+'');
 	area.city_name = one.city_name;
 	area.area_name = one.area_name;
 	area.area_enname = one.area_enname;
-	area.introduce = one.introduce;
+	area.area_introduce = one.area_introduce;
 	area.address = one.address;
 	area.latitude = one.latitude;
 	area.longitude = one.longitude;

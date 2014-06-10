@@ -37,6 +37,7 @@ $(weego.init());
             "lifes/:pageno/:type":"showLifeListView",
             "lifes/:pageno/:type/:cityname":"showLifeListView",
             "lifes/:pageno/:type/:cityname/:lifename":"showLifeListView",
+            "lifes/:pageno/:type/:cityname/:areaname/:lifename":"showLifeListView",
             "lifes/:pageno/:type/:cityname/:lifename/:isMostPopular/:isBestDinnerchoics/:isMichilinFlag/:isLocalFlag":"showLifeListView",
             "life/new":"showLifeDetailView",
             "life/:id/:type":"showLifeDetailView",
@@ -277,8 +278,8 @@ $(weego.init());
                 .addClass('active')
                 .siblings().removeClass('active');
         },
-        showLifeListView: function(page,type,cityname,lifename,isLocalFlag,isMichilinFlag,isBestDinnerchoics,isMostPopular){
-            console.log(page,type,cityname,lifename,typeof(isLocalFlag),isMichilinFlag);
+        showLifeListView: function(page,type,cityname,areaname,lifename,isLocalFlag,isMichilinFlag,isBestDinnerchoics,isMostPopular){
+            console.log(areaname);
             $('#app').off();
             $('#app').empty();
             if(type == null)
@@ -289,6 +290,12 @@ $(weego.init());
                 var a=cityname.split('_');
                 if(a[1]){
                     model.cityname = a[1];
+                }
+            }
+            if(areaname){
+                var a=areaname.split('_');
+                if(a[1]){
+                    model.areaname = a[1];
                 }
             }
             if(lifename){
@@ -367,8 +374,7 @@ $(weego.init());
                 if(type == '1'){
                     var restaurantModel = new RestaurantModel();
                     restaurantModel.set('_id', id);
-                    restaurantModel.fetch({success: function(data){
-                        console.log(data);
+                    restaurantModel.fetch({success: function(){
                         console.log(restaurantModel);
                         restaurantModel.set('type', '1');
                         var restaurantView = new LifeView({

@@ -194,7 +194,16 @@ exports.getAreasByCityId = function(req,res){
         }
     });
 };
-
+exports.getAreasByCityName = function(req,res){
+    var query = {city_name:req.params.cityName};
+    Area.getAreasByQuery(query,function(err,areas){
+        if(err){
+            res.send({status:false,err:err});
+        }else{
+            res.send({status:true,results:areas});
+        }
+    });
+};
 
 exports.removeArea = function(req, res){
     Area.getArea(new ObjectID(req.params.areaId+''), function (err, result) {
@@ -402,17 +411,20 @@ exports.getShoppingByPage = function (req, res) {
         con.name = {$regex:Util.trim(lifename)};
     }
     if(cityname){
-        con.city_name = Util.trim(cityname);
+        con.city_name = {$regex:Util.trim(cityname)};
     }
     if (areaname) {
-        con.$or = [{area_name : {$regex : areaname}, area_enname : {$regex : areaname}}];
+        con.$or = [{area_name : areaname},{area_enname : areaname}];
     }
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
     Shopping.count(con,function (err, count) {
+        console.log(count);
         Shopping.getShoppings(skip,req.params.pageLimit,con, function (err, result) {
             if (err) {
                 res.send({err:err});
             } else {
+                console.log("=====================");
+                console.log(result);
                 res.send({results:result, count:count});
             }
         });
