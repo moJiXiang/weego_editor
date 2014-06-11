@@ -32,13 +32,13 @@ $(weego.init());
             "attraction/:attractionId":"showAttractionView",
             "attractions/:pageno/:cityname/:attname":"list_attractions",
 
-            "lifes":"showLifeListView",
-            "lifes/:pageno":"showLifeListView",
-            "lifes/:pageno/:type":"showLifeListView",
-            "lifes/:pageno/:type/:cityname":"showLifeListView",
-            "lifes/:pageno/:type/:cityname/:lifename":"showLifeListView",
-            "lifes/:pageno/:type/:cityname/:areaname/:lifename":"showLifeListView",
-            "lifes/:pageno/:type/:cityname/:areaname/:lifename/:isLocalFlag/:isMichilinFlag/:isBestDinnerchoics/:isMostPopular":"showLifeListView",
+            "lifes":"showLifeListView1",
+            "lifes/:pageno":"showLifeListView1",
+            "lifes/:pageno/:type":"showLifeListView1",
+            "lifes/:pageno/:type/:cityname":"showLifeListView1",
+            "lifes/:pageno/:type/:cityname/:lifename":"showLifeListView1",
+            "lifes/:pageno/:type/:cityname/:areaname/:lifename":"showLifeListView2",
+            "lifes/:pageno/:type/:cityname/:lifename/:isLocalFlag/:isMichilinFlag/:isBestDinnerchoics/:isMostPopular":"showLifeListView",
             "life/new":"showLifeDetailView",
             "life/:id/:type":"showLifeDetailView",
 
@@ -278,8 +278,9 @@ $(weego.init());
                 .addClass('active')
                 .siblings().removeClass('active');
         },
-        showLifeListView: function(page,type,cityname,areaname,lifename,isLocalFlag,isMichilinFlag,isBestDinnerchoics,isMostPopular){
-            console.log(isLocalFlag,isMichilinFlag,isBestDinnerchoics,isMostPopular);
+        showLifeListView2 : function(){
+            console.log("====================");
+            console.log(page,type,cityname,areaname,lifename);
             $('#app').off();
             $('#app').empty();
             if(type == null)
@@ -296,6 +297,82 @@ $(weego.init());
                 var a=areaname.split('_');
                 if(a[1]){
                     model.areaname = a[1];
+                }
+            }
+            if(lifename){
+                var a=lifename.split('_');
+                if(a[1]){
+                    model.lifename = a[1];
+                }
+            }
+            if(page == null){
+                var lifeListView = new LifeListView(model);
+                lifeListView.render().showFirstPage();
+                lifeListView.$el.appendTo($('#app'));
+            }else{
+                var lifeListView = new LifeListView(model);
+
+                lifeListView.render();
+                lifeListView.showByPage(page);
+                lifeListView.$el.appendTo($('#app'));
+            }
+
+            $('#tab-life')
+                .addClass('active')
+                .siblings().removeClass('active');
+
+            $('.back_cur_city').prop("href","/index.html#city/1/q_/"+cityname);
+        },
+        showLifeListView1: function(page,type,cityname,lifename){
+            console.log("====================");
+            console.log(page,type,cityname,lifename);
+            $('#app').off();
+            $('#app').empty();
+            if(type == null)
+                type = '1';
+            var model = {};
+            model.type = type;
+            if(cityname){
+                var a=cityname.split('_');
+                if(a[1]){
+                    model.cityname = a[1];
+                }
+            }
+            if(lifename){
+                var a=lifename.split('_');
+                if(a[1]){
+                    model.lifename = a[1];
+                }
+            }
+            if(page == null){
+                var lifeListView = new LifeListView(model);
+                lifeListView.render().showFirstPage();
+                lifeListView.$el.appendTo($('#app'));
+            }else{
+                var lifeListView = new LifeListView(model);
+
+                lifeListView.render();
+                lifeListView.showByPage(page);
+                lifeListView.$el.appendTo($('#app'));
+            }
+
+            $('#tab-life')
+                .addClass('active')
+                .siblings().removeClass('active');
+
+            $('.back_cur_city').prop("href","/index.html#city/1/q_/"+cityname);
+        },
+        showLifeListView: function(page,type,cityname,lifename,isLocalFlag,isMichilinFlag,isBestDinnerchoics,isMostPopular){
+            $('#app').off();
+            $('#app').empty();
+            if(type == null)
+                type = '1';
+            var model = {};
+            model.type = type;
+            if(cityname){
+                var a=cityname.split('_');
+                if(a[1]){
+                    model.cityname = a[1];
                 }
             }
             if(lifename){

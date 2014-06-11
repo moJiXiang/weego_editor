@@ -726,7 +726,7 @@ var LifeListView = Backbone.View.extend({
             substr += '/isMostPopular=' + (isMostPopular ? 'true' : '');
             // self.location = '/#lifes/query';
             // console.log(self.location);
-            self.location = '/#lifes/1/' + type + '/q_' + cityname + '/q_' + areaname + '/q_' + encodeURIComponent(lifename) + substr;
+            self.location = '/#lifes/1/' + type + '/q_' + cityname + '/q_' + encodeURIComponent(lifename) + substr;
         } else if(areaname != null){
             self.location = '/#lifes/1/' + type + '/q_' + cityname + '/q_' + areaname + '/q_' + encodeURIComponent(lifename);
         } else{
