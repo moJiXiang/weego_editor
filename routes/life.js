@@ -255,7 +255,6 @@ exports.updateArea = function(req, res){
 //     });
 // };
 exports.getRestaurant = function(req, res){
-    console.log("full shoppinglllllllllllllllll");
     Restaurant.getRestaurantsByQuery(new ObjectID(req.params.restaurantId+''), function (err, result) {
         if (err) {
             console.log(err);
@@ -294,7 +293,6 @@ exports.getRestaurantsByFlag = function(req, res) {
     if (local_flag != '') {
         con.local_flag = local_flag;
     }
-    console.log(con);
     var skip = req.params.pageLimit * (req.params.pageIndex - 1);
     Restaurant.count(con,function (err, count) {
         Restaurant.getRestaurants(skip,req.params.pageLimit,con, function (err, result) {

@@ -38,7 +38,7 @@ $(weego.init());
             "lifes/:pageno/:type/:cityname":"showLifeListView",
             "lifes/:pageno/:type/:cityname/:lifename":"showLifeListView",
             "lifes/:pageno/:type/:cityname/:areaname/:lifename":"showLifeListView",
-            "lifes/:pageno/:type/:cityname/:lifename/:isMostPopular/:isBestDinnerchoics/:isMichilinFlag/:isLocalFlag":"showLifeListView",
+            "lifes/:pageno/:type/:cityname/:areaname/:lifename/:isLocalFlag/:isMichilinFlag/:isBestDinnerchoics/:isMostPopular":"showLifeListView",
             "life/new":"showLifeDetailView",
             "life/:id/:type":"showLifeDetailView",
 
@@ -279,7 +279,7 @@ $(weego.init());
                 .siblings().removeClass('active');
         },
         showLifeListView: function(page,type,cityname,areaname,lifename,isLocalFlag,isMichilinFlag,isBestDinnerchoics,isMostPopular){
-            console.log(areaname);
+            console.log(isLocalFlag,isMichilinFlag,isBestDinnerchoics,isMostPopular);
             $('#app').off();
             $('#app').empty();
             if(type == null)
@@ -328,10 +328,6 @@ $(weego.init());
                     model.isMostPopular = a[1];
                 }
             }
-            // model.isLocalFlag = isLocalFlag;
-            // model.isMichilinFlag = isMichilinFlag;
-            // model.isBestDinnerchoics = isBestDinnerchoics;
-            // model.isMostPopular = isMostPopular;
             if(page == null){
                 var lifeListView = new LifeListView(model);
                 lifeListView.render().showFirstPage();
