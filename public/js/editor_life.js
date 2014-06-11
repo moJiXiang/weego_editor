@@ -68,6 +68,7 @@ var LifeCollection = Backbone.Collection.extend({
             this.model = EntertainmentModel;
             this.baseUrl = '/entertainments/';
         }
+        //后台url
         this.url = this.baseUrl +this.pageLimit+'/'+this.currentPage+'?'+this.query;
     },
     parse: function(response){
@@ -668,6 +669,7 @@ var LifeListView = Backbone.View.extend({
         var that = this;
         this.type = data.type;
         this.cityname = isNull(data.cityname)?'':data.cityname;
+        this.areaname = isNull(data.areaname)?'':data.areaname;
         this.lifename = isNull(data.lifename)?'':data.lifename;
         this.isLocalFlag = isNull(data.isLocalFlag)?"":data.isLocalFlag;
         this.isMichilinFlag = isNull(data.isMichilinFlag)?"":data.isMichilinFlag;
@@ -715,8 +717,16 @@ var LifeListView = Backbone.View.extend({
             isBestDinnerchoics = $('#best_dinnerchoics').prop('checked'),
             isMostPopular = $('#most_popular').prop('checked');
             console.log(areaname);
+
         if (isLocalFlag || isMichilinFlag || isBestDinnerchoics || isMostPopular) {
-            self.location = '/#lifes/1/' + type + '/q_' + cityname + '/q_' + encodeURIComponent(lifename) + '/isLocalFlag=' + isLocalFlag + '/isMichilinFlag=' + isMichilinFlag + '/isBestDinnerchoics=' + isBestDinnerchoics + '/isMostPopular=' + isMostPopular;
+            var substr = '';
+            substr += '/isLocalFlag=' + (isLocalFlag ? "true" : "");
+            substr += '/isMichilinFlag=' + (isMichilinFlag ? 'true' : '');
+            substr += '/isBestDinnerchoics=' + (isBestDinnerchoics ? 'true' : '');
+            substr += '/isMostPopular=' + (isMostPopular ? 'true' : '');
+            // self.location = '/#lifes/query';
+            // console.log(self.location);
+            self.location = '/#lifes/1/' + type + '/q_' + cityname + '/q_' + encodeURIComponent(lifename) + substr;
         } else if(areaname != null){
             self.location = '/#lifes/1/' + type + '/q_' + cityname + '/q_' + areaname + '/q_' + encodeURIComponent(lifename);
         } else{

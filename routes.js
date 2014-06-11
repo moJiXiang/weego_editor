@@ -118,7 +118,7 @@ module.exports = function(app) {
 	app.post('/restaurant', routes.life.addNewRestaurant);
 	app.get('/restaurants/:pageLimit/:pageIndex?', routes.life.getRestaurantByPage);
 	// app.get('/restaurants/:pageLimit/:pageIndex/:city_name/:lifename',routes.life.getRestaurantByPage);
-	app.get('/restaurants/:pageLimit/:pageIndex/:city_name/:lifename/:most_popular/:best_dinnerchoics/:michilin_flag/:local_flag', routes.life.getRestaurantByPage);
+	app.get('/restaurants/:pageLimit/:pageIndex/:city_name/:areaname/:lifename/:most_popular/:best_dinnerchoics/:michilin_flag/:local_flag', routes.life.getRestaurantByPage);
 
 	//shopping
 	app.get('/shopping/:shoppingId', routes.life.getShopping);
