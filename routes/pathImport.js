@@ -132,11 +132,11 @@ exports.importPathToDB = function(req,res){
 	if(!title){
 		title = 're';
 	}
-	var items = require('../data/path/core/' + title).items;
+	var items = require('../data/path/data/' + title).items;
 	var n = items.length * (items.length-1);
 
 
-	var itemss = require('../data/path/core/' + title + 'res').items;
+	var itemss = require('../data/path/data/' + title).items;
 
 	var ep = new EventProxy();
 	ep.after('save',n,function(list){

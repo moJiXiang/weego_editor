@@ -31,7 +31,7 @@ var roma_k = require('../data/life/restaurant/full/roma_1000restaurants_data');
 var sanfrancisco_k = require('../data/life/restaurant/full/sanfrancisco_1000restaurants_data');
 var zurich_k = require('../data/life/restaurant/full/zurich_1000restaurants_data.js');
 
-var berlin_k = require('../data/life/restaurant/full/berlin_1000restaurants_data.js');
+
 var chicago_k = require('../data/life/restaurant/full/chicago_1000restaurants_data.js');
 var madrid_k = require('../data/life/restaurant/full/madrid_1000restaurants_data.js');
 var sydney_k = require('../data/life/restaurant/full/sydney_1000restaurants_data.js');
@@ -39,6 +39,14 @@ var tokyo_k = require('../data/life/restaurant/full/tokyo_1000restaurants_data.j
 var frankfurt_k = require('../data/life/restaurant/full/frankfurt_1000restaurants_data.js');
 var boston_k = require('../data/life/restaurant/full/boston_1000restaurants_data.js');
 var osaka_k = require('../data/life/restaurant/full/osaka_1000restaurants_data.js');
+
+var berlin_k = require('../data/life/restaurant/full/berlin_1000restaurants_data.js');
+var nice_k = require('../data/life/restaurant/full/Nice_1000restaurants_data.js');
+var sandiego_k = require('../data/life/restaurant/full/Sandiego_1000restaurants_data.js');
+var toronto_k = require('../data/life/restaurant/full/Toronto_1000restaurants_data.js');
+var vancouver_k = require('../data/life/restaurant/full/Vancouver_1000restaurants_data.js');
+var munich_k = require('../data/life/restaurant/full/Munich_1000restaurants_data.js');
+
 
 
 
@@ -58,13 +66,19 @@ var bigs = require('../data/life/big');
 function getInitData(){
 	var cityItems = [];
 	cityItems.push({cityname:'柏林',cityid:'516a3519f8a6461636000004',items:berlin_k.items});
-	cityItems.push({cityname:'芝加哥',cityid:'516a34fa58e3511036000004',items:chicago_k.items});
-	cityItems.push({cityname:'马德里',cityid:'516a3519f8a6461636000002',items:madrid_k.items});
-	cityItems.push({cityname:'悉尼',cityid:'52e0f1efb64f047135000003',items:sydney_k.items});
-	cityItems.push({cityname:'东京',cityid:'516a352b625d8b1e36000002',items:tokyo_k.items});
-	cityItems.push({cityname:'法兰克福',cityid:'516a3519f8a6461636000005',items:frankfurt_k.items});
-	cityItems.push({cityname:'波士顿',cityid:'516a34fa58e3511036000005',items:boston_k.items});
-	cityItems.push({cityname:'大阪',cityid:'516a352b625d8b1e36000003',items:boston_k.items});
+	cityItems.push({cityname:'尼斯',cityid:'516a350fc221c21236000005',items:nice_k.items});
+	cityItems.push({cityname:'圣地亚哥',cityid:'5308cb32d05b06507f00009b',items:sandiego_k.items});
+	cityItems.push({cityname:'多伦多',cityid:'516a350ec221c21236000002',items:toronto_k.items});
+	cityItems.push({cityname:'温哥华',cityid:'516a350ec221c21236000001',items:vancouver_k.items});
+	cityItems.push({cityname:'慕尼黑',cityid:'516a35208902ca1936000001',items:munich_k.items});
+
+	// cityItems.push({cityname:'芝加哥',cityid:'516a34fa58e3511036000004',items:chicago_k.items});
+	// cityItems.push({cityname:'马德里',cityid:'516a3519f8a6461636000002',items:madrid_k.items});
+	// cityItems.push({cityname:'悉尼',cityid:'52e0f1efb64f047135000003',items:sydney_k.items});
+	// cityItems.push({cityname:'东京',cityid:'516a352b625d8b1e36000002',items:tokyo_k.items});
+	// cityItems.push({cityname:'法兰克福',cityid:'516a3519f8a6461636000005',items:frankfurt_k.items});
+	// cityItems.push({cityname:'波士顿',cityid:'516a34fa58e3511036000005',items:boston_k.items});
+	// cityItems.push({cityname:'大阪',cityid:'516a352b625d8b1e36000003',items:boston_k.items});
 
 	//cityItems.push({cityname:'巴塞罗那',cityid:'516a3519f8a6461636000003',items:barcelona_k.items});
 	//cityItems.push({cityname:'伦敦',cityid:'516a35218902ca1936000005',items:london_k.items});
