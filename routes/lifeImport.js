@@ -40,7 +40,7 @@ var frankfurt_k = require('../data/life/restaurant/full/frankfurt_1000restaurant
 var boston_k = require('../data/life/restaurant/full/boston_1000restaurants_data.js');
 var osaka_k = require('../data/life/restaurant/full/osaka_1000restaurants_data.js');
 
-var berlin_k = require('../data/life/restaurant/full/Berlin_1000restaurants_data.js');
+var berlin_k = require('../data/life/restaurant/full/berlin_1000restaurants_data.js');
 var nice_k = require('../data/life/restaurant/full/Nice_1000restaurants_data.js');
 var sandiego_k = require('../data/life/restaurant/full/Sandiego_1000restaurants_data.js');
 var toronto_k = require('../data/life/restaurant/full/Toronto_1000restaurants_data.js');
