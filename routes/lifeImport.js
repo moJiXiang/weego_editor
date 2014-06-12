@@ -46,6 +46,7 @@ var sandiego_k = require('../data/life/restaurant/full/Sandiego_1000restaurants_
 var toronto_k = require('../data/life/restaurant/full/Toronto_1000restaurants_data.js');
 var vancouver_k = require('../data/life/restaurant/full/Vancouver_1000restaurants_data.js');
 var munich_k = require('../data/life/restaurant/full/Munich_1000restaurants_data.js');
+var manchester_k = require('../data/life/restaurant/full/Manchester_10000restaurants_data.js');
 
 
 
@@ -65,12 +66,13 @@ var bigs = require('../data/life/big');
 
 function getInitData(){
 	var cityItems = [];
-	cityItems.push({cityname:'柏林',cityid:'516a3519f8a6461636000004',items:berlin_k.items});
-	cityItems.push({cityname:'尼斯',cityid:'516a350fc221c21236000005',items:nice_k.items});
-	cityItems.push({cityname:'圣地亚哥',cityid:'5308cb32d05b06507f00009b',items:sandiego_k.items});
-	cityItems.push({cityname:'多伦多',cityid:'516a350ec221c21236000002',items:toronto_k.items});
-	cityItems.push({cityname:'温哥华',cityid:'516a350ec221c21236000001',items:vancouver_k.items});
-	cityItems.push({cityname:'慕尼黑',cityid:'516a35208902ca1936000001',items:munich_k.items});
+	cityItems.push({cityname:'曼彻斯特',cityid:'516a352b625d8b1e36000001',items:manchester_k.items});	
+	// cityItems.push({cityname:'柏林',cityid:'516a3519f8a6461636000004',items:berlin_k.items});
+	// cityItems.push({cityname:'尼斯',cityid:'516a350fc221c21236000005',items:nice_k.items});
+	// cityItems.push({cityname:'圣地亚哥',cityid:'5308cb32d05b06507f00009b',items:sandiego_k.items});
+	// cityItems.push({cityname:'多伦多',cityid:'516a350ec221c21236000002',items:toronto_k.items});
+	// cityItems.push({cityname:'温哥华',cityid:'516a350ec221c21236000001',items:vancouver_k.items});
+	// cityItems.push({cityname:'慕尼黑',cityid:'516a35208902ca1936000001',items:munich_k.items});
 
 	// cityItems.push({cityname:'芝加哥',cityid:'516a34fa58e3511036000004',items:chicago_k.items});
 	// cityItems.push({cityname:'马德里',cityid:'516a3519f8a6461636000002',items:madrid_k.items});
