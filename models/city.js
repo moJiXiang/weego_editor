@@ -39,11 +39,22 @@ var CitySchema = new Schema({
     continentscode      : String,
     countrycode         : String,
     recommand_center    : String,
+    restaurant_overview : String, // overview of restaurants in city
+    shopping_overview   : String, // overview of shoppings in city
+    attraction_overview : String, // overview of attractions in city
     weoid               : String  //yahoo weather api ID
 
 }, {
     collection : 'latestcity'
 });
+
+CitySchema.statics = {
+
+    load : function (id, cb) {
+        this.findOne({_id: id})
+            .exec(cb);
+    }
+}
 
 CitySchema.methods = {
 
@@ -57,7 +68,7 @@ CitySchema.methods = {
         mongoose.model('Restaurant').listByCity(opt, cb);
     },
 
-    
+
 }
 
 mongoose.model('City', CitySchema);
