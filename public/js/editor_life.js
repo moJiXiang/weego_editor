@@ -5,9 +5,6 @@
 //---------------------------------model and collection-------------------------------------------------
 
 var RestaurantModel = Backbone.Model.extend({
-    defaults: {
-
-    },
     idAttribute: "_id",
     urlRoot: '/restaurant'
 });
@@ -41,19 +38,21 @@ var LifeCollection = Backbone.Collection.extend({
         if(data.lifename){
             this.query += "lifename="+data.lifename+"&";
         }
-        if(data.isMostPopular){
-             this.query += "most_popular="+data.isMostPopular+"&";
+        if(data.tags){
+            this.query += data.tags; 
         }
-        if(data.isBestDinnerchoics){
-             this.query += "best_dinnerchoics="+data.isBestDinnerchoics+"&";
-        }
-        if(data.isMichilinFlag){
-             this.query += "michilin_flag="+data.isMichilinFlag+"&";
-        }
-        if(data.isLocalFlag){
-            this.query += "local_flag="+data.isLocalFlag+"&";
-        }
-        
+        // if(data.isMostPopular){
+        //      this.query += "most_popular="+data.isMostPopular+"&";
+        // }
+        // if(data.isBestDinnerchoics){
+        //      this.query += "best_dinnerchoics="+data.isBestDinnerchoics+"&";
+        // }
+        // if(data.isMichilinFlag){
+        //      this.query += "michilin_flag="+data.isMichilinFlag+"&";
+        // }
+        // if(data.isLocalFlag){
+        //     this.query += "local_flag="+data.isLocalFlag+"&";
+        // }
         
         if(type=='1'){
             this.type='1';
@@ -493,6 +492,23 @@ var LifeView = Backbone.View.extend({
             item.desc = $('.opentimes').eq(i).attr('value');
             opentimes.push(item);
         }
+        var local_flag = $('#local_flag').prop('checked'),
+            michilin_flag = $('#michilin_flag').prop('checked'),
+            best_dinnerchoics = $('#best_dinnerchoics').prop('checked'),
+            most_popular = $('#most_popular').prop('checked');
+        var tags = [];
+        if(local_flag){
+            tags.push('localflag');
+        }
+        if(michilin_flag){
+            tags.push('michilin');
+        }
+        if(best_dinnerchoics){
+            tags.push('bestfordinner');
+        }
+        if(most_popular){
+            tags.push('popular');
+        }
         var item = {
             name : $('#name').val(),
             address : $('#address').val(),
@@ -508,10 +524,7 @@ var LifeView = Backbone.View.extend({
             recommand_flag : $('#recommand_flag').prop('checked'),
             recommand_duration : $('#recommand_duration').val(),
             index_flag : $('#index_flag').prop('checked'),
-            local_flag : $('#local_flag').prop('checked'),
-            michilin_flag : $('#michilin_flag').prop('checked'),
-            best_dinnerchoics : $('#best_dinnerchoics').prop('checked'),
-            most_popular : $('#most_popular').prop('checked'),
+            tags: tags,//排名标签
             ranking:$('#ranking').val(),
             rating:$('#rating').val(),
             reviews:$('#reviews').val(),
@@ -720,10 +733,10 @@ var LifeListView = Backbone.View.extend({
 
         if (isLocalFlag || isMichilinFlag || isBestDinnerchoics || isMostPopular) {
             var substr = '';
-            substr += '/isLocalFlag=' + (isLocalFlag ? "true" : "");
-            substr += '/isMichilinFlag=' + (isMichilinFlag ? 'true' : '');
-            substr += '/isBestDinnerchoics=' + (isBestDinnerchoics ? 'true' : '');
-            substr += '/isMostPopular=' + (isMostPopular ? 'true' : '');
+            substr += '/tags=' + (isLocalFlag ? "localflag" : "");
+            substr += (isMichilinFlag ? ',michilin' : '');
+            substr += (isBestDinnerchoics ? ',bestfordinner' : '');
+            substr += (isMostPopular ? ',popular' : '');
             // self.location = '/#lifes/query';
             // console.log(self.location);
             self.location = '/#lifes/1/' + type + '/q_' + cityname + '/q_' + encodeURIComponent(lifename) + substr;

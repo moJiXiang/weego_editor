@@ -230,7 +230,21 @@
             <ul>
         </div>
     </div>
-    
+   <!--  <div class="control-group">
+      <label for="" class="control-label">开放时间</label>
+      <select id="open-day" style="width:100px">
+          <option value='1'>周一</option>
+          <option value='2'>周二</option>
+          <option value='3'>周三</option>
+          <option value='4'>周四</option>
+          <option value='5'>周五</option>
+          <option value='6'>周六</option>
+          <option value='7'>周日</option>
+      </select>
+      <input type="text" id="open-time-begin" value="starttime">
+      <input type="text" id="open-time-end" value="endtime">
+      <input type="button" value="添加" id="addOpentime">
+    </div> -->
     <div class="control-group">
         <label class="control-label" for="lifetag">生活标签</label>
         <div class="controls">
@@ -359,40 +373,51 @@
               <label  class="control-label show_flag" for='index_flag'>是否放在城市首页显示</label><span style="color:red">*</span>
           </div>
       </div>
+
+      <div class="control-group" style="border-top:1px solid #333">
+        <label for="" class="control-label">已选标签</label>
+        <div class="controls">
+          {{#if tags}}
+          {{#tags}}
+            <button class="btn btn-default btn-lg active">{{this}}</button>
+          {{/tags}}
+          {{/if}}
+        </div>
+      </div>
       <div class="control-group">
           <label class="control-label" for="local_flag">当地特色</label>
           <div class="controls">
-            <input type="checkbox" id="local_flag" {{#if local_flag}}checked{{/if}}>
+            <input type="checkbox" id="local_flag">
               <label  class="control-label show_flag" for='local_flag'>是否是当地特色</label>
           </div>
       </div>
       <div class="control-group">
           <label class="control-label" for="michilin_flag">米其林</label>
           <div class="controls">
-            <input type="checkbox" id="michilin_flag" {{#if michilin_flag}}checked{{/if}}>
+            <input type="checkbox" id="michilin_flag">
               <label  class="control-label show_flag" for='michilin_flag'>是否是米其林推荐</label>
           </div>
       </div>
       <div class="control-group">
         <label for="" class="control-label">最适合晚餐</label>
         <div class="controls">
-          <input type="checkbox" id="best_dinnerchoics" {{#if best_dinnerchoics}}checked{{/if}}>
+          <input type="checkbox" id="best_dinnerchoics">
           <label class="control-label show_flag" for="best_dinnerchoics">是否最适合晚餐</label>
         </div>
       </div>
-      <div class="control-group">
+      <div class="control-group" style="border-bottom:1px solid #333">
         <label for="" class="control-label">最流行</label>
         <div class="controls">
-          <input type="checkbox" id="most_popular" {{#if most_popular}}checked{{/if}}>
+          <input type="checkbox" id="most_popular">
           <label  class="control-label show_flag" for="most_popular">是否最流行</label>
         </div>
       </div>
-      <div class="control-group">
+      <!-- <div class="control-group">
           <label class="control-label" for="tese">游客最爱</label>
           <div class="controls">
               <input id="tese" type="text" value="{{tese}}">
           </div>
-      </div>
+      </div> -->
       <div class="control-group">
           <label class="control-label" for="ranking">排名</label>
           <div class="controls">

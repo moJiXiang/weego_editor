@@ -37,8 +37,8 @@ $(weego.init());
             "lifes/:pageno/:type":"showLifeListView1",
             "lifes/:pageno/:type/:cityname":"showLifeListView1",
             "lifes/:pageno/:type/:cityname/:lifename":"showLifeListView1",
-            "lifes/:pageno/:type/:cityname/:areaname/:lifename":"showLifeListView2",
-            "lifes/:pageno/:type/:cityname/:lifename/:isLocalFlag/:isMichilinFlag/:isBestDinnerchoics/:isMostPopular":"showLifeListView",
+            "lifes/:pageno/:type/:cityname/:areaname":"showLifeListView2",
+            "lifes/:pageno/:type/:cityname/:lifename/:tags":"showLifeListView",
             "life/new":"showLifeDetailView",
             "life/:id/:type":"showLifeDetailView",
 
@@ -278,7 +278,7 @@ $(weego.init());
                 .addClass('active')
                 .siblings().removeClass('active');
         },
-        showLifeListView2 : function(){
+        showLifeListView2 : function(page,type,cityname,areaname){
             console.log("====================");
             console.log(page,type,cityname,areaname,lifename);
             $('#app').off();
@@ -297,12 +297,6 @@ $(weego.init());
                 var a=areaname.split('_');
                 if(a[1]){
                     model.areaname = a[1];
-                }
-            }
-            if(lifename){
-                var a=lifename.split('_');
-                if(a[1]){
-                    model.lifename = a[1];
                 }
             }
             if(page == null){
@@ -362,12 +356,14 @@ $(weego.init());
 
             $('.back_cur_city').prop("href","/index.html#city/1/q_/"+cityname);
         },
-        showLifeListView: function(page,type,cityname,lifename,isLocalFlag,isMichilinFlag,isBestDinnerchoics,isMostPopular){
+        showLifeListView: function(page,type,cityname,lifename,tags){
+            console.log(cityname,lifename,tags);
             $('#app').off();
             $('#app').empty();
             if(type == null)
                 type = '1';
             var model = {};
+            model.tags = "";
             model.type = type;
             if(cityname){
                 var a=cityname.split('_');
@@ -381,30 +377,36 @@ $(weego.init());
                     model.lifename = a[1];
                 }
             }
-            if(isLocalFlag){
-                var a=isLocalFlag.split('=');
-                if(a[1]){
-                    model.isLocalFlag = a[1];
-                }
+            if(tags){
+                model.tags = tags;
+                // model.tags =  tags.split("=");
+                // model.tags = model.tags[1].split(",");
             }
-            if(isMichilinFlag){
-                var a=isMichilinFlag.split('=');
-                if(a[1]){
-                    model.isMichilinFlag = a[1];
-                }
-            }
-            if(isBestDinnerchoics){
-                var a=isBestDinnerchoics.split('=');
-                if(a[1]){
-                    model.isBestDinnerchoics = a[1];
-                }
-            }
-            if(isMostPopular){
-                var a=isMostPopular.split('=');
-                if(a[1]){
-                    model.isMostPopular = a[1];
-                }
-            }
+            console.log(model.tags);
+            // if(isLocalFlag){
+            //     var a=isLocalFlag.split('=');
+            //     if(a[1]){
+            //         model.isLocalFlag = a[1];
+            //     }
+            // }
+            // if(isMichilinFlag){
+            //     var a=isMichilinFlag.split('=');
+            //     if(a[1]){
+            //         model.isMichilinFlag = a[1];
+            //     }
+            // }
+            // if(isBestDinnerchoics){
+            //     var a=isBestDinnerchoics.split('=');
+            //     if(a[1]){
+            //         model.isBestDinnerchoics = a[1];
+            //     }
+            // }
+            // if(isMostPopular){
+            //     var a=isMostPopular.split('=');
+            //     if(a[1]){
+            //         model.isMostPopular = a[1];
+            //     }
+            // }
             if(page == null){
                 var lifeListView = new LifeListView(model);
                 lifeListView.render().showFirstPage();

@@ -12,31 +12,12 @@ exports.getRestaurantByName = function(name,callback){
 };
 
 exports.getRestaurants = function (skip,pageLimit,query, callback) {
-  Restaurant.find(query, [], {sort: [['city_name', 'asc'],['index_flag','desc'],['show_flag','desc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, restaurants) {
+  Restaurant.find(query,[], {sort: [['city_name', 'asc'],['index_flag','desc'],['show_flag','desc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, restaurants) {
 		if(err)
 			callback(err);
 		else{
-			// for(var i=0;i<restaurants.length;i++){
-			// 	var categorys = restaurants[i].category;
-			// 	var tmp = [];
-			// 	console.log(categorys.length);
-			// 	for(var j=0;j<categorys.length;j++){
-			// 		console.log('v '+global.bigs.length);
-			// 		for(var k=0;k<global.bigs.length;k++){
-			// 			if(isIn(categorys[j]._id,global.bigs[k])){
-			// 				if(isInTmp(global.bigs[k],tmp)){
-
-			// 				}else{
-			// 					tmp.push(global.bigs[k]);
-			// 				}
-			// 			}else{
-			// 				// console.log('not found');
-			// 			}
-			// 		}
-			// 	}
-			// 	restaurants[i].category = tmp;
-			// }
-
+			console.log("=================");
+			console.log(restaurants);
 			callback(null,restaurants);
 		}
 	});
@@ -100,7 +81,7 @@ exports.getRestaurantsByOptions = function(query,options,callback){
 };
 
 exports.count = function (query,callback) {
-  Restaurant.count(query, callback);
+  Restaurant.count(query,callback);
 };
 
 exports.updateShowFlag = function(_id,show_flag,callback){
@@ -117,7 +98,9 @@ exports.updateShowFlag = function(_id,show_flag,callback){
 };
 
 exports.update = function(one,callback){
+	// Restaurant.update({},{$unset:{local_flag:1}},false);
 	exports.getRestaurant(new ObjectID(one._id+''),function(err,restaurant){
+
 		if(restaurant){
 			var comments = [];
 			comments.push(one.comments);
@@ -142,7 +125,6 @@ exports.update = function(one,callback){
 			restaurant.recommand_flag = one.recommand_flag;
 			restaurant.recommand_duration = one.recommand_duration;
 			restaurant.index_flag = one.index_flag;
-			restaurant.local_flag = one.local_flag;
 			restaurant.am = one.am;
 			restaurant.pm = one.pm;
 			restaurant.ev = one.ev;
@@ -154,13 +136,20 @@ exports.update = function(one,callback){
 			restaurant.ranking = one.ranking;
 			restaurant.reviews = one.reviews;
 			restaurant.comments = comments;
-			restaurant.michilin_flag = one.michilin_flag;
-			restaurant.best_dinnerchoics = one.best_dinnerchoics;
-			restaurant.most_popular = one.most_popular;
+			restaurant.tags = one.tags;
+			// restaurant.local_flag = one.local_flag;
+			// restaurant.michilin_flag = one.michilin_flag;
+			// restaurant.best_dinnerchoics = one.best_dinnerchoics;
+			// restaurant.most_popular = one.most_popular;
 			restaurant.info = one.info;
+			if(restaurant.local_flag) delete restaurant.local_flag;
+			if(restaurant.michilin_flag) delete restaurant.michilin_flag;
+			if(restaurant.best_dinnerchoics) delete restaurant.best_dinnerchoics;
+			if(restaurant.most_popular) delete restaurant.most_popular;
 			restaurant.save(function(err){
 				callback(err,restaurant);
 			});
+
 		}else{
 			callback(err+'not found!');
 		}
@@ -192,7 +181,7 @@ exports.newAndSave = function(one,callback){
 	restaurant.recommand_flag = one.recommand_flag;
 	restaurant.recommand_duration = one.recommand_duration;
 	restaurant.index_flag = one.index_flag;
-	restaurant.local_flag = one.local_flag;
+	// restaurant.local_flag = one.local_flag;
 	restaurant.am = one.am;
 	restaurant.pm = one.pm;
 	restaurant.ev = one.ev;
@@ -204,7 +193,8 @@ exports.newAndSave = function(one,callback){
 	restaurant.ranking = one.ranking;
 	restaurant.reviews = one.reviews;
 	restaurant.comments = comments;
-	restaurant.michilin_flag = one.michilin_flag;
+	restaurant.tags = one.tags;
+	// restaurant.michilin_flag = one.michilin_flag;
 
 	restaurant.info = one.info;
 	restaurant.save(function (err) {
