@@ -145,9 +145,7 @@ var LifeView = Backbone.View.extend({
             this.model.set('_show_flag',false);
         }
 
-        console.log(this.model);
         this.model.set('user',weego_user.globalUser);
-        console.log(this.model.toJSON());
         this.$el.html(this.template(this.model.toJSON()));
         this.initSelect();
         return this;
@@ -613,7 +611,7 @@ var LifeView = Backbone.View.extend({
                         auditingModel.save(null,{
                             success:function (model, res) {
                                 if (!res.isSuccess) {
-                                    alert('保存信息成功，但auditing保存失败！');
+                                    alert('保存信息成功，但auditing保存失败!!!！');
                                 }else
                                     alert('保存成功');
                                     // self.location = '/#lifes/1/'+type; 

@@ -9,10 +9,9 @@ describe('Mongoose', function() {
     });
 
     it('should work with syntax keyword or', function (done) {
-        var Shopping = require('../proxy').Shopping;
-        Shopping.count({name: 'Liberty', city_name: '伦敦', $or : [{address : {$regex : 'Marlborough'}}]}, function (err, count) {
-            assert.equal(1, count);
-            done();
+        var Restaurant = require('../models').Restaurant;
+        Restaurant.load('53869887e2d466a220000006', function(err , r) {
+            console.log(r);
         });
     });
 });

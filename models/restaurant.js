@@ -23,6 +23,7 @@ var RestaurantSchema = new Schema({
     show_flag         : { type: Boolean,default:false},
     create_at         : { type: Date, default: Date.now },
     recommand_flag    : { type: Boolean, default:false },
+    recommand_duration: { type: String },
     // local_flag        : { type: Boolean, default:false },
     // best_dinnerchoics : { type: Boolean },
     // michilin_flag     : { type: Boolean },

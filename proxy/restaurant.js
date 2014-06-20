@@ -16,8 +16,6 @@ exports.getRestaurants = function (skip,pageLimit,query, callback) {
 		if(err)
 			callback(err);
 		else{
-			console.log("=================");
-			console.log(restaurants);
 			callback(null,restaurants);
 		}
 	});
@@ -137,15 +135,7 @@ exports.update = function(one,callback){
 			restaurant.reviews = one.reviews;
 			restaurant.comments = comments;
 			restaurant.tags = one.tags;
-			// restaurant.local_flag = one.local_flag;
-			// restaurant.michilin_flag = one.michilin_flag;
-			// restaurant.best_dinnerchoics = one.best_dinnerchoics;
-			// restaurant.most_popular = one.most_popular;
 			restaurant.info = one.info;
-			if(restaurant.local_flag) delete restaurant.local_flag;
-			if(restaurant.michilin_flag) delete restaurant.michilin_flag;
-			if(restaurant.best_dinnerchoics) delete restaurant.best_dinnerchoics;
-			if(restaurant.most_popular) delete restaurant.most_popular;
 			restaurant.save(function(err){
 				callback(err,restaurant);
 			});
