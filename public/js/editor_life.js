@@ -574,7 +574,8 @@ var LifeView = Backbone.View.extend({
             $('#price_level').focus();
             return false;
         }
-        if(item.recommand_duration != 'undefined' && !isInt(item.recommand_duration)){
+        console.log(item.recommand_duration);
+        if(item.recommand_duration != '' && !isInt(item.recommand_duration)){
             alert('推荐时间必须是整数！');
             $('#recommand_duration').focus();
             return false;
