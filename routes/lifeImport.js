@@ -24,7 +24,7 @@ var venezia_m = require('../data/life/restaurant/michilin/veneziamichelin_data')
 
 var barcelona_k = require('../data/life/restaurant/full/barcelona_1000restaurants_data');
 var newyork_k = require('../data/life/restaurant/full/newyork_1000restaurants_data');
-var london_k = require('../data/life/restaurant/full/london_1000restaurants_data');
+var london_k = require('../data/life/restaurant/full/Londonnn_10000restaurants_data');
 var losangeles_k = require('../data/life/restaurant/full/losangeles_1000restaurants_data');
 var paris_k = require('../data/life/restaurant/full/paris_1000restaurants_data');
 var roma_k = require('../data/life/restaurant/full/roma_1000restaurants_data');
@@ -83,7 +83,7 @@ function getInitData(){
 	// cityItems.push({cityname:'大阪',cityid:'516a352b625d8b1e36000003',items:boston_k.items});
 
 	//cityItems.push({cityname:'巴塞罗那',cityid:'516a3519f8a6461636000003',items:barcelona_k.items});
-	//cityItems.push({cityname:'伦敦',cityid:'516a35218902ca1936000005',items:london_k.items});
+	cityItems.push({cityname:'伦敦',cityid:'516a35218902ca1936000005',items:london_k.items});
 	//cityItems.push({cityname:'洛杉矶',cityid:'516a34f958e3511036000003',items:losangeles_k.items});
 	//cityItems.push({cityname:'巴黎',cityid:'516a350ec221c21236000003',items:paris_k.items});
 	//cityItems.push({cityname:'罗马',cityid:'51d3d238e98bbb566a000001',items:roma_k.items});

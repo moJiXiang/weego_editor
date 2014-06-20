@@ -87,7 +87,25 @@ var googlekeys = [
 				'AIzaSyDAKIT7fqfoYfLNtMXxWMI_ru-TofF46Rs',
 				'AIzaSyBJ37BTXWsyAVhVpp6yUeZWLO_1UEU4EXo',
 				'AIzaSyCGKBoEkQBGm04AwYCZ46X_uAUICJuDSRI',
-				'AIzaSyDNMCIMaOJoieVJ_mZRk5Nolz7QKxG6BTE'
+				'AIzaSyDNMCIMaOJoieVJ_mZRk5Nolz7QKxG6BTE',
+				'AIzaSyBRDtY8UyiuAVkosycyJ1jzvgI1lHNnDJ4',
+				'AIzaSyCUbGZ37VLXjZqcihAarDpM50FcEmvxnOo',
+				'AIzaSyD-L6S8RX_CclS9XpGj_aWuDyMs2tWNrQQ',
+				'AIzaSyAE3T4u7kcGJEDxBAF_a4WC2e8F_A7EDn8',
+				'AIzaSyD9xP9HnvGVRRomdF9ZkLoiBSpw-lBOVqQ',
+				'AIzaSyA__sBIof6jLOj_SFw4f4EVpK3WAbGKeMw',
+				'AIzaSyBlQBp9Ue6qPNwtRTObd_Cn3myILa6DF3o',
+				'AIzaSyCw_Gc3TPm8UQ0Df7LFMz9hR49rgTwBI44',
+				'AIzaSyB2-RYFjF0KNGkNofv0wq6ejFU61B-9aVo',
+				'AIzaSyDgiDjKH8jBcH62K-tnbnlBgWNQ7RcBEI0',
+				'AIzaSyDDsFheEvNbyGNtiebecMu77MOrE_y1ON0',
+				'AIzaSyAaBLPIJYhKTHb1ZLDVuoPme9qbIlCmjnw',
+				'AIzaSyDMAGXcA_p7l2D8nT8QQARmAVfOiNkSHcA',
+				'AIzaSyCUOGxSY1IuH4qXhJo1K0ZZN5Y_ebK1CLU',
+				'AIzaSyADslOC4Ze92pewSzfD7yZYdCBrCbKuNkU',
+				'AIzaSyADslOC4Ze92pewSzfD7yZYdCBrCbKuNkU',
+				'AIzaSyCyx0JGNcZIJN8DJJ-WckZxxlOYSdvtAWs',
+				'AIzaSyC04_4O4l34A6cuCVpg2PgbolukaC6yN0k'
 				];
 
 exports.saveSpotToText = function(req,res){
@@ -132,18 +150,18 @@ exports.importPathToDB = function(req,res){
 	if(!title){
 		title = 're';
 	}
-	var items = require('../data/path/data/' + title).items;
+	var items = require('../data/path/data/restaurants/' + title).items;
 	var n = items.length * (items.length-1);
 
 
-	var itemss = require('../data/path/data/' + title).items;
+	var itemss = require('../data/path/data/restaurants/' + title + 'res').items;
 
 	var ep = new EventProxy();
-	ep.after('save',n,function(list){
-		// console.log(list);
-		console.log('success!');
+	ep.after('save', n , function(list){
+		console.log(list);
+		console.log('________________________________________________________________');
 	}).fail(function(err){
-		console.log(err);
+		console.log('failed!');
 	});
 	for(var i=0;i<items.length;i++){
 		for(var j=0;j<itemss.length;j++){
@@ -159,7 +177,7 @@ exports.importPathToDB = function(req,res){
 				one.b_latitude = itemss[j].latitude;
 				one.b_longitude = itemss[j].longitude;
 				one.b_type = itemss[j].type;
-				saveOnePath(one,ep.done('save'));
+				saveOnePath(one, ep.done('save'));
 				sleep.usleep(600);
 				console.log(i + ':' + j);
 			}
@@ -167,6 +185,11 @@ exports.importPathToDB = function(req,res){
 	}
 	console.log(items.length);
 };
+
+
+
+
+
 
 
 exports.importPathToDBSync = function(req, res) {
@@ -320,7 +343,7 @@ exports.runFillTaskQueen = function(req, res) {
 
 						if (data[k].b_latitude || data[k].b_longitude || data[k].a_latitude || data[k].a_longitude) {
 
-							var googlemode = "transit";
+							var googlemode = "driving";
 							var sensor = "false";
 
 							var myurl = getGoogleUrl(o, d, googlemode, sensor, googlekey);
@@ -347,7 +370,9 @@ exports.runFillTaskQueen = function(req, res) {
 						     //                   // one.bus.steps.push(getStepObjByGmInfo(legs.steps[mini]));
 						     //               	}
 
-											one.bus.steps = steps;
+											// one.bus.steps = steps;
+											one.driver.steps = steps;
+
 
 											// console.log(one);
 
@@ -382,7 +407,8 @@ exports.runFillTaskQueen = function(req, res) {
 
 											steps.push({ html : "Google Not Found"});
 
-											one.bus.steps = steps;
+											// one.bus.steps = steps;
+											one.driver.steps = steps;
 
 											// console.log(one);
 
@@ -428,7 +454,8 @@ exports.runFillTaskQueen = function(req, res) {
 
 											steps.push({ html : "Zero results error"});
 
-											one.bus.steps = steps;
+											// one.bus.steps = steps;
+											one.driver.steps = steps;
 
 											// console.log(one);
 
@@ -503,7 +530,8 @@ exports.runFillTaskQueen = function(req, res) {
 
 							steps.push({html : "Geo data error"});
 
-							one.bus.steps = steps;
+							// one.bus.steps = steps;
+							one.driver.steps = steps;
 
 							// console.log(one);
 
