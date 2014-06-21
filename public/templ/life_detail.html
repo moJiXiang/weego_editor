@@ -378,29 +378,36 @@
       <div class="control-group">
         <label for="" class="control-label">选择标签</label>
         <div class="controls">
-            {{#ifHas tags 'localflag'}}
-            <button type="button" class="tagsbtn btn btn-primary btn-lg active" data-value="localflag">当地特色</button>
-              {{else}}
-            <button type="button" class="tagsbtn btn btn-primary btn-lg" data-value="localflag">当地特色</button>
-            {{/ifHas}}
+            {{#if tags}}
+              {{#ifHas tags 'localflag'}}
+              <button type="button" class="tagsbtn btn btn-primary btn-lg active" data-value="localflag">当地特色</button>
+                {{else}}
+              <button type="button" class="tagsbtn btn btn-primary btn-lg" data-value="localflag">当地特色</button>
+              {{/ifHas}}
 
-            {{#ifHas tags 'michilin'}}
-            <button type="button" class="tagsbtn btn btn-primary btn-lg active" data-value="michilin">米其林</button>
-              {{else}}
-            <button type="button" class="tagsbtn btn btn-primary btn-lg" data-value="michilin">米其林</button>
-            {{/ifHas}}
-            
-            {{#ifHas tags 'bestfordinner'}}
-            <button type="button" class="tagsbtn btn btn-primary btn-lg active" data-value="bestfordinner">适合晚餐</button>
-              {{else}}
-            <button type="button" class="tagsbtn btn btn-primary btn-lg" data-value="bestfordinner">适合晚餐</button>
-            {{/ifHas}}
+              {{#ifHas tags 'michilin'}}
+              <button type="button" class="tagsbtn btn btn-primary btn-lg active" data-value="michilin">米其林</button>
+                {{else}}
+              <button type="button" class="tagsbtn btn btn-primary btn-lg" data-value="michilin">米其林</button>
+              {{/ifHas}}
+              
+              {{#ifHas tags 'bestfordinner'}}
+              <button type="button" class="tagsbtn btn btn-primary btn-lg active" data-value="bestfordinner">适合晚餐</button>
+                {{else}}
+              <button type="button" class="tagsbtn btn btn-primary btn-lg" data-value="bestfordinner">适合晚餐</button>
+              {{/ifHas}}
 
-            {{#ifHas tags 'popular'}}
-            <button type="button" class="tagsbtn btn btn-primary btn-lg active" data-value="popular">流行</button>
+              {{#ifHas tags 'popular'}}
+              <button type="button" class="tagsbtn btn btn-primary btn-lg active" data-value="popular">流行</button>
+                {{else}}
+              <button type="button" class="tagsbtn btn btn-primary btn-lg" data-value="popular">流行</button>
+              {{/ifHas}}
               {{else}}
-            <button type="button" class="tagsbtn btn btn-primary btn-lg" data-value="popular">流行</button>
-            {{/ifHas}}
+              <button type="button" class="tagsbtn btn btn-primary btn-lg" data-value="localflag">当地特色</button>
+              <button type="button" class="tagsbtn btn btn-primary btn-lg" data-value="michilin">米其林</button>
+              <button type="button" class="tagsbtn btn btn-primary btn-lg" data-value="bestfordinner">适合晚餐</button>
+              <button type="button" class="tagsbtn btn btn-primary btn-lg" data-value="popular">流行</button>
+            {{/if}}
         </div>
       </div>
 

@@ -654,7 +654,12 @@ $(weego.init());
             return options.fn(this);
         return options.inverse(this);
     });
-   
+    Handlebars.registerHelper('ifHas', function(v1, v2, options) {
+        if (v1.indexOf(v2) >= 0) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
+    });
    //------------------------#load------------------------------------------------------------------ 
     
     $("#hotelDetailView").load("templ/hotel_detail.html",function(){

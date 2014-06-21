@@ -522,7 +522,6 @@ var LifeView = Backbone.View.extend({
         for(var i = 0;i<tagsElements.length;i++){
             tags.push(tagsElements.eq(i).attr('data-value'));
         }
-        console.log(tagsElements);
         var item = {
             name : $('#name').val(),
             address : $('#address').val(),
@@ -1042,9 +1041,4 @@ var UploadImageView = Backbone.View.extend({
         })
     }
 });
-Handlebars.registerHelper('ifHas', function(v1, v2, options) {
-    if (v1.indexOf(v2)>=0) {
-        return options.fn(this);
-    }
-        return options.inverse(this);
-});
+
