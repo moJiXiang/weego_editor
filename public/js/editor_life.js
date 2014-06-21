@@ -742,7 +742,6 @@ var LifeListView = Backbone.View.extend({
             isMichilinFlag = $('#michilin_flag').prop('checked'),
             isBestDinnerchoics = $('#best_dinnerchoics').prop('checked'),
             isMostPopular = $('#most_popular').prop('checked');
-            console.log(areaname);
 
         if (isLocalFlag || isMichilinFlag || isBestDinnerchoics || isMostPopular) {
             var substr = '';
@@ -786,18 +785,36 @@ var LifeListView = Backbone.View.extend({
 //        this.collection.getPrevPage(function(collection){
 //            that.showRestaurantList(collection);
 //        });
-        if(!this.collection.hasPage(parseInt(this.collection.currentPage)-1))
+        if(!this.collection.hasPage(parseInt(this.collection.currentPage)-1)){
             return;
-        Backbone.history.navigate('lifes/'+(--this.collection.currentPage)+'/'+this.type+'/q_'+this.cityname+'/q_'+encodeURIComponent(this.lifename)+'/'+this.collection.query, {trigger:true});
+        }else{
+            if(this.collection.query.indexOf('tags')>=0){
+                var query = this.collection.query;
+                query = query.split('tags')[1];
+                Backbone.history.navigate('lifes/'+(--this.collection.currentPage)+'/'+this.type+'/q_'+this.cityname+'/q_'+encodeURIComponent(this.lifename)+'/tags'+query, {trigger:true});
+            }else{
+                Backbone.history.navigate('lifes/'+(--this.collection.currentPage)+'/'+this.type+'/q_'+this.cityname+'/q_'+encodeURIComponent(this.lifename), {trigger:true});
+            }
+        }
     },
     showNextPage: function(){
 //        var that = this;
 //        this.collection.getNextPage(function(collection){
 //            that.showRestaurantList(collection);
 //        });
-        if(this.collection.hasPage(parseInt(this.collection.currentPage)+1) === false)
+        
+        console.log(query);
+        if(this.collection.hasPage(parseInt(this.collection.currentPage)+1) === false){
             return;
-        Backbone.history.navigate('lifes/'+(++this.collection.currentPage)+'/'+this.type+'/q_'+this.cityname+'/q_'+encodeURIComponent(this.lifename)+'/'+this.collection.query, {trigger:true});
+        }else{
+            if(this.collection.query.indexOf('tags')>=0){
+                var query = this.collection.query;
+                query = query.split('tags')[1];
+                Backbone.history.navigate('lifes/'+(++this.collection.currentPage)+'/'+this.type+'/q_'+this.cityname+'/q_'+encodeURIComponent(this.lifename)+'/tags'+query, {trigger:true});
+            }else{
+                Backbone.history.navigate('lifes/'+(++this.collection.currentPage)+'/'+this.type+'/q_'+this.cityname+'/q_'+encodeURIComponent(this.lifename), {trigger:true});
+            }
+        }
     },
     showByPage: function(page){
         var that = this;

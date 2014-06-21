@@ -279,8 +279,6 @@ $(weego.init());
                 .siblings().removeClass('active');
         },
         showLifeListView2 : function(page,type,cityname,areaname){
-            console.log("====================");
-            console.log(page,type,cityname,areaname,lifename);
             $('#app').off();
             $('#app').empty();
             if(type == null)
@@ -379,7 +377,6 @@ $(weego.init());
                 // model.tags =  tags.split("=");
                 // model.tags = model.tags[1].split(",");
             }
-            console.log(model.tags);
             // if(isLocalFlag){
             //     var a=isLocalFlag.split('=');
             //     if(a[1]){
@@ -410,8 +407,6 @@ $(weego.init());
                 lifeListView.$el.appendTo($('#app'));
             }else{
                 var lifeListView = new LifeListView(model);
-                console.log("********************");
-                console.log(page);
                 lifeListView.render();
                 lifeListView.showByPage(page);
                 lifeListView.$el.appendTo($('#app'));
