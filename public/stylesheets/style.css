@@ -256,3 +256,24 @@ input[type=checkbox]{
 .services li .control-label{
     width: auto;
 }
+.textareawrapper{
+    display: none;
+}
+.editwords{
+    color: #333;
+}
+
+.form-horizontal .controlsitem{
+    width: 60%;
+    margin-left: 350px;
+}
+.ItemTitle,.delbutton{
+    float: left;
+}
+.intr-control{
+    margin-bottom: 10px;
+}
+.tip-control,.tra-control{
+    overflow: hidden;
+    margin-bottom: 10px;
+}

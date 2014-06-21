@@ -136,7 +136,17 @@ var LifeView = Backbone.View.extend({
         'click #addLifetag':'addLifetag',
         'click #addOpentime':'addOpentime',
         'click .li-del':'delLi',
-        'click #allday':'selectAllDay'
+        'click #allday':'selectAllDay',
+        'click .tagsbtn':'choosetag'
+    },
+    choosetag:function(e){
+        $el = $(e.currentTarget);
+        var flag = $el.hasClass('active');
+        if(flag){
+            $el.removeClass('active');
+        }else{
+            $el.addClass('active');
+        }
     },
     render: function(){
         if(weego_user.globalUser.type == 1){
@@ -490,23 +500,29 @@ var LifeView = Backbone.View.extend({
             item.desc = $('.opentimes').eq(i).attr('value');
             opentimes.push(item);
         }
-        var local_flag = $('#local_flag').prop('checked'),
-            michilin_flag = $('#michilin_flag').prop('checked'),
-            best_dinnerchoics = $('#best_dinnerchoics').prop('checked'),
-            most_popular = $('#most_popular').prop('checked');
-        var tags = [];
-        if(local_flag){
-            tags.push('localflag');
+        // var local_flag = $('#local_flag').prop('checked'),
+        //     michilin_flag = $('#michilin_flag').prop('checked'),
+        //     best_dinnerchoics = $('#best_dinnerchoics').prop('checked'),
+        //     most_popular = $('#most_popular').prop('checked');
+        // var tags = [];
+        // if(local_flag){
+        //     tags.push('localflag');
+        // }
+        // if(michilin_flag){
+        //     tags.push('michilin');
+        // }
+        // if(best_dinnerchoics){
+        //     tags.push('bestfordinner');
+        // }
+        // if(most_popular){
+        //     tags.push('popular');
+        // }
+        var tagsElements = $('.tagsbtn.active'),
+            tags = [];
+        for(var i = 0;i<tagsElements.length;i++){
+            tags.push(tagsElements.eq(i).attr('data-value'));
         }
-        if(michilin_flag){
-            tags.push('michilin');
-        }
-        if(best_dinnerchoics){
-            tags.push('bestfordinner');
-        }
-        if(most_popular){
-            tags.push('popular');
-        }
+        console.log(tagsElements);
         var item = {
             name : $('#name').val(),
             address : $('#address').val(),
@@ -574,7 +590,6 @@ var LifeView = Backbone.View.extend({
             $('#price_level').focus();
             return false;
         }
-        console.log(item.recommand_duration);
         if(item.recommand_duration != '' && !isInt(item.recommand_duration)){
             alert('推荐时间必须是整数！');
             $('#recommand_duration').focus();
@@ -683,10 +698,10 @@ var LifeListView = Backbone.View.extend({
         this.cityname = isNull(data.cityname)?'':data.cityname;
         this.areaname = isNull(data.areaname)?'':data.areaname;
         this.lifename = isNull(data.lifename)?'':data.lifename;
-        this.isLocalFlag = isNull(data.isLocalFlag)?"":data.isLocalFlag;
-        this.isMichilinFlag = isNull(data.isMichilinFlag)?"":data.isMichilinFlag;
-        this.isBestDinnerchoics = isNull(data.isBestDinnerchoics)?"":data.isBestDinnerchoics;
-        this.isMostPopular = isNull(data.isMostPopular)?"":data.isMostPopular;
+        // this.isLocalFlag = isNull(data.isLocalFlag)?"":data.isLocalFlag;
+        // this.isMichilinFlag = isNull(data.isMichilinFlag)?"":data.isMichilinFlag;
+        // this.isBestDinnerchoics = isNull(data.isBestDinnerchoics)?"":data.isBestDinnerchoics;
+        // this.isMostPopular = isNull(data.isMostPopular)?"":data.isMostPopular;
         this.collection = new LifeCollection(data);
 
         this.collection.on('all', function(){
@@ -774,7 +789,7 @@ var LifeListView = Backbone.View.extend({
 //        });
         if(!this.collection.hasPage(parseInt(this.collection.currentPage)-1))
             return;
-        Backbone.history.navigate('lifes/'+(--this.collection.currentPage)+'/'+this.type+'/q_'+this.cityname+'/q_'+encodeURIComponent(this.lifename), {trigger:true});
+        Backbone.history.navigate('lifes/'+(--this.collection.currentPage)+'/'+this.type+'/q_'+this.cityname+'/q_'+encodeURIComponent(this.lifename)+'/'+this.collection.query, {trigger:true});
     },
     showNextPage: function(){
 //        var that = this;
@@ -783,7 +798,7 @@ var LifeListView = Backbone.View.extend({
 //        });
         if(this.collection.hasPage(parseInt(this.collection.currentPage)+1) === false)
             return;
-        Backbone.history.navigate('lifes/'+(++this.collection.currentPage)+'/'+this.type+'/q_'+this.cityname+'/q_'+encodeURIComponent(this.lifename), {trigger:true});
+        Backbone.history.navigate('lifes/'+(++this.collection.currentPage)+'/'+this.type+'/q_'+this.cityname+'/q_'+encodeURIComponent(this.lifename)+'/'+this.collection.query, {trigger:true});
     },
     showByPage: function(page){
         var that = this;
@@ -1027,4 +1042,9 @@ var UploadImageView = Backbone.View.extend({
         })
     }
 });
-
+Handlebars.registerHelper('ifHas', function(v1, v2, options) {
+    if (v1.indexOf(v2)>=0) {
+        return options.fn(this);
+    }
+        return options.inverse(this);
+});

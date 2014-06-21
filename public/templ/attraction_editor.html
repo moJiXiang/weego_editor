@@ -64,7 +64,11 @@
              <div class="control-group">
                 <label class="control-label" for="traffic_info">交通信息</label>
                 <div class="controls">
-                    <textarea id="traffic_info" name="traffic_info" style="width:80%;height:30px">{{traffic_info}}</textarea>
+                    <a class="editwords">{{traffic_info}}</a>
+                    <div class="textareawrapper">
+                        <textarea id="traffic_info" name="traffic_info" cols="30" rows="10">{{traffic_info}}</textarea>
+                        <input class="btn textareasurebtn" value="确定" type="button">
+                    </div>
                 </div>
             </div>
 			<div class="control-group">
@@ -100,21 +104,21 @@
             <div class="control-group">
                 <label class="control-label" for="short_introduce">一句话简介</label>
                 <div class="controls">
-                    <textarea id="short_introduce" style="width:80%;height:60px">{{short_introduce}}</textarea>
+                    <textarea id="short_introduce" cols="30" rows="10">{{short_introduce}}</textarea>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="introduce">简介</label>
                 <div class="controls">
-                    <textarea id="introduce" style="width:80%;height:150px">{{introduce}}</textarea>
+                    <textarea id="introduce" cols="30" rows="10">{{introduce}}</textarea>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="tips">Tips</label>
                 <div class="controls">
-                    <textarea id="tips" style="width:80%;height:100px">{{tips}}</textarea>
+                    <textarea id="tips" cols="30" rows="10">{{tips}}</textarea>
                 </div>
             </div>
 

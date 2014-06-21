@@ -49,51 +49,91 @@
 
             <div class="control-group">
                 <label class="control-label" for="short_introduce">一句话简介</label>
-                <div class="controls">
-                    <textarea id="short_introduce" style="width:80%;height:60px">{{short_introduce}}</textarea>
-                </div>
+                {{#if short_introduce}}
+                    <div class="controls">
+                        <a class="editwords">{{short_introduce}}</a>
+                        <div class="textareawrapper">
+                            <textarea id="short_introduce" rows='5'>{{short_introduce}}</textarea>
+                            <input class="btn textareasurebtn" value="确定" type="button">
+                        </div>
+                    </div>
+                    {{else}}
+                    <div class="controls">
+                        <textarea id="short_introduce" rows='5'></textarea>
+                    </div>
+                {{/if}}
             </div>
-             <div class="control-group">
+            <div class="control-group">
                 <label class="control-label" for="attraction_overview">Attractions Overview</label>
-                <div class="controls">
-                    <textarea id="attraction_overview" style="width:80%;height:60px">{{attraction_overview}}</textarea>
-                </div>
+                {{#if attraction_overview}}
+                    <div class="controls">      
+                        <a class="editwords">{{attraction_overview}}</a>
+                        <div class="textareawrapper">
+                            <textarea id="attraction_overview" rows='5'>{{attraction_overview}}</textarea>
+                            <input class="btn textareasurebtn" value="确定" type="button">
+                        </div>
+                    </div>
+                    {{else}}
+                    <div class="controls">
+                        <textarea id="attraction_overview" rows='5'></textarea>
+                    </div>
+                {{/if}}
             </div>
             <div class="control-group">
                 <label class="control-label" for="restaurant_overview">Restaurants Overview</label>
+                {{#if restaurant_overview}}
                 <div class="controls">
-                    <textarea id="restaurant_overview" style="width:80%;height:60px">{{restaurant_overview}}</textarea>
+                    <a class="editwords">{{restaurant_overview}}</a>
+                    <div class="textareawrapper">
+                        <textarea id="restaurant_overview" rows='5'>{{restaurant_overview}}</textarea>
+                        <input class="btn textareasurebtn" value="确定" type="button">                   
+                    </div>
                 </div>
+                {{else}}
+                <div class="controls">
+                    <textarea id="restaurant_overview" row="5"></textarea>
+                </div>
+                {{/if}}
             </div>
             <div class="control-group">
                 <label class="control-label" for="shopping_overview">Shoppings Overview</label>
+                {{#if shopping_overview}}
                 <div class="controls">
-                    <textarea id="shopping_overview" style="width:80%;height:60px">{{shopping_overview}}</textarea>
+                    <a class="editwords">{{shopping_overview}}</a>
+                    <div class="textareawrapper">
+                        <textarea id="shopping_overview" rows='5'>{{shopping_overview}}</textarea>
+                        <input class="btn textareasurebtn" value="确定" type="button">                   
+                    </div>
                 </div>
+                {{else}}
+                <div class="controls">
+                    <textarea id="shopping_overview" row="5"></textarea>
+                </div>
+                {{/if}}
             </div>
 
             
             <div class="control-group">
-                <!--
-                // <label class="control-label" for="introduce">简介</label>
-                // <div class="controls">
-                //     <textarea id="introduce" style="width:80%;height:150px">{{introduce}}</textarea>
-                // </div>
-                -->
                 <label class="control-label" for="introduce">简介</label>
                 <input type="button" value="增加条目" id="addIntr">
                 {{#if introduce}}
                 {{#ifBig introduce.length 20}}
                     <div class="controls intr-control">
                     <input class="input-xlarge focused intrItemTitle"  name="intrItemTitle" data-value="" type="text">
-                    <textarea class="intrItemContent" style="width:80%;height:100px">{{introduce}}</textarea>
+                    <textarea class="intrItemContent" cols="20" rows="10">{{introduce}}</textarea>
                     </div>
                 {{else}}
                 {{#each introduce}}
                 <div class="controls intr-control">
-                    <input class="input-xlarge focused intrItemTitle"  name="intrItemTitle" data-value="" type="text" value={{intrItemTitle}}>
-                    <input type="button" value="删除" class="delIntr">
-                    <textarea class="intrItemContent" style="width:80%;height:50px">{{intrItemContent}}</textarea>
+                    <input class="input-xlarge focused intrItemTitle ItemTitle"  name="intrItemTitle" data-value="" type="text" value={{intrItemTitle}}>
+                    <input type="button" value="删除" class="delIntr delbutton">
+                    <div class="controls controlsitem">
+                        <a class="editwords">{{intrItemContent}}</a>
+                        <div class="textareawrapper">
+                            <textarea class="intrItemContent" cols="20" rows="10">{{intrItemContent}}</textarea>
+                            <input class="btn textareasurebtn" value="确定" type="button">
+                        </div>
+                    </div>
                 </div>
                 {{/each}}
                 {{/ifBig}}
@@ -101,7 +141,7 @@
                 {{else}}
                     <div class="controls intr-control">
                     <input class="input-xlarge focused intrItemTitle"  name="intrItemTitle" data-value="" type="text">
-                    <textarea class="intrItemContent" style="width:80%;height:50px"></textarea>
+                    <textarea class="intrItemContent" cols="20" rows="10"></textarea>
                     </div>
                 {{/if}}
             </div>
@@ -118,14 +158,21 @@
                 {{#ifBig tips.length 20}}
                     <div class="controls tip-control">
                     <input class="input-xlarge focused tipItemTitle"  name="tipItemTitle" data-value="" type="text">
-                    <textarea class="tipItemContent" style="width:80%;height:100px">{{tips}}</textarea>
+                    <textarea class="tipItemContent" cols="20" rows="10">{{tips}}</textarea>
                     </div>
                 {{else}}
                 {{#each tips}}
+
                 <div class="controls tip-control">
-                    <input class="input-xlarge focused tipItemTitle"  name="tipItemTitle" data-value="" type="text" value={{tipItemTitle}}>
-                    <input type="button" value="删除" class="delTip">
-                    <textarea class="tipItemContent" style="width:80%;height:50px">{{tipItemContent}}</textarea>
+                    <input class="input-xlarge focused tipItemTitle ItemTitle"  name="tipItemTitle" data-value="" type="text" value={{tipItemTitle}}>
+                    <input type="button" value="删除" class="delTip delbutton">
+                    <div class="controls controlsitem">
+                        <a class="editwords">{{tipItemContent}}</a>
+                        <div class="textareawrapper">
+                            <textarea class="tipItemContent" cols="20" rows="10">{{tipItemContent}}</textarea>
+                            <input class="btn textareasurebtn" value="确定" type="button">
+                        </div>
+                    </div>
                 </div>
                 {{/each}}
                 {{/ifBig}}
@@ -133,7 +180,7 @@
                 {{else}}
                     <div class="controls tip-control">
                     <input class="input-xlarge focused tipItemTitle"  name="tipItemTitle" data-value="" type="text">
-                    <textarea class="tipItemContent" style="width:80%;height:50px"></textarea>
+                    <textarea class="tipItemContent" cols="20" rows="10"></textarea>
                     </div>
                 {{/if}}
             </div>
@@ -150,14 +197,21 @@
                 {{#ifBig traffic.length 20}}
                     <div class="controls tra-control">
                     <input class="input-xlarge focused traItemTitle"  name="traItemTitle" data-value="" type="text">
-                    <textarea class="traItemContent" style="width:80%;height:100px">{{traffic}}</textarea>
+                    <textarea class="traItemContent" cols="20" rows="10">{{traffic}}</textarea>
                     </div>
                 {{else}}
                 {{#each traffic}}
                 <div class="controls tra-control">
-                    <input class="input-xlarge focused traItemTitle"  name="traItemTitle" data-value="" type="text" value={{traItemTitle}}>
-                    <input type="button" value="删除" class="delTra">
-                    <textarea class="traItemContent" style="width:80%;height:50px">{{traItemContent}}</textarea>
+                    <input class="input-xlarge focused traItemTitle ItemTitle"  name="traItemTitle" data-value="" type="text" value={{traItemTitle}}>
+                    <input type="button" value="删除" class="delTra delbutton">
+                    <div class="controls controlsitem">
+                        <a class="editwords">{{traItemContent}}</a>
+                        <div class="textareawrapper">
+                            <textarea class="traItemContent" cols="20" rows="10">{{traItemContent}}</textarea>
+                            <input class="btn textareasurebtn" value="确定" type="button">
+                        </div>
+                    </div>
+                    
                 </div>
                 {{/each}}
                 {{/ifBig}}
@@ -165,7 +219,7 @@
                 {{else}}
                     <div class="controls tra-control">
                     <input class="input-xlarge focused traItemTitle"  name="traItemTitle" data-value="" type="text">
-                    <textarea class="traItemContent" style="width:80%;height:50px"></textarea>
+                    <textarea class="traItemContent" cols="20" rows="10"></textarea>
                     </div>
                 {{/if}}
             </div>

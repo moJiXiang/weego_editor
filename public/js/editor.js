@@ -318,8 +318,6 @@ $(weego.init());
             $('.back_cur_city').prop("href","/index.html#city/1/q_/"+cityname);
         },
         showLifeListView1: function(page,type,cityname,lifename){
-            console.log("====================");
-            console.log(page,type,cityname,lifename);
             $('#app').off();
             $('#app').empty();
             if(type == null)
@@ -357,7 +355,6 @@ $(weego.init());
             $('.back_cur_city').prop("href","/index.html#city/1/q_/"+cityname);
         },
         showLifeListView: function(page,type,cityname,lifename,tags){
-            console.log(cityname,lifename,tags);
             $('#app').off();
             $('#app').empty();
             if(type == null)
@@ -413,7 +410,8 @@ $(weego.init());
                 lifeListView.$el.appendTo($('#app'));
             }else{
                 var lifeListView = new LifeListView(model);
-
+                console.log("********************");
+                console.log(page);
                 lifeListView.render();
                 lifeListView.showByPage(page);
                 lifeListView.$el.appendTo($('#app'));
@@ -765,7 +763,22 @@ $(weego.init());
             'click .del':'dellabel',
             'focus .labels':'autoget',
             'focus #masterLabel':'autogetMasterLabel',
-            'click #allday' : 'selectAllDay'
+            'click #allday' : 'selectAllDay',
+            'click .editwords':'editwords',
+            'click .textareasurebtn':'textareasure'
+        },
+        textareasure:function (e){
+            e.stopPropagation();
+            var $el = $(e.currentTarget);
+            var value = $el.siblings('textarea').val();
+            $el.parent('.textareawrapper').hide();
+            $el.parent().parent().children('.editwords').html(value).show();
+        },
+        editwords:function (e) {
+            e.stopPropagation();
+            var $el = $(e.currentTarget);
+            $el.hide();
+            $el.next('.textareawrapper').show();
         },
         selectAllDay : function(e){
             e.preventDefault();
@@ -1027,7 +1040,22 @@ $(weego.init());
             'focus #masterLabel':'autogetMasterLabel',
             'click #cancel':'cancel',
             'click .close' : 'cancel',
-            'click #allday' : 'selectAllDay'
+            'click #allday' : 'selectAllDay',
+            'click .editwords':'editwords',
+            'click .textareasurebtn':'textareasure'
+        },
+        textareasure:function (e){
+            e.stopPropagation();
+            var $el = $(e.currentTarget);
+            var value = $el.siblings('textarea').val();
+            $el.parent('.textareawrapper').hide();
+            $el.parent().parent().children('.editwords').html(value).show();
+        },
+        editwords:function (e) {
+            e.stopPropagation();
+            var $el = $(e.currentTarget);
+            $el.hide();
+            $el.next('.textareawrapper').show();
         },
         selectAllDay : function(e){
             e.preventDefault();

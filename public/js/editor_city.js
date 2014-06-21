@@ -86,6 +86,7 @@ $(weego_city.init());
             'click .delTra':'delTra',
             'change #continents':'selectCountry'
         },
+
         dellabel:function (e) {
             $(e.target).parents('.label-group').remove();
         },
@@ -305,7 +306,22 @@ $(weego_city.init());
             'click .delTip':'delTip',
             'click .delIntr':'delIntr',
             'click .delTra':'delTra',
-            'change #continents':'selectCountry'
+            'change #continents':'selectCountry',
+            'click .editwords':'editwords',
+            'click .textareasurebtn':'textareasure'
+        },
+        textareasure:function (e){
+            e.stopPropagation();
+            var $el = $(e.currentTarget);
+            var value = $el.siblings('textarea').val();
+            $el.parent('.textareawrapper').hide();
+            $el.parent().parent().children('.editwords').html(value).show();
+        },
+        editwords:function (e) {
+            e.stopPropagation();
+            var $el = $(e.currentTarget);
+            $el.hide();
+            $el.next('.textareawrapper').show();
         },
         dellabel:function (e) {
             $(e.target).parents('.label-group').remove();

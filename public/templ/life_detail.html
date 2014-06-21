@@ -374,12 +374,43 @@
           </div>
       </div>
 
-      <div class="control-group" style="border-top:1px solid #333">
+
+      <div class="control-group">
+        <label for="" class="control-label">选择标签</label>
+        <div class="controls">
+            {{#ifHas tags 'localflag'}}
+            <button type="button" class="tagsbtn btn btn-primary btn-lg active" data-value="localflag">当地特色</button>
+              {{else}}
+            <button type="button" class="tagsbtn btn btn-primary btn-lg" data-value="localflag">当地特色</button>
+            {{/ifHas}}
+
+            {{#ifHas tags 'michilin'}}
+            <button type="button" class="tagsbtn btn btn-primary btn-lg active" data-value="michilin">米其林</button>
+              {{else}}
+            <button type="button" class="tagsbtn btn btn-primary btn-lg" data-value="michilin">米其林</button>
+            {{/ifHas}}
+            
+            {{#ifHas tags 'bestfordinner'}}
+            <button type="button" class="tagsbtn btn btn-primary btn-lg active" data-value="bestfordinner">适合晚餐</button>
+              {{else}}
+            <button type="button" class="tagsbtn btn btn-primary btn-lg" data-value="bestfordinner">适合晚餐</button>
+            {{/ifHas}}
+
+            {{#ifHas tags 'popular'}}
+            <button type="button" class="tagsbtn btn btn-primary btn-lg active" data-value="popular">流行</button>
+              {{else}}
+            <button type="button" class="tagsbtn btn btn-primary btn-lg" data-value="popular">流行</button>
+            {{/ifHas}}
+        </div>
+      </div>
+
+
+      <!-- <div class="control-group" style="border-top:1px solid #333">
         <label for="" class="control-label">已选标签</label>
         <div class="controls">
           {{#if tags}}
           {{#tags}}
-            <button class="btn btn-default btn-lg active">{{this}}</button>
+            <button type="button" class="btn btn-default btn-lg active">{{this}}</button>
           {{/tags}}
           {{/if}}
         </div>
@@ -411,7 +442,7 @@
           <input type="checkbox" id="most_popular">
           <label  class="control-label show_flag" for="most_popular">是否最流行</label>
         </div>
-      </div>
+      </div> -->
       <!-- <div class="control-group">
           <label class="control-label" for="tese">游客最爱</label>
           <div class="controls">
