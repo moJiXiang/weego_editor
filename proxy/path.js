@@ -112,7 +112,10 @@ exports.getOneWithEmptySteps = function(mode, callback) {
 
 exports.getOneWithEmptyStepsSync = function(mode, skipcount, limitcount, callback) {
 	// var options = '{"' + mode + '.steps": []}';
-	var query = Path.find({'driver.steps' : [], a_type : "0", b_type : "1"});
+	// var query = Path.find({'driver.steps' : [], a_type : "0", b_type : "1"});
+	// var query = Path.find({'bus.steps' : []});
+	var query = Path.find({"city_name" : "纽约", a_type : "0", b_type : "0", "bus.duration" : null});
+
 	//query.skip(skipcount);
 	query.limit(limitcount);
 

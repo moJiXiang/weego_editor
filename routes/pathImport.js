@@ -264,6 +264,26 @@ function getGoogleUrl(o, d, mode, sensor, key) {
 	return url;
 }
 
+
+
+function getGoogleUrlTimezone(cityname, o, d, mode, sensor, key) {
+
+	var citylist = [];
+	var citytimezone = [];
+
+	var url = apiurl;
+	url += "?origin=" + o;
+	url += "&destination=" + d;
+	url += "&mode=" + mode;
+	var departure_time = Math.round(new Date().getTime()/1000);
+	url += "&departure_time=" + departure_time;
+	url += "&sensor=" + sensor;
+	url += "&key=" + key;
+	return url;
+
+}
+
+
 function mydownload(url, obj, index, count, callback) {
 	var req = https.request(url, function(res) {
 	  // console.log("statusCode: ", res.statusCode);
@@ -371,9 +391,16 @@ exports.runFillTaskQueen = function(req, res) {
 						     //               	}
 
 											// one.bus.steps = steps;
-											one.driver.steps = steps;
+											one.bus.steps = steps;
+
+											//meters
+											one.bus.duration = legs.duration.value;
+
+											//seconds
+											one.bus.distance = legs.distance.value;
 
 
+											one.driver.legs = legs;
 											// console.log(one);
 
 											// saveOnePath(obj, ep.done('save'));
@@ -389,9 +416,9 @@ exports.runFillTaskQueen = function(req, res) {
 											path.b_latitude = one.b_latitude;
 											path.b_longitude = one.b_longitude;
 											//steps
-											path.bus.steps = one.bus.steps;
-											path.driver.steps = one.driver.steps;
-											path.walk.steps = one.walk.steps;
+											path.bus = one.bus;
+											path.driver = one.driver;
+											path.walk = one.walk;
 											one.save(function(err, one_data){
 												if (err) {
 													console.log("get the data to database error,fail to read");
@@ -403,12 +430,16 @@ exports.runFillTaskQueen = function(req, res) {
 
 											var steps = [];
 											
-											console.log(one.id);
 
 											steps.push({ html : "Google Not Found"});
 
 											// one.bus.steps = steps;
-											one.driver.steps = steps;
+											one.bus.steps = steps;
+											//meters
+											one.bus.duration = 0;
+
+											//seconds
+											one.bus.distance = 0;
 
 											// console.log(one);
 
@@ -425,9 +456,9 @@ exports.runFillTaskQueen = function(req, res) {
 											path.b_latitude = one.b_latitude;
 											path.b_longitude = one.b_longitude;
 											//steps
-											path.bus.steps = one.bus.steps;
-											path.driver.steps = one.driver.steps;
-											path.walk.steps = one.walk.steps;
+											path.bus = one.bus;
+											path.driver = one.driver;
+											path.walk = one.walk;
 											one.save(function(err, one_data){
 												if (err) {
 													console.log("get the data to database error,fail to read");
@@ -450,13 +481,16 @@ exports.runFillTaskQueen = function(req, res) {
 
 											var steps = [];
 											
-											console.log(one.id);
 
 											steps.push({ html : "Zero results error"});
 
 											// one.bus.steps = steps;
-											one.driver.steps = steps;
+											one.bus.steps = steps;
+											//meters
+											one.bus.duration = 0;
 
+											//seconds
+											one.bus.distance = 0;
 											// console.log(one);
 
 											// saveOnePath(obj, ep.done('save'));
@@ -472,9 +506,9 @@ exports.runFillTaskQueen = function(req, res) {
 											path.b_latitude = one.b_latitude;
 											path.b_longitude = one.b_longitude;
 											//steps
-											path.bus.steps = one.bus.steps;
-											path.driver.steps = one.driver.steps;
-											path.walk.steps = one.walk.steps;
+											path.bus = one.bus;
+											path.driver = one.driver;
+											path.walk = one.walk;
 											one.save(function(err, one_data){
 												if (err) {
 													console.log("get the data to database error,fail to read");
@@ -525,13 +559,16 @@ exports.runFillTaskQueen = function(req, res) {
 
 							var steps = [];
 											
-							console.log('geo ' + one.id);
-
 
 							steps.push({html : "Geo data error"});
 
 							// one.bus.steps = steps;
-							one.driver.steps = steps;
+							one.bus.steps = steps;
+							//meters
+							one.bus.duration = legs.duration.value;
+
+							//seconds
+							one.bus.distance = legs.distance.value;
 
 							// console.log(one);
 
@@ -548,9 +585,11 @@ exports.runFillTaskQueen = function(req, res) {
 							path.b_latitude = one.b_latitude;
 							path.b_longitude = one.b_longitude;
 							//steps
-							path.bus.steps = one.bus.steps;
-							path.driver.steps = one.driver.steps;
-							path.walk.steps = one.walk.steps;
+							path.bus = one.bus;
+							path.driver = one.driver;
+							path.walk = one.walk;
+
+
 							one.save(function(err, one_data){
 								if (err) {
 									console.log("get the data to database error,fail to read");
@@ -579,6 +618,7 @@ exports.runFillTaskQueen = function(req, res) {
 			}
 		}
 	});
+
 
 
 
