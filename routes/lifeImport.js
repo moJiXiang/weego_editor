@@ -83,7 +83,7 @@ function getInitData(){
 	// cityItems.push({cityname:'大阪',cityid:'516a352b625d8b1e36000003',items:boston_k.items});
 
 	//cityItems.push({cityname:'巴塞罗那',cityid:'516a3519f8a6461636000003',items:barcelona_k.items});
-	cityItems.push({cityname:'伦敦',cityid:'516a35218902ca1936000005',items:london_k.items});
+	// cityItems.push({cityname:'伦敦',cityid:'516a35218902ca1936000005',items:london_k.items});
 	//cityItems.push({cityname:'洛杉矶',cityid:'516a34f958e3511036000003',items:losangeles_k.items});
 	//cityItems.push({cityname:'巴黎',cityid:'516a350ec221c21236000003',items:paris_k.items});
 	//cityItems.push({cityname:'罗马',cityid:'51d3d238e98bbb566a000001',items:roma_k.items});
