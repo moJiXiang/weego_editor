@@ -261,8 +261,11 @@ input[type=checkbox]{
 }
 .editwords{
     color: #333;
+    width: 55%;
 }
-
+pre.editwords{
+    border: none;
+}
 .form-horizontal .controlsitem{
     width: 60%;
     margin-left: 350px;
@@ -276,4 +279,9 @@ input[type=checkbox]{
 .tip-control,.tra-control{
     overflow: hidden;
     margin-bottom: 10px;
+}
+.countrytable{
+    float:left;
+    margin-left:20px;
+    width:200px;
 }
