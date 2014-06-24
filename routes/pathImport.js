@@ -267,20 +267,98 @@ function getGoogleUrl(o, d, mode, sensor, key) {
 
 
 function getGoogleUrlTimezone(cityname, o, d, mode, sensor, key) {
+	var cities = [
+	'苏黎世',
+	'巴塞罗那',
+	'纽约',
+	'巴黎',
+	'罗马',
+	'伦敦',
+	'威尼斯',
+	'日内瓦',
+	'旧金山',
+	'洛杉矶',
+	'新加坡',
+	'东京',
+	'大阪',
+	'马德里',
+	'温哥华',
+	'芝加哥',
+	'曼彻斯特',
+	'波士顿',
+	'尼斯',
+	'圣地亚哥',
+	'慕尼黑',
+	'柏林',
+	'多伦多',
+	'法兰克福',
+	'悉尼',
+	];
+	var citytimezone = [
+	-6,
+	-6,
+	-12,
+	-6,
+	-6,
+	-7,
+	-6,
+	-6,
+	-15,
+	-15,
+	0,
+	1,
+	1,
+	-6,
+	-15,
+	-13,
+	-7,
+	-12,
+	-6,
+	-15,
+	-6,
+	-6,
+	-12,
+	-6,
+	2
+	];
 
-	var citylist = [];
-	var citytimezone = [];
+	var offsettime = 0;
+	for (var i = 0; i < cities.length; i++) {
+		if (cityname == cities[i]) {
+			offsettime = citytimezone[i] * 3600;
+		}
+	};
+
 
 	var url = apiurl;
 	url += "?origin=" + o;
 	url += "&destination=" + d;
 	url += "&mode=" + mode;
-	var departure_time = Math.round(new Date().getTime()/1000);
+	
+	var datetime = '2014-06-24 10:10:10';
+	var departure_time = datetime_to_unix(datetime) + offsettime; 
+
+	// var departure_time = Math.round(new Date().getTime()/1000) + offsettime;
+
 	url += "&departure_time=" + departure_time;
 	url += "&sensor=" + sensor;
 	url += "&key=" + key;
 	return url;
 
+}
+
+
+function datetime_to_unix(datetime){
+    var tmp_datetime = datetime.replace(/:/g,'-');
+    tmp_datetime = tmp_datetime.replace(/ /g,'-');
+    var arr = tmp_datetime.split("-");
+    var now = new Date(Date.UTC(arr[0],arr[1]-1,arr[2],arr[3]-8,arr[4],arr[5]));
+    return parseInt(now.getTime()/1000);
+}
+ 
+function unix_to_datetime(unix) {
+    var now = new Date(parseInt(unix) * 1000);
+    return now.toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
 }
 
 
@@ -363,11 +441,12 @@ exports.runFillTaskQueen = function(req, res) {
 
 						if (data[k].b_latitude || data[k].b_longitude || data[k].a_latitude || data[k].a_longitude) {
 
-							var googlemode = "driving";
+							var googlemode = "transit";
 							var sensor = "false";
-
+							var cityname = data[k].city_name;
+							console.log(cityname);
+							// var myurl = getGoogleUrlTimezone(cityname, o, d, googlemode, sensor, googlekey);
 							var myurl = getGoogleUrl(o, d, googlemode, sensor, googlekey);
-							
 							console.log('(________' + k + '________)' + myurl);
 							
 							
@@ -482,7 +561,7 @@ exports.runFillTaskQueen = function(req, res) {
 											var steps = [];
 											
 
-											steps.push({ html : "Zero results error"});
+											steps.push({ html : "Zero results errors"});
 
 											// one.bus.steps = steps;
 											one.bus.steps = steps;
