@@ -45,6 +45,10 @@ module.exports = function(app) {
 	app.del('/city/:cityID', routes.city.deleteCity);
 	app.put('/city/:cityID', routes.city.updateCity);
 	app.get('/getAllCity', routes.city.getAllCity);
+	app.get('/getCountryCities/:countryname', routes.city.getCountryCities);
+	app.get('/getCountryCities/:countryname/:cityname', routes.city.getCityByName);
+	// app.get('/getCountryCities/:countryname?', routes.city.getOneCityByName);
+	app.get('/getAllCountries', routes.country.getAllCountries);
 	app.get('/getAllCityBaseInfo', routes.city.getAllCityBaseInfo);
 	app.get('/getCityByPage/:pageLimit/:pageIndex?', routes.city.getCityByPage);
 	app.get('/getCityByLabelID/:labelID', routes.city.getCityByLabelID);

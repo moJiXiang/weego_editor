@@ -845,25 +845,25 @@ $(weego_city.init());
     var city_location;
 
     function initialize() {
-        geocoder = new google.maps.Geocoder();
-        var latlng;
-        if ($("#latitude").val() != '' && $("#longitude").val() != '') {
-            latlng = new google.maps.LatLng(parseFloat($("#latitude").val()), parseFloat($("#longitude").val()));
-        } else {
-            latlng = new google.maps.LatLng(39.924482, 116.408386);
-        }
+        // geocoder = new google.maps.Geocoder();
+        // var latlng;
+        // if ($("#latitude").val() != '' && $("#longitude").val() != '') {
+        //     latlng = new google.maps.LatLng(parseFloat($("#latitude").val()), parseFloat($("#longitude").val()));
+        // } else {
+        //     latlng = new google.maps.LatLng(39.924482, 116.408386);
+        // }
 
-        var mapOptions = {
-            zoom:9,
-            center:latlng,
-            mapTypeId:google.maps.MapTypeId.ROADMAP
-        }
-        map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-        var marker = new google.maps.Marker({
-            position:latlng,
-            map:map,
-            title:'Hello World!'
-        });
+        // var mapOptions = {
+        //     zoom:9,
+        //     center:latlng,
+        //     mapTypeId:google.maps.MapTypeId.ROADMAP
+        // }
+        // map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+        // var marker = new google.maps.Marker({
+        //     position:latlng,
+        //     map:map,
+        //     title:'Hello World!'
+        // });
     }
 
     function locationCity() {

@@ -19,6 +19,7 @@ var upyunClient = require('./upyun/upyunClient');
 var Country =  require('./country');
 var EventProxy = require('eventproxy');
 var Attraction = require('./attractions');
+var Auditing = require('../proxy').Auditing;
 var Restaurant = require('../proxy').Restaurant;
 var Shopping  = require('../proxy').Shopping;
 var Util = require('./util');
@@ -31,6 +32,28 @@ exports.getAllCity = function (req, res) {
             res.send(result);
         }
     });
+};
+exports.getCountryCities = function (req, res) {
+    var countryname = req.params.countryname;
+    var c = {};
+    if(req.query.cityname) c.cityname = req.query.cityname;
+    c.countryname = req.params.countryname;
+    var sortlist = {};
+    if(req.query.sort){
+        var sortdir = req.query.sortdir;
+        if(sortdir == 'desc'){
+            sortlist.show_flag = -1;
+        }else{
+            sortlist.show_flag = 1;
+        }
+    } 
+    cityProvider.find(c,{sort:sortlist},function (err, result) {
+        if (err) {
+            res.send({status:false,err:err});
+        } else {
+            res.send({status:true,results:result});
+        }
+    })
 };
 
 exports.getAllCityBaseInfo = function(req,res){
@@ -87,6 +110,43 @@ function startTask(paramsArray, sblabel, current, count, callBack) {
             startTask(paramsArray, sblabel, current + 1, count, callBack);
         });
     }
+}
+exports.getCityByName = function (req, res){
+    var name = req.params.cityname;
+    var editor = req.session.user.username;
+    console.log('*********************');
+    console.log(editor);
+    // var ep = new EventProxy();
+    // ep.all('city','audit',function (city, audit) {
+    //     res.send({status:true,results:result,audit:audit});
+    //     // callback(null,{
+    //     //     city  : city,
+    //     //     audit : audit
+    //     // });
+    // })
+    // // 添加error handler
+    // ep.fail(function (err) {
+    //   callback(err);
+    // });
+    
+    // cityProvider.findOne({cityname:name}, {}, ep.done('city'));
+    // Auditing.findAuditingByQuery({cityname:name}, {}, ep.done('audit'));
+
+    cityProvider.findOne({cityname:name}, {}, function (err, result) {
+        if(err) {
+            res.send({err: err});
+        } else {
+            res.send({status:true,results:result,editor:editor});
+        }
+    })
+    Auditing.findAuditingByQuery({cityname:name}, {}, function (err, result) {
+        if(err) {
+            res.send({err: err});
+        } else {
+            res.send({status:true,audit:result});
+        }
+    });
+
 }
 exports.getCity = function (req, res) {
     if (req.params.cityID) {

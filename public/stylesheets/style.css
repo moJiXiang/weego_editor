@@ -285,3 +285,44 @@ pre.editwords{
     margin-left:20px;
     width:200px;
 }
+.fuelux{
+    width: 60%;
+}
+.bs-callout-info {
+    background-color: #f4f8fa;
+    border-color: #bce8f1;
+}
+.bs-callout {
+    margin: 20px 0;
+    padding: 20px;
+    border-left: 3px solid #eee;
+}
+.citypreview_model{
+    width: 60%;
+}
+.edithistory{
+    position: fixed;
+    top: 100px;
+    right: 200px;
+}
+.bs-example {
+    margin-left: 0;
+    margin-right: 0;
+    background-color: #f7f7f9;
+    border-width: 1px;
+    border: 1px solid #e1e1e8;
+    border-radius: 4px;
+    box-shadow: none;
+}
+.highlight {
+    padding: 9px 14px;
+    margin-bottom: 14px;
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+    border-radius: 4px;
+}
+.countrytable td a{
+    float: left;
+    width: 200px;
+    height: 20px;
+}

@@ -22,7 +22,10 @@ $(weego.init());
 
     weego.GlobalRouter = Backbone.Router.extend({
         routes:{
-            // "city/:name/:pageno":"city_attractions", //
+            // "country":"city_attractions", //
+            "allCountries":"showallCountries",
+            "allCountries/:countryname":"showCountry",
+            "allCountries/:countryname/:cityname":"showCity",
             "city/:pageno":"city", //根据页码展示city
             "city/:pageno/:country/:cityname":"city", //根据页码展示city
 
@@ -153,6 +156,160 @@ $(weego.init());
             $('#tab-label').addClass('active');
             weego_label.defaultView = new weego_label.AppView();
             weego_label.defaultView.getData(weego_label.currentPage);
+        },
+        showallCountries:function(){   
+            $.ajax({
+                url:'/getAllCity',
+                method:'get',
+                success:function(data){
+                    var allCountries = new weego.AllCountriesView();
+                    $('#app').html('').append(allCountries.render(data).$el);
+                }
+            })                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+        },
+        showCountry:function(countryname){
+            var countrycities = new weego.CountryCitiesView();
+            $('#app').html('').append(countrycities.render(countryname).$el);
+            var AjaxDataSource = function (options) {
+                this._formatter = options.formatter;
+                this._columns = options.columns;
+            };
+
+            AjaxDataSource.prototype = {
+
+                /**
+                 * Returns stored column metadata
+                 */
+                columns: function() {
+                    return this._columns;
+                },
+                /**
+                 * Called when Datagrid needs data. Logic should check the options parameter
+                 * to determine what data to return, then return data by calling the callback.
+                 * @param {object} options Options selected in datagrid (ex: {pageIndex:0,pageSize:5,search:'searchterm'})
+                 * @param {function} callback To be called with the requested data.
+                 */
+                data: function(options, callback) {
+                    var url = '/getCountryCities/'+countryname;
+                    var self = this;
+
+                    if (options.search || true) {
+                        // Search active.  Add URL parameters for API.
+                        url += '?';
+                        url += options.search ? ('&cityname=' + encodeURIComponent(options.search)) : '';
+                        // url += '?cityname=' + encodeURIComponent(options.search);
+                        url += '&perpage=' + options.pageSize;
+                        url += '&page=' + (options.pageIndex + 1);
+                        if (options.sortProperty) {
+                            url += "&sort=" + options.sortProperty + "&sortdir=" + options.sortDirection
+                        }
+
+                        //alert(url); //use this to debug
+                        $.ajax(url, {
+
+                            // Set JSONP options for API
+                            dataType: 'json',
+                            type: 'GET'
+
+                        }).done(function(response) {
+                            // alert('ajax');
+                            
+                            console.log(response);
+                            //alert(response.data);
+
+                            // Prepare data to return to Datagrid
+                            var data = response.results;
+                            var count = response.results.length;
+                            var startIndex = options.pageIndex * options.pageSize;
+                            var endIndex = startIndex + options.pageSize;
+                            var end = (endIndex > count) ? count : endIndex;
+                            var pages = Math.ceil(count / options.pageSize);
+                            var page = options.pageIndex + 1;
+                            var start = startIndex + 1;
+
+                            // SORTING is dealt with by the server
+                            data = data.slice(startIndex, endIndex);
+                            // Allow client code to format the data
+                            if (self._formatter) self._formatter(data);
+
+                            // Return data to Datagrid
+                            callback({
+                                data: data,
+                                start: start,
+                                end: end,
+                                count: count,
+                                pages: pages,
+                                page: page
+                            });
+
+                        });
+                    } else {
+                        // No search. Return zero results to Datagrid
+                        callback({
+                            data: [],
+                            start: 0,
+                            end: 0,
+                            count: 0,
+                            pages: 0,
+                            page: 0
+                        });
+                    }
+                }
+            };
+            $('#CityGrid').datagrid({
+                stretchHeight: false, //forces the datagrid to take up all the height of the containing HTML element. If false, it expands (& contracts) to fit the amount of data it contains.
+                dataSource: new AjaxDataSource({
+                    // Column definitions for Datagrid
+                    columns: [{
+                        property: 'cityname',
+                        label: '城市名',
+                        sortable: false
+                    }, {
+                        property: 'show_flag',
+                        label: '是否显示',
+                        sortable: true
+                    }, {
+                        property: 'recommand_day',
+                        label: '是否推荐',
+                        sortable: true
+                    }, {
+                        property: 'recommand_day',
+                        label: '审核通过',
+                        sortable: true
+                    }, {
+                        property: 'recommand_day',
+                        label: '审核时间',
+                        sortable: true
+                    }, {
+                        property: 'recommand_day',
+                        label: '编辑时间',
+                        sortable: true
+                    }],
+
+                    formatter: function(items) {
+                        $.each(items, function(index, item) {
+                            item.cityname = '<a href="#allCountries/'+ item.countryname +'/'+item.cityname+'">' + item.cityname +'</a>';
+                            item.show_flag = '<button type="button" class="btn">' + item.show_flag + '</button>';
+                        });
+                    }
+                })
+
+            });
+            
+        },
+        showCity:function(countryname, cityname) {
+            $.ajax({
+                url:'/getCountryCities/'+countryname+'/'+cityname,
+                method:'GET',
+                success:function(data){
+                    console.log(data);
+                    var result = data.results;
+                    var cityview = new weego.CityPreView();
+                    $('#app').html('').append(cityview.render(data).$el);
+                    $( "#datepicker" ).datepicker();
+                }
+            })
+
         },
         city:function (pageno,country,cityname) {
             $('#tab-city').siblings().removeClass('active');
@@ -976,12 +1133,259 @@ $(weego.init());
             return false;
         }
     });
+    weego.CityPreView = Backbone.View.extend({
+        tagName:'div',
+        initialize:function(){
+            
+        },
+        render:function(data){
+            weego.result = data.results,
+                editor = data.editor;
+            $(this.el).html(Handlebars.compile($('#city_preview').html())({city:weego.result,editor:editor}));
+            return this;
+        },
+        events:{
+            'click #modify':'modify'
+        },
+        modify:function(){
+            console.log(weego.result);
+            var EditCityView = new weego.EditCityView();
+            $('#app').html('').append(EditCityView.render(weego.result).$el);
+        }
+    });
+    weego.EditCityView = Backbone.View.extend({
+        tagName:"div",
+        className:"modal fade in",
+        initialize:function () {
+            _.bindAll(this, 'render', 'save');
+        },
+        render:function (data) {
+            this.$el.css({
+                width:"100%",
+                left:0,
+                right:0,
+                top:0,
+                bottom:0,
+                margin:'auto',
+                position:'relative'
+            });
+            var result = data;
+            $(this.el).html(Handlebars.compile($('#cityEditView').html())({city:result}));
+            return this;
+        },
+        events:{
+            'click #save':'save',
+            'change #cityname':'showCityLocations',
+            'click #addlabel':'addlabel',
+            'click #addTip':'addTip',
+            'click #addIntr':'addIntr',
+            'click #addTra':'addTra',
+            'focus .labels':'autogetMasterLabel',
+            'focus #masterLabel':'autogetMasterLabel',
+            'click .del':'dellabel',
+            'click .delTip':'delTip',
+            'click .delIntr':'delIntr',
+            'click .delTra':'delTra',
+            'change #continents':'selectCountry',
+            'click .editwords':'editwords',
+            'click .textareasurebtn':'textareasure'
+        },
+        textareasure:function (e){
+            e.stopPropagation();
+            var $el = $(e.currentTarget);
+            var value = $el.siblings('textarea').val();
+            $el.parent('.textareawrapper').hide();
+            $el.parent().parent().children('.editwords').html(value).show();
+        },
+        editwords:function (e) {
+            e.stopPropagation();
+            var $el = $(e.currentTarget);
+            $el.hide();
+            $el.next('.textareawrapper').show();
+        },
+        dellabel:function (e) {
+            $(e.target).parents('.label-group').remove();
+        },delTip:function (e) {
+            $(e.target).parents('.tip-control').remove();
+        },
+        delTra:function (e) {
+            $(e.target).parents('.tra-control').remove();
+        },
+        delIntr:function (e) {
+            $(e.target).parents('.intr-control').remove();
+        },
+        autogetMasterLabel:function (e) {
+            var _this = this;
+            if ($(e.target).attr('id') == 'masterLabel') {
+                $("#masterLabel").autocomplete({
+                    source:function (request, response) {
+                        $.ajax({
+                            url:"/getLabelByLevel/1",
+                            dataType:"json",
+                            data:request,
+                            success:function (data) {
+                                response(
+                                    $.map(
+                                        data.label, function (item) {
+                                            return {
+                                                label:item.label,
+                                                value:item.label,
+                                                masterLbale_id:item._id
+                                            }
+                                        }));
+                            }
+                        });
+                    },
+                    select:function (event, ui) {
+                        $(e.target).attr('data-value', ui.item.masterLbale_id);
+                    }
+                });
+            } else {
+                $(".labels").autocomplete({
+                    source:function (request, response) {
+                        $.ajax({
+                            url:"/getLabelByLevel/1",
+                            dataType:"json",
+                            data:request,
+                            success:function (data) {
+                                response(
+                                    $.map(
+                                        data.label, function (item) {
+                                            return {
+                                                label:item.label,
+                                                value:item.label,
+                                                sublevel_id:item._id
+                                            }
+                                        }));
+                            }
+                        });
+                    },
+                    select:function (event, ui) {
+                        $(e.target).attr('data-value', ui.item.sublevel_id);
+                    }
+                });
+            }
+        },
+        showCityLocations:function () {
+            locationCity();
+        },
+        addlabel:function () {
+            var $newlabel = $('<div class="control-group label-group"><label class="control-label" for="label">标签</label><div class="controls">' +
+                '<input class="input-xlarge focused labels" id="label" name="label" type="text"><input type="button" value="删除" class="del"></div></div>');
+            $('.label-group').last().after($newlabel);
+        },
+        addTip:function () {
+            var $newtip = $('<div class="controls tip-control"><input class="input-xlarge focused tipItemTitle"  name="tipItemTitle" data-value="" type="text" id="tipItemTitle">'+
+                '<input type="button" value="删除" class="delTip"><textarea class="tipItemContent" id="tipItemContent" style="width:80%;height:50px"></textarea></div>');
+            $('.tip-control').last().after($newtip);
+        },
+        addTra:function () {
+            var $newtra = $('<div class="controls tra-control"><input class="input-xlarge focused traItemTitle"  name="traItemTitle" data-value="" type="text" >'+
+                '<input type="button" value="删除" class="delTra"><textarea class="traItemContent" style="width:80%;height:50px"></textarea></div>');
+            $('.tra-control').last().after($newtra);
+        },
+        addIntr:function () {
+            var $newintr = $('<div class="controls intr-control"><input class="input-xlarge focused intrItemTitle"  name="intrItemTitle" data-value="" type="text" >'+
+                '<input type="button" value="删除" class="delIntr"><textarea class="intrItemContent" style="width:80%;height:50px"></textarea></div>');
+            $('.intr-control').last().after($newintr);
+        },
+        save:function () {
+            var _this = this;
+            var array_label = [];
+            for (var i = 0; i < $('.labels').length; i++) {
+                array_label.push($('.labels').eq(i).attr('data-value'));
+            }
+            var array_tips = [];
+            for (var i = 0; i < $('.tipItemTitle').length; i++) {
+                var tipItem = {};
+                tipItem.tipItemTitle = $('.tipItemTitle').eq(i).val();
+                tipItem.tipItemContent = $('.tipItemContent').eq(i).val();
+                array_tips.push(tipItem);
+            }
+            var array_tra = [];
+            for (var i = 0; i < $('.traItemTitle').length; i++) {
+                var traItem = {};
+                traItem.traItemTitle = $('.traItemTitle').eq(i).val();
+                traItem.traItemContent = $('.traItemContent').eq(i).val();
+                array_tra.push(traItem);
+            }
+            var array_intr = [];
+            for (var i = 0; i < $('.intrItemTitle').length; i++) {
+                var intrItem = {};
+                intrItem.intrItemTitle = $('.intrItemTitle').eq(i).val();
+                intrItem.intrItemContent = $('.intrItemContent').eq(i).val();
+                array_intr.push(intrItem);
+            }
+            var recommand_center = {};
+            recommand_center.name = $("#recommand_center_name").val();
+            recommand_center.latitude = $("#recommand_center_latitude").val();
+            recommand_center.longitude = $("#recommand_center_longitude").val();
+            recommand_center._id = 'center';
 
+            _this.model.save({
+                continents:$("#continents option:selected").text(),
+                continentscode:$("#continents").val(),
+                cityname:$("#cityname").val(),
+                cityname_en:$("#cityname_en").val(),
+                cityname_py:$("#cityname_py").val(),
+                countryname:$("#country option:selected").text(),
+                countrycode:$("#country").val(),
+                introduce:array_intr,
+                short_introduce:$("#short_introduce").val(),
+                restaurant_overview:$("#restaurant_overview").val(),
+                shopping_overview:$("#shopping_overview").val(),
+                attraction_overview:$("#attraction_overview").val(),
+                tips:array_tips,
+                traffic:array_tra,
+                recommand_day:$("#recommand_day").val(),
+                recommand_indensity:$("#recommand_indensity").val(),
+                recommand_center : recommand_center,
+                hot_flag:$('input:radio[name="hot_flag"]:checked').val(),
+                show_flag:$('input:radio[name="show_flag"]:checked').val(),
+                label:array_label, masterLabel:$("#masterLabel").attr('data-value'),
+                latitude:$("#latitude").val(),
+                longitude:$("#longitude").val(),
+                weoid:$("#weoid").val()
+            }, {
+                success:function (model, res) {
+                    if (!res.isSuccess) {
+                        console.log("cuole");
+                    } else {
+                        alert('保存成功');
+                        $("#attractionsDetailDialog").new_modal('hide');
+                        weego_city.defaultView.getData(weego_city.currentPage);
+                    }
+                },
+                error:function () {
+                    console.log("tianjiashibai");
+                }
+            });
+            return false;
+        },
+        selectCountry: function(){
+            var continentCode =  $("#continents").val();
+            $.ajax({
+                url:"/getCountriesByContinent/"+continentCode,
+                success:function (data) {
+                    if(data.status){
+                        var countries = data.countries;
+                        var option = '';
+                        for(var i=0;i<countries.length;i++){
+                            var country = countries[i];
+                            option +='<option value="'+country.code+'">'+country.cn_name+'</option>';
+                        }
+                        $('#country').html(option);
+                    }else{
+                        alert('数据库异常！');
+                    }
+                }
+                    
+            });
+        }
+    });
     //edit city view
     weego.ShowAttractionsDetailView = Backbone.View.extend({
         tagName:"div",
-        //className:"modal hide fade",
-        //"id":"attractionsDetailDialog",
         initialize:function () {
             _.bindAll(this, 'render', 'save');
         },
@@ -1032,10 +1436,8 @@ $(weego.init());
             'change #continents_select': 'selectContinent',
             'change #country_select': 'selectCountry',
             'change #city_select': 'selectCity',
-//            'change #attractions_en':'showLocations',
             'click #addlabel':'addlabel',
             'click .del':'dellabel',
-//            'change .labels':'savelabel',
             'focus .labels':'autoget',
             'focus #masterLabel':'autogetMasterLabel',
             'click #cancel':'cancel',
@@ -1503,6 +1905,62 @@ $(weego.init());
             })
         }
     });
+    
+    weego.AllCountriesView = Backbone.View.extend({
+        render:function(data){
+            var asCountries = [],
+                euCountries = [],//欧洲
+                afCountries = [],
+                saCountries = [],
+                ocCountries = [],
+                naCountries = [];
+            for(var i = 0; i<data.length; i++){
+                switch (data[i].continentscode){
+                    case 'AS' :
+                        asCountries.push(data[i].countryname);
+                        asCountries = distinct(asCountries);
+                        break;
+                    case 'EU' :
+                        euCountries.push(data[i].countryname);
+                        euCountries = distinct(euCountries);
+                        break;
+                    case 'AF' :
+                        afCountries.push(data[i].countryname);
+                        afCountries = distinct(afCountries);
+                        break;
+                    case 'SA' :
+                        saCountries.push(data[i].countryname);
+                        saCountries = distinct(saCountries);
+                        break;
+                    case 'OC' :
+                        ocCountries.push(data[i].countryname);
+                        ocCountries = distinct(ocCountries);
+                        break;
+                    case 'NA' :
+                        naCountries.push(data[i].countryname);
+                        naCountries = distinct(naCountries);
+                        break
+                }
+            }
+            $(this.el).html(Handlebars.compile($('#allCountries').html())({
+                asCountries: asCountries,
+                euCountries: euCountries,
+                afCountries: afCountries,
+                saCountries: saCountries,
+                ocCountries: ocCountries,
+                naCountries: naCountries
+            }));
+            return this;
+        }
+    })
+    
+    weego.CountryCitiesView = Backbone.View.extend({
+        render:function(countryname){
+            $(this.el).html(Handlebars.compile($('#countrycities').html())({countryname:countryname}));
+            return this;
+        }
+    })
+
     weego.AppView = Backbone.View.extend({
         el:'#app',
         query:{},
@@ -1710,5 +2168,19 @@ $(weego.init());
             }
         });
     }
+
+    function distinct(data) {
+        var b = [];
+        var obj = {};
+        for (var i = 0; i < data.length; i++) {
+            obj[data[i]] = data[i];
+        }
+        for (var a in obj) {
+            b.push(obj[a]);
+        }
+        return b;
+    };
+
+
 
 }(weego));

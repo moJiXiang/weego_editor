@@ -2,6 +2,16 @@ require('../config/Config');
 var CountryProvider = require("../config/CountryProvider").CountryProvider;
 var countryProvider = new CountryProvider();
 
+exports.getAllCountries = function (req, res) {
+    countryProvider.find({}, {}, function (err, result) {
+        if (err) {
+            res.send({err: err});
+        } else {
+            res.send(result);
+        }
+    })
+}
+
 exports.getCountriesByContinent = function(continent,callback){
 	countryProvider.find({continent:continent},{},function(err,countries){
 		if(err)

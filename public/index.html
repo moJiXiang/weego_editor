@@ -8,6 +8,8 @@
 
     <link href="stylesheets/cms.css" rel="stylesheet">
     <link href="stylesheets/common.css" rel="stylesheet">
+    <link rel="stylesheet" href="libs/fuelux/css/fuelux.css">
+    <link rel="stylesheet" href="libs/fuelux/css/fuelux-responsive.css">
     <link href="stylesheets/admin_personcenter.css" rel="stylesheet">
 
     <link href="stylesheets/jquery.fileupload-ui.css" rel="stylesheet">
@@ -18,7 +20,6 @@
     <script type="text/javascript" src="libs/pagedown/Markdown.Converter.js"></script>
     <script type="text/javascript" src="libs/pagedown/Markdown.Sanitizer.js"></script>
     <script type="text/javascript" src="libs/pagedown/Markdown.Editor.js"></script>
-
     <script id="loginTemplate" type="text/x-handlebars-template">
         <div class="container">
         <div class="weego_login">
@@ -60,7 +61,7 @@
         </section>
 
         <div class="container">
-            <table class="table table-hover table-bordered">
+            <table class="table table-hover countrytable table-bordered">
                 <thead>
                 <tr>
                     <th>姓名</th>
@@ -418,7 +419,466 @@
 
         </td>
     </script>
+    <script id="city_preview" type="text/x-handlebars-template">
+        <ol class="breadcrumb">
+          <li><a href="#allCountries">所有国家</a></li>
+          <li>></li>
+          <li><a href="#allCountries/{{city.countryname}}">{{city.countryname}}</a></li>
+          <li>></li>
+          <li class="active">{{city.cityname}}</li>
+        </ol>
+        <div class="citypreview_model">
+            <dl class="dl-horizontal">
+              <dt>城市名(英文)</dt>
+              <dd>{{city.cityname_en}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>城市名(拼音)</dt>
+              <dd>{{city.cityname_py}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>一句话简介</dt>
+              <dd><pre>{{city.short_introduce}}</pre></dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>Attractions Overview</dt>
+              <dd><pre>{{city.attraction_overview}}</pre></dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>Restaurants Overview</dt>
+              <dd><pre>{{city.restaurant_overview}}</pre></dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>Shoppings Overview</dt>
+              <dd><pre>{{city.shopping_overview}}</pre></dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>简介</dt>
+              {{#each introduce}}
+              <dd><pre>{{this.intrItemContent}}</pre></dd>
+              {{/each}}
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>小贴士</dt>
+              {{#each city.tips}}
+              <dd><h6>{{this.tipItemTitle}}</h6><pre>{{this.tipItemContent}}</pre></dd>
+              {{/each}}
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>交通信息</dt>
+              {{#each city.traffic}}
+              <dd><h6>{{this.traItemTitle}}</h6><pre>{{this.traItemContent}}</pre></dd>
+              {{/each}}
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>推荐天数</dt>
+              <dd>{{city.recommand_day}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>推荐强度</dt>
+              <dd>{{city.recommand_intensity}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>热门城市</dt>
+              <dd>{{city.hot_flag}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>是否显示</dt>
+              <dd>{{city.show_flag}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>纬度</dt>
+              <dd>{{city.latitude}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>经度</dt>
+              <dd>{{city.longitude}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>城市WeoId</dt>
+              <dd>{{city.weoid}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>主标签</dt>
+              <dd>{{city.masterLabel}}</dd>
+            </dl>
+           {{#if city.subLabel}}
+            <dl class="dl-horizontal">
+              <dt>标签</dt>
+                {{#each city.subLabel}}
+                <dd>{{this}}</dd>
+                {{/each}}
+            </dl>
+           {{/if}}
 
+            
+        </div>
+        <div class="edithistory">
+            <div class="bs-example">
+                <dl class="dl-horizontal">
+                    <dt>编辑</dt>
+                    <dd>{{editor}}</dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>审核人</dt>
+                    <dd>
+                        <select>
+                            <option value = ''>编辑1</option>
+                            <option value = ''>编辑2</option>
+                            <option value = ''>编辑3</option>
+                            <option value = ''>编辑4</option>
+                        </select>
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>审核状态</dt>
+                    <dd>未被审核，审核中，审核通过，审核未通过</dd>
+                    <dd>
+                        <button type="button" class="btn btn-default" id="modify">编辑</button>
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>审核信息</dt>
+                    <dd>审核对编辑信息的评论</dd>
+                </dl>
+            </div>
+            <div class="highlight">
+                <dl class="dl-horizontal">
+                    <dt>审核标准</dt>
+                    <dd>审核的标准</dd>
+                </dl>
+            </div>
+            <div class="highlight">
+                Date: <input type="text" id="datepicker">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">提交审核</button>
+            </div>
+        </div> 
+    </script>
+    <script id="allCountries" type="text/x-handlebars-template">
+        <ol class="breadcrumb">
+          <li><a href="#allCountries">所有国家</a></li>
+        </ol>
+        <table class="table table-hover countrytable">
+            <thead>
+                <tr>
+                    <th>亚洲</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each asCountries}}
+                <tr>
+                    <td><a href="#allCountries/{{this}}">{{this}}</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <table class="table table-hover countrytable">
+            <thead>
+                <tr>
+                    <th>欧洲</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each euCountries}}
+                <tr>
+                    <td><a href="#allCountries/{{this}}">{{this}}</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <table class="table table-hover countrytable">
+            <thead>
+                <tr>
+                    <th>美洲</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each naCountries}}
+                <tr>
+                    <td><a href="#allCountries/{{this}}">{{this}}</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <table class="table table-hover countrytable">
+            <thead>
+                <tr>
+                    <th>南美</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each saCountries}}
+                <tr>
+                    <td><a href="#allCountries/{{this}}">{{this}}</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <table class="table table-hover countrytable">
+            <thead>
+                <tr>
+                    <th>非洲</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each afCountries}}
+                <tr>
+                    <td><a href="#allCountries/{{this}}">{{this}}</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <table class="table table-hover countrytable">
+            <thead>
+                <tr>
+                    <th>大洋洲</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each ocCountries}}
+                <tr>
+                    <td><a href="#allCountries/{{this}}">{{this}}</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </script>
+    <script id="countrycities" type="text/x-handlebars-template">
+        <ol class="breadcrumb">
+          <li><a href="#allCountries">所有国家</a></li>
+          <li>></li>
+          <li class="active">{{countryname}}</li>
+        </ol>
+        <div class="fuelux">
+            <table id="CityGrid" class="table table-bordered datagrid">
+                <thead>
+                <tr>
+                    <th>
+                        <span class="datagrid-header-title">{{countryname}}的城市</span>
+                        <span class="datagrid-header-title">编辑：</span>
+                        <div class="datagrid-header-left">
+                            <div class="input-append search datagrid-search">
+                                <input type="text" class="input-medium" placeholder="Search">
+                                <button type="button" class="btn"><i class="icon-search"></i></button>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>
+                        <div class="datagrid-footer-left" style="display:none;">
+                            <div class="grid-controls">
+                                <span>
+                                    <span class="grid-start"></span> -
+                                    <span class="grid-end"></span> of
+                                    <span class="grid-count"></span>
+                                </span>
+                                <div class="select grid-pagesize" data-resize="auto">
+                                    <button type="button" data-toggle="dropdown" class="btn dropdown-toggle">
+                                        <span class="dropdown-label"></span>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li data-value="5" data-selected="true"><a href="#">5</a></li>
+                                        <li data-value="10"><a href="#">10</a></li>
+                                        <li data-value="20"><a href="#">20</a></li>
+                                        <li data-value="50"><a href="#">50</a></li>
+                                        <li data-value="100"><a href="#">100</a></li>
+                                    </ul>
+                                </div>
+                                <span>Per Page</span>
+                            </div>
+                        </div>
+                        <div class="datagrid-footer-right" style="display:none;">
+                            <div class="grid-pager">
+                                <button type="button" class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
+                                <span>Page</span>
+             
+                                <div class="input-append dropdown combobox">
+                                    <input class="span1" type="text">
+                                    <button type="button" class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+                                    <ul class="dropdown-menu"></ul>
+                                </div>
+                                <span>of <span class="grid-pages"></span></span>
+                                <button type="button" class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </script>
+    <script id="cityEditView" type="text/x-handlebars-template">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>修改城市</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label" for="continents">大洲</label>
+                        <div class="controls">
+                            <input class="input-xlarge focused" id="continents" name="continents" type="text" value="{{city.continents}}"><span class="help-inline"></span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="countryname">国家</label>
+                        <div class="controls">
+                            <input class="input-xlarge focused" id="countryname" name="countryname" type="text" value="{{city.countryname}}"><span class="help-inline"></span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="cityname">城市名</label>
+                        <div class="controls">
+                            <input class="input-xlarge focused" id="cityname" name="cityname" type="text" value="{{city.cityname}}"><span class="help-inline">不能为空</span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="cityname_en">城市名(英文)</label>
+                        <div class="controls">
+                            <input class="input-xlarge focused" id="cityname_en" name="cityname_en" type="text" value="{{city.cityname_en}}"><span class="help-inline">不能为空</span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="cityname_py">城市名(拼音)</label>
+                        <div class="controls">
+                            <input class="input-xlarge focused" id="cityname_py" name="cityname_py" type="text" value="{{city.cityname_py}}"><span class="help-inline">不能为空</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="short_introduce">一句话简介</label>
+                        <div class="controls">
+                            <textarea id="short_introduce" style="width:80%;height:60px">{{city.short_introduce}}</textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="attraction_overview">Attractions Overview</label>
+                        <div class="controls">
+                            <textarea id="attraction_overview" style="width:80%;height:60px">{{city.attraction_overview}}</textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="restaurant_overview">Restaurants Overview</label>
+                        <div class="controls">
+                            <textarea id="restaurant_overview" style="width:80%;height:60px">{{city.restaurant_overview}}</textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="shopping_overview">Shoppings Overview</label>
+                        <div class="controls">
+                            <textarea id="shopping_overview" style="width:80%;height:60px">{{city.shopping_overview}}</textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label" for="introduce">简介</label>
+                        <div class="controls">
+                            <textarea id="introduce" style="width:80%;height:150px">{{city.introduce}}</textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="tips">小贴士</label>
+                        <div class="controls">
+                            <textarea id="tips" style="width:80%;height:150px">{{city.tips}}</textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="traffic">交通信息xi</label>
+                        <div class="controls">
+                            <textarea id="traffic" style="width:80%;height:150px">{{city.traffic}}</textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="recommand_day">推荐天数</label>
+                        <div class="controls">
+                            <input class="input-xlarge focused" id="recommand_day" name="recommand_day" value="{{city.recommand_day}}" min="0" type="number">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="recommand_indensity">推荐强度</label>
+                        <div class="controls">
+                            <input class="input-xlarge focused" id="recommand_indensity" name="recommand_indensity" value="{{city.recommand_indensity}}" min="0" type="number">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">热门城市</label>
+                        <div class="controls">
+                            {{#ifCond city.hot_flag '1'}}
+                            <input type="radio" name="hot_flag" value = "1" checked>是<br>
+                            <input type="radio" name="hot_flag" value = "0" >不是<br>
+                            {{else}}
+                            <input type="radio" name="hot_flag" value = "1" >是<br>
+                            <input type="radio" name="hot_flag" value = "0" checked>不是<br>
+                            {{/ifCond}}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">是否显示</label>
+                        <div class="controls">
+                            {{#ifCond city.show_flag '1'}}
+                            <input type="radio" name="show_flag" value = "1" checked>是<br>
+                            <input type="radio" name="show_flag" value = "0" >不是<br>
+                            {{else}}
+                            <input type="radio" name="show_flag" value = "1" >是<br>
+                            <input type="radio" name="show_flag" value = "0" checked>不是<br>
+                            {{/ifCond}}
+                        </div>
+                    </div>
+                    {{#with city.masterLabel}}
+                    <div class="control-group label-group">
+                        <label class="control-label" for="masterLabel">主标签</label>
+                        <div class="controls">
+                            <input class="input-xlarge focused"  name="labels" data-value="{{_id}}" type="text" id="masterLabel" value="{{city.masterLabel}}">
+                            <input type="button" value="增加标签" id="addlabel">
+                        </div>
+                    </div>
+                    {{/with}}
+                   {{#if city.subLabel}}
+                    {{#each city.subLabel}}
+                        <div class="control-group label-group">
+                            <label class="control-label">标签</label>
+                            <div class="controls">
+                                <input class="input-xlarge focused labels"  name="label" type="text" value="{{label}}" data-value="{{_id}}">
+                                <input type="button" value="删除" class="del">
+                            </div>
+                        </div>
+                    {{/each}}
+                   {{/if}}
+                    <div class="control-group">
+                        <label class="control-label" for="latitude">纬度</label>
+                        <div class="controls">
+                            <input class="input-xlarge focused" id="latitude" name="latitude" type="text" value="{{city.latitude}}">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="longitude">经度</label>
+                        <div class="controls">
+                            <input class="input-xlarge focused" id="longitude" name="longitude" type="text" value="{{city.longitude}}">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="weoid">城市WeoId</label>
+                        <div class="controls">
+                            <input class="input-xlarge focused" id="weoid" name="weoid" type="text" vaule="{{city.weoid}}">
+                        </div>
+                    </div>
+
+                    <div class="control-group operate-group">
+                        <input type="button" class="btn btn-primary" id="save" value="保存"></button>
+                        <button class="btn" id="cancel">取消</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </script>
     <script id="cityappView" type="text/x-handlebars-template">
         <style>
             .cmsQueryBar{
@@ -855,6 +1315,7 @@
 
         <section class="cmsNav">
             <a href="/#main" class="icomoon_home active">主页</a>
+            <a href="#allCountries" class="icomoon_city">所有国家</a>
             <a href="#city/1" class="icomoon_city">所有城市</a>
             <a href="#attractions" class="icomoon_city">所有景点</a>
             <!--
@@ -879,6 +1340,7 @@
         <div id="dialog" title="demo"></div>
 
         <script src="javascripts/jquery-1.8.3.min.js"></script>
+        <script src="http://www.fuelcdn.com/fuelux/2.6.1/loader.min.js" type="text/javascript"></script>
         <script src="javascripts/jquery.cookie.js"></script>
         <script src="javascripts/jquery-ui/jquery-ui-1.9.1.custom.min.js"></script>
         <script src="javascripts/underscore-min.js"></script>
@@ -907,13 +1369,12 @@
         <script type="text/javascript" src="js/admin_personcennter.js"></script>
         <script src="javascripts/jquery.slimscroll.min.js"></script>
         <script>
-            $(document).ready(function(){
+            $(document).ready(function() {
                 new weego.GlobalRouter;
                 Backbone.history.start();
             });
         </script>
        
-        <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places">
         </script>
     </body>
 </html>
