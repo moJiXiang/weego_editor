@@ -419,6 +419,7 @@
 
         </td>
     </script>
+
     <script id="city_preview" type="text/x-handlebars-template">
         <ol class="breadcrumb">
           <li><a href="#allCountries">所有国家</a></li>
@@ -428,10 +429,6 @@
           <li class="active">{{city.cityname}}</li>
         </ol>
         <div class="citypreview_model">
-            <dl class="dl-horizontal">
-              <dt>城市名(英文)</dt>
-              <dd>{{city.cityname_en}}</dd>
-            </dl>
             <dl class="dl-horizontal">
               <dt>城市名(拼音)</dt>
               <dd>{{city.cityname_py}}</dd>
@@ -514,32 +511,60 @@
             
         </div>
         <div class="edithistory">
+        {{audit}}
+            <div class="highlight">
+                <h5>{{city.cityname}}</h5>
+                <dl class="dl-horizontal">
+                    <dt>景点数</dt>
+                    <dd>{{attractionscount}}</dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>餐馆数</dt>
+                    <dd>{{restaurantscount}}</dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>购物区域</dt>
+                    <dd>{{shopareacount}}</dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>购物数</dt>
+                    <dd>{{shoppingscount}}</dd>
+                </dl>
+            </div>
             <div class="bs-example">
                 <dl class="dl-horizontal">
                     <dt>编辑</dt>
-                    <dd>{{editor}}</dd>
+                    {{#ifCond audits.status '0'}}
+                        <select id="editorname">
+                            {{#each edituser}}
+                            <option value = ''>{{this.username}}</option>
+                            {{/each}}
+                        </select>
+                        {{else}}
+                        <dd><a id="editorname">{{audits.editorname}}</a></dd>
+                    {{/ifCond}}
                 </dl>
                 <dl class="dl-horizontal">
                     <dt>审核人</dt>
                     <dd>
-                        <select>
-                            <option value = ''>编辑1</option>
-                            <option value = ''>编辑2</option>
-                            <option value = ''>编辑3</option>
-                            <option value = ''>编辑4</option>
+                    {{#if audits.auditorname}}
+                        {{audits.auditorname}}
+                    {{else}}
+                        <select id="auditorname">
+                            {{#each edituser}}
+                            <option value = ''>{{this.username}}</option>
+                            {{/each}}
                         </select>
                     </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>审核状态</dt>
-                    <dd>未被审核，审核中，审核通过，审核未通过</dd>
-                    <dd>
-                        <button type="button" class="btn btn-default" id="modify">编辑</button>
-                    </dd>
+                    {{/if}}
                 </dl>
                 <dl class="dl-horizontal">
                     <dt>审核信息</dt>
+                    {{#ifCond currentuser audits.auditorname}}
+                    <dd><textarea id="auditcomment"></textarea></dd>
+                    {{else}}
                     <dd>审核对编辑信息的评论</dd>
+                    {{/ifCond}}
                 </dl>
             </div>
             <div class="highlight">
@@ -549,11 +574,132 @@
                 </dl>
             </div>
             <div class="highlight">
-                Date: <input type="text" id="datepicker">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">提交审核</button>
+            {{#ifCond  currentuser audits.auditorname}}
+                    <button type="button" class="btn btn-success" id="citypass">通过</button>
+                    <button type="button" class="btn btn-danger" id="cityunpass">未通过</button>
+                {{else}}
+                    {{#ifCond audits.status '-1'}}
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="submitaudit" disabled="disabled">审核未通过</button>
+                    <button type="button" class="btn btn-default" id="modify">编辑</button>
+                    {{/ifCond}}
+
+                    {{#ifCond audits.status '2'}}
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" id="submitaudit" disabled="disabled">审核通过</button>
+                    <button type="button" class="btn btn-default" id="modify">编辑</button>
+                    {{/ifCond}}
+
+                    {{#ifCond audits.status '1'}}
+                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" id="submitaudit" disabled="disabled">审核中</button>
+                    {{/ifCond}}
+                    {{#ifCond audits.status '0'}}
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="submitaudit">提交审核</button>
+                    <button type="button" class="btn btn-default" id="modify">编辑</button>
+                    {{/ifCond}}
+            {{/ifCond}}
             </div>
         </div> 
     </script>
+
+    <script id="attractionspreview" type="text/x-handlebars-template">
+        <ol class="breadcrumb">
+          <li><a href="#allCountries">所有国家</a></li>
+          <li>></li>
+          <li><a href="#allCountries/{{countryname}}">{{countryname}}</a></li>
+          <li>></li>
+          <li><a href="#allCountries/{{countryname}}/{{cityname}}">{{cityname}}</a></li>
+          <li>></li>
+          <li class="active">{{type}}</li>
+          <li>></li>
+          <li class="active">{{attractions}}</li>
+        </ol>
+        <div class="model">
+            <dl class="dl-horizontal">
+              <dt>景点</dt>
+              <dd>{{attractions}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>英文名</dt>
+              <dd>{{attractions_en}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>地址</dt>
+              <dd>{{address}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>景点</dt>
+              <dd>{{attractions}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>价格</dt>
+              <dd>{{price}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>开放时间</dt>
+              <dd><pre>{{opentime}}</pre></dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>交通信息</dt>
+              <dd><pre>{{traffic_info}}</pre></dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>推荐白天或晚上</dt>
+              <dd>{{dayornight}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>网址</dt>
+              <dd>{{website}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>电话</dt>
+              <dd>{{telno}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>推荐游览时间</dt>
+              <dd>{{recommand_duration}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>一句话简介</dt>
+              <dd><pre>{{short_introduce}}</pre></dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>简介</dt>
+              <dd><pre>{{introduce}}</pre></dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>tips</dt>
+              <dd><pre>{{tips}}</pre></dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>是否推荐</dt>
+              <dd>{{recommand_flag}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>城市首页显示</dt>
+              <dd>{{index_flag}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>是否显示</dt>
+              <dd>{{show_flag}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>主标签</dt>
+              <dd>{{masterLabel}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>子标签</dt>
+              <dd>{{subLabel}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>纬度</dt>
+              <dd>{{latitude}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>经度</dt>
+              <dd>{{longitude}}</dd>
+            </dl>
+        </div>
+    </script>
+
     <script id="allCountries" type="text/x-handlebars-template">
         <ol class="breadcrumb">
           <li><a href="#allCountries">所有国家</a></li>
@@ -656,6 +802,77 @@
                     <th>
                         <span class="datagrid-header-title">{{countryname}}的城市</span>
                         <span class="datagrid-header-title">编辑：</span>
+                        <div class="datagrid-header-left">
+                            <div class="input-append search datagrid-search">
+                                <input type="text" class="input-medium" placeholder="Search">
+                                <button type="button" class="btn"><i class="icon-search"></i></button>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>
+                        <div class="datagrid-footer-left" style="display:none;">
+                            <div class="grid-controls">
+                                <span>
+                                    <span class="grid-start"></span> -
+                                    <span class="grid-end"></span> of
+                                    <span class="grid-count"></span>
+                                </span>
+                                <div class="select grid-pagesize" data-resize="auto">
+                                    <button type="button" data-toggle="dropdown" class="btn dropdown-toggle">
+                                        <span class="dropdown-label"></span>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li data-value="5" data-selected="true"><a href="#">5</a></li>
+                                        <li data-value="10"><a href="#">10</a></li>
+                                        <li data-value="20"><a href="#">20</a></li>
+                                        <li data-value="50"><a href="#">50</a></li>
+                                        <li data-value="100"><a href="#">100</a></li>
+                                    </ul>
+                                </div>
+                                <span>Per Page</span>
+                            </div>
+                        </div>
+                        <div class="datagrid-footer-right" style="display:none;">
+                            <div class="grid-pager">
+                                <button type="button" class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
+                                <span>Page</span>
+             
+                                <div class="input-append dropdown combobox">
+                                    <input class="span1" type="text">
+                                    <button type="button" class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+                                    <ul class="dropdown-menu"></ul>
+                                </div>
+                                <span>of <span class="grid-pages"></span></span>
+                                <button type="button" class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </script>
+    <script id="cityitem" type="text/x-handlebars-template">
+        <ol class="breadcrumb">
+          <li><a href="#allCountries">所有国家</a></li>
+          <li>></li>
+          <li><a href="#allCountries/{{countryname}}">{{countryname}}</a></li>
+          <li>></li>
+          <li><a href="#allCountries/{{countryname}}/{{cityname}}">{{cityname}}</a></li>
+          <li>></li>
+          <li>{{type}}</li>
+        </ol>
+        <div class="fuelux">
+            <table id="CityGrid" class="table table-bordered datagrid">
+                <thead>
+                <tr>
+                    <th>
+                        <span class="datagrid-header-title">{{cityname}}的{{type}}</span>
                         <div class="datagrid-header-left">
                             <div class="input-append search datagrid-search">
                                 <input type="text" class="input-medium" placeholder="Search">
@@ -1368,13 +1585,47 @@
         <script src="libs/util.js"></script>
         <script type="text/javascript" src="js/admin_personcennter.js"></script>
         <script src="javascripts/jquery.slimscroll.min.js"></script>
+        <script type="text/javascript" src="javascripts/socket.io.js"></script>
         <script>
             $(document).ready(function() {
                 new weego.GlobalRouter;
                 Backbone.history.start();
+                //处理键盘事件 禁止后退键（Backspace）密码或单行、多行文本框除外  
+                function banBackSpace(e) {
+                    var ev = e || window.event; //获取event对象     
+                    var obj = ev.target || ev.srcElement; //获取事件源     
+
+                    var t = obj.type || obj.getAttribute('type'); //获取事件源类型    
+
+                    //获取作为判断条件的事件类型  
+                    var vReadOnly = obj.getAttribute('readonly');
+                    var vEnabled = obj.getAttribute('enabled');
+                    //处理null值情况  
+                    vReadOnly = (vReadOnly == null) ? false : vReadOnly;
+                    vEnabled = (vEnabled == null) ? true : vEnabled;
+
+                    //当敲Backspace键时，事件源类型为密码或单行、多行文本的，  
+                    //并且readonly属性为true或enabled属性为false的，则退格键失效  
+                    var flag1 = (ev.keyCode == 8 && (t == "password" || t == "text" || t == "textarea") && (vReadOnly == true || vEnabled != true)) ? true : false;
+
+                    //当敲Backspace键时，事件源类型非密码或单行、多行文本的，则退格键失效  
+                    var flag2 = (ev.keyCode == 8 && t != "password" && t != "text" && t != "textarea") ? true : false;
+
+                    //判断  
+                    if (flag2) {
+                        return false;
+                    }
+                    if (flag1) {
+                        return false;
+                    }
+                }
+
+                //禁止后退键 作用于Firefox、Opera  
+                document.onkeypress = banBackSpace;
+                //禁止后退键  作用于IE、Chrome  
+                document.onkeydown = banBackSpace;
             });
         </script>
        
-        </script>
     </body>
 </html>
