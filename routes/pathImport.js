@@ -264,6 +264,60 @@ function getGoogleUrl(o, d, mode, sensor, key) {
 	return url;
 }
 
+function gettaxitinitFare() {
+	var citymodels = [
+		{"name": "苏黎世", "initialcharge": "6.00", "permilecharge": "4.36", "currency": "CHF"},
+		{"name": "巴塞罗那", "initialcharge": "2.00", "permilecharge": "1.18", "currency": "EUR"},
+		{"name": "纽约", "initialcharge": "2.50", "permilecharge": "2.10", "triffic": "0.40", "tax": "0.50", "currency": "USD", "tip": "0.2"},
+		{"name": "巴黎", "initialcharge": "2.30", "permilecharge": "2.3", "currency": "EUR"},
+		{"name": "罗马", "initialcharge": "2.80", "permilecharge": "0.80", "currency": "EUR", "tip": "0.1"},
+		{"name": "伦敦", "initialcharge": "2.40", "permilecharge": "2.28", "currency": "GBP"},
+		{"name": "日内瓦", "initialcharge": "6.30", "permilecharge": "4.66", "currency": "CHF"},
+		{"name": "旧金山", "initialcharge": "3.50", "permilecharge": "2.33", "triffic": "0.40", "tax": "0.50", "currency": "USD", "tip": "0.2"},
+		{"name": "洛杉矶", "initialcharge": "2.85", "permilecharge": "2.70", "triffic": "0.40", "tax": "0.50", "currency": "USD", "tip": "0.2"},
+		{"name": "新加坡", "initialcharge": "3.00", "permilecharge": "0.84", "currency": "SGD"},
+		{"name": "东京", "initialcharge": "", "permilecharge": "", "currency": "JPY"},
+		{"name": "大阪", "initialcharge": "", "permilecharge": "", "currency": "$"},
+		{"name": "马德里", "initialcharge": "", "permilecharge": "", "currency": "$"},
+		{"name": "温哥华", "initialcharge": "", "permilecharge": "", "currency": "$"},
+		{"name": "芝加哥", "initialcharge": "4.00", "permilecharge": "2.00", "currency": "$"},
+		{"name": "曼彻斯特", "initialcharge": "", "permilecharge": "", "currency": "$"},
+		{"name": "波士顿", "initialcharge": "2.60", "permilecharge": "2.80", "triffic": "0.47","currency": "$"},
+		{"name": "尼斯", "initialcharge": "", "permilecharge": "", "currency": "$"},
+		{"name": "圣地亚哥", "initialcharge": "3.25", "permilecharge": "2.16", "currency": "$"},
+		{"name": "慕尼黑", "initialcharge": "", "permilecharge": "", "currency": "$"},
+		{"name": "柏林", "initialcharge": "", "permilecharge": "", "currency": "$"},
+		{"name": "多伦多", "initialcharge": "", "permilecharge": "", "currency": "$"},
+		{"name": "法兰克福", "initialcharge": "", "permilecharge": "", "currency": "$"},
+		{"name": "悉尼", "initialcharge": "", "permilecharge": "", "currency": "$"}
+	];
+}
+
+/**
+taxi fare
+**/
+function getTokyoTaxiFare(distance, duration, options)
+{
+	var estimatedfare = 0;
+	
+
+
+}
+
+function getCommonTaxiFare(distance, duration, options)
+{
+	var estimatedfare = 0;
+	estimatedfare += options.initialcharge;
+	estimatedfare += options.permilecharge * distance / 1000;
+	estimatedfare += options.triffic * duration / 60;
+	estimatedfare += options.tax;
+	estimatedfare += estimatedfare * options.tip;
+	return estimatedfare;
+}
+
+
+
+////////////////////////////////////////////////////
 
 
 function getGoogleUrlTimezone(cityname, o, d, mode, sensor, key) {
