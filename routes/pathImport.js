@@ -266,30 +266,30 @@ function getGoogleUrl(o, d, mode, sensor, key) {
 
 function gettaxitinitFare() {
 	var citymodels = [
-		{"name": "苏黎世", "initialcharge": "6.00", "permilecharge": "4.36", "currency": "CHF"},
-		{"name": "巴塞罗那", "initialcharge": "2.00", "permilecharge": "1.18", "currency": "EUR"},
+		{"name": "苏黎世", "initialcharge": "6.00", "permilecharge": "4.36", "currency": "CHF", "triffic": "0", "tip": "0", "tax": "0"},
+		{"name": "巴塞罗那", "initialcharge": "2.00", "permilecharge": "1.18", "currency": "EUR", "triffic": "0", "tip": "0", "tax": "0"},
 		{"name": "纽约", "initialcharge": "2.50", "permilecharge": "2.10", "triffic": "0.40", "tax": "0.50", "currency": "USD", "tip": "0.2"},
-		{"name": "巴黎", "initialcharge": "2.30", "permilecharge": "2.3", "currency": "EUR"},
-		{"name": "罗马", "initialcharge": "2.80", "permilecharge": "0.80", "currency": "EUR", "tip": "0.1"},
-		{"name": "伦敦", "initialcharge": "2.40", "permilecharge": "2.28", "currency": "GBP"},
-		{"name": "日内瓦", "initialcharge": "6.30", "permilecharge": "4.66", "currency": "CHF"},
+		{"name": "巴黎", "initialcharge": "2.30", "permilecharge": "2.3", "triffic": "0", "currency": "EUR", "tax": "0", "tip": "0.1"},
+		{"name": "罗马", "initialcharge": "2.80", "permilecharge": "0.80", "triffic": "0", "currency": "EUR", "tip": "0.1", "tax": "0"},
+		{"name": "伦敦", "initialcharge": "2.40", "permilecharge": "2.28", "triffic": "0", "currency": "GBP", "tip": "0", "tax": "0"},
+		{"name": "日内瓦", "initialcharge": "6.30", "permilecharge": "4.66", "triffic": "0", "currency": "CHF", "tip": "0", "tax": "0"},
 		{"name": "旧金山", "initialcharge": "3.50", "permilecharge": "2.33", "triffic": "0.40", "tax": "0.50", "currency": "USD", "tip": "0.2"},
-		{"name": "洛杉矶", "initialcharge": "2.85", "permilecharge": "2.70", "triffic": "0.40", "tax": "0.50", "currency": "USD", "tip": "0.2"},
-		{"name": "新加坡", "initialcharge": "3.00", "permilecharge": "0.84", "currency": "SGD"},
-		{"name": "东京", "initialcharge": "", "permilecharge": "", "currency": "JPY"},
-		{"name": "大阪", "initialcharge": "", "permilecharge": "", "currency": "$"},
-		{"name": "马德里", "initialcharge": "", "permilecharge": "", "currency": "$"},
-		{"name": "温哥华", "initialcharge": "", "permilecharge": "", "currency": "$"},
-		{"name": "芝加哥", "initialcharge": "4.00", "permilecharge": "2.00", "currency": "$"},
-		{"name": "曼彻斯特", "initialcharge": "", "permilecharge": "", "currency": "$"},
-		{"name": "波士顿", "initialcharge": "2.60", "permilecharge": "2.80", "triffic": "0.47","currency": "$"},
-		{"name": "尼斯", "initialcharge": "", "permilecharge": "", "currency": "$"},
-		{"name": "圣地亚哥", "initialcharge": "3.25", "permilecharge": "2.16", "currency": "$"},
-		{"name": "慕尼黑", "initialcharge": "", "permilecharge": "", "currency": "$"},
-		{"name": "柏林", "initialcharge": "", "permilecharge": "", "currency": "$"},
-		{"name": "多伦多", "initialcharge": "", "permilecharge": "", "currency": "$"},
-		{"name": "法兰克福", "initialcharge": "", "permilecharge": "", "currency": "$"},
-		{"name": "悉尼", "initialcharge": "", "permilecharge": "", "currency": "$"}
+		{"name": "洛杉矶", "initialcharge": "2.85", "permilecharge": "1.70", "triffic": "0.40", "tax": "0", "currency": "USD", "tip": "0.15"},
+		{"name": "新加坡", "initialcharge": "3.00", "permilecharge": "0.84", "triffic": "0", "currency": "SGD", "tip": "0", "tax": "0"},
+		{"name": "东京", "initialcharge": "710", "permilecharge": "293", "triffic": "0", "currency": "JPY", "tax": "0", "tip": "0"},
+		{"name": "大阪", "initialcharge": "660", "permilecharge": "290", "triffic": "0", "currency": "JPY", "tax": "0", "tip": "0"},
+		{"name": "马德里", "initialcharge": "2.10", "permilecharge": "1.40", "triffic": "0", "currency": "EUR", "tax": "0", "tip": "0"},
+		{"name": "温哥华", "initialcharge": "3.20", "permilecharge": "2.62", "triffic": "0", "currency": "CAD", "tax": "0", "tip": "0.15"},
+		{"name": "芝加哥", "initialcharge": "4.00", "permilecharge": "1.70", "currency": "USD", "triffic": "0", "tip": "0.15", "tax": "0"},
+		{"name": "曼彻斯特", "initialcharge": "2.40", "permilecharge": "2.10", "triffic": "0", "currency": "GBP", "tip": "0", "tax": "0"},
+		{"name": "波士顿", "initialcharge": "2.60", "permilecharge": "2.10", "triffic": "0.47", "currency": "USD", "tip": "0.15"},
+		{"name": "尼斯", "initialcharge": "6.40", "permilecharge": "3.4", "triffic": "0", "currency": "EUR", "tip": "0", "tax": "0"},
+		{"name": "圣地亚哥", "initialcharge": "2.80", "permilecharge": "2.23", "triffic": "0", "currency": "USD", "tip": "0", "tax": "0"},
+		{"name": "慕尼黑", "initialcharge": "2.90", "permilecharge": "1.92", "triffic": "0", "currency": "EUR", "tip": "0.1", "tax": "0"},
+		{"name": "柏林", "initialcharge": "4.00", "permilecharge": "1.46", "triffic": "0", "currency": "EUR", "tip": "0.1", "tax": "0"},
+		{"name": "多伦多", "initialcharge": "4.25", "permilecharge": "2.52", "triffic": "0", "currency": "CAD", "tip": "0.15", "tax": "0"},
+		{"name": "法兰克福", "initialcharge": "2.80", "permilecharge": "2.10", "triffic": "0", "currency": "EUR", "tax": "0", "tip": "0.1"},
+		{"name": "悉尼", "initialcharge": "3.50", "permilecharge": "2.14", "permilechargenight": "2.57", "surcharge" : "2.50", "triffic": "0", "currency": "AUD", "tax": "0", "tip": "0"}
 	];
 }
 
@@ -299,25 +299,177 @@ taxi fare
 function getTokyoTaxiFare(distance, duration, options)
 {
 	var estimatedfare = 0;
-	
+	estimatedfare = getCommonTaxiFareWithoutTip(distance, duration, options);
+	if (estimatedfare > 9000) {
+		estimatedfare = estimatedfare * 0.9;
+	}
+	return estimatedfare;
+}
 
+function getSanfranciscoTaxiFare(distance, duration, options) {
+	var estimatedfare = 0;
+	estimatedfare = getCommonTaxiFare(distance, duration, options);
+	return estimatedfare;
+}
 
+function getSyndeyTaxiFare(distance, duration, departuretime, options) {
+	//departuretime must be local time
+	var now = new Date(parseInt(departuretime) * 1000);
+	var day = now.getDay();
+	var hour = now.getHours();
+
+	var estimatedfare = 0;
+	estimatedfare = getCommonTaxiFareWithoutTip(distance, duration, options);
+	if ((day == 5 || day == 6) && hour > 19) {
+		estimatedfare += options.surcharge;
+	}
+	estimatedfare += estimatedfare * options.tip;
+	return estimatedfare;
+}
+
+function getCommonTaxiFareWithoutTip(distance, duration, options) {
+	var estimatedfare = 0;
+	estimatedfare = accAdd(estimatedfare, options.initialcharge);
+	estimatedfare = accAdd(estimatedfare, accMul(options.permilecharge, accDiv(distance, 1000)) );
+	estimatedfare = accAdd(estimatedfare, accMul(options.triffic, accDiv(duration, 60)) );
+	estimatedfare = accAdd(estimatedfare, options.tax);
+	return estimatedfare;
 }
 
 function getCommonTaxiFare(distance, duration, options)
 {
 	var estimatedfare = 0;
-	estimatedfare += options.initialcharge;
-	estimatedfare += options.permilecharge * distance / 1000;
-	estimatedfare += options.triffic * duration / 60;
-	estimatedfare += options.tax;
-	estimatedfare += estimatedfare * options.tip;
+	estimatedfare = accAdd(estimatedfare, options.initialcharge);
+	estimatedfare = accAdd(estimatedfare, accMul(options.permilecharge, accDiv(distance, 1000)) );
+	estimatedfare = accAdd(estimatedfare, accMul(options.triffic, accDiv(duration, 60)) );
+	estimatedfare = accAdd(estimatedfare, options.tax);
+	estimatedfare = accAdd(estimatedfare, accMul(estimatedfare, options.tip) );
 	return estimatedfare;
 }
+
+var testdistance = 7500;
+var testduration = 1200;
+var testoptions = {"name": "东京", "initialcharge": "710", "permilecharge": "320", "triffic": "0", "currency": "JPY", "tax": "0", "tip": "0"};
+var testresult = getCommonTaxiFare(testdistance, testduration, testoptions);
+console.log(testresult);
 
 
 
 ////////////////////////////////////////////////////
+
+/**
+ ** 加法函数，用来得到精确的加法结果
+ ** 说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
+ ** 调用：accAdd(arg1,arg2)
+ ** 返回值：arg1加上arg2的精确结果
+ **/
+function accAdd(arg1, arg2) {
+    var r1, r2, m, c;
+    try {
+        r1 = arg1.toString().split(".")[1].length;
+    }
+    catch (e) {
+        r1 = 0;
+    }
+    try {
+        r2 = arg2.toString().split(".")[1].length;
+    }
+    catch (e) {
+        r2 = 0;
+    }
+    c = Math.abs(r1 - r2);
+    m = Math.pow(10, Math.max(r1, r2));
+    if (c > 0) {
+        var cm = Math.pow(10, c);
+        if (r1 > r2) {
+            arg1 = Number(arg1.toString().replace(".", ""));
+            arg2 = Number(arg2.toString().replace(".", "")) * cm;
+        } else {
+            arg1 = Number(arg1.toString().replace(".", "")) * cm;
+            arg2 = Number(arg2.toString().replace(".", ""));
+        }
+    } else {
+        arg1 = Number(arg1.toString().replace(".", ""));
+        arg2 = Number(arg2.toString().replace(".", ""));
+    }
+    return (arg1 + arg2) / m;
+}
+
+/**
+ ** 减法函数，用来得到精确的减法结果
+ ** 说明：javascript的减法结果会有误差，在两个浮点数相减的时候会比较明显。这个函数返回较为精确的减法结果。
+ ** 调用：accSub(arg1,arg2)
+ ** 返回值：arg1加上arg2的精确结果
+ **/
+function accSub(arg1, arg2) {
+    var r1, r2, m, n;
+    try {
+        r1 = arg1.toString().split(".")[1].length;
+    }
+    catch (e) {
+        r1 = 0;
+    }
+    try {
+        r2 = arg2.toString().split(".")[1].length;
+    }
+    catch (e) {
+        r2 = 0;
+    }
+    m = Math.pow(10, Math.max(r1, r2)); //last modify by deeka //动态控制精度长度
+    n = (r1 >= r2) ? r1 : r2;
+    return ((arg1 * m - arg2 * m) / m).toFixed(n);
+}
+
+
+/**
+ ** 乘法函数，用来得到精确的乘法结果
+ ** 说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
+ ** 调用：accMul(arg1,arg2)
+ ** 返回值：arg1乘以 arg2的精确结果
+ **/
+function accMul(arg1, arg2) {
+    var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+    try {
+        m += s1.split(".")[1].length;
+    }
+    catch (e) {
+    }
+    try {
+        m += s2.split(".")[1].length;
+    }
+    catch (e) {
+    }
+    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
+}
+
+
+
+/** 
+ ** 除法函数，用来得到精确的除法结果
+ ** 说明：javascript的除法结果会有误差，在两个浮点数相除的时候会比较明显。这个函数返回较为精确的除法结果。
+ ** 调用：accDiv(arg1,arg2)
+ ** 返回值：arg1除以arg2的精确结果
+ **/
+function accDiv(arg1, arg2) {
+    var t1 = 0, t2 = 0, r1, r2;
+    try {
+        t1 = arg1.toString().split(".")[1].length;
+    }
+    catch (e) {
+    }
+    try {
+        t2 = arg2.toString().split(".")[1].length;
+    }
+    catch (e) {
+    }
+    with (Math) {
+        r1 = Number(arg1.toString().replace(".", ""));
+        r2 = Number(arg2.toString().replace(".", ""));
+        return (r1 / r2) * pow(10, t2 - t1);
+    }
+}
+
+
 
 
 function getGoogleUrlTimezone(cityname, o, d, mode, sensor, key) {
