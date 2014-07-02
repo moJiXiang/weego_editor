@@ -246,6 +246,72 @@ function getOneEmptyPathSync(mode, skip, limit, callback) {
 	Path.getOneWithEmptyStepsSync(mode, skip, limit, callback);
 }
 
+function getDistanceDurations(callback) {
+	Path.getDistanceDurations(callback);
+}
+
+var async = require('async');
+
+var chars = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+
+function generateMixed(n) {
+     var res = "";
+     for(var i = 0; i < n ; i ++) {
+         var id = Math.ceil(Math.random()*35);
+         res += chars[id];
+     }
+     return res;
+}
+
+
+function testOnePage() {
+	getDistanceDurations(function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			var arraycount = data.length;
+			if (arraycount > 0) {
+				for (var i = 0; i < arraycount; i ++) {
+					var one = data[i];
+					var steps = one.driver.steps;
+
+					var distance = 0;
+					var duration = 0;
+
+					for (var j = 0; j < steps.length; j ++) {
+
+
+						distance += steps[j].distance.value;
+						duration += steps[j].duration.value;
+
+						// console.log("---------------------");
+						// console.log("distance : " + steps[j].distance.value);
+						// console.log("duration : " + steps[j].duration.value);
+					}
+					one.driver.distance = distance;
+					one.driver.duration = duration;
+
+					one.save(function(err, one_data){
+						if (err) {
+							console.log("get the data to database error,fail to read");
+						}
+						console.log("update success!");
+					});
+				}
+				console.log(generateMixed(15));
+				sleep.sleep(1);
+				testOnePage();
+			} else {
+				console.log("exec ended!!!");
+			}
+			
+
+		}
+	});
+}
+
+testOnePage();
+
 
 
 var https = require('https');
@@ -347,11 +413,11 @@ function getCommonTaxiFare(distance, duration, options)
 	return estimatedfare;
 }
 
-var testdistance = 7500;
-var testduration = 1200;
-var testoptions = {"name": "东京", "initialcharge": "710", "permilecharge": "320", "triffic": "0", "currency": "JPY", "tax": "0", "tip": "0"};
-var testresult = getCommonTaxiFare(testdistance, testduration, testoptions);
-console.log(testresult);
+// var testdistance = 7500;
+// var testduration = 1200;
+// var testoptions = {"name": "东京", "initialcharge": "710", "permilecharge": "320", "triffic": "0", "currency": "JPY", "tax": "0", "tip": "0"};
+// var testresult = getCommonTaxiFare(testdistance, testduration, testoptions);
+// console.log(testresult);
 
 
 
