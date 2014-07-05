@@ -127,7 +127,14 @@ exports.getOneWithEmptyStepsSync = function(mode, skipcount, limitcount, callbac
 exports.getDistanceDurations = function(callback) {
 	var query = Path.find({"bus.distance": null});
 	query.limit(20);
-	query.skip(10000);
+	query.exec(callback);
+};
+
+exports.getTaxiFare = function (callback) {
+	var query = Path.find({"driver.taxifare": null});
+	query.limit(20);
 	query.exec(callback);
 }
+
+
 

@@ -250,22 +250,75 @@ function getDistanceDurations(callback) {
 	Path.getDistanceDurations(callback);
 }
 
-var async = require('async');
-
-var chars = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-
-function generateMixed(n) {
-     var res = "";
-     for(var i = 0; i < n ; i ++) {
-         var id = Math.ceil(Math.random()*35);
-         res += chars[id];
-     }
-     return res;
+function getTaxiFare (callback) {
+	Path.getTaxiFare(callback);
 }
 
 
+
+function execTaxiFare() {
+	getTaxiFare(function (err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			var arraycount = data.length;
+			if (arraycount > 0) {
+				for (var i = 0; i < arraycount; i ++) {
+					
+					var one = data[i];
+
+					var city_name = one.city_name;
+
+					var citymodel = gettaxiFareModel(city_name);
+
+					var distance = one.driver.distance;
+					var duration = one.driver.duration;
+
+					console.log("distance : " + distance + " duration : " + duration);
+
+					var taxifare = 0;
+
+					if (distance != 0 && duration != 0) {
+						taxifare = getCommonTaxiFare(distance, duration, citymodel);
+						// console.log(taxifare);
+					}
+
+					one.driver.taxifare = taxifare;
+					// console.log(one.driver.taxifare);
+					one.save(function(err, one_data){
+						if (err) {
+							console.log("get the data to database error,fail to read");
+						}
+						console.log(one_data._id);
+						console.log(one_data.driver.taxifare);
+						console.log("update success!");
+					});
+				}
+				sleep.usleep(100);
+				execTaxiFare();
+			} else {
+				console.log("exec ended!!!");
+			}
+		}
+	});
+}
+
+execTaxiFare();
+
+// var chars = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+
+// function generateMixed(n) {
+//      var res = "";
+//      for(var i = 0; i < n ; i ++) {
+//          var id = Math.ceil(Math.random()*35);
+//          res += chars[id];
+//      }
+//      return res;
+// }
+
+
 function testOnePage() {
-	getDistanceDurations(function(err, data) {
+	getDistanceDurations(function (err, data) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -273,33 +326,37 @@ function testOnePage() {
 			if (arraycount > 0) {
 				for (var i = 0; i < arraycount; i ++) {
 					var one = data[i];
-					var steps = one.driver.steps;
+					var steps = one.bus.steps;
 
 					var distance = 0;
 					var duration = 0;
 
 					for (var j = 0; j < steps.length; j ++) {
 
-
-						distance += steps[j].distance.value;
-						duration += steps[j].duration.value;
+						if (steps[j].distance != undefined && steps[j].duration != undefined) {
+							distance += steps[j].distance.value;
+							duration += steps[j].duration.value;
+						}
+						
 
 						// console.log("---------------------");
 						// console.log("distance : " + steps[j].distance.value);
 						// console.log("duration : " + steps[j].duration.value);
 					}
-					one.driver.distance = distance;
-					one.driver.duration = duration;
+					one.bus.distance = distance;
+					one.bus.duration = duration;
+
 
 					one.save(function(err, one_data){
 						if (err) {
 							console.log("get the data to database error,fail to read");
 						}
+						console.log(one_data.driver.distance);
 						console.log("update success!");
 					});
 				}
 				console.log(generateMixed(15));
-				sleep.sleep(1);
+				sleep.usleep(100);
 				testOnePage();
 			} else {
 				console.log("exec ended!!!");
@@ -310,7 +367,9 @@ function testOnePage() {
 	});
 }
 
-testOnePage();
+
+
+
 
 
 
@@ -330,8 +389,9 @@ function getGoogleUrl(o, d, mode, sensor, key) {
 	return url;
 }
 
-function gettaxitinitFare() {
+function gettaxiFareModel(city_name) {
 	var citymodels = [
+		{"name": "Common", "initialcharge": "2.00", "permilecharge": "2.00", "currency": "USD", "triffic": "0", "tip": "0", "tax": "0"},
 		{"name": "苏黎世", "initialcharge": "6.00", "permilecharge": "4.36", "currency": "CHF", "triffic": "0", "tip": "0", "tax": "0"},
 		{"name": "巴塞罗那", "initialcharge": "2.00", "permilecharge": "1.18", "currency": "EUR", "triffic": "0", "tip": "0", "tax": "0"},
 		{"name": "纽约", "initialcharge": "2.50", "permilecharge": "2.10", "triffic": "0.40", "tax": "0.50", "currency": "USD", "tip": "0.2"},
@@ -357,7 +417,20 @@ function gettaxitinitFare() {
 		{"name": "法兰克福", "initialcharge": "2.80", "permilecharge": "2.10", "triffic": "0", "currency": "EUR", "tax": "0", "tip": "0.1"},
 		{"name": "悉尼", "initialcharge": "3.50", "permilecharge": "2.14", "permilechargenight": "2.57", "surcharge" : "2.50", "triffic": "0", "currency": "AUD", "tax": "0", "tip": "0"}
 	];
+
+	for (var i = 0; i < citymodels.length; i ++) {
+		if (citymodels[i].name == city_name) {
+			return citymodels[i];
+			break;
+		}
+		return citymodels[0];
+	};
 }
+
+// console.log(gettaxiFareModel("苏黎世d"));
+
+
+
 
 /**
 taxi fare

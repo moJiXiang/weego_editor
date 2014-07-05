@@ -15,6 +15,7 @@ var PathSchema = new Schema({
 	b_latitude:{type:String},
 	b_longitude:{type:String},
 	driver:{
+		taxifare:{type:String},
 		duration:{type:String},
 		distance:{type:String},
 		steps:{type:Array}
