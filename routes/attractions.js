@@ -224,8 +224,8 @@ exports.postimage = function (req, res) {
     // console.log(req.files.file.path);
     // console.log(req.files.file.type);
     // console.log(req.body._id);
-
-    if(req.files.file && req.body._id){
+    var _id = req.body._id || req.headers._id;
+    if(req.files.file && _id){
         var id = new ObjectID();
         var tmp_upload = req.files.file;
         var tmp_upload_path = tmp_upload.path;
@@ -237,10 +237,11 @@ exports.postimage = function (req, res) {
         var filePathA3 = global.imgpathA3 + target_upload_name;
         var filePathA4 = global.imgpathA4 + target_upload_name;
         var filePathA5 = global.imgpathA5 + target_upload_name;
+        console.log(tmp_upload_path,target_upload_path);
         makeImageFile(req, tmp_upload_path, target_upload_path, filePathA1, filePathA2, filePathA3,filePathA4,filePathA5, function () {
             upyunClient.upAttractionToYun(target_upload_name,function(err,data){
                 if(err) throw err;
-                attractionsProvider.update({_id:new ObjectID(req.body._id)}, {$push:{ 'image':target_upload_name}}, {safe:true}, function (err) {
+                attractionsProvider.update({_id:new ObjectID(_id)}, {$push:{ 'image':target_upload_name}}, {safe:true}, function (err) {
                     if (err) {
                         throw err;
                     } else {

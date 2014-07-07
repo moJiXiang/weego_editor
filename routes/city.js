@@ -722,19 +722,22 @@ exports.setCityCoverImg = function (req, res) {
 //上传封面图片
 exports.upload = function (req, res) {
     var target_upload_name;
-    if (req.files.upload && req.body._id) {
+    var _id = req.body._id || req.headers._id;
+    var file = req.files.upload || req.files.file;
+    if (file && _id) {
         var id = new ObjectID();
-        var tmp_upload = req.files.upload;
+        var tmp_upload = file;
         var tmp_upload_path = tmp_upload.path;
         var tmp_upload_type = tmp_upload.type;
         target_upload_name = validPic(tmp_upload_type);
         var target_upload_path = global.imgpathCO + target_upload_name;
         var filePathC2 = global.imgpathC2 + target_upload_name;
         var filePathC3 = global.imgpathC3 + target_upload_name;
+        console.log(tmp_upload_path,target_upload_path);
         changeImageSize(req, tmp_upload_path, target_upload_path, filePathC2, filePathC3, function () {
             upyunClient.upCityToYun(target_upload_name,function(err,data){
                 if(err) throw err;
-                cityProvider.update({_id:new ObjectID(req.body._id)}, {$push:{ 'image':target_upload_name}}, {safe:true}, function (err) {
+                cityProvider.update({_id:new ObjectID(_id)}, {$push:{ 'image':target_upload_name}}, {safe:true}, function (err) {
                     if (err) {
                         throw err;
                     } else {
@@ -786,7 +789,8 @@ exports.delCoverImage = function (req, res) {
 //上传前台页面城市背景大图
 exports.upload_background_img = function (req, res) {
     var target_upload_name;
-    if (req.files.upload && req.body._id) {
+    var _id = req.body._id || req.headers._id;
+    if (req.files.upload && _id) {
         var tmp_upload = req.files.upload;
         var tmp_upload_path = tmp_upload.path;
         var tmp_upload_type = tmp_upload.type;
@@ -794,7 +798,7 @@ exports.upload_background_img = function (req, res) {
         var target_upload_path = global.imgpathC1 + target_upload_name;
         makeImageFile(tmp_upload_path, target_upload_path, function () {
             upyunClient.upCityBgToYun(target_upload_name,function(err,data){
-                cityProvider.update({_id:new ObjectID(req.body._id)}, {$push:{ 'backgroundimage':target_upload_name}}, {safe:true}, function (err) {
+                cityProvider.update({_id:new ObjectID(_id)}, {$push:{ 'backgroundimage':target_upload_name}}, {safe:true}, function (err) {
                     if (err) {
                         throw err;
                     } else {
