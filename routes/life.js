@@ -557,7 +557,10 @@ exports.postLifeImage = function(req,res){
         var tmp_upload_type = tmp_upload.type;
         var target_upload_name = validPic(tmp_upload_type);
         var target_upload_path = getPathByType(type) + target_upload_name;
-
+        // var target_upload_path = './public/images/' + target_upload_name;
+        console.log('postLifeImage sjdlkfjal');
+        console.log(req.files);
+        console.log(tmp_upload_path,target_upload_path);
         makeImageFile(req, tmp_upload_path, target_upload_path, function () {
             upyunClient.upLifeToYun(type,target_upload_name,function(err,data){
                 if(err) throw err;
