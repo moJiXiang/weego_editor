@@ -550,11 +550,18 @@ exports.publishEntertainment = function(_id,callback){
 
 exports.postLifeImage = function(req,res){
     var type = req.body._type;
-    if(req.files.file && req.body._id){
+    console.log(req.files,req.headers);
+    var _id = req.body._id || req.headers._id;
+    if(req.files.file && _id){
         var id = new ObjectID();
         var tmp_upload = req.files.file;
         var tmp_upload_path = tmp_upload.path;
-        var tmp_upload_type = tmp_upload.type;
+        //新的图片上传插件需要的接口
+        if(req.params.type){
+            var tmp_upload_type = req.params.type;
+        }else{
+            var tmp_upload_type = tmp_upload.type;
+        }
         var target_upload_name = validPic(tmp_upload_type);
         var target_upload_path = getPathByType(type) + target_upload_name;
         // var target_upload_path = './public/images/' + target_upload_name;
@@ -564,7 +571,7 @@ exports.postLifeImage = function(req,res){
         makeImageFile(req, tmp_upload_path, target_upload_path, function () {
             upyunClient.upLifeToYun(type,target_upload_name,function(err,data){
                 if(err) throw err;
-                pushImg(req.body._id,type,target_upload_name,function(err,result){
+                pushImg(_id,type,target_upload_name,function(err,result){
                     if (err) {
                         throw err;
                     } else {

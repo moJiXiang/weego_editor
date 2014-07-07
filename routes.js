@@ -147,6 +147,7 @@ module.exports = function(app) {
 	app.get('/entertainments/:pageLimit/:pageIndex?', routes.life.getEntertainmentByPage);
 
 	app.post('/postLifeImage', routes.life.postLifeImage);
+	// app.post('/postLifeImage/:_id/:type', routes.life.postLifeImage);
 	app.get('/delUploadImageLife/:_id/:imageName/:_type', routes.life.delUploadImageLife);
 	app.get('/setCoverImgLife/:_id/:imageName/:_type', routes.life.setCoverImgLife);
 

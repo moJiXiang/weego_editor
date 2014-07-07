@@ -1794,14 +1794,51 @@ $(weego.init());
             if(weego.type == "restaurants"){
                 var EditCityItemView = new weego.EditCityItemView();
                 $('#app').html('').append(EditCityItemView.render(weego.result1.cityitem).$el);
+                $('#resshop-dropzone').dropzone({
+                    addRemoveLinks: true,
+                    headers: {
+                        _id: weego.result1.cityitem._id,
+                        type: weego.result1.cityitem.type
+                    },
+                    init: function() {
+                        this.on("success", function(file) {
+                            console.log("File " + file.name + "uploaded");
+                        });
+                        this.on("removedfile", function(file) {
+                            console.log("File " + file.name + "removed");
+                        });
+                    }
+                })
             }
             if(weego.type == "shopareas"){
                 var EditAreaView = new weego.EditAreaView();
                 $('#app').html('').append(EditAreaView.render(weego.result1.cityitem).$el);
+                $('#shoparea-dropzone').dropzone({
+                    addRemoveLinks: true,
+                    init: function() {
+                        this.on("success", function(file) {
+                            console.log("File " + file.name + "uploaded");
+                        });
+                        this.on("removedfile", function(file) {
+                            console.log("File " + file.name + "removed");
+                        });
+                    }
+                })
             }
             if(weego.type == "shoppings"){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
                 var EditCityItemView = new weego.EditCityItemView();
                 $('#app').html('').append(EditCityItemView.render(weego.result1.cityitem).$el);
+                $('#resshop-dropzone').dropzone({
+                    addRemoveLinks: true,
+                    init: function() {
+                        this.on("success", function(file) {
+                            console.log("File " + file.name + "uploaded");
+                        });
+                        this.on("removedfile", function(file) {
+                            console.log("File " + file.name + "removed");
+                        });
+                    }
+                })
             }
         },
         submitaudit: function() {

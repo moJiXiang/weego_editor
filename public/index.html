@@ -806,11 +806,15 @@
         
         {{#with restaurant}}
         <div class="model">
-            <h3>图片</h3>
-            {{#each image}}
-            <img src="http://weegotest.b0.upaiyun.com/restaurant/origin/{{this}}">
-            {{/each}}
-            <h3>基本信息</h3>
+            <h4>基本信息</h4>
+            <dl class="dl-horizontal">
+                <dt>图片</dt>
+                {{#each image}}
+                <dd class="cityimages">
+                <img src="http://weegotest.b0.upaiyun.com/restaurant/origin/{{this}}">
+                </dd>
+                {{/each}}
+            </dl>
             <dl class="dl-horizontal">
               <dt>名称</dt>
               <dd>{{name}}</dd>
@@ -1989,10 +1993,15 @@
         </div>
     </script>
     <script id="resEditView" type="text/x-handlebars-template">
+            <div id="dropzone">
+                <h4>图片</h4>
+                <form method="post" action="/postLifeImage" enctype="multipart/form-data" class="dropzone" id="resshop-dropzone">
+                </form>
+            </div>
     <form class="form-horizontal">
         {{#with cityitem}}
-                <legend>基本信息<a style="margin-left: 20px" id="back" href="">返回</a>
-                </legend> 
+        <legend>基本信息<a style="margin-left: 20px" id="back" href="">返回</a></legend>
+
             <div class="control-group">
                 <label class="control-label" for="name">名称</label>
                 <div class="controls">
