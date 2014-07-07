@@ -99,393 +99,677 @@ $(weego_user.init());
     
     //编辑主页
     weego_user.EditorMainView = Backbone.View.extend({
-        el:"#app",
-        currentPage: 1,
-        pageLimit: 10,
-        initialize:function(){
-            var thisView=this;
-            if(weegoCache.editorMainTpl){
-                thisView.$el.empty().append(weegoCache.editorMainTpl);
+        el: "#app",
+        initialize: function(){
+            var thisView = this;
+            $("<div/>").load("/templ/editorMain.handlebars", function(){
+                var template = Handlebars.compile($(this).html());
+                thisView.$el.empty().append(template());
                 thisView.initData();
-            }else{
-                $("<div/>").load("/templ/editorMain.handlebars",function(){
-                    var template = Handlebars.compile($(this).html());
-                    weegoCache.editorMainTpl=template();
-                    thisView.$el.empty().append(template());
-                    thisView.initData();
-                });
-            }
+            })
         },
-        initData: function(){
-            $.ajax({
-                url:"/auditings/"+this.pageLimit+'/'+this.currentPage,
-                success: _.bind(function (data) {
-                    if(data.status){
-                        this.appendAuditingHTML(data);
-                    }else{
-                        alert('数据库异常！');
-                    }
-                },this)
-            });
+        initData: function() {
+            var AjaxDataSource = function(options) {
+                this._formatter = options.formatter;
+                this._columns = options.columns;
+            };
 
-            $.ajax({
-                url:"/tasks/"+this.pageLimit+'/'+this.currentPage,
-                success: _.bind(function (data) {
-                    if(data.status){
-                        this.appendTaskHTML(data);
-                    }else{
-                        alert('数据库异常！');
-                    }
-                },this)
-            });
+            AjaxDataSource.prototype = {
 
-            $.ajax({
-                url:"/taskquestions/"+this.pageLimit+'/'+this.currentPage,
-                success: _.bind(function (data) {
-                    if(data.status){
-                        this.appendTaskquestionHTML(data);
-                    }else{
-                        alert('数据库异常！');
-                    }
-                },this)
-            });
+                /**
+                 * Returns stored column metadata
+                 */
+                columns: function() {
+                    return this._columns;
+                },
+                /**
+                 * Called when Datagrid needs data. Logic should check the options parameter
+                 * to determine what data to return, then return data by calling the callback.
+                 * @param {object} options Options selected in datagrid (ex: {pageIndex:0,pageSize:5,search:'searchterm'})
+                 * @param {function} callback To be called with the requested data.
+                 */
+                data: function(options, callback) {
+                    var url = '/getedithistory';
+                    var self = this;
 
-        },
-        appendAuditingHTML:function(data){
-            var results = data.results;
-            var itemHtml = '';
-            for(var i=0;i<results.length;i++){
-                var item = results[i];
-                var displayTime = item.create_at.split('T');
-                var status = item.status==0?'未递交':item.status==10?'已递交':item.status==40?'审核不通过':'审核通过';
-                var type = item.type=='0'?'景点':item.type=='1'?'餐馆':item.type=='2'?'购物':'娱乐';
-                var log_type = item.log_type=='0'?'新增':'修改';
-                var askApprovalHTML = '<span>递交审核</span>';
-                if(item.status==0||item.status==40)
-                    askApprovalHTML = '<a href="#" class="askApprovalHTML"><span class="askApproval">递交审核</span></a>';
-                itemHtml += '<div class="ehitem" auditingId="'+item._id+'">'+
-                '<span>'+displayTime[0]+'</span>'+
-                '<span>'+type+'</span>'+
-                '<span>'+item.city_name+'</span>'+
-                '<span>'+item.name+'</span>'+
-                '<span>'+log_type+'</span>'+
-                '<span>'+item.task_name+'</span>'+
-                '<span class="status">'+status+'</span>'+
-                askApprovalHTML+
-                '<span class="showDetail">详情</span>'+
-                '<p>我修改了xxx</p>'+
-                
-                '</div>';
-            }
-            $('.cmsEditorHistory-items').html(itemHtml);
-            $('#auditing-list-current-page').html('1');
-            $('#auditing-list-total').html(data.count);
-            $('#auditing-list-page-count').html(Math.floor(data.count/this.pageLimit) + 1);
-        },
-        appendTaskHTML:function(data){
-            var results = data.results;
-            var itemHtml = '';
-            for(var i=0;i<results.length;i++){
-                var item = results[i];
-                var displayTime = item.create_at.split('T');
-                var status = '待完成';
-                if(item.status==50)
-                    status = '已完成';
-                itemHtml += '<tr>'+
-                '<td>'+item.name+'</td>'+
-                '<td>'+item.city_name+'</td>'+
-                '<td>'+displayTime[0]+'</td>'+
-                '<td>'+item.total+'条['+item.attraction_num+'条景点,'+
-                item.restaurant_num+'条餐馆,'+item.shopping_num+'条购物,'+item.entertainment_num+'条娱乐]</td>'+
-                '<td>'+item.days+'天</td>'+
-                '<td>'+item.desc+'</td>'+
-                '<td>'+status+'</td>'+
-                '</tr>';
-            }
-            $('#myTask').html(itemHtml);
-            $('#task-list-current-page').html('1');
-            $('#task-list-total').html(data.count);
-            $('#task-list-page-count').html(Math.floor(data.count/this.pageLimit) + 1);
-        },
-        appendTaskquestionHTML:function(data){
-            var results = data.results;
-            var itemHtml = '';
-            for(var i=0;i<results.length;i++){
-                var item = results[i];
-                var displayTime = item.create_at.split('T');
-                var isClosed = item.is_closed?'已解决':'待解决';
-                var closeHTML = '<td><a href="#" ><span class="setClosed">close</span></a></td>';
-                if(item.is_closed)
-                    closeHTML = '<td><span>close</span></td>'
-                itemHtml += '<tr class="itemtr" taskquestionId="'+item._id+'">'+
-                '<td>'+item.asker_name+'</td>'+
-                '<td>'+displayTime[0]+'</td>'+
-                '<td width=60%>'+item.content+'</td>'+
-                '<td class="isClosed">'+isClosed+'</td>'+
-                closeHTML+
-                // '<a href="#" ><span class="setOpen">open</span></td>'+
-                '</tr>';
-            }
-            $('#myTaskquestion').html(itemHtml);
-            $('#taskquestion-list-current-page').html('1');
-            $('#taskquestion-list-total').html(data.count);
-            $('#taskquestion-list-page-count').html(Math.floor(data.count/this.pageLimit) + 1);
-        },
-        events:{
-            "click .showDetail":"showDetail",
-            "click .askApproval":"askApproval",
-            "click #auditing-first":"auditingFirst",
-            "click #auditing-pre":"auditingPre",
-            "click #auditing-next":"auditingNext",
-            "click #task-first":"taskFirst",
-            "click #task-pre":"taskPre",
-            "click #task-next":"taskNext",
-            "click #taskquestion-first":"taskquestionFirst",
-            "click #taskquestion-pre":"taskquestionPre",
-            "click #taskquestion-next":"taskquestionNext",
-            "click .setClosed":"setClosed",
-            "click .setOpen":"setOpen"
-        },
-        setClosed:function(evt){
-            evt.preventDefault();
-            $.ajax({
-                url:"/closeTaskquestion/"+$(evt.currentTarget).closest(".itemtr").attr('taskquestionId'),
-                success: _.bind(function (data) {
-                    if(data.status){
-                        console.log(data);
-                       $(evt.currentTarget).parent().parent().siblings(".isClosed").html('已解决');
-                       $(evt.currentTarget).parent().after('<span>close</span>').end().remove();
-                    }else{
-                        alert('设置失败！请联系管理员！');
+                    if (true) {
+                        // Search active.  Add URL parameters for API.
+                        url += '?';
+                        url += options.search ? ('&cityname=' + encodeURIComponent(options.search)) : '';
+                        url += options.filter ? ('&status=' + options.filter.value) : '';
+                        url += '&perpage=' + options.pageSize;
+                        url += '&page=' + (options.pageIndex + 1);
+                        if (options.sortProperty) {
+                            url += "&sort=" + options.sortProperty + "&sortdir=" + options.sortDirection
+                        }
+
+                        //alert(url); //use this to debug
+                        $.ajax(url, {
+
+                            // Set JSONP options for API
+                            dataType: 'json',
+                            type: 'GET'
+
+                        }).done(function(response) {
+                            // alert('ajax');
+
+                            //alert(response.data);
+
+                            // Prepare data to return to Datagrid
+                            var data = response.edittask;
+                            var count = response.edittask.length;
+                            var startIndex = options.pageIndex * options.pageSize;
+                            var endIndex = startIndex + options.pageSize;
+                            var end = (endIndex > count) ? count : endIndex;
+                            var pages = Math.ceil(count / options.pageSize);
+                            var page = options.pageIndex + 1;
+                            var start = startIndex + 1;
+                            // SORTING is dealt with by the server
+                            data = data.slice(startIndex, endIndex);
+                            // Allow client code to format the data
+                            if (self._formatter) self._formatter(data);
+
+                            // Return data to Datagrid
+                            callback({
+                                data: data,
+                                start: start,
+                                end: end,
+                                count: count,
+                                pages: pages,
+                                page: page
+                            });
+
+                        });
+                    } else {
+                        // No search. Return zero results to Datagrid
+                        callback({
+                            data: [],
+                            start: 0,
+                            end: 0,
+                            count: 0,
+                            pages: 0,
+                            page: 0
+                        });
                     }
-                },this)
-            });
-        },
-        setOpen:function(evt){
-            evt.preventDefault();
-            $.ajax({
-                url:"/openTaskquestion/"+$(evt.currentTarget).closest(".itemtr").attr('taskquestionId'),
-                success: _.bind(function (data) {
-                    if(data.status){
-                       $(evt.currentTarget).parent().siblings(".isClosed").html('待解决');
-                    }else{
-                        alert('设置失败！请联系管理员！');
+                }
+            };
+            $('#EditorHistoryGrid').datagrid({
+                stretchHeight: false, //forces the datagrid to take up all the height of the containing HTML element. If false, it expands (& contracts) to fit the amount of data it contains.
+                dataSource: new AjaxDataSource({
+                    // Column definitions for Datagrid
+                    columns: [{
+                        property: 'city_name',
+                        label: '编辑项目',
+                        sortable: false
+                    }, {
+                        property: 'type',
+                        label: '类型',
+                        sortable: false
+                    }, {
+                        property: 'status',
+                        label: '审核状态',
+                        sortable: false
+                    }, {
+                        property: 'auditorname',
+                        label: '审核人',
+                        sortable: true
+                    }, {
+                        property: 'auditdate',
+                        label: '审核时间',
+                        sortable: true
+                    }, {
+                        property: 'editorname',
+                        label: '编辑',
+                        sortable: true
+                    }, {
+                        property: 'editdate',
+                        label: '编辑时间',
+                        sortable: true
+                    }],
+
+                    formatter: function(items) {
+                        $.each(items, function(index, item) {
+                            item.city_name = (item.name==null) ? '<a href="#allCountries/'+item.countryname+'/'+item.city_name+'">'+item.city_name+'</a>' : '<a href="#allCountries/'+item.countryname+'/'+item.city_name+'/'+item.type+'/'+item.name+'">'+item.name+'</a>'
+                            if (item.status == '0') {
+                                item.status = '<button type="button" class="btn btn-default" disabled="disabled">未审核</button>'
+                            } else if (item.status == '1') {
+                                item.status = '<button type="button" class="btn btn-info" disabled="disabled">审核中</button>'
+                            } else if (item.status == '2') {
+                                item.status = '<button type="button" class="btn btn-success" disabled="disabled">审核通过</button>'
+                            } else {
+                                item.status = '<button type="button" class="btn btn-danger" disabled="disabled">未通过</button>'
+                            }
+                        });
                     }
-                },this)
+                })
+
             });
-        },
-        showDetail:function(evt){
-            var $this=$(evt.currentTarget);
-            if($this.hasClass("active")){
-                $this.removeClass("active").next().fadeOut();
-            }else{
-                $this.addClass("active").next().fadeIn();
-            }
-        },
-        askApproval:function(evt){
-            evt.preventDefault();
-            if(confirm('确定递交审核该条数据吗？')){
-                $.ajax({
-                    url:"/askApproval/"+$(evt.currentTarget).closest(".ehitem").attr('auditingId'),
-                    success: _.bind(function (data) {
-                        if(data.status){
-                            console.log($(evt.currentTarget).parent().siblings(".status"));
-                           $(evt.currentTarget).parent().siblings(".status").html('已递交');
-                           $(evt.currentTarget).closest(".askApprovalHTML").after('<span>递交审核</span>').end().remove();
-                        }else{
-                            alert('递交失败！请联系管理员！');
+            
+            var AjaxDataSource1 = function(options) {
+                this._formatter = options.formatter;
+                this._columns = options.columns;
+            };
+
+            AjaxDataSource1.prototype = {
+
+                /**
+                 * Returns stored column metadata
+                 */
+                columns: function() {
+                    return this._columns;
+                },
+                /**
+                 * Called when Datagrid needs data. Logic should check the options parameter
+                 * to determine what data to return, then return data by calling the callback.
+                 * @param {object} options Options selected in datagrid (ex: {pageIndex:0,pageSize:5,search:'searchterm'})
+                 * @param {function} callback To be called with the requested data.
+                 */
+                data: function(options, callback) {
+                    var url = '/getaudithistory';
+                    var self = this;
+
+                    if (true) {
+                        // Search active.  Add URL parameters for API.
+                        url += '?';
+                        url += options.search ? ('&cityname=' + encodeURIComponent(options.search)) : '';
+                        url += options.filter ? ('&status=' + options.filter.value) : '';
+                        url += '&perpage=' + options.pageSize;
+                        url += '&page=' + (options.pageIndex + 1);
+                        if (options.sortProperty) {
+                            url += "&sort=" + options.sortProperty + "&sortdir=" + options.sortDirection
                         }
-                    },this)
-                });
-            }
-        },
-        auditingFirst:function(){
-            $.ajax({
-                url:"/auditings/"+this.pageLimit+'/1',
-                success: _.bind(function (data) {
-                    if(data.status){
-                        this.appendAuditingHTML(data);
-                        $('#auditing-list-current-page').html('1');
-                    }else{
-                        alert('数据库异常！');
+
+                        //alert(url); //use this to debug
+                        $.ajax(url, {
+
+                            // Set JSONP options for API
+                            dataType: 'json',
+                            type: 'GET'
+
+                        }).done(function(response) {
+                            // alert('ajax');
+
+                            //alert(response.data);
+
+                            // Prepare data to return to Datagrid
+                            var data = response.audittask;
+                            var count = response.audittask.length;
+                            var startIndex = options.pageIndex * options.pageSize;
+                            var endIndex = startIndex + options.pageSize;
+                            var end = (endIndex > count) ? count : endIndex;
+                            var pages = Math.ceil(count / options.pageSize);
+                            var page = options.pageIndex + 1;
+                            var start = startIndex + 1;
+                            // SORTING is dealt with by the server
+                            data = data.slice(startIndex, endIndex);
+                            // Allow client code to format the data
+                            if (self._formatter) self._formatter(data);
+
+                            // Return data to Datagrid
+                            callback({
+                                data: data,
+                                start: start,
+                                end: end,
+                                count: count,
+                                pages: pages,
+                                page: page
+                            });
+
+                        });
+                    } else {
+                        // No search. Return zero results to Datagrid
+                        callback({
+                            data: [],
+                            start: 0,
+                            end: 0,
+                            count: 0,
+                            pages: 0,
+                            page: 0
+                        });
                     }
-                },this)
-            });
-        },
-        auditingPre:function(){
-            var currentPage = $('#auditing-list-current-page').html();
-            if(isInt(currentPage))
-                currentPage = parseInt(currentPage);
-            if(currentPage>1){
-                $.ajax({
-                    url:"/auditings/"+this.pageLimit+'/'+(--currentPage),
-                    success: _.bind(function (data) {
-                        if(data.status){
-                            this.appendAuditingHTML(data);
-                            $('#auditing-list-current-page').html(currentPage);
-                        }else{
-                            alert('数据库异常！');
+                }
+            };
+            $('#EditorTaskGrid').datagrid({
+                stretchHeight: false, //forces the datagrid to take up all the height of the containing HTML element. If false, it expands (& contracts) to fit the amount of data it contains.
+                dataSource: new AjaxDataSource1({
+                    // Column definitions for Datagrid
+                    columns: [{
+                        property: 'city_name',
+                        label: '编辑项目',
+                        sortable: false
+                    }, {
+                        property: 'type',
+                        label: '类型',
+                        sortable: false
+                    }, {
+                        property: 'status',
+                        label: '审核状态',
+                        sortable: false
+                    }, {
+                        property: 'auditorname',
+                        label: '审核人',
+                        sortable: true
+                    }, {
+                        property: 'auditdate',
+                        label: '审核时间',
+                        sortable: true
+                    }, {
+                        property: 'editorname',
+                        label: '编辑',
+                        sortable: true
+                    }, {
+                        property: 'editdate',
+                        label: '编辑时间',
+                        sortable: true
+                    }],
+
+                    formatter: function(items) {
+                        $.each(items, function(index, item) {
+                        item.city_name = (item.name == null) ? '<a href="#allCountries/' + item.countryname + '/' + item.city_name + '">' + item.city_name + '</a>' : '<a href="#allCountries/' + item.countryname + '/' + item.city_name + '/' + item.type + '/' + item.name + '">' + item.name + '</a>'
+                        if (item.status == '0') {
+                            item.status = '<button type="button" class="btn btn-default" disabled="disabled">未审核</button>'
+                        } else if (item.status == '1') {
+                            item.status = '<button type="button" class="btn btn-info" disabled="disabled">审核中</button>'
+                        } else if (item.status == '2') {
+                            item.status = '<button type="button" class="btn btn-success" disabled="disabled">审核通过</button>'
+                        } else {
+                            item.status = '<button type="button" class="btn btn-danger" disabled="disabled">未通过</button>'
                         }
-                    },this)
-                });
-            }else{
-                alert('无上一页');
-            }
-        },
-        auditingNext:function(){
-            var currentPage = $('#auditing-list-current-page').html();
-            if(isInt(currentPage))
-                currentPage = parseInt(currentPage);
-            else{
-                return false;
-            }
-            var totalPage = $('#auditing-list-page-count').html();
-            if(isInt(totalPage))
-                totalPage = parseInt(totalPage);
-            else{
-                return false;
-            }
-            if(currentPage<totalPage){
-                $.ajax({
-                    url:"/auditings/"+this.pageLimit+'/'+(++currentPage),
-                    success: _.bind(function (data) {
-                        if(data.status){
-                            this.appendAuditingHTML(data);
-                            $('#auditing-list-current-page').html(currentPage);
-                        }else{
-                            alert('数据库异常！');
-                        }
-                    },this)
-                });
-            }else{
-                alert('无下一页');
-            }
-        },
-        taskFirst:function(){
-            $.ajax({
-                url:"/tasks/"+this.pageLimit+'/1',
-                success: _.bind(function (data) {
-                    if(data.status){
-                        this.appendTaskHTML(data);
-                        $('#task-list-current-page').html('1');
-                    }else{
-                        alert('数据库异常！');
+                        });
                     }
-                },this)
+                })
+
             });
-        },
-        taskPre:function(){
-            var currentPage = $('#task-list-current-page').html();
-            if(isInt(currentPage))
-                currentPage = parseInt(currentPage);
-            if(currentPage>1){
-                $.ajax({
-                    url:"/tasks/"+this.pageLimit+'/'+(--currentPage),
-                    success: _.bind(function (data) {
-                        if(data.status){
-                            this.appendTaskHTML(data);
-                            $('#task-list-current-page').html(currentPage);
-                        }else{
-                            alert('数据库异常！');
-                        }
-                    },this)
-                });
-            }else{
-                alert('无上一页');
-            }
-        },
-        taskNext:function(){
-            var currentPage = $('#task-list-current-page').html();
-            if(isInt(currentPage))
-                currentPage = parseInt(currentPage);
-            else{
-                return false;
-            }
-            var totalPage = $('#task-list-page-count').html();
-            if(isInt(totalPage))
-                totalPage = parseInt(totalPage);
-            else{
-                return false;
-            }
-            if(currentPage<totalPage){
-                $.ajax({
-                    url:"/tasks/"+this.pageLimit+'/'+(++currentPage),
-                    success: _.bind(function (data) {
-                        if(data.status){
-                            this.appendTaskHTML(data);
-                            $('#task-list-current-page').html(currentPage);
-                        }else{
-                            alert('数据库异常！');
-                        }
-                    },this)
-                });
-            }else{
-                alert('无下一页');
-            }
-        },
-        taskquestionFirst:function(){
-            $.ajax({
-                url:"/taskquestions/"+this.pageLimit+'/1',
-                success: _.bind(function (data) {
-                    if(data.status){
-                        this.appendTaskquestionHTML(data);
-                        $('#taskquestion-list-current-page').html('1');
-                    }else{
-                        alert('数据库异常！');
-                    }
-                },this)
-            });
-        },
-        taskquestionPre:function(){
-            var currentPage = $('#taskquestion-list-current-page').html();
-            if(isInt(currentPage))
-                currentPage = parseInt(currentPage);
-            if(currentPage>1){
-                $.ajax({
-                    url:"/taskquestions/"+this.pageLimit+'/'+(--currentPage),
-                    success: _.bind(function (data) {
-                        if(data.status){
-                            this.appendTaskquestionHTML(data);
-                            $('#taskquestion-list-current-page').html(currentPage);
-                        }else{
-                            alert('数据库异常！');
-                        }
-                    },this)
-                });
-            }else{
-                alert('无上一页');
-            }
-        },
-        taskquestionNext:function(){
-            var currentPage = $('#taskquestion-list-current-page').html();
-            if(isInt(currentPage))
-                currentPage = parseInt(currentPage);
-            else{
-                return false;
-            }
-            var totalPage = $('#taskquestion-list-page-count').html();
-            if(isInt(totalPage))
-                totalPage = parseInt(totalPage);
-            else{
-                return false;
-            }
-            if(currentPage<totalPage){
-                $.ajax({
-                    url:"/taskquestions/"+this.pageLimit+'/'+(++currentPage),
-                    success: _.bind(function (data) {
-                        if(data.status){
-                            this.appendTaskquestionHTML(data);
-                            $('#taskquestion-list-current-page').html(currentPage);
-                        }else{
-                            alert('数据库异常！');
-                        }
-                    },this)
-                });
-            }else{
-                alert('无下一页');
-            }
-        },
+        }
     });
+    // weego_user.EditorMainView = Backbone.View.extend({
+    //     el:"#app",
+    //     currentPage: 1,
+    //     pageLimit: 10,
+    //     initialize:function(){
+    //         var thisView=this;
+    //         if(weegoCache.editorMainTpl){
+    //             thisView.$el.empty().append(weegoCache.editorMainTpl);
+    //             thisView.initData();
+    //         }else{
+    //             $("<div/>").load("/templ/editorMain.handlebars",function(){
+    //                 var template = Handlebars.compile($(this).html());
+    //                 weegoCache.editorMainTpl=template();
+    //                 thisView.$el.empty().append(template());
+    //                 thisView.initData();
+    //             });
+    //         }
+    //     },
+    //     initData: function(){
+    //         $.ajax({
+    //             url:"/auditings/"+this.pageLimit+'/'+this.currentPage,
+    //             success: _.bind(function (data) {
+    //                 if(data.status){
+    //                     this.appendAuditingHTML(data);
+    //                 }else{
+    //                     alert('数据库异常！');
+    //                 }
+    //             },this)
+    //         });
+
+    //         $.ajax({
+    //             url:"/tasks/"+this.pageLimit+'/'+this.currentPage,
+    //             success: _.bind(function (data) {
+    //                 if(data.status){
+    //                     this.appendTaskHTML(data);
+    //                 }else{
+    //                     alert('数据库异常！');
+    //                 }
+    //             },this)
+    //         });
+
+    //         $.ajax({
+    //             url:"/taskquestions/"+this.pageLimit+'/'+this.currentPage,
+    //             success: _.bind(function (data) {
+    //                 if(data.status){
+    //                     this.appendTaskquestionHTML(data);
+    //                 }else{
+    //                     alert('数据库异常！');
+    //                 }
+    //             },this)
+    //         });
+
+    //     },
+    //     appendAuditingHTML:function(data){
+    //         var results = data.results;
+    //         var itemHtml = '';
+    //         for(var i=0;i<results.length;i++){
+    //             var item = results[i];
+    //             var displayTime = item.create_at.split('T');
+    //             var status = item.status==0?'未递交':item.status==10?'已递交':item.status==40?'审核不通过':'审核通过';
+    //             var type = item.type=='0'?'景点':item.type=='1'?'餐馆':item.type=='2'?'购物':'娱乐';
+    //             var log_type = item.log_type=='0'?'新增':'修改';
+    //             var askApprovalHTML = '<span>递交审核</span>';
+    //             if(item.status==0||item.status==40)
+    //                 askApprovalHTML = '<a href="#" class="askApprovalHTML"><span class="askApproval">递交审核</span></a>';
+    //             itemHtml += '<div class="ehitem" auditingId="'+item._id+'">'+
+    //             '<span>'+displayTime[0]+'</span>'+
+    //             '<span>'+type+'</span>'+
+    //             '<span>'+item.city_name+'</span>'+
+    //             '<span>'+item.name+'</span>'+
+    //             '<span>'+log_type+'</span>'+
+    //             '<span>'+item.task_name+'</span>'+
+    //             '<span class="status">'+status+'</span>'+
+    //             askApprovalHTML+
+    //             '<span class="showDetail">详情</span>'+
+    //             '<p>我修改了xxx</p>'+
+                
+    //             '</div>';
+    //         }
+    //         $('.cmsEditorHistory-items').html(itemHtml);
+    //         $('#auditing-list-current-page').html('1');
+    //         $('#auditing-list-total').html(data.count);
+    //         $('#auditing-list-page-count').html(Math.floor(data.count/this.pageLimit) + 1);
+    //     },
+    //     appendTaskHTML:function(data){
+    //         var results = data.results;
+    //         var itemHtml = '';
+    //         for(var i=0;i<results.length;i++){
+    //             var item = results[i];
+    //             var displayTime = item.create_at.split('T');
+    //             var status = '待完成';
+    //             if(item.status==50)
+    //                 status = '已完成';
+    //             itemHtml += '<tr>'+
+    //             '<td>'+item.name+'</td>'+
+    //             '<td>'+item.city_name+'</td>'+
+    //             '<td>'+displayTime[0]+'</td>'+
+    //             '<td>'+item.total+'条['+item.attraction_num+'条景点,'+
+    //             item.restaurant_num+'条餐馆,'+item.shopping_num+'条购物,'+item.entertainment_num+'条娱乐]</td>'+
+    //             '<td>'+item.days+'天</td>'+
+    //             '<td>'+item.desc+'</td>'+
+    //             '<td>'+status+'</td>'+
+    //             '</tr>';
+    //         }
+    //         $('#myTask').html(itemHtml);
+    //         $('#task-list-current-page').html('1');
+    //         $('#task-list-total').html(data.count);
+    //         $('#task-list-page-count').html(Math.floor(data.count/this.pageLimit) + 1);
+    //     },
+    //     appendTaskquestionHTML:function(data){
+    //         var results = data.results;
+    //         var itemHtml = '';
+    //         for(var i=0;i<results.length;i++){
+    //             var item = results[i];
+    //             var displayTime = item.create_at.split('T');
+    //             var isClosed = item.is_closed?'已解决':'待解决';
+    //             var closeHTML = '<td><a href="#" ><span class="setClosed">close</span></a></td>';
+    //             if(item.is_closed)
+    //                 closeHTML = '<td><span>close</span></td>'
+    //             itemHtml += '<tr class="itemtr" taskquestionId="'+item._id+'">'+
+    //             '<td>'+item.asker_name+'</td>'+
+    //             '<td>'+displayTime[0]+'</td>'+
+    //             '<td width=60%>'+item.content+'</td>'+
+    //             '<td class="isClosed">'+isClosed+'</td>'+
+    //             closeHTML+
+    //             // '<a href="#" ><span class="setOpen">open</span></td>'+
+    //             '</tr>';
+    //         }
+    //         $('#myTaskquestion').html(itemHtml);
+    //         $('#taskquestion-list-current-page').html('1');
+    //         $('#taskquestion-list-total').html(data.count);
+    //         $('#taskquestion-list-page-count').html(Math.floor(data.count/this.pageLimit) + 1);
+    //     },
+    //     events:{
+    //         "click .showDetail":"showDetail",
+    //         "click .askApproval":"askApproval",
+    //         "click #auditing-first":"auditingFirst",
+    //         "click #auditing-pre":"auditingPre",
+    //         "click #auditing-next":"auditingNext",
+    //         "click #task-first":"taskFirst",
+    //         "click #task-pre":"taskPre",
+    //         "click #task-next":"taskNext",
+    //         "click #taskquestion-first":"taskquestionFirst",
+    //         "click #taskquestion-pre":"taskquestionPre",
+    //         "click #taskquestion-next":"taskquestionNext",
+    //         "click .setClosed":"setClosed",
+    //         "click .setOpen":"setOpen"
+    //     },
+    //     setClosed:function(evt){
+    //         evt.preventDefault();
+    //         $.ajax({
+    //             url:"/closeTaskquestion/"+$(evt.currentTarget).closest(".itemtr").attr('taskquestionId'),
+    //             success: _.bind(function (data) {
+    //                 if(data.status){
+    //                     console.log(data);
+    //                    $(evt.currentTarget).parent().parent().siblings(".isClosed").html('已解决');
+    //                    $(evt.currentTarget).parent().after('<span>close</span>').end().remove();
+    //                 }else{
+    //                     alert('设置失败！请联系管理员！');
+    //                 }
+    //             },this)
+    //         });
+    //     },
+    //     setOpen:function(evt){
+    //         evt.preventDefault();
+    //         $.ajax({
+    //             url:"/openTaskquestion/"+$(evt.currentTarget).closest(".itemtr").attr('taskquestionId'),
+    //             success: _.bind(function (data) {
+    //                 if(data.status){
+    //                    $(evt.currentTarget).parent().siblings(".isClosed").html('待解决');
+    //                 }else{
+    //                     alert('设置失败！请联系管理员！');
+    //                 }
+    //             },this)
+    //         });
+    //     },
+    //     showDetail:function(evt){
+    //         var $this=$(evt.currentTarget);
+    //         if($this.hasClass("active")){
+    //             $this.removeClass("active").next().fadeOut();
+    //         }else{
+    //             $this.addClass("active").next().fadeIn();
+    //         }
+    //     },
+    //     askApproval:function(evt){
+    //         evt.preventDefault();
+    //         if(confirm('确定递交审核该条数据吗？')){
+    //             $.ajax({
+    //                 url:"/askApproval/"+$(evt.currentTarget).closest(".ehitem").attr('auditingId'),
+    //                 success: _.bind(function (data) {
+    //                     if(data.status){
+    //                         console.log($(evt.currentTarget).parent().siblings(".status"));
+    //                        $(evt.currentTarget).parent().siblings(".status").html('已递交');
+    //                        $(evt.currentTarget).closest(".askApprovalHTML").after('<span>递交审核</span>').end().remove();
+    //                     }else{
+    //                         alert('递交失败！请联系管理员！');
+    //                     }
+    //                 },this)
+    //             });
+    //         }
+    //     },
+    //     auditingFirst:function(){
+    //         $.ajax({
+    //             url:"/auditings/"+this.pageLimit+'/1',
+    //             success: _.bind(function (data) {
+    //                 if(data.status){
+    //                     this.appendAuditingHTML(data);
+    //                     $('#auditing-list-current-page').html('1');
+    //                 }else{
+    //                     alert('数据库异常！');
+    //                 }
+    //             },this)
+    //         });
+    //     },
+    //     auditingPre:function(){
+    //         var currentPage = $('#auditing-list-current-page').html();
+    //         if(isInt(currentPage))
+    //             currentPage = parseInt(currentPage);
+    //         if(currentPage>1){
+    //             $.ajax({
+    //                 url:"/auditings/"+this.pageLimit+'/'+(--currentPage),
+    //                 success: _.bind(function (data) {
+    //                     if(data.status){
+    //                         this.appendAuditingHTML(data);
+    //                         $('#auditing-list-current-page').html(currentPage);
+    //                     }else{
+    //                         alert('数据库异常！');
+    //                     }
+    //                 },this)
+    //             });
+    //         }else{
+    //             alert('无上一页');
+    //         }
+    //     },
+    //     auditingNext:function(){
+    //         var currentPage = $('#auditing-list-current-page').html();
+    //         if(isInt(currentPage))
+    //             currentPage = parseInt(currentPage);
+    //         else{
+    //             return false;
+    //         }
+    //         var totalPage = $('#auditing-list-page-count').html();
+    //         if(isInt(totalPage))
+    //             totalPage = parseInt(totalPage);
+    //         else{
+    //             return false;
+    //         }
+    //         if(currentPage<totalPage){
+    //             $.ajax({
+    //                 url:"/auditings/"+this.pageLimit+'/'+(++currentPage),
+    //                 success: _.bind(function (data) {
+    //                     if(data.status){
+    //                         this.appendAuditingHTML(data);
+    //                         $('#auditing-list-current-page').html(currentPage);
+    //                     }else{
+    //                         alert('数据库异常！');
+    //                     }
+    //                 },this)
+    //             });
+    //         }else{
+    //             alert('无下一页');
+    //         }
+    //     },
+    //     taskFirst:function(){
+    //         $.ajax({
+    //             url:"/tasks/"+this.pageLimit+'/1',
+    //             success: _.bind(function (data) {
+    //                 if(data.status){
+    //                     this.appendTaskHTML(data);
+    //                     $('#task-list-current-page').html('1');
+    //                 }else{
+    //                     alert('数据库异常！');
+    //                 }
+    //             },this)
+    //         });
+    //     },
+    //     taskPre:function(){
+    //         var currentPage = $('#task-list-current-page').html();
+    //         if(isInt(currentPage))
+    //             currentPage = parseInt(currentPage);
+    //         if(currentPage>1){
+    //             $.ajax({
+    //                 url:"/tasks/"+this.pageLimit+'/'+(--currentPage),
+    //                 success: _.bind(function (data) {
+    //                     if(data.status){
+    //                         this.appendTaskHTML(data);
+    //                         $('#task-list-current-page').html(currentPage);
+    //                     }else{
+    //                         alert('数据库异常！');
+    //                     }
+    //                 },this)
+    //             });
+    //         }else{
+    //             alert('无上一页');
+    //         }
+    //     },
+    //     taskNext:function(){
+    //         var currentPage = $('#task-list-current-page').html();
+    //         if(isInt(currentPage))
+    //             currentPage = parseInt(currentPage);
+    //         else{
+    //             return false;
+    //         }
+    //         var totalPage = $('#task-list-page-count').html();
+    //         if(isInt(totalPage))
+    //             totalPage = parseInt(totalPage);
+    //         else{
+    //             return false;
+    //         }
+    //         if(currentPage<totalPage){
+    //             $.ajax({
+    //                 url:"/tasks/"+this.pageLimit+'/'+(++currentPage),
+    //                 success: _.bind(function (data) {
+    //                     if(data.status){
+    //                         this.appendTaskHTML(data);
+    //                         $('#task-list-current-page').html(currentPage);
+    //                     }else{
+    //                         alert('数据库异常！');
+    //                     }
+    //                 },this)
+    //             });
+    //         }else{
+    //             alert('无下一页');
+    //         }
+    //     },
+    //     taskquestionFirst:function(){
+    //         $.ajax({
+    //             url:"/taskquestions/"+this.pageLimit+'/1',
+    //             success: _.bind(function (data) {
+    //                 if(data.status){
+    //                     this.appendTaskquestionHTML(data);
+    //                     $('#taskquestion-list-current-page').html('1');
+    //                 }else{
+    //                     alert('数据库异常！');
+    //                 }
+    //             },this)
+    //         });
+    //     },
+    //     taskquestionPre:function(){
+    //         var currentPage = $('#taskquestion-list-current-page').html();
+    //         if(isInt(currentPage))
+    //             currentPage = parseInt(currentPage);
+    //         if(currentPage>1){
+    //             $.ajax({
+    //                 url:"/taskquestions/"+this.pageLimit+'/'+(--currentPage),
+    //                 success: _.bind(function (data) {
+    //                     if(data.status){
+    //                         this.appendTaskquestionHTML(data);
+    //                         $('#taskquestion-list-current-page').html(currentPage);
+    //                     }else{
+    //                         alert('数据库异常！');
+    //                     }
+    //                 },this)
+    //             });
+    //         }else{
+    //             alert('无上一页');
+    //         }
+    //     },
+    //     taskquestionNext:function(){
+    //         var currentPage = $('#taskquestion-list-current-page').html();
+    //         if(isInt(currentPage))
+    //             currentPage = parseInt(currentPage);
+    //         else{
+    //             return false;
+    //         }
+    //         var totalPage = $('#taskquestion-list-page-count').html();
+    //         if(isInt(totalPage))
+    //             totalPage = parseInt(totalPage);
+    //         else{
+    //             return false;
+    //         }
+    //         if(currentPage<totalPage){
+    //             $.ajax({
+    //                 url:"/taskquestions/"+this.pageLimit+'/'+(++currentPage),
+    //                 success: _.bind(function (data) {
+    //                     if(data.status){
+    //                         this.appendTaskquestionHTML(data);
+    //                         $('#taskquestion-list-current-page').html(currentPage);
+    //                     }else{
+    //                         alert('数据库异常！');
+    //                     }
+    //                 },this)
+    //             });
+    //         }else{
+    //             alert('无下一页');
+    //         }
+    //     },
+    // });
 
     //Guest主页
     weego_user.GuestMainView = Backbone.View.extend({

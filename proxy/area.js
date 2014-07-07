@@ -17,6 +17,9 @@ exports.getAreasByQuery = function(query,callback){
 	});
 };
 
+exports.getAreasByName = function(query, callback){
+	Area.findOne(query,callback);
+}
 exports.getAreasByLimit = function (skip,pageLimit, callback) {
   Area.find({}, [], {sort: [['name', 'desc']],skip:skip, limit:pageLimit}, function (err, areas) {
 		if(err)
@@ -27,17 +30,23 @@ exports.getAreasByLimit = function (skip,pageLimit, callback) {
 	});
 };
 
-exports.count = function ( callback) {
-  Area.count({}, callback);
+exports.count = function (query, callback) {
+  Area.count(query, callback);
 };
 
 exports.update = function(one,callback){
+	console.log(one);
 	exports.getArea(new ObjectID(one._id+''),function(err,result){
 		if(result){
 			result.city_id = new ObjectID(one.city_id+'');
 			result.city_name = one.city_name;
-			result.name = one.name;
-			result.en_name = one.en_name;
+			result.area_name = one.area_name;
+			result.area_enname = one.area_enname;
+			result.area_introduce = one.area_introduce;
+			result.address = one.address;
+			result.latitude = one.latitude;
+			result.longitude = one.longitude;
+			result.cover_image = one.cover_image;
 			result.save(function(err){
 				callback(err,result);
 			});
@@ -47,8 +56,19 @@ exports.update = function(one,callback){
 	});
 };
 
+exports.updateAudit = function(one, callback){
+	Area.update({area_name: one.name},{$set:{
+		status : one.status,
+		editorname : one.editorname,
+		editdate : one.editdate?one.editdate:'',
+		auditorname : one.auditorname,
+		auditdate : one.auditdate?one.auditdate:''
+	}},function(err, result){
+		console.log(err);
+	})
+}
+
 exports.newAndSave = function(one,callback){
-	console.log(one.area_introduce);
 	var area = new Area();
 	area.city_id = new ObjectID(one.city_id+'');
 	area.city_name = one.city_name;

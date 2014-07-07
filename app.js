@@ -8,8 +8,9 @@ var express = require('express')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path');
-
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3003);
@@ -37,6 +38,21 @@ app.configure('development', function(){
 //label
 routes(app);
 
-http.createServer(app).listen(app.get('port'), function(){
+io.on('connection', function(socket){
+  socket.on('audittask', function(data) {
+    // we tell the client to execute 'new message'
+    var clients = io.socket.clients();
+    clients.forEach(function(client) {
+      if(client.name == data.to){
+        client.emit('audittask', data);
+      }
+    })
+    // socket.broadcast.emit('audittask', {
+    //   message: data
+    // });
+  });
+});
+
+server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });

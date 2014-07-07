@@ -38,7 +38,12 @@ var ShoppingSchema = new Schema({
     comments       : { type: Array },
     price_level    : { type: Number },
     price_desc     : { type: String },
-    url            : { type: String }
+    url            : { type: String },
+    status         : { type: String },
+    editorname     : { type: String },
+    editdate       : { type: String },
+    auditorname    : { type: String },
+    auditdate      : { type: String }
 });
 
 ShoppingSchema.statics = {

@@ -286,7 +286,7 @@ pre.editwords{
     width:200px;
 }
 .fuelux{
-    width: 60%;
+    width: 80%;
 }
 .bs-callout-info {
     background-color: #f4f8fa;
@@ -325,4 +325,16 @@ pre.editwords{
     float: left;
     width: 200px;
     height: 20px;
+}
+.model pre{
+    width: 60%;
+}
+.cityimages img{
+    width: 100px;
+}
+.citybgimages img{
+    width: 200px;
+}
+.dropzone{
+    min-height: 128px;
 }

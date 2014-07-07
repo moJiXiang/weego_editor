@@ -61,7 +61,12 @@ var RestaurantSchema = new Schema({
         out_seat      : { type: Boolean,default:false},
         tv            : { type: Boolean,default:false},
         waiter        : { type: Boolean,default:false}
-    }
+    },
+    status             : String,
+    editorname         : String,
+    editdate           : String,
+    auditorname        : String,
+    auditdate          : String
 });
 
 /**
@@ -69,7 +74,7 @@ var RestaurantSchema = new Schema({
  * 
  */
 RestaurantSchema.path('tags').validate(function (val) {
-    return val.length <= 4 && val.every(function (tag) {
+    if (val) return val.length <= 4 && val.every(function (tag) {
         return ['michilin', 'bestfordinner', 'popular', 'localflag'].indexOf(tag) >= 0;
     });
 }, 'at most 4 tags are allowed and must be picked from restricted set'); 

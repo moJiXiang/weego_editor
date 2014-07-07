@@ -16,7 +16,12 @@ var AreaSchema = new Schema({
 	address: {type: String},
 	latitude: { type: String },
   	longitude: { type: String },
-  	cover_image: {type : String}
+  	cover_image: {type : String},
+  	 status             : String,
+    editorname         : String,
+    editdate           : String,
+    auditorname        : String,
+    auditdate          : String
 });
 
 mongoose.model('Area', AreaSchema);

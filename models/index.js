@@ -19,7 +19,9 @@ require('./task');
 require('./taskquestion');
 require('./auditing');
 require('./path');
-
+require('./city');
+require('./attraction');
+require('./label');
 
 exports.Category = mongoose.model('Category');
 exports.Entertainment = mongoose.model('Entertainment');
@@ -32,3 +34,6 @@ exports.Task = mongoose.model('Task');
 exports.Taskquestion = mongoose.model('Taskquestion');
 exports.Auditing = mongoose.model('Auditing');
 exports.Path = mongoose.model('Path');
+exports.City = mongoose.model('City');
+exports.Attraction = mongoose.model('Attraction');
+exports.Label = mongoose.model('Label');

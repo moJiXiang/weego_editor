@@ -1,14 +1,22 @@
 var models = require('../models');
 var Restaurant = models.Restaurant;
 var ObjectID = require('mongodb').ObjectID;
-// var EventProxy = require('eventproxy');
 
 exports.getRestaurant = function (id, callback) {
   Restaurant.findOne({_id: id}, callback);
 };
-
-exports.getRestaurantByName = function(name,callback){
-	Restaurant.findOne({name:name},callback);
+exports.findRestaurants = function(query,option,callback) {
+	var query = Restaurant.find(query);
+	query.limit(option.limit);
+	query.skip(option.skip);
+	query.exec(callback);
+	
+};
+exports.countRestaurant = function (query, callback) {
+	Restaurant.count(query, callback);
+};
+exports.getRestaurantByName = function(query,callback){
+	Restaurant.findOne(query,callback);
 };
 
 exports.getRestaurants = function (skip,pageLimit,query, callback) {
@@ -63,17 +71,6 @@ exports.getRestaurantsByQuery = function(id,callback){
     });
 };
 
-// exports.getRestaurantsByflag = function(query,callback) {
-// 	console.log('222222222222222222222222222222');
-// 	Restaurant.find(query, function(err, restaurants){
-// 		if(err)
-// 			callback(err);
-// 		else{
-// 			callback(null, restaurants);
-// 		}
-// 	});
-// }
-
 exports.getRestaurantsByOptions = function(query,options,callback){
 	Restaurant.find(query,[],options,callback);
 };
@@ -126,16 +123,13 @@ exports.update = function(one,callback){
 			restaurant.am = one.am;
 			restaurant.pm = one.pm;
 			restaurant.ev = one.ev;
-			if(one.area_id){
-				restaurant.area_id = one.area_id;
-				restaurant.area_name = one.area_name;
-			}
 			restaurant.rating = one.rating;
 			restaurant.ranking = one.ranking;
 			restaurant.reviews = one.reviews;
 			restaurant.comments = comments;
 			restaurant.tags = one.tags;
 			restaurant.info = one.info;
+			
 			restaurant.save(function(err){
 				callback(err,restaurant);
 			});
@@ -146,6 +140,55 @@ exports.update = function(one,callback){
 	});
 };
 
+exports.updatemsg = function(one, callback) {
+	var _id = one._id;
+	console.log(_id);
+	var comments = [];
+	comments.push(one.comments);
+	Restaurant.update({_id: new ObjectID(_id)},{$set:{
+			name : one.name,
+			city_name : one.city_name,
+			city_id : one.city_id,
+			latitude : one.latitude,
+			longitude : one.longitude,
+			address : one.address,
+			postal_code : one.postal_code,
+			introduce : one.introduce,
+			tips : one.tips,
+			tel : one.tel,
+			category : one.category,
+			lifetag : one.lifetag,
+			// open_time : one.open_time,
+			show_flag : one.show_flag,
+			price_level : one.price_level,
+			price_desc : one.price_desc,
+			url : one.url,
+			website : one.website,
+			recommand_flag : one.recommand_flag,
+			recommand_duration : one.recommand_duration,
+			index_flag : one.index_flag,
+			am : one.am,
+			pm : one.pm,
+			ev : one.ev,
+			rating : one.rating,
+			ranking : one.ranking,
+			// reviews : one.reviews,
+			// comments : comments,
+			// tags : one.tags,
+			// info : one.info,
+	}},callback)
+}
+exports.updateAudit = function(one, callback){
+	Restaurant.update({name: one.name},{$set:{
+		status : one.status,
+		editorname : one.editorname,
+		editdate : one.editdate,
+		auditorname : one.auditorname,
+		auditdate : one.auditdate
+	}},function(err, result){
+		console.log(err);
+	})
+}
 exports.newAndSave = function(one,callback){
 	var restaurant = new Restaurant();
 	var comments = [];

@@ -38,8 +38,12 @@ var AttractionSchema = new Schema({
     traffic_info       : String,
     yelp_rating        : Number,
     yelp_review_count  : Number,
-    yelp_update_time   : Number
-
+    yelp_update_time   : Number,
+    status             : String,
+    editorname         : String,
+    editdate           : String,
+    auditorname        : String,
+    auditdate          : String
 }, {
     collection : 'latestattractions'
 });

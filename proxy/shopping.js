@@ -7,7 +7,12 @@ var ObjectID = require('mongodb').ObjectID;
 exports.getShopping = function (id, callback) {
   Shopping.findOne({_id: id}, callback);
 };
-
+exports.findShoppings = function(query,callback) {
+	Shopping.find(query, callback);
+}
+exports.findShopByName = function(query, callback){
+	Shopping.findOne(query, callback);
+}
 exports.getFullShopping = function(id,callback){
 	exports.getShopping(id, function(err,shopping){
 	  	if(shopping){
@@ -36,8 +41,6 @@ exports.getShoppings = function (skip,pageLimit,query, callback) {
 		if(err)
 			callback(err);
 		else{
-			console.log("+++++++++++++++++++++++++++");
-			console.log(shoppings);
 			callback(null,shoppings);
 		}
 	});
@@ -123,6 +126,21 @@ exports.update = function(one,callback){
 			callback(err+'not found!');
 		}
 	});
+};
+
+exports.updateAudit = function(one, callback){
+	var _id = one.item_id;
+	Shopping.update({_id: new ObjectID(_id)},{$set:{
+		status : one.status,
+		editorname : one.editorname,
+		editdate : one.editdate,
+		auditorname : one.auditorname,
+		auditdate : one.auditdate 
+	}},function(err, result){
+		if(err){
+			console.log("updateAudit err is==="+err);
+		}
+	})
 };
 
 exports.newAndSave = function(one,callback){

@@ -17,3 +17,4 @@ exports.task = require('./task');
 exports.auth = require('../midderwares/auth');
 exports.pathImport = require('./pathImport');
 exports.country = require('./country');
+exports.auditing = require('./auditing');

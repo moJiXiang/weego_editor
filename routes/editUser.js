@@ -14,7 +14,6 @@ fs = require('fs');
 
 exports.login = function(req,res){
     var data = req.body;
-
 //    37ab6a3e8026001dccebe9547e79dd7f type:0普通用户，1管理员
 //    editUserProvider.insert({username:'jiangli',password:'37ab6a3e8026001dccebe9547e79dd7f',type:1},{safe:true}, function (err, result) {
 //        if (err) {
@@ -24,8 +23,9 @@ exports.login = function(req,res){
 //        }
 //
 //    });
+
     editUserProvider.findOne({username:data.username,password:data.password},{password:0},function(err,result){
-         if(err) throw err;
+        if(err) throw err;
         if(result){
             result.login = true;
             res.locals.session.user = result;

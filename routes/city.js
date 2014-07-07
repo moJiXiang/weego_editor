@@ -11,6 +11,10 @@ var cityProvider = new CityProvider();
 var ObjectID = require('mongodb').ObjectID;
 var LabelProvider = require("../config/LabelProvider").LabelProvider;
 var labelProvider = new LabelProvider();
+var EditUserProvider = require("../config/EditUserProvider").EditUserProvider;
+var editUserProvider = new EditUserProvider();
+var AttractionsProvider = require("../config/AttractionsProvider").AttractionsProvider;
+var attractionsProvider = new AttractionsProvider();
 fs = require('fs');
 var im = require('imagemagick');
 im.identify.path = global.imIdentifyPath;
@@ -20,9 +24,15 @@ var Country =  require('./country');
 var EventProxy = require('eventproxy');
 var Attraction = require('./attractions');
 var Auditing = require('../proxy').Auditing;
+var Attractions = require('../proxy').Attractions;
+var EditUser = require('./editUser');
 var Restaurant = require('../proxy').Restaurant;
-var Shopping  = require('../proxy').Shopping;
+var Area       = require('../proxy').Area;
+var City       = require('../proxy').City;
+var Label       = require('../proxy').Label;
+var Shopping   = require('../proxy').Shopping;
 var Util = require('./util');
+var async = require('async');
 
 exports.getAllCity = function (req, res) {
     cityProvider.find({}, {}, function (err, result) {
@@ -35,23 +45,52 @@ exports.getAllCity = function (req, res) {
 };
 exports.getCountryCities = function (req, res) {
     var countryname = req.params.countryname;
-    var c = {};
-    if(req.query.cityname) c.cityname = req.query.cityname;
-    c.countryname = req.params.countryname;
+    var query = {};
+    if(req.query.cityname) query.cityname = req.query.cityname;
+    if(req.query.status) query.status = req.query.status;
+    query.countryname = req.params.countryname;
     var sortlist = {};
     if(req.query.sort){
+        var sortname = req.query.sort;
         var sortdir = req.query.sortdir;
-        if(sortdir == 'desc'){
-            sortlist.show_flag = -1;
-        }else{
-            sortlist.show_flag = 1;
+        if(sortname == 'show_flag'){
+            if (sortdir == 'desc') {
+                sortlist.show_flag = -1;
+            } else {
+                sortlist.show_flag = 1;
+            }
         }
+        if(sortname == 'hot_flag'){
+            if (sortdir == 'desc') {
+                sortlist.hot_flag = -1;
+            } else {
+                sortlist.hot_flag = 1;
+            }
+        }
+        if(sortname == 'status'){
+            if (sortdir == 'desc') {
+                sortlist.status = -1;
+            } else {
+                sortlist.status = 1;
+            }
+        }
+        
     } 
-    cityProvider.find(c,{sort:sortlist},function (err, result) {
+    async.auto({
+        city: function(cb) {
+            console.log(query);
+            cityProvider.find(query, {
+                sort: sortlist
+            }, cb);
+        }
+    }, function(err, result) {
         if (err) {
-            res.send({status:false,err:err});
+            res.render('404', err);
         } else {
-            res.send({status:true,results:result});
+            res.send({
+                status: true,
+                results: result
+            });
         }
     })
 };
@@ -102,6 +141,7 @@ function getSubLabel(label, sblabel, callback) {
 
     });
 }
+
 function startTask(paramsArray, sblabel, current, count, callBack) {
     if (current >= count) {
         callBack(sblabel);
@@ -111,43 +151,331 @@ function startTask(paramsArray, sblabel, current, count, callBack) {
         });
     }
 }
-exports.getCityByName = function (req, res){
-    var name = req.params.cityname;
-    var editor = req.session.user.username;
-    console.log('*********************');
-    console.log(editor);
-    // var ep = new EventProxy();
-    // ep.all('city','audit',function (city, audit) {
-    //     res.send({status:true,results:result,audit:audit});
-    //     // callback(null,{
-    //     //     city  : city,
-    //     //     audit : audit
-    //     // });
-    // })
-    // // 添加error handler
-    // ep.fail(function (err) {
-    //   callback(err);
-    // });
-    
-    // cityProvider.findOne({cityname:name}, {}, ep.done('city'));
-    // Auditing.findAuditingByQuery({cityname:name}, {}, ep.done('audit'));
 
-    cityProvider.findOne({cityname:name}, {}, function (err, result) {
-        if(err) {
-            res.send({err: err});
-        } else {
-            res.send({status:true,results:result,editor:editor});
+exports.getCityByName = function (req, res){
+    var cityname = req.params.cityname;
+    var currentuser = req.session.user.username;
+    async.auto({
+        city: function(cb) {
+            cityProvider.findOne({
+                cityname: cityname
+            }, {}, cb);
+        },
+        // masterLabel: ['city',function(cb,result){
+        //     if(result.city.masterLabel){
+        //         Label.findOneById(result.city.masterLabel,cb);
+        //     }
+        // }],
+        attractionscount: function(cb) {
+            attractionsProvider.count({
+                cityname: cityname
+            }, cb);
+        },
+        restaurantscount: function(cb) {
+            Restaurant.countRestaurant({city_name:cityname}, cb);
+        },
+        shopareacount: function(cb) {
+            Area.count({city_name:cityname}, cb);
+        },
+        shoppingscount: function(cb) {
+            Shopping.count({city_name:cityname}, cb);
+        },
+        audits: function(cb) {
+            Auditing.findAuditingByQuery({
+                city_name: cityname
+            }, cb);
+        },
+        edituser: function(cb) {
+            editUserProvider.find({
+                type: 0
+            }, {
+                sort: {
+                    'username': -1
+                }
+            }, cb);
         }
-    })
-    Auditing.findAuditingByQuery({cityname:name}, {}, function (err, result) {
-        if(err) {
-            res.send({err: err});
+    }, function(err, result) {
+        if (err) {
+            console.log(err);
+            res.render('404', err);
         } else {
-            res.send({status:true,audit:result});
+            if(result.audits == null){
+                result.audits = {
+                    status : 0
+                }
+            }
+            result.currentuser = currentuser;
+            res.send({
+                status: true,
+                results: result
+            });
         }
     });
-
 }
+
+exports.getCityItem = function (req, res) {
+    var cityname = req.params.cityname,
+        type = req.params.type;
+    var name = req.query.name;
+    var perpage = req.query.perpage;
+    var page = req.query.page;
+    var status = req.query.status;
+    var query = {};
+    
+    if (type == 'attractions') {
+        if(cityname) query.cityname = cityname;
+        if(name) query.attractions = name;
+        if(status) query.status = status;
+        // var sortlist = {};
+        // if (req.query.sort) {
+        //     var sortname = req.query.sort;
+        //     var sortdir = req.query.sortdir;
+        //     if (sortname == 'show_flag') {
+        //         if (sortdir == 'desc') {
+        //             sortlist.show_flag = -1;
+        //         } else {
+        //             sortlist.show_flag = 1;
+        //         }
+        //     }
+        //     if (sortname == 'hot_flag') {
+        //         if (sortdir == 'desc') {
+        //             sortlist.hot_flag = -1;
+        //         } else {
+        //             sortlist.hot_flag = 1;
+        //         }
+        //     }
+        //     if (sortname == 'status') {
+        //         if (sortdir == 'desc') {
+        //             sortlist.status = -1;
+        //         } else {
+        //             sortlist.status = 1;
+        //         }
+        //     }
+        //     console.log(sortlist);
+
+        // }
+        // if (sort && sort == 'show_flag') {
+        //     if (sortdir == 'asc') {
+        //         sortlist.show_flag = 1;
+        //     } else {
+        //         sortlist.show_flag = -1;
+        //     }
+        // }
+        // if (sort && sort == 'recommend_flag') {
+        //     if (sortdir == 'asc') {
+        //         sortlist.recommend_flag = 1;
+        //     } else {
+        //         sortlist.recommend_flag = -1;
+        //     }
+        // }
+        // if (sort && sort == 'status') {
+        //     if (sortdir == 'asc') {
+        //         sortlist.status = 1;
+        //     } else {
+        //         sortlist.status = -1;
+        //     }
+        // }
+        Attractions.findAttractions(query,function (err, attractions) {
+            if (err) {
+                res.send({err:err});
+            }else {
+                res.send(attractions);
+            }
+        })
+    } else if (type == 'restaurants') {
+        if(cityname) query.city_name = cityname;
+        if(name) query.name = name;
+        if(status) query.status = status;
+        console.log(query);
+        var skipnum = page*perpage;
+        //查找单个的
+        if(name){
+            Restaurant.getRestaurantByName({name: name},function(err, result){
+                if(err){
+                    res.send({err: err});
+                }else{
+                    var restaurant = [];
+                    restaurant.push(result);
+                    res.send({restaurants:restaurant});
+                }
+            })
+        }else{
+            async.auto({
+                countrestaurants: function(cb) {
+                    Restaurant.countRestaurant(query, cb);
+                },
+                restaurants: function(cb) {
+                    Restaurant.findRestaurants({city_name: cityname}, {
+                        skip: skipnum,
+                        limit: perpage
+                    }, cb)
+                }
+            }, function(err, result) {
+                if(status){
+                    async.filter(result.restaurants, function(item, cb) {
+                        console.log(item);
+                        cb(item.status == status);
+                    }, function(result) {
+                        var results = {};
+                        results.countrestaurants = result.countrestaurants;
+                        results.restaurants = result;
+                        res.send(results);
+                    })
+                }else{
+                    res.send(result);
+                }
+            })
+        }
+    } else if (type == 'shopareas') {
+        if(cityname) query.city_name = cityname;
+    if(status) query.status = status;
+        Area.getAreasByQuery(query,function (err, shopareas) {
+            if (err) {
+                res.send({err:err});
+            }else {
+                res.send(shopareas);
+            }
+        })
+    } else if (type == 'shoppings') {
+        if(cityname) query.city_name = cityname;
+        if(name) query.name = name;
+        if(status) query.status = status;
+        Shopping.findShoppings(query,function (err, shoppings) {
+            if (err) {
+                res.send({err:err});
+            }else {
+                res.send(shoppings);
+            }
+        })
+    }
+}
+
+exports.showCityItem = function (req, res){
+    var type = req.params.type;
+    var itemname = req.params.itemname;
+    var currentuser = req.session.user.username;
+    if (type == "attractions"){
+        async.auto({
+            cityitem: function(cb) {
+                Attractions.findOneByName({
+                    attractions: itemname
+                }, cb);
+            },
+            edituser: function(cb) {
+                editUserProvider.find({
+                    type: 0
+                }, {
+                    sort: {
+                        'username': -1
+                    }
+                }, cb);
+            },
+            audits: function(cb) {
+                Auditing.findAuditingByQuery({
+                    name: itemname
+                },cb)
+            }
+        }, function(err, result) {
+            if(result.audits == null){
+                result.audits={};
+                result.audits.status = 0;
+            }
+            result.currentuser = currentuser;
+            res.send(result);
+        })
+    }
+    if(type == "restaurants"){
+        async.auto({
+            cityitem: function(cb) {
+                Restaurant.getRestaurantByName({
+                    name: itemname
+                }, cb);
+            },
+            edituser: function(cb) {
+                editUserProvider.find({
+                    type: 0
+                }, {
+                    sort: {
+                        'username': -1
+                    }
+                }, cb);
+            },
+            audits: function(cb) {
+                Auditing.findAuditingByQuery({
+                    name: itemname
+                },cb)
+            }
+        }, function(err, result) {
+            if(result.audits == null){
+                result.audits={};
+                result.audits.status = 0;
+            }
+            result.currentuser = currentuser;
+            res.send(result);
+        })
+    }
+    if( type == "shopareas"){
+        async.auto({
+            cityitem: function(cb) {
+                Area.getAreasByName({
+                    area_name: itemname
+                }, cb);
+            },
+            edituser: function(cb) {
+                editUserProvider.find({
+                    type: 0
+                }, {
+                    sort: {
+                        'username': -1
+                    }
+                }, cb);
+            },
+            audits: function(cb) {
+                Auditing.findAuditingByQuery({
+                    name: itemname
+                },cb)
+            }
+        }, function(err, result) {
+            if(result.audits == null){
+                result.audits={};
+                result.audits.status = 0;
+            }
+            result.currentuser = currentuser;
+            res.send(result);
+        })
+    }
+    if( type == "shoppings"){
+        async.auto({
+            cityitem: function(cb) {
+                Shopping.findShopByName({
+                    name: itemname
+                }, cb);
+            },
+            edituser: function(cb) {
+                editUserProvider.find({
+                    type: 0
+                }, {
+                    sort: {
+                        'username': -1
+                    }
+                }, cb);
+            },
+            audits: function(cb) {
+                Auditing.findAuditingByQuery({
+                    name: itemname
+                },cb)
+            }
+        }, function(err, result) {
+            if(result.audits == null){
+                result.audits={};
+                result.audits.status = 0;
+            }
+            result.currentuser = currentuser;
+            res.send(result);
+        })
+    }
+}
+
 exports.getCity = function (req, res) {
     if (req.params.cityID) {
         cityProvider.findOne({_id:new ObjectID(req.params.cityID)}, {}, function (err, result) {
@@ -216,36 +544,43 @@ exports.updateCity = function (req, res) {
     if (data.label.length > 0) {
         var sub = [];
         for (var i = 0; i < data.label.length; i++) {
-            console.log(data.label[i]);
             sub.push(data.label[i]);
         }
     }
     data.subLabel = sub;
     var setJson = {
-        continents:data.continents,
-        continentscode:data.continentscode,
-        cityname:data.cityname,
-        cityname_en:data.cityname_en,
-        cityname_py:data.cityname_py,
-        countryname:data.countryname,
-        countrycode:data.countrycode,
-        recommand_day:data.recommand_day,
-        recommand_indensity:data.recommand_indensity,
-        recommand_center:data.recommand_center,
-        introduce:data.introduce,
-        short_introduce:data.short_introduce,
-        restaurant_overview:data.restaurant_overview,
-        shopping_overview:data.shopping_overview,
-        attraction_overview:data.attraction_overview,
-        tips:data.tips,
-        traffic:data.traffic,
-        hot_flag:data.hot_flag,
-        show_flag:data.show_flag,
-        masterLabel:data.masterLabel,
-        subLabel:data.subLabel,
-        latitude:data.latitude,
-        longitude:data.longitude,
-        weoid:data.weoid
+        continents          :   data.continents,
+        continentscode      :   data.continentscode,
+        cityname            :   data.cityname,
+        cityname_en         :   data.cityname_en,
+        cityname_py         :   data.cityname_py,
+        countryname         :   data.countryname,
+        countrycode         :   data.countrycode,
+        recommand_day       :   data.recommand_day,
+        recommand_indensity :   data.recommand_indensity,
+        recommand_center    :   data.recommand_center,
+        introduce           :   data.introduce,
+        short_introduce     :   data.short_introduce,
+        restaurant_overview :   data.restaurant_overview,
+        shopping_overview   :   data.shopping_overview,
+        attraction_overview :   data.attraction_overview,
+        tips                :   data.tips,
+        traffic             :   data.traffic,
+        hot_flag            :   data.hot_flag,
+        show_flag           :   data.show_flag,
+        masterLabel         :   data.masterLabel,
+        subLabel            :   data.subLabel,
+        latitude            :   data.latitude,
+        longitude           :   data.longitude,
+        weoid               :   data.weoid,
+        attractionscount    :   data.attractionscount,
+        restaurantscount    :   data.restaurantscount,
+        shopareacount       :   data.shopareacount,
+        shoppingscount      :   data.shoppingscount,
+        editorname          :   data.editorname,
+        editdate            :   data.editdate,
+        auditname           :   data.auditname,
+        auditdate           :   data.auditdate
     };
     cityProvider.update({_id:new ObjectID(req.params.cityID)}, {$set:setJson}, {safe:true}, function (err, result) {
         if (err) {
@@ -256,6 +591,68 @@ exports.updateCity = function (req, res) {
     });
 };
 
+exports.updateCityNew = function (req, res){
+    var one = req.body.model;
+    City.updatemsg(one,function(err, result){
+        if(err){
+            console.log(err);
+        }else{
+            res.send({status: 'success'});
+            res.end();
+        }
+    })
+}
+
+exports.updateAttrItem = function (req, res){
+    var one = req.body.model;
+    Attractions.updatemsg(one, function(err, result) {
+        if (err) {
+            console.log(err)
+        } else {
+            res.send({status: 'success'});
+            res.end();
+        }
+    })
+}
+
+exports.updateResShopItem = function (req, res){
+    var one = req.body.model;
+    var type = one.type;
+    console.log(type);
+    if(type == '1'){
+        Restaurant.updatemsg(one, function(err, result) {
+            if (err) {
+                console.log(err)
+            } else {
+                res.send({status: 'success'});
+                res.end();
+            }
+        })
+    }
+    if(type == '2'){
+        Shopping.update(one, function(err, result) {
+            if (err) {
+                console.log(err)
+            } else {
+                res.send({status: 'success'});
+                res.end();
+            }
+        })
+    }
+    
+}
+
+exports.updateAreaItem = function (req, res){
+    var one = req.body.model;
+    console.log(one);
+    Area.update(one, function(err, result) {
+        if (err) {
+            console.log(err)
+        } else {
+            res.end();
+        }
+    })
+}
 exports.deleteCity = function (req, res) {
     cityProvider.remove({_id:new ObjectID(req.params.cityID)}, {}, function (err, result) {
         if (err) {

@@ -1,100 +1,160 @@
 <div class="container">
-    <div class="cmsEditorHistory">
-        
-        <div class="cmsPageNum">
-            <label class="icomoon_calendar">编辑历史</label>
-            <button id="auditing-first">第一页</button>
-            <button id="auditing-pre">上一页</button>
-            <button id="auditing-next">下一页</button>
-            当前页：<span id="auditing-list-current-page"></span>
-            总页数：<span id="auditing-list-page-count"></span>
-            总记录数：<span id="auditing-list-total"></span>
+    <div class="EditorHistory">
+        <h4>编辑历史</h4>
+        <div class="fuelux">
+            <table id="EditorHistoryGrid" class="table table-bordered datagrid">
+                <thead>
+                <tr>
+                    <th>
+                        <span class="datagrid-header-title"></span>
+                        <span class="datagrid-header-title">编辑：</span>
+                        <div class="datagrid-header-left">
+                            <div class="input-append search datagrid-search">
+                                <input type="text" class="input-medium" placeholder="Search">
+                                <button type="button" class="btn"><i class="icon-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="datagrid-header-right">
+                            <div class="select filter" data-resize="auto">
+                                <button type="button" data-toggle="dropdown" class="btn dropdown-toggle">
+                                    <span class="dropdown-label">全部</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li data-value=""><a href="#">全部</a></li>
+                                    <li data-value="1"><a href="#">审核中</a></li>
+                                    <li data-value="2"><a href="#">审核通过</a></li>
+                                    <li data-value="-1"><a href="#">审核未通过</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>
+                        <div class="datagrid-footer-left" style="display:none;">
+                            <div class="grid-controls">
+                                <span>
+                                    <span class="grid-start"></span> -
+                                    <span class="grid-end"></span> of
+                                    <span class="grid-count"></span>
+                                </span>
+                                <div class="select grid-pagesize" data-resize="auto">
+                                    <button type="button" data-toggle="dropdown" class="btn dropdown-toggle">
+                                        <span class="dropdown-label"></span>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li data-value="5" data-selected="true"><a href="#">5</a></li>
+                                        <li data-value="10"><a href="#">10</a></li>
+                                        <li data-value="20"><a href="#">20</a></li>
+                                        <li data-value="50"><a href="#">50</a></li>
+                                        <li data-value="100"><a href="#">100</a></li>
+                                    </ul>
+                                </div>
+                                <span>Per Page</span>
+                            </div>
+                        </div>
+                        <div class="datagrid-footer-right" style="display:none;">
+                            <div class="grid-pager">
+                                <button type="button" class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
+                                <span>Page</span>
+             
+                                <div class="input-append dropdown combobox">
+                                    <input class="span1" type="text">
+                                    <button type="button" class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+                                    <ul class="dropdown-menu"></ul>
+                                </div>
+                                <span>of <span class="grid-pages"></span></span>
+                                <button type="button" class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
         </div>
-        <ul>
-            <li>时间</li>
-            <li>类型</li>
-            <li>城市</li>
-            <li>名称</li>
-            <li>操作类型</li>
-            <li>任务名</li>
-            <li>状态</li>
-            <li>操作</li>
-            <li>详情</li>
-        </ul>
-        <div class="cmsEditorHistory-items">
-            <!--
-            <div class="ehitem">
-                <span>2013.10.12</span>
-                <span>景点</span>
-                <span>big ben</span>
-                <span>修改</span>
-                <span class="showDetail">查看详情</span>
-                <p>我修改了xxx</p>
-            </div>
-            -->
-        </div>
-        
     </div>
 
 
-    <table class="cmsEditorTask">
-        <caption>
-            <div class="cmsPageNum">
-                <label class="icomoon_alarm">任务分配</label>
-                <button id="task-first">第一页</button>
-                <button id="task-pre">上一页</button>
-                <button id="task-next">下一页</button>
-                当前页：<span id="task-list-current-page"></span>
-                总页数：<span id="task-list-page-count"></span>
-                总记录数：<span id="task-list-total"></span>
-            </div>
-        </caption>
-        <thead>
-            <tr>
-                <th>任务</th>
-                <th>城市</th>
-                <th>开始时间</th>
-                <th>工作量</th>
-                <th>时长</th>
-                <th>详细</th>
-                <th>状态</th>
-            </tr>
-        </thead>
-       
-        <tbody id="myTask">
-            <!--
-            <tr>
-                <td>admin</td><td>2014/3/17</td><td>完善纽约城市信息</td><td>1天</td><td>未完成</td>
-            </tr>
-        -->
-        </tbody>
-    </table>
-
-    <table class="cmsEditorFeedback">
-        <caption>
-            <div class="cmsPageNum">
-                <label class="icomoon_bubbles">问题反馈</label>
-                <button id="taskquestion-first">第一页</button>
-                <button id="taskquestion-pre">上一页</button>
-                <button id="taskquestion-next">下一页</button>
-                当前页：<span id="taskquestion-list-current-page"></span>
-                总页数：<span id="taskquestion-list-page-count"></span>
-                总记录数：<span id="taskquestion-list-total"></span>
-            </div>
-        </caption>
-        <thead>
-            <tr>
-                <th>反馈者</th>
-                <th>时间</th>
-                <th>反馈内容</th>
-                <th>是否解决</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody id="myTaskquestion">
-            {{!-- <tr>
-                <td>data</td><td>data</td><td>data</td><td>data</td>
-            </tr> --}}
-        </tbody>
-    </table>
+    <div class="EditorTask">
+        <h4>审核历史</h4>
+        <div class="fuelux">
+            <table id="EditorTaskGrid" class="table table-bordered datagrid">
+                <thead>
+                <tr>
+                    <th>
+                        <span class="datagrid-header-title"></span>
+                        <span class="datagrid-header-title">编辑：</span>
+                        <div class="datagrid-header-left">
+                            <div class="input-append search datagrid-search">
+                                <input type="text" class="input-medium" placeholder="Search">
+                                <button type="button" class="btn"><i class="icon-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="datagrid-header-right">
+                            <div class="select filter" data-resize="auto">
+                                <button type="button" data-toggle="dropdown" class="btn dropdown-toggle">
+                                    <span class="dropdown-label">全部</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li data-value=""><a href="#">全部</a></li>
+                                    <li data-value="1"><a href="#">审核中</a></li>
+                                    <li data-value="2"><a href="#">审核通过</a></li>
+                                    <li data-value="-1"><a href="#">审核未通过</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>
+                        <div class="datagrid-footer-left" style="display:none;">
+                            <div class="grid-controls">
+                                <span>
+                                    <span class="grid-start"></span> -
+                                    <span class="grid-end"></span> of
+                                    <span class="grid-count"></span>
+                                </span>
+                                <div class="select grid-pagesize" data-resize="auto">
+                                    <button type="button" data-toggle="dropdown" class="btn dropdown-toggle">
+                                        <span class="dropdown-label"></span>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li data-value="5" data-selected="true"><a href="#">5</a></li>
+                                        <li data-value="10"><a href="#">10</a></li>
+                                        <li data-value="20"><a href="#">20</a></li>
+                                        <li data-value="50"><a href="#">50</a></li>
+                                        <li data-value="100"><a href="#">100</a></li>
+                                    </ul>
+                                </div>
+                                <span>Per Page</span>
+                            </div>
+                        </div>
+                        <div class="datagrid-footer-right" style="display:none;">
+                            <div class="grid-pager">
+                                <button type="button" class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
+                                <span>Page</span>
+             
+                                <div class="input-append dropdown combobox">
+                                    <input class="span1" type="text">
+                                    <button type="button" class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+                                    <ul class="dropdown-menu"></ul>
+                                </div>
+                                <span>of <span class="grid-pages"></span></span>
+                                <button type="button" class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
 </div>

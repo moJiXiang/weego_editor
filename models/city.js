@@ -11,7 +11,7 @@ var CitySchema = new Schema({
     countryname         : String,
     coverImageName      : String,
     createFlag          : String,
-    created             : { type : Date, default : Date.now},
+    created             : Number,
     hot_flag            : String,
     image               : Array,
     imgFlag             : Boolean,
@@ -27,7 +27,7 @@ var CitySchema = new Schema({
     recommand_intensity : String,
     short_introduce     : String,
     show_flag           : String,
-    subLabel            : String,
+    subLabel            : Array,
     tips                : [{
         tipItemTitle    : String,
         tipItemContent  : String
@@ -38,11 +38,25 @@ var CitySchema = new Schema({
     }],                      
     continentscode      : String,
     countrycode         : String,
-    recommand_center    : String,
+    recommand_center    : {
+        name            : String,
+        latitude        : String,
+        longitude       : String,
+        _id             : String
+    },
     restaurant_overview : String, // overview of restaurants in city
     shopping_overview   : String, // overview of shoppings in city
     attraction_overview : String, // overview of attractions in city
-    weoid               : String  //yahoo weather api ID
+    weoid               : String, //yahoo weather api ID
+    status              : String,
+    attractionscount    : String,
+    restaurantscount    : String,
+    shopareacount       : String,
+    shoppingscount      : String,
+    editorname          : String,
+    editdate            : String,
+    auditorname         : String,
+    auditdate           : String
 
 }, {
     collection : 'latestcity'

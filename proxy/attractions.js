@@ -1,0 +1,92 @@
+var models = require('../models');
+var Attraction = models.Attraction;
+var ObjectID = require('mongodb').ObjectID;
+
+exports.findAttractions = function(query,callback) {
+	Attraction.find(query, callback);
+}
+
+exports.findOneByName = function(query, callback) {
+	Attraction.findOne(query, callback);
+}
+
+exports.update = function(one, callback) {
+	console.log('@@@@@@@@@@@@@@@@');
+	var name = one.attractions;
+	Attraction.findOne({attractions: name},function(err, result){
+		if(err) console.log(err);
+		if(result){
+			result.cityname				= one.cityname;
+			result.attractions_en 		= one.attractions_en;
+			result.address 				= one.address;
+			result.price 				= one.price;
+			result.opentime 			= one.opentime;
+			result.dayornight 			= one.dayornight;
+			result.website 				= one.website;
+			result.telno 				= one.telno;
+			result.attractions 			= one.attractions;
+			result.introduce 			= one.introduce;
+			result.tips 				= one.tips;
+			result.short_introduce		= one.short_introduce;
+			result.recommand_flag		= one.recommand_flag;
+			result.recommand_duration	= one.recommand_duration;
+			result.traffic_info			= one.traffic_info;
+			result.show_flag			= one.show_flag;
+			result.index_flag			= one.index_flag;
+			result.masterLabel			= one.masterLabel;
+			result.subLabel				= one.subLabel;
+			result.latitude				= one.latitude;
+			result.longitude			= one.longitude;
+			result.am 					= one.am;
+			result.pm 					= one.pm;
+			result.ev 					= one.ev;
+			result.createFlag 			= '0';
+			result.save(function(err){
+				callback(err);
+			});
+		}
+	})
+}
+
+exports.updatemsg = function(one, callback){
+	var _id = one._id;
+	Attraction.update({_id: new ObjectID(_id)},{$set:{
+		cityname				: one.cityname,
+		attractions_en 		: one.attractions_en,
+		address 				: one.address,
+		price 				: one.price,
+		opentime 			: one.opentime,
+		dayornight 			: one.dayornight,
+		website 				: one.website,
+		telno 				: one.telno,
+		attractions 			: one.attractions,
+		introduce 			: one.introduce,
+		tips 				: one.tips,
+		short_introduce		: one.short_introduce,
+		recommand_flag		: one.recommand_flag,
+		recommand_duration	: one.recommand_duration,
+		traffic_info			: one.traffic_info,
+		show_flag			: one.show_flag,
+		index_flag			: one.index_flag,
+		// masterLabel			: one.masterLabel,
+		// subLabel				: one.subLabel,
+		latitude				: one.latitude,
+		longitude			: one.longitude,
+		am 					: one.am,
+		pm 					: one.pm,
+		ev 					: one.ev,
+		createFlag 			: '0',
+	}},callback)
+}
+
+exports.updateAudit = function(one, callback){
+	Attraction.update({attractions: one.name},{$set:{
+		status : one.status,
+		editorname : one.editorname,
+		editdate : one.editdate,
+		auditorname : one.auditorname,
+		auditdate : one.auditdate
+	}},function(err, result){
+		console.log(err);
+	})
+}
