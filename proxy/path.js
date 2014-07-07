@@ -124,3 +124,10 @@ exports.getOneWithEmptyStepsSync = function(mode, skipcount, limitcount, callbac
 	// Path.where(attr).equals('[]');
 };
 
+exports.getDistanceDurations = function(callback) {
+	var query = Path.find({"bus.distance": null});
+	query.limit(20);
+	query.skip(10000);
+	query.exec(callback);
+}
+
