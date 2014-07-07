@@ -790,12 +790,14 @@ exports.delCoverImage = function (req, res) {
 exports.upload_background_img = function (req, res) {
     var target_upload_name;
     var _id = req.body._id || req.headers._id;
-    if (req.files.upload && _id) {
-        var tmp_upload = req.files.upload;
+    var file = req.files.upload || req.files.file;
+    if (file && _id) {
+        var tmp_upload = file;
         var tmp_upload_path = tmp_upload.path;
         var tmp_upload_type = tmp_upload.type;
         target_upload_name = validPic(tmp_upload_type);
         var target_upload_path = global.imgpathC1 + target_upload_name;
+        console.log(target_upload_path);
         makeImageFile(tmp_upload_path, target_upload_path, function () {
             upyunClient.upCityBgToYun(target_upload_name,function(err,data){
                 cityProvider.update({_id:new ObjectID(_id)}, {$push:{ 'backgroundimage':target_upload_name}}, {safe:true}, function (err) {

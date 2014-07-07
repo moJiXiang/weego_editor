@@ -1615,6 +1615,9 @@ $(weego.init());
             })
             $('#citybgimages-dropzone').dropzone({
                 addRemoveLinks: true,
+                headers:{
+                    _id: weego.result.results.city._id
+                },
                 init: function() {
                     this.on("success", function(file) {
                         console.log("File " + file.name + "uploaded");
