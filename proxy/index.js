@@ -11,4 +11,4 @@ exports.Auditing = require('./auditing');
 exports.Path = require('./path');
 exports.City = require('./city');
 exports.Attractions = require('./attractions');
-exports.Label = require('./Label');
+exports.Label = require('./label');
