@@ -291,7 +291,7 @@ function testOnePage() {
 					one.driver.distance = distance;
 					one.driver.duration = duration;
 
-					one.save(function(err, one_data){
+					one.save(function(err, data){
 						if (err) {
 							console.log("get the data to database error,fail to read");
 						}
@@ -310,7 +310,7 @@ function testOnePage() {
 	});
 }
 
-testOnePage();
+// testOnePage();
 
 
 
