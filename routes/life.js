@@ -549,7 +549,7 @@ exports.publishEntertainment = function(_id,callback){
 //-----------------------------------image-----------------------------------------
 
 exports.postLifeImage = function(req,res){
-    var type = req.body._type;
+    var type = req.body._type || req.headers.type;
     console.log(req.files,req.headers);
     var _id = req.body._id || req.headers._id;
     if(req.files.file && _id){
@@ -557,11 +557,7 @@ exports.postLifeImage = function(req,res){
         var tmp_upload = req.files.file;
         var tmp_upload_path = tmp_upload.path;
         //新的图片上传插件需要的接口
-        if(req.params.type){
-            var tmp_upload_type = req.params.type;
-        }else{
-            var tmp_upload_type = tmp_upload.type;
-        }
+        var tmp_upload_type = tmp_upload.type;
         var target_upload_name = validPic(tmp_upload_type);
         var target_upload_path = getPathByType(type) + target_upload_name;
         // var target_upload_path = './public/images/' + target_upload_name;
