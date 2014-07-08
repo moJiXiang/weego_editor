@@ -1614,13 +1614,14 @@ $(weego.init());
                             };
                             // Call the default addedfile event handler
                             this.emit("addedfile", mockFile);
-                            var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
+                            var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default' data-value='"+ images[i] +"'>设为封面</button>");
                             removeButton.addEventListener('click', function(e) {
                                 e.preventDefault();
                                 e.stopPropagation();
                                 $el = $(e.currentTarget);
+                                var imagename = $el.attr('data-value');
                                 $.ajax({
-                                    url: '/setCoverImg/' + _id + '/' + images[i],
+                                    url: '/setCoverImg/' + _id + '/' + imagename,
                                     success: function(data) {
                                         if (data) {
                                             for (var i = 0; i < $('.setcover').length; i++) {
@@ -1882,13 +1883,14 @@ $(weego.init());
                                 };
                                 // Call the default addedfile event handler
                                 this.emit("addedfile", mockFile);
-                                var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
+                                var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default' data-value='"+ images[i] +"'>设为封面</button>");
                                 removeButton.addEventListener('click', function(e) {
                                     e.preventDefault();
                                     e.stopPropagation();
                                     $el = $(e.currentTarget);
+                                    var imagename = $el.attr('data-value');
                                     $.ajax({
-                                        url: '/setCoverImg/' + _id + '/' + images[i],
+                                        url: '/setCoverImg/' + _id + '/' + imagename,
                                         success: function(data) {
                                             if (data) {
                                                 for (var i = 0; i < $('.setcover').length; i++) {
@@ -1957,13 +1959,14 @@ $(weego.init());
                                 };
                                 // Call the default addedfile event handler
                                 this.emit("addedfile", mockFile);
-                                var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
+                                var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default' data-value='"+ images[i] +"'>设为封面</button>");
                                 removeButton.addEventListener('click', function(e) {
                                     e.preventDefault();
                                     e.stopPropagation();
                                     $el = $(e.currentTarget);
+                                    var imagename = $el.attr('data-value');
                                     $.ajax({
-                                        url: '/setCoverImg/' + _id + '/' + images[i],
+                                        url: '/setCoverImg/' + _id + '/' + imagename,
                                         success: function(data) {
                                             if (data) {
                                                 for (var i = 0; i < $('.setcover').length; i++) {
@@ -2035,13 +2038,14 @@ $(weego.init());
                                 };
                                 // Call the default addedfile event handler
                                 this.emit("addedfile", mockFile);
-                                var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
+                                var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default' data-value='"+ images[i] +"'>设为封面</button>");
                                 removeButton.addEventListener('click', function(e) {
                                     e.preventDefault();
                                     e.stopPropagation();
                                     $el = $(e.currentTarget);
+                                    var imagename = $el.attr('data-value');
                                     $.ajax({
-                                        url: '/setCoverImg/' + _id + '/' + images[i],
+                                        url: '/setCoverImg/' + _id + '/' + imagename,
                                         success: function(data) {
                                             if (data) {
                                                 for (var i = 0; i < $('.setcover').length; i++) {
