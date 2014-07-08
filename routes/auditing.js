@@ -58,10 +58,10 @@ exports.addAuditTask = function (req, res) {
 	var city_name = req.body.auditmsg.city_name;
 	var name = req.body.auditmsg.name;
 	var item_id = model.item_id;
-	console.log(typeof model.status);
+	console.log(typeof item_id,item_id);
 	async.auto({
 		audits : function (cb) {
-			Auditing.findAuditingByQuery({item_id:new ObjectID(item_id)},cb);
+			Auditing.findAuditingByQuery({item_id:new ObjectID(item_id+'')},cb);
 		},
 		newandsaveaudit : ['audits',function (cb, result) {
 			if(result.audits != null){
@@ -89,8 +89,8 @@ exports.addAuditTask = function (req, res) {
 		},
 
 	},function (err, result) {
-		console.log("ccccccc====" + err);
-		res.end();
+		if(err) console.log("ccccccc====" + err);
+		res.send({status:'success'});
 	})
 }
 

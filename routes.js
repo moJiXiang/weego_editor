@@ -117,6 +117,10 @@ module.exports = function(app) {
 	app.del('/area/:areaId', routes.life.removeArea);
 	app.put('/area/:areaId', routes.life.updateArea);
 	app.post('/area', routes.life.addNewArea);
+	app.post('/area/upload', routes.life.uploadAreaImg);
+	app.get('/setAreaCoverImg/:id/:imageName', routes.life.setAreaCoverImg);
+	app.get('/delareaimg/:id/:imageName', routes.life.delAreaImg);
+
 	app.get('/areas/:pageLimit/:pageIndex', routes.life.getAreaByPage);
 	app.get('/getAreasByCityId/:cityId',routes.life.getAreasByCityId);
 	app.get('/getAreasByCityName/:cityName',routes.life.getAreasByCityName);

@@ -66,7 +66,15 @@ var RestaurantSchema = new Schema({
     editorname         : String,
     editdate           : String,
     auditorname        : String,
-    auditdate          : String
+    auditdate          : String,
+    en_info: {
+        introduce      : String,
+        status         : String,
+        editorname     : String,
+        editdate       : String,
+        auditorname    : String,
+        auditdate      : String
+    }
 });
 
 /**

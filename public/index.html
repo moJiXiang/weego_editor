@@ -453,20 +453,42 @@
               <dd><pre>{{city.short_introduce}}</pre></dd>
             </dl>
             <dl class="dl-horizontal">
-              <dt>Attractions Overview</dt>
+              <dt>short introduce</dt>
+              <dd><pre>{{city.en_info.short_introduce}}</pre></dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>景点概述</dt>
               <dd><pre>{{city.attraction_overview}}</pre></dd>
             </dl>
             <dl class="dl-horizontal">
-              <dt>Restaurants Overview</dt>
+              <dt>Attractions Overview</dt>
+              <dd><pre>{{city.en_info.attraction_overview}}</pre></dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>餐馆概述</dt>
               <dd><pre>{{city.restaurant_overview}}</pre></dd>
             </dl>
             <dl class="dl-horizontal">
-              <dt>Shoppings Overview</dt>
+              <dt>Restaurants Overview</dt>
+              <dd><pre>{{city.en_info.restaurant_overview}}</pre></dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>购物概述</dt>
               <dd><pre>{{city.shopping_overview}}</pre></dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>Shoppings Overview</dt>
+              <dd><pre>{{city.en_info.shopping_overview}}</pre></dd>
             </dl>
             <dl class="dl-horizontal">
               <dt>简介</dt>
               {{#each city.introduce}}
+              <dd><pre>{{this.intrItemContent}}</pre></dd>
+              {{/each}}
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>introduce</dt>
+              {{#each city.en_info.introduce}}
               <dd><pre>{{this.intrItemContent}}</pre></dd>
               {{/each}}
             </dl>
@@ -477,8 +499,20 @@
               {{/each}}
             </dl>
             <dl class="dl-horizontal">
+              <dt>TIPS</dt>
+              {{#each city.en_info.tips}}
+              <dd><h6>{{this.tipItemTitle}}</h6><pre>{{this.tipItemContent}}</pre></dd>
+              {{/each}}
+            </dl>
+            <dl class="dl-horizontal">
               <dt>交通信息</dt>
               {{#each city.traffic}}
+              <dd><h6>{{this.traItemTitle}}</h6><pre>{{this.traItemContent}}</pre></dd>
+              {{/each}}
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>traffic</dt>
+              {{#each city.en_info.traffic}}
               <dd><h6>{{this.traItemTitle}}</h6><pre>{{this.traItemContent}}</pre></dd>
               {{/each}}
             </dl>
@@ -1079,6 +1113,14 @@
         </ol>
         <div class="model">
          {{#with shoparea}}
+            <dl class="dl-horizontal">
+                <dt>图片</dt>
+                {{#each image}}
+                <dd class="cityimages">
+                <img src="http://weegotest.b0.upaiyun.com/area/origin/{{this}}">
+                </dd>
+                {{/each}}
+            </dl>
             <dl class="dl-horizontal">
               <dt>购物区域</dt>
               <dd>{{area_name}}</dd>
@@ -2387,6 +2429,11 @@
         </form>
     </script>
     <script id="areaEditView" type="text/x-handlebars-template">
+        <div id="dropzone">
+            <h3>图片</h3>
+            <form method="post" action="/area/upload" enctype="multipart/form-data" class="dropzone" id="shoparea-dropzone">
+            </form>
+        </div>
         {{#with cityitem}}
         <form class="form-horizontal">
             <fieldset>

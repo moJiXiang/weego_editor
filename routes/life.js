@@ -583,6 +583,53 @@ exports.postLifeImage = function(req,res){
     }
 };
 
+exports.uploadAreaImg = function(req, res) {
+    var _id = req.headers._id;
+    var tmp_path = req.files.file.path;
+    var filename  = req.files.file.name;
+    var target_path = global.imgpathSO + filename;
+    //移动文件
+    fs.rename(tmp_path, target_path, function(err){
+        if(err) throw err;
+
+        fs.unlink(tmp_path, function() {
+            if (err) throw err;
+            upyunClient.upAreaToYun(filename, function(err, data) {
+                if(err) throw err;
+                Area.pushImg(_id, filename, function(err, result) {
+                    if(err) throw err;
+                    res.end();
+                })
+            })
+        })
+    })
+}
+
+exports.delAreaImg = function(req, res) {
+    var id = req.params.id;
+    var imageName = req.params.imageName;
+    var target_path = global.imgpathSO + imageName;
+    fs.unlink(target_path, function(err){
+        if(err) throw err;
+        Area.pullImg(id, filename, function(err, result) {
+            if(err) throw err;
+            upyunClient.delAreaFromYun(imageName, function(err, data) {
+                if(err) throw err
+                    res.send({status:'success'});
+            })
+        })
+    })
+}
+
+exports.setAreaCoverImg = function (req, res) {
+    var imageName = req.params.imageName;
+    var id = req.params.id;
+    Area.setAreaCoverImg(id, imageName, function (err, result) {
+        if (err) throw err;
+        res.end();
+    })
+}
+
 function validPic(type) {
     var suffix = type.split('/')[1];
     var _id = new ObjectID();

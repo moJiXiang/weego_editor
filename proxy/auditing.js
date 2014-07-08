@@ -62,31 +62,15 @@ exports.findAuditingByCityname = function (query, callback) {
 }
 
 exports.update = function(one,callback){
-	if(one.type == 'city'){
-		Auditing.update({
-			item_id: new ObjectID(one._id+'')
-		}, {
-			$set: {
-				status: one.status,
-				auditcomment: one.auditcomment,
-				auditdate: one.auditdate
-			}
-		},function(err){
-
-		})
-	}else {
-		Auditing.update({
-			name: one.name
-		}, {
-			$set: {
-				status: one.status,
-				auditdate: one.auditdate,
-				auditcomment: one.auditcomment
-			}
-		},function(err){
-			
-		})
-	}
+	Auditing.update({
+		item_id: new ObjectID(one._id)
+	}, {
+		$set: {
+			status: one.status,
+			auditcomment: one.auditcomment,
+			auditdate: one.auditdate
+		}
+	},callback)
 	
 	// exports.findAuditingByCityname({city_name: one.city_name},function(err,auditing){
 	// 	// if(auditing){

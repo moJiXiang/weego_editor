@@ -1597,12 +1597,13 @@ $(weego.init());
         },
         modify: function() {
             var EditCityView = new weego.EditCityView();
+            var _id = weego.result.results.city._id;
             $('#app').html('').append(EditCityView.render(weego.result.results.city).$el);
-            // var myDropzone = new Dropzone("#city-dropzone");
+            
             $('#city-dropzone').dropzone({
                 addRemoveLinks: true,
                 headers:{
-                    _id: weego.result.results.city._id
+                    _id: _id
                 },
                 init: function() {
                     this.on("success", function(file) {
@@ -1610,6 +1611,24 @@ $(weego.init());
                     });
                     this.on("removedfile", function(file) {
                         console.log("File " + file.name + "removed");
+                    });
+                    this.on("addedfile", function(file) {
+                        var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
+                        var _this = this;
+                        removeButton.addEventListener('click', function(e){
+                            e.preventDefault();
+                            e.stopPropagation();
+                            $.ajax({
+                                url: '/setCoverImg/' + _id + '/' + file.name,
+                                success: function(data) {
+                                    if (data) {
+                                        alert('设置成功');
+                                        _this.siblings('.setcover').removeClass('btn-success').addClass('btn-success');
+                                    }
+                                }
+                            });
+                        })
+                        file.previewElement.appendChild(removeButton);
                     });
                 }
             })
@@ -1624,6 +1643,24 @@ $(weego.init());
                     });
                     this.on("removedfile", function(file) {
                         console.log("File " + file.name + "removed");
+                    });
+                    this.on("addedfile", function(file) {
+                        var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
+                        var _this = this;
+                        removeButton.addEventListener('click', function(e){
+                            e.preventDefault();
+                            e.stopPropagation();
+                            $.ajax({
+                                url: '/setCoverImg/' + _id + '/' + file.name,
+                                success: function(data) {
+                                    if (data) {
+                                        alert('设置成功');
+                                        _this.siblings('.setcover').removeClass('btn-success').addClass('btn-success');
+                                    }
+                                }
+                            });
+                        })
+                        file.previewElement.appendChild(removeButton);
                     });
                 }
             })
@@ -1655,8 +1692,10 @@ $(weego.init());
                 $.post('/savetoauditing', {
                     auditmsg: auditmsg
                 }, function(data) {
-                    //改变审核按钮的状态
-                    $('#submitaudit').addClass('btn-warning ').text('审核中').attr('disabled','disabled');
+                    if(data.status == 'success'){
+                        //改变审核按钮的状态
+                        $('#submitaudit').addClass('btn-warning ').text('审核中').attr('disabled','disabled');
+                    }
 
 
 
@@ -1797,6 +1836,24 @@ $(weego.init());
                         this.on("removedfile", function(file) {
                             console.log("File " + file.name + "removed");
                         });
+                        this.on("addedfile", function(file) {
+                            var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
+                            var _this = this;
+                            removeButton.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                $.ajax({
+                                    url: '/setCoverImg/' + _id + '/' + file.name,
+                                    success: function(data) {
+                                        if (data) {
+                                            alert('设置成功');
+                                            _this.siblings('.setcover').removeClass('btn-success').addClass('btn-success');
+                                        }
+                                    }
+                                });
+                            })
+                            file.previewElement.appendChild(removeButton);
+                        });
                     }
                 })
             }
@@ -1816,6 +1873,24 @@ $(weego.init());
                         this.on("removedfile", function(file) {
                             console.log("File " + file.name + "removed");
                         });
+                        this.on("addedfile", function(file) {
+                            var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
+                            var _this = this;
+                            removeButton.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                $.ajax({
+                                    url: '/setCoverImg/' + _id + '/' + file.name,
+                                    success: function(data) {
+                                        if (data) {
+                                            alert('设置成功');
+                                            _this.siblings('.setcover').removeClass('btn-success').addClass('btn-success');
+                                        }
+                                    }
+                                });
+                            })
+                            file.previewElement.appendChild(removeButton);
+                        });
                     }
                 })
             }
@@ -1824,12 +1899,33 @@ $(weego.init());
                 $('#app').html('').append(EditAreaView.render(weego.result1.cityitem).$el);
                 $('#shoparea-dropzone').dropzone({
                     addRemoveLinks: true,
+                    headers:{
+                        _id: weego.result1.cityitem._id
+                    },
                     init: function() {
                         this.on("success", function(file) {
                             console.log("File " + file.name + "uploaded");
                         });
                         this.on("removedfile", function(file) {
                             console.log("File " + file.name + "removed");
+                        });
+                        this.on("addedfile", function(file) {
+                            var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
+                            var _this = this;
+                            removeButton.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                $.ajax({
+                                    url: '/setAreaCoverImg/' + _id + '/' + file.name,
+                                    success: function(data) {
+                                        if (data) {
+                                            alert('设置成功');
+                                            _this.siblings('.setcover').removeClass('btn-success').addClass('btn-success');
+                                        }
+                                    }
+                                });
+                            })
+                            file.previewElement.appendChild(removeButton);
                         });
                     }
                 })
