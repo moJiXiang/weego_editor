@@ -565,64 +565,72 @@
 
             
         </div>
-        <div class="edithistory">
+        <div class="edithistory edhis-cn">
             <div class="highlight">
-                <h5>{{city.cityname}}</h5>
-                <dl class="dl-horizontal">
-                    <dt><a href="#allCountries/{{city.countryname}}/{{city.cityname}}/attractions">景点数</a></dt>
-                    <dd>{{attractionscount}}</dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt><a href="#allCountries/{{city.countryname}}/{{city.cityname}}/restaurants">餐馆数</a></dt>
-                    <dd>{{restaurantscount}}</dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt><a href="#allCountries/{{city.countryname}}/{{city.cityname}}/shopareas">购物区域</a></dt>
-                    <dd>{{shopareacount}}</dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt><a href="#allCountries/{{city.countryname}}/{{city.cityname}}/shoppings">购物数</a></dt>
-                    <dd>{{shoppingscount}}</dd>
-                </dl>
-            </div>
-            <div class="bs-example">
-                <dl class="dl-horizontal">
-                    <dt>编辑</dt>
-                    {{#ifCond audits.status '0'}}
-                        <dd><a id="editorname">{{currentuser}}</a></dd>
-                        {{else}}
-                        <dd><a id="editorname">{{audits.editorname}}</a></dd>
-                    {{/ifCond}}
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>审核人</dt>
+                <dl>
+                    <dt>{{city.cityname}}</dt>
                     <dd>
-                    {{#if audits.auditorname}}
-                        {{audits.auditorname}}
-                    {{else}}
-                        <select id="auditorname">
-                            {{#each edituser}}
-                            <option value = ''>{{this.username}}</option>
-                            {{/each}}
-                        </select>
+                        <span><a href="#allCountries/{{city.countryname}}/{{city.cityname}}/attractions">景点数：</a></span>
+                        {{attractionscount}}
                     </dd>
-                    {{/if}}
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>审核建议</dt>
-                    {{#ifCond currentuser audits.auditorname}}
-                    <dd><textarea id="auditcomment"></textarea></dd>
-                    {{else}}
-                    <dd>{{audits.auditcomment}}</dd>
-                    {{/ifCond}}
-                </dl>
-            </div>
-            <div class="highlight">
-                <dl class="dl-horizontal">
-                    <dt>审核标准</dt>
-                    <dd>审核的标准</dd>
+                    <dd>
+                        <span><a href="#allCountries/{{city.countryname}}/{{city.cityname}}/restaurants">餐馆数：</a></span>
+                        {{restaurantscount}}
+                    </dd>
+                    <dd>
+                        <span><a href="#allCountries/{{city.countryname}}/{{city.cityname}}/shopareas">购物区域：</a></span>
+                        {{shopareacount}}
+                    </dd>
+                    <dd>
+                        <span><a href="#allCountries/{{city.countryname}}/{{city.cityname}}/shoppings">购物数：</a></span>
+                        {{shoppingscount}}
+                    </dd>
                 </dl>
             </div>
+
+            <div class="bs-example">
+                <dl>
+                    <dt>参与编辑人员</dt>
+                    <dd>
+                        <span>编辑人员：</span>
+                        {{#ifCond audits.status '0'}}
+                            <a id="editorname">{{currentuser}}</a>
+                            {{else}}
+                            <a id="editorname">{{audits.editorname}}</a>
+                        {{/ifCond}}
+                    </dd>
+
+                    <dd>
+                        <span>审核人员：</span>
+                        {{#if audits.auditorname}}
+                        {{audits.auditorname}}
+                        {{else}}
+                            <select id="auditorname">
+                                {{#each edituser}}
+                                <option value = ''>{{this.username}}</option>
+                                {{/each}}
+                            </select>
+                        {{/if}}
+                    </dd>
+                    
+                    <dd>
+                        <span>审核建议：</span>
+                        {{#ifCond currentuser audits.auditorname}}
+                        <textarea id="auditcomment"></textarea>
+                        {{else}}
+                        {{audits.auditcomment}}
+                        {{/ifCond}}
+                    </dd>
+
+                    <dd>
+                        <span>审核标准：</span>
+                        <span>审核的标准</span>
+                    </dd>
+                </dl>
+
+
+            </div>
+
             <div class="highlight">
             {{#ifCond  currentuser audits.auditorname}}
                     <button type="button" class="btn btn-success" id="citypass">通过</button>
@@ -1035,6 +1043,7 @@
             </dl>
         </div>
         {{/with}}
+
         <div class="edithistory">
             <div class="bs-example">
                 <dl class="dl-horizontal">
@@ -1100,6 +1109,7 @@
             <a href="#allCountries/{{countryname}}/{{cityname}}/{{type}}" class="btn btn-primary">返回</a>
             </div>
         </div>
+
     </script>
     <script id="shopareapreview" type="text/x-handlebars-template">
         <ol class="breadcrumb">

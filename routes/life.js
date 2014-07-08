@@ -589,19 +589,17 @@ exports.uploadAreaImg = function(req, res) {
     var filename  = req.files.file.name;
     var target_path = global.imgpathSO + filename;
     //移动文件
+    console.log(tmp_path + ", " + target_path);
     fs.rename(tmp_path, target_path, function(err){
         if(err) throw err;
 
-        fs.unlink(tmp_path, function() {
-            if (err) throw err;
-            upyunClient.upAreaToYun(filename, function(err, data) {
+        upyunClient.upAreaToYun(filename, function(err, data) {
+            if(err) throw err;
+            Area.pushImg(_id, filename, function(err, result) {
                 if(err) throw err;
-                Area.pushImg(_id, filename, function(err, result) {
-                    if(err) throw err;
-                    res.end();
-                })
+                res.end();
             })
-        })
+        });
     })
 }
 
@@ -641,10 +639,7 @@ function makeImageFile(req, tmp_path, target_path, callback) {
         if (err) {
             throw err;
         }
-        fs.unlink(tmp_path, function () {
-            if (err) throw err;
-            process.nextTick(callback);
-        });
+        process.nextTick(callback);
     });
 }
 
