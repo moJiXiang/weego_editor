@@ -734,9 +734,15 @@ exports.upload = function (req, res) {
         var filePathC2 = global.imgpathC2 + target_upload_name;
         var filePathC3 = global.imgpathC3 + target_upload_name;
         console.log(tmp_upload_path,target_upload_path);
-        changeImageSize(req, tmp_upload_path, target_upload_path, filePathC2, filePathC3, function () {
+        changeImageSize(req, tmp_upload_path, target_upload_path, filePathC2, filePathC3, function (err) {
+            if (err) {
+                console.log( "fail : " + err);
+            }
             upyunClient.upCityToYun(target_upload_name,function(err,data){
-                if(err) throw err;
+                if(err) {
+                    console.log("Fail to upload to upyun" + err);
+                    throw err;
+                };
                 cityProvider.update({_id:new ObjectID(_id)}, {$push:{ 'image':target_upload_name}}, {safe:true}, function (err) {
                     if (err) {
                         throw err;
@@ -757,14 +763,15 @@ function changeImageSize(req, tmp_path, target_path,target_path_middle, target_p
         if (err) {
             throw err;
         }
-        fs.unlink(tmp_path, function () {
-                im.crop({srcPath:target_path,dstPath:target_path_middle,width:global.imgsizeC2.width,height:global.imgsizeC2.height,quality:1,gravity:'Center'}, function (err, metadata) {
-                    if (err) throw err;
-                    im.crop({srcPath:target_path,dstPath:target_path_small,width:global.imgsizeC3.width,height:global.imgsizeC3.height,quality:1,gravity:'Center'}, function (err, metadata) {
-                        if (err) throw err;
-                        process.nextTick(callback);
-                    });
-                });
+        console.log('0:' + err);
+        im.crop({srcPath:target_path,dstPath:target_path_middle,width:global.imgsizeC2.width,height:global.imgsizeC2.height,quality:1,gravity:'Center'}, function (err, metadata) {
+            console.log("1:" + err);
+            if (err) throw err;
+            im.crop({srcPath:target_path,dstPath:target_path_small,width:global.imgsizeC3.width,height:global.imgsizeC3.height,quality:1,gravity:'Center'}, function (err, metadata) {
+            console.log("2:" + err);
+                if (err) throw err;
+                process.nextTick(callback);
+            });
         });
     });
 };

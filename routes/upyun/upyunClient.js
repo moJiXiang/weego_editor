@@ -221,8 +221,7 @@ exports.delLifeFromYun = function(type,fileName,callback){
 
 exports.upAreaToYun = function(fileName, callback){
 	var src_path = global.imgpathSO + fileName;
-	var target_path = global.imgpathSO + fileName;
-
+	var target_path = global.lifepathAO + fileName;
 	upToYun(src_path, target_path, function(err, data0){
 		if(err) throw err;
 		callback(null, data0);
@@ -230,7 +229,7 @@ exports.upAreaToYun = function(fileName, callback){
 }
 
 exports.delAreaFromYun = function(fileName, callback){
-	var target_path = global.imgpathSO + fileName;
+	var target_path = global.lifepathAO + fileName;
 
 	delFromYun(target_path, function(err, data0){
 		if(err) throw err;
