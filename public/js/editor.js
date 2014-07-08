@@ -1621,7 +1621,7 @@ $(weego.init());
                                 $el = $(e.currentTarget);
                                 var imagename = $el.attr('data-value');
                                 $.ajax({
-                                    url: '/setCoverImg/' + _id + '/' + imagename,
+                                    url: '/setCityCoverImg/' + _id + '/' + imagename,
                                     success: function(data) {
                                         if (data) {
                                             for (var i = 0; i < $('.setcover').length; i++) {
@@ -1646,7 +1646,7 @@ $(weego.init());
                             e.preventDefault();
                             e.stopPropagation();
                             $.ajax({
-                                url: '/setCoverImg/' + _id + '/' + file.name,
+                                url: '/setCityCoverImg/' + _id + '/' + file.name,
                                 success: function(data) {
                                     if (data) {
                                         alert('设置成功');
