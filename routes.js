@@ -108,6 +108,7 @@ module.exports = function(app) {
 	app.del('/lifetag/:lifetagId', routes.life.removeLifetag);
 	app.put('/lifetag/:lifetagId', routes.life.updateLifetag);
 	app.post('/lifetag', routes.life.addNewLifetag);
+	// app.get('/setResShopCoverImg', routes.life.setResShopCoverImg);
 	app.get('/lifetags/:pageLimit/:pageIndex/:type', routes.life.getLifetagByPage);
 	app.get('/lifetags/:pageLimit/:pageIndex', routes.life.getLifetagByPage);
 	app.get('/getLifetagsByType/:type',routes.life.getLifetagsByType);

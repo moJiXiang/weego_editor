@@ -1944,11 +1944,12 @@ $(weego.init());
                 $('#app').html('').append(EditCityItemView.render(weego.result1.cityitem).$el);
                 var images = weego.result1.cityitem.image;
                 var _id = weego.result1.cityitem._id;
+                var type = weego.result1.cityitem.type;
                 $('#resshop-dropzone').dropzone({
                     addRemoveLinks: true,
                     headers: {
                         _id: weego.result1.cityitem._id,
-                        type: weego.result1.cityitem.type
+                        type: type
                     },
                     init: function() {
                         if (images) {
@@ -1966,7 +1967,7 @@ $(weego.init());
                                     $el = $(e.currentTarget);
                                     var imagename = $el.attr('data-value');
                                     $.ajax({
-                                        url: '/setCoverImg/' + _id + '/' + imagename,
+                                        url: '/setCoverImgLife/' + _id + '/' + imagename + '/' + type,
                                         success: function(data) {
                                             if (data) {
                                                 for (var i = 0; i < $('.setcover').length; i++) {
@@ -1995,7 +1996,7 @@ $(weego.init());
                                 e.preventDefault();
                                 e.stopPropagation();
                                 $.ajax({
-                                    url: '/setCoverImg/' + _id + '/' + file.name,
+                                    url: '/setCoverImgLife/' + _id + '/' + imagename + '/' + type,
                                     success: function(data) {
                                         if (data) {
                                             alert('设置成功');
@@ -2045,7 +2046,7 @@ $(weego.init());
                                     $el = $(e.currentTarget);
                                     var imagename = $el.attr('data-value');
                                     $.ajax({
-                                        url: '/setCoverImg/' + _id + '/' + imagename,
+                                        url: '/setAreaCoverImg/' + _id + '/' + imagename,
                                         success: function(data) {
                                             if (data) {
                                                 for (var i = 0; i < $('.setcover').length; i++) {
