@@ -219,6 +219,25 @@ exports.delLifeFromYun = function(type,fileName,callback){
 	});
 };
 
+exports.upAreaToYun = function(fileName, callback){
+	var src_path = global.imgpathSO + fileName;
+	var target_path = global.imgpathSO + fileName;
+
+	upToYun(src_path, target_path, function(err, data0){
+		if(err) throw err;
+		callback(null, data0);
+	})
+}
+
+exports.delAreaFromYun = function(fileName, callback){
+	var target_path = global.imgpathSO + fileName;
+
+	delFromYun(target_path, function(err, data0){
+		if(err) throw err;
+		callback(null, data0);
+	})
+}
+
 function getSrcPathByType (type){
     if(type=='1')
         return global.imgpathEO;

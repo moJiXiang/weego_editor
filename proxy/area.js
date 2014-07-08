@@ -34,6 +34,18 @@ exports.count = function (query, callback) {
   Area.count(query, callback);
 };
 
+exports.pushImg = function(_id, filename, callback) {
+	Area.update({_id: _id},{$addToSet:{image:filename}},callback);
+};
+
+exports.pullImg = function(_id, filename, callback) {
+	Area.update({_id: _id},{$pull: {image: filename}}, callback);
+};
+
+exports.setAreaCoverImg = function(_id, filename, callback) {
+	Area.update({_id: _id},{$set:{cover_image: filename}}, callback);
+}
+
 exports.update = function(one,callback){
 	console.log(one);
 	exports.getArea(new ObjectID(one._id+''),function(err,result){

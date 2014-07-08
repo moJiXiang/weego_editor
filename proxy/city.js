@@ -4,8 +4,8 @@ var ObjectID = require('mongodb').ObjectID;
 
 exports.update = function (one, callback) {
 	var cityname = one.city_name;
-	var city_id = one._id;
-	console.log(typeof city_id);
+	var city_id = one.item_id;
+	console.log(city_id);
 	// City.findOne({cityname: cityname}, function (err, result) {
 	// 	if (result.status) {
 
@@ -34,11 +34,7 @@ exports.update = function (one, callback) {
 			auditorname: one.auditorname,
 			auditdate: one.auditdate,
 		}
-	}, function(err, result) {
-		if(err){
-			console.log(err);
-		}
-	})
+	}, callback)
 	// 	}
 	// });
 }

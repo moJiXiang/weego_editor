@@ -56,7 +56,30 @@ var CitySchema = new Schema({
     editorname          : String,
     editdate            : String,
     auditorname         : String,
-    auditdate           : String
+    auditdate           : String,
+    en_info: {
+        short_introduce: String,
+        attraction_overview: String,
+        restaurant_overview: String,
+        shopping_overview: String,
+        introduce      : [{
+            intrItemTitle   : String, 
+            intrItemContent : String
+        }],
+        tips                : [{
+            tipItemTitle    : String,
+            tipItemContent  : String
+        }],
+        traffic             : [{
+            traItemTitle    : String,
+            traItemContent  : String
+        }],
+        status         : String,
+        editorname     : String,
+        editdate       : String,
+        auditorname    : String,
+        auditdate      : String
+    }
 
 }, {
     collection : 'latestcity'
