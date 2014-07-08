@@ -273,7 +273,7 @@ $(weego.init());
                         property: 'restaurantscount',
                         label: '餐馆',
                         sortable: false
-                    },{
+                    }, {
                         property: 'shopareacount',
                         label: '购物区域',
                         sortable: false
@@ -313,18 +313,18 @@ $(weego.init());
 
                     formatter: function(items) {
                         $.each(items, function(index, item) {
-                            if(item.attractionscount) item.attractionscount = '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/attractions">' + item.attractionscount + '</a>';
-                            if(item.restaurantscount) item.restaurantscount = '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/restaurants">' + item.restaurantscount + '</a>';
-                            if(item.shopareacount) item.shopareacount = '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/shopareas">' + item.shopareacount + '</a>';
-                            if(item.shoppingscount) item.shoppingscount = '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/shoppings">' + item.shoppingscount + '</a>';
+                            if (item.attractionscount) item.attractionscount = '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/attractions">' + item.attractionscount + '</a>';
+                            if (item.restaurantscount) item.restaurantscount = '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/restaurants">' + item.restaurantscount + '</a>';
+                            if (item.shopareacount) item.shopareacount = '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/shopareas">' + item.shopareacount + '</a>';
+                            if (item.shoppingscount) item.shoppingscount = '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/shoppings">' + item.shoppingscount + '</a>';
                             item.cityname = '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '">' + item.cityname + '</a>';
-                            if(item.status == '0'){
+                            if (item.status == '0') {
                                 item.status = '<button type="button" class="btn btn-default" disabled="disabled">未审核</button>'
-                            }else if(item.status == '1'){
+                            } else if (item.status == '1') {
                                 item.status = '<button type="button" class="btn btn-info" disabled="disabled">审核中</button>'
-                            }else if(item.status == '2'){
+                            } else if (item.status == '2') {
                                 item.status = '<button type="button" class="btn btn-success" disabled="disabled">审核通过</button>'
-                            }else{
+                            } else {
                                 item.status = '<button type="button" class="btn btn-danger" disabled="disabled">未通过</button>'
                             }
                         });
@@ -351,9 +351,9 @@ $(weego.init());
             })
 
         },
-        showCityItems: function(countryname, cityname, type){
+        showCityItems: function(countryname, cityname, type) {
             var cityitems = new weego.CityItemView();
-            $('#app').html('').append(cityitems.render(countryname,cityname,type).$el);
+            $('#app').html('').append(cityitems.render(countryname, cityname, type).$el);
             var AjaxDataSource = function(options) {
                 this._formatter = options.formatter;
                 this._columns = options.columns;
@@ -403,26 +403,26 @@ $(weego.init());
 
                             // Prepare data to return to Datagrid
                             console.log(response);
-                            if(type == "restaurants"){
+                            if (type == "restaurants") {
                                 var data = response.restaurants;
                                 console.log(response);
                                 var count = response.countrestaurants;
-                            }else{
+                            } else {
                                 var data = response;
                                 var count = response.length;
                             }
-                          
+
                             var startIndex = options.pageIndex * options.pageSize;
                             var endIndex = startIndex + options.pageSize;
                             var end = (endIndex > count) ? count : endIndex;
                             var pages = Math.ceil(count / options.pageSize);
                             var page = options.pageIndex + 1;
                             var start = startIndex + 1;
-                            console.log(startIndex,endIndex,end,pages,page,start);
+                            console.log(startIndex, endIndex, end, pages, page, start);
                             // SORTING is dealt with by the server
-                            if(type == "restaurants"){
-                                data = data.slice(0,10);
-                            }else{
+                            if (type == "restaurants") {
+                                data = data.slice(0, 10);
+                            } else {
                                 data = data.slice(startIndex, endIndex);
                             }
                             // Allow client code to format the data
@@ -493,7 +493,7 @@ $(weego.init());
 
                         formatter: function(items) {
                             $.each(items, function(index, item) {
-                                item.attractions = '<a href="#allCountries/' + countryname + '/' + item.cityname + '/attractions/' + item.attractions +'">' + item.attractions + '</a>';
+                                item.attractions = '<a href="#allCountries/' + countryname + '/' + item.cityname + '/attractions/' + item.attractions + '">' + item.attractions + '</a>';
                                 if (item.status == '0') {
                                     item.status = '<button type="button" class="btn btn-default" disabled="disabled">未审核</button>'
                                 } else if (item.status == '1') {
@@ -543,7 +543,7 @@ $(weego.init());
 
                         formatter: function(items) {
                             $.each(items, function(index, item) {
-                                item.name = '<a href="#allCountries/' + countryname + '/' + item.city_name + '/restaurants/' + item.name +'">' + item.name + '</a>';
+                                item.name = '<a href="#allCountries/' + countryname + '/' + item.city_name + '/restaurants/' + item.name + '">' + item.name + '</a>';
                                 if (item.status == '0') {
                                     item.status = '<button type="button" class="btn btn-default" disabled="disabled">未审核</button>'
                                 } else if (item.status == '1') {
@@ -593,7 +593,7 @@ $(weego.init());
 
                         formatter: function(items) {
                             $.each(items, function(index, item) {
-                                item.area_name = '<a href="#allCountries/' + countryname + '/' + item.city_name + '/shopareas/' + item.area_name +'">' + item.area_name + '</a>';
+                                item.area_name = '<a href="#allCountries/' + countryname + '/' + item.city_name + '/shopareas/' + item.area_name + '">' + item.area_name + '</a>';
                                 if (item.status == '0') {
                                     item.status = '<button type="button" class="btn btn-default" disabled="disabled">未审核</button>'
                                 } else if (item.status == '1') {
@@ -643,7 +643,7 @@ $(weego.init());
 
                         formatter: function(items) {
                             $.each(items, function(index, item) {
-                                item.name = '<a href="#allCountries/' + countryname + '/' + item.city_name + '/shoppings/' + item.name +'">' + item.name + '</a>';
+                                item.name = '<a href="#allCountries/' + countryname + '/' + item.city_name + '/shoppings/' + item.name + '">' + item.name + '</a>';
                                 if (item.status == '0') {
                                     item.status = '<button type="button" class="btn btn-default" disabled="disabled">未审核</button>'
                                 } else if (item.status == '1') {
@@ -660,14 +660,14 @@ $(weego.init());
                 });
             }
         },
-        showItem: function(countryname, cityname, type, itemname){
+        showItem: function(countryname, cityname, type, itemname) {
             $.ajax({
                 url: '/getCountryCities/' + countryname + '/' + cityname + '/' + type + '/' + itemname,
                 method: 'GET',
                 success: function(data) {
                     console.log(data);
                     var attractionview = new weego.CityItemPreView();
-                    $('#app').html('').append(attractionview.render(data,countryname,cityname,type,itemname).$el);
+                    $('#app').html('').append(attractionview.render(data, countryname, cityname, type, itemname).$el);
                 }
             })
         },
@@ -1550,11 +1550,11 @@ $(weego.init());
         }
     });
     weego.CityItemView = Backbone.View.extend({
-        render: function(countryname,cityname,type) {
+        render: function(countryname, cityname, type) {
             $(this.el).html(Handlebars.compile($('#cityitem').html())({
-                countryname : countryname,
-                cityname    : cityname,
-                type        : type
+                countryname: countryname,
+                cityname: cityname,
+                type: type
             }));
             return this;
         }
@@ -1566,24 +1566,24 @@ $(weego.init());
         },
         render: function(data) {
             weego.result = data;
-            var city                = data.results.city;
-            var currentuser         = data.results.currentuser;
-            var edituser            = data.results.edituser;
-            var audits              = data.results.audits;
-            var attractionscount    = data.results.attractionscount;
-            var restaurantscount    = data.results.restaurantscount;
-            var shopareacount       = data.results.shopareacount;
-            var shoppingscount      = data.results.shoppingscount;
+            var city = data.results.city;
+            var currentuser = data.results.currentuser;
+            var edituser = data.results.edituser;
+            var audits = data.results.audits;
+            var attractionscount = data.results.attractionscount;
+            var restaurantscount = data.results.restaurantscount;
+            var shopareacount = data.results.shopareacount;
+            var shoppingscount = data.results.shoppingscount;
             // var masterLabel         = data.results.masterLabel.label;
             $(this.el).html(Handlebars.compile($('#city_preview').html())({
-                city                : city,
-                currentuser         : currentuser,
-                edituser            : edituser,
-                audits              : audits,
-                attractionscount    : attractionscount,
-                restaurantscount    : restaurantscount,
-                shopareacount       : shopareacount,
-                shoppingscount      : shoppingscount,
+                city: city,
+                currentuser: currentuser,
+                edituser: edituser,
+                audits: audits,
+                attractionscount: attractionscount,
+                restaurantscount: restaurantscount,
+                shopareacount: shopareacount,
+                shoppingscount: shoppingscount,
                 // masterLabel         : masterLabel
             }));
             return this;
@@ -1599,23 +1599,49 @@ $(weego.init());
             var EditCityView = new weego.EditCityView();
             var _id = weego.result.results.city._id;
             $('#app').html('').append(EditCityView.render(weego.result.results.city).$el);
-            
+            var images = weego.result.results.city.image;
             $('#city-dropzone').dropzone({
                 addRemoveLinks: true,
-                headers:{
+                headers: {
                     _id: _id
                 },
                 init: function() {
-                    this.on("success", function(file) {
-                        console.log("File " + file.name + "uploaded");
-                    });
-                    this.on("removedfile", function(file) {
-                        console.log("File " + file.name + "removed");
-                    });
+                    for (var i = 0; i < images.length; i++) {
+                        var mockFile = {
+                            name: images[i],
+                            size: 12345
+                        };
+                        // Call the default addedfile event handler
+                        this.emit("addedfile", mockFile);
+                        var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
+                        removeButton.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            $el = $(e.currentTarget);
+                            $.ajax({
+                                url: '/setCoverImg/' + _id + '/' + images[i],
+                                success: function(data) {
+                                    if (data) {
+                                        $('.setcover').forEach(function() {
+                                            $(this).removeClass('btn-success')
+                                        });
+                                        for (var i = 0; i < $('.setcover').length; i++) {
+                                            $('.setcover').eq(i).removeClass('btn-success');
+                                        };
+                                        $el.addClass('btn-success');
+                                    }
+                                }
+                            });
+                        })
+                        mockFile.previewElement.appendChild(removeButton);
+
+                        // And optionally show the thumbnail of the file:
+                        this.emit("thumbnail", mockFile, "http://weegotest.b0.upaiyun.com/city/imgsizeC2/" + images[i]);
+                    };
+
                     this.on("addedfile", function(file) {
                         var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
-                        var _this = this;
-                        removeButton.addEventListener('click', function(e){
+                        removeButton.addEventListener('click', function(e) {
                             e.preventDefault();
                             e.stopPropagation();
                             $.ajax({
@@ -1623,44 +1649,53 @@ $(weego.init());
                                 success: function(data) {
                                     if (data) {
                                         alert('设置成功');
-                                        _this.siblings('.setcover').removeClass('btn-success').addClass('btn-success');
+                                        this.siblings('.setcover').removeClass('btn-success').addClass('btn-success');
                                     }
                                 }
                             });
                         })
                         file.previewElement.appendChild(removeButton);
+                    });
+                    this.on("removedfile", function(file) {
+                        $.ajax({
+                            url: '/delUploadImage/' + _id + '/' + file.name,
+                            success: function(data) {
+                                if (data.status == 'success') {
+                                    console.log('删除成功');
+                                }
+                            }
+                        })
                     });
                 }
             })
+            var images = weego.result.results.city.backgroundimage;
             $('#citybgimages-dropzone').dropzone({
                 addRemoveLinks: true,
-                headers:{
+                headers: {
                     _id: weego.result.results.city._id
                 },
                 init: function() {
-                    this.on("success", function(file) {
-                        console.log("File " + file.name + "uploaded");
-                    });
+                    for (var i = 0; i < images.length; i++) {
+                        var mockFile = {
+                            name: images[i],
+                            size: 12345
+                        };
+                        // Call the default addedfile event handler
+                        this.emit("addedfile", mockFile);
+
+                        // And optionally show the thumbnail of the file:
+                        this.emit("thumbnail", mockFile, "http://weegotest.b0.upaiyun.com/city/imgsizeC1/" + images[i]);
+                    };
+
                     this.on("removedfile", function(file) {
-                        console.log("File " + file.name + "removed");
-                    });
-                    this.on("addedfile", function(file) {
-                        var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
-                        var _this = this;
-                        removeButton.addEventListener('click', function(e){
-                            e.preventDefault();
-                            e.stopPropagation();
-                            $.ajax({
-                                url: '/setCoverImg/' + _id + '/' + file.name,
-                                success: function(data) {
-                                    if (data) {
-                                        alert('设置成功');
-                                        _this.siblings('.setcover').removeClass('btn-success').addClass('btn-success');
-                                    }
+                        $.ajax({
+                            url: '/delUploadImage/' + _id + '/' + file.name,
+                            success: function(data) {
+                                if (data.status == 'success') {
+                                    console.log('删除成功');
                                 }
-                            });
+                            }
                         })
-                        file.previewElement.appendChild(removeButton);
                     });
                 }
             })
@@ -1672,10 +1707,10 @@ $(weego.init());
         submitaudit: function() {
             var auditmsg = {};
             var currentuser = weego.result.results.currentuser;
-            auditmsg.attractionscount    = weego.result.results.attractionscount;
-            auditmsg.restaurantscount    = weego.result.results.restaurantscount;
-            auditmsg.shopareacount       = weego.result.results.shopareacount;
-            auditmsg.shoppingscount      = weego.result.results.shoppingscount;
+            auditmsg.attractionscount = weego.result.results.attractionscount;
+            auditmsg.restaurantscount = weego.result.results.restaurantscount;
+            auditmsg.shopareacount = weego.result.results.shopareacount;
+            auditmsg.shoppingscount = weego.result.results.shoppingscount;
             auditmsg.city_name = weego.result.results.city.cityname;
             auditmsg.item_id = weego.result.results.city._id + '';
             auditmsg.countryname = weego.result.results.city.countryname;
@@ -1688,13 +1723,13 @@ $(weego.init());
             console.log(auditmsg);
             if (auditmsg.editorname == auditmsg.auditorname) {
                 alert('编辑和审核不能为同一人');
-            }else {
+            } else {
                 $.post('/savetoauditing', {
                     auditmsg: auditmsg
                 }, function(data) {
-                    if(data.status == 'success'){
+                    if (data.status == 'success') {
                         //改变审核按钮的状态
-                        $('#submitaudit').addClass('btn-warning ').text('审核中').attr('disabled','disabled');
+                        $('#submitaudit').addClass('btn-warning ').text('审核中').attr('disabled', 'disabled');
                     }
 
 
@@ -1718,53 +1753,57 @@ $(weego.init());
         },
         citypass: function() {
             var model = {
-                _id             : weego.result.results.city._id +'',
-                city_name       : weego.result.results.city.cityname,
-                status          : '2',
-                type            : 'city',
+                _id: weego.result.results.city._id + '',
+                city_name: weego.result.results.city.cityname,
+                status: '2',
+                type: 'city',
                 attractionscount: weego.result.results.attractionscount,
                 restaurantscount: weego.result.results.restaurantscount,
-                shopareacount   : weego.result.results.shopareacount,
-                shoppingscount  : weego.result.results.shoppingscount,
-                editorname      : weego.result.results.audits.editorname,
-                editdate        : weego.result.results.audits.editdate,
-                auditorname     : weego.result.results.audits.auditorname,
-                auditdate       : new Date().toLocaleString()
+                shopareacount: weego.result.results.shopareacount,
+                shoppingscount: weego.result.results.shoppingscount,
+                editorname: weego.result.results.audits.editorname,
+                editdate: weego.result.results.audits.editdate,
+                auditorname: weego.result.results.audits.auditorname,
+                auditdate: new Date().toLocaleString()
             }
             model.auditcomment = $('#auditcomment').val();
-            $('#citypass').attr('disabled','disabled');
+            $('#citypass').attr('disabled', 'disabled');
             $('#cityunpass').remove();
-            $.post('/passthiscity/', { model: model } , function(data) {
+            $.post('/passthiscity/', {
+                model: model
+            }, function(data) {
 
             })
         },
         cityunpass: function() {
             var model = {
-                _id             : weego.result.results.city._id +'',
-                city_name       : weego.result.results.city.cityname,
-                status          : '-1',
-                type            : 'city',
+                _id: weego.result.results.city._id + '',
+                city_name: weego.result.results.city.cityname,
+                status: '-1',
+                type: 'city',
                 attractionscount: weego.result.results.attractionscount,
                 restaurantscount: weego.result.results.restaurantscount,
-                shopareacount   : weego.result.results.shopareacount,
-                shoppingscount  : weego.result.results.shoppingscount,
-                editorname      : weego.result.results.audits.editorname,
-                editdate        : weego.result.results.audits.editdate,
-                auditorname     : weego.result.results.audits.auditorname,
-                auditdate       : new Date().toLocaleString()
+                shopareacount: weego.result.results.shopareacount,
+                shoppingscount: weego.result.results.shoppingscount,
+                editorname: weego.result.results.audits.editorname,
+                editdate: weego.result.results.audits.editdate,
+                auditorname: weego.result.results.audits.auditorname,
+                auditdate: new Date().toLocaleString()
             }
             model.auditcomment = $('#auditcomment').val();
-            $('#cityunpass').attr('disabled','disabled');
+            $('#cityunpass').attr('disabled', 'disabled');
             $('#citypass').remove();
 
-            $.post('/passthiscity/', { model: model },function(data) {
+            $.post('/passthiscity/', {
+                model: model
+            }, function(data) {
 
             })
         }
     });
-    
+
     weego.CityItemPreView = Backbone.View.extend({
-        render: function(data,countryname,cityname,type,itemname){
+        render: function(data, countryname, cityname, type, itemname) {
             weego.result1 = data;
             weego.result1.countryname = countryname;
             weego.type = type;
@@ -1779,7 +1818,7 @@ $(weego.init());
                     attractions: data.cityitem,
                 }));
             }
-            if (type == "restaurants"){
+            if (type == "restaurants") {
                 $(this.el).html(Handlebars.compile($('#restaurantpreview').html())({
                     currentuser: data.currentuser,
                     audits: data.audits,
@@ -1790,7 +1829,7 @@ $(weego.init());
                     restaurant: data.cityitem
                 }));
             }
-            if(type == "shopareas"){
+            if (type == "shopareas") {
                 $(this.el).html(Handlebars.compile($('#shopareapreview').html())({
                     currentuser: data.currentuser,
                     audits: data.audits,
@@ -1801,7 +1840,7 @@ $(weego.init());
                     shoparea: data.cityitem
                 }));
             }
-            if(type == "shoppings"){
+            if (type == "shoppings") {
                 $(this.el).html(Handlebars.compile($('#shoppingpreview').html())({
                     currentuser: data.currentuser,
                     audits: data.audits,
@@ -1821,21 +1860,47 @@ $(weego.init());
             'click #cityunpass': 'cityunpass'
         },
         modify: function() {
-            if(weego.type == "attractions"){
+            if (weego.type == "attractions") {
                 var attractionview = new weego.EditAttractionsView();
                 $('#app').html('').append(attractionview.render(weego.result1.cityitem).$el);
+                var images = weego.result1.cityitem.image;
+                var _id = weego.result1.cityitem._id;
+
                 $('#attraction-dropzone').dropzone({
                     addRemoveLinks: true,
                     headers: {
                         _id: weego.result1.cityitem._id
                     },
                     init: function() {
-                        this.on("success", function(file) {
-                            console.log("File " + file.name + "uploaded");
-                        });
-                        this.on("removedfile", function(file) {
-                            console.log("File " + file.name + "removed");
-                        });
+                        for (var i = 0; i < images.length; i++) {
+                            var mockFile = {
+                                name: images[i],
+                                size: 12345
+                            };
+                            // Call the default addedfile event handler
+                            this.emit("addedfile", mockFile);
+                            var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
+                            removeButton.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                $el = $(e.currentTarget);
+                                $.ajax({
+                                    url: '/setCoverImg/' + _id + '/' + images[i],
+                                    success: function(data) {
+                                        if (data) {
+                                            for (var i = 0; i < $('.setcover').length; i++) {
+                                                $('.setcover').eq(i).removeClass('btn-success');
+                                            };
+                                            $el.addClass('btn-success');
+                                        }
+                                    }
+                                });
+                            })
+                            mockFile.previewElement.appendChild(removeButton);
+
+                            // And optionally show the thumbnail of the file:
+                            this.emit("thumbnail", mockFile, "http://weegotest.b0.upaiyun.com/attractions/origin/" + images[i]);
+                        };
                         this.on("addedfile", function(file) {
                             var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
                             var _this = this;
@@ -1854,12 +1919,24 @@ $(weego.init());
                             })
                             file.previewElement.appendChild(removeButton);
                         });
+                        this.on("removedfile", function(file) {
+                            $.ajax({
+                                url: '/delUploadImage/' + _id + '/' + file.name,
+                                success: function(data) {
+                                    if (data.status == 'success') {
+                                        console.log('删除成功');
+                                    }
+                                }
+                            })
+                        });
                     }
                 })
             }
-            if(weego.type == "restaurants" || weego.type == "shoppings"){
+            if (weego.type == "restaurants" || weego.type == "shoppings") {
                 var EditCityItemView = new weego.EditCityItemView();
                 $('#app').html('').append(EditCityItemView.render(weego.result1.cityitem).$el);
+                var images = weego.result1.cityitem.image;
+                var _id = weego.result1.cityitem._id;
                 $('#resshop-dropzone').dropzone({
                     addRemoveLinks: true,
                     headers: {
@@ -1867,12 +1944,39 @@ $(weego.init());
                         type: weego.result1.cityitem.type
                     },
                     init: function() {
-                        this.on("success", function(file) {
-                            console.log("File " + file.name + "uploaded");
-                        });
-                        this.on("removedfile", function(file) {
-                            console.log("File " + file.name + "removed");
-                        });
+                        for (var i = 0; i < images.length; i++) {
+                            var mockFile = {
+                                name: images[i],
+                                size: 12345
+                            };
+                            // Call the default addedfile event handler
+                            this.emit("addedfile", mockFile);
+                            var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
+                            removeButton.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                $el = $(e.currentTarget);
+                                $.ajax({
+                                    url: '/setCoverImg/' + _id + '/' + images[i],
+                                    success: function(data) {
+                                        if (data) {
+                                            for (var i = 0; i < $('.setcover').length; i++) {
+                                                $('.setcover').eq(i).removeClass('btn-success');
+                                            };
+                                            $el.addClass('btn-success');
+                                        }
+                                    }
+                                });
+                            })
+                            mockFile.previewElement.appendChild(removeButton);
+
+                            // And optionally show the thumbnail of the file:
+                            if (weego.type == "restaurants") {
+                                this.emit("thumbnail", mockFile, "http://weegotest.b0.upaiyun.com/restaurants/origin/" + images[i]);
+                            } else if (weego.type == "shoppings") {
+                                this.emit("thumbnail", mockFile, "http://weegotest.b0.upaiyun.com/shoppings/origin/" + images[i]);
+                            }
+                        };
                         this.on("addedfile", function(file) {
                             var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
                             var _this = this;
@@ -1891,24 +1995,59 @@ $(weego.init());
                             })
                             file.previewElement.appendChild(removeButton);
                         });
+                        this.on("removedfile", function(file) {
+                            $.ajax({
+                                url: '/delUploadImage/' + _id + '/' + file.name,
+                                success: function(data) {
+                                    if (data.status == 'success') {
+                                        console.log('删除成功');
+                                    }
+                                }
+                            })
+                        });
                     }
                 })
             }
-            if(weego.type == "shopareas"){
+            if (weego.type == "shopareas") {
                 var EditAreaView = new weego.EditAreaView();
                 $('#app').html('').append(EditAreaView.render(weego.result1.cityitem).$el);
+                var images = weego.result1.cityitem.image;
+                var _id = weego.result1.cityitem._id;
                 $('#shoparea-dropzone').dropzone({
                     addRemoveLinks: true,
-                    headers:{
+                    headers: {
                         _id: weego.result1.cityitem._id
                     },
                     init: function() {
-                        this.on("success", function(file) {
-                            console.log("File " + file.name + "uploaded");
-                        });
-                        this.on("removedfile", function(file) {
-                            console.log("File " + file.name + "removed");
-                        });
+                        for (var i = 0; i < images.length; i++) {
+                            var mockFile = {
+                                name: images[i],
+                                size: 12345
+                            };
+                            // Call the default addedfile event handler
+                            this.emit("addedfile", mockFile);
+                            var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
+                            removeButton.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                $el = $(e.currentTarget);
+                                $.ajax({
+                                    url: '/setCoverImg/' + _id + '/' + images[i],
+                                    success: function(data) {
+                                        if (data) {
+                                            for (var i = 0; i < $('.setcover').length; i++) {
+                                                $('.setcover').eq(i).removeClass('btn-success');
+                                            };
+                                            $el.addClass('btn-success');
+                                        }
+                                    }
+                                });
+                            })
+                            mockFile.previewElement.appendChild(removeButton);
+
+                            // And optionally show the thumbnail of the file:
+                            this.emit("thumbnail", mockFile, "http://weegotest.b0.upaiyun.com/shoparea/origin/" + images[i]);
+                        };
                         this.on("addedfile", function(file) {
                             var removeButton = Dropzone.createElement("<button type='button' class='setcover btn btn-default'>设为封面</button>");
                             var _this = this;
@@ -1927,6 +2066,16 @@ $(weego.init());
                             })
                             file.previewElement.appendChild(removeButton);
                         });
+                        this.on("removedfile", function(file) {
+                            $.ajax({
+                                url: '/delUploadImage/' + _id + '/' + file.name,
+                                success: function(data) {
+                                    if (data.status == 'success') {
+                                        console.log('删除成功');
+                                    }
+                                }
+                            })
+                        });
                     }
                 })
             }
@@ -1937,14 +2086,14 @@ $(weego.init());
             var currentuser = weego.result1.currentuser;
             auditmsg.countryname = weego.result1.countryname;
             auditmsg.item_id = weego.result1.cityitem._id;
-            auditmsg.city_name = weego.result1.cityitem.city_name ? weego.result1.cityitem.city_name:weego.result1.cityitem.cityname;
-            if(weego.type == "attractions"){
+            auditmsg.city_name = weego.result1.cityitem.city_name ? weego.result1.cityitem.city_name : weego.result1.cityitem.cityname;
+            if (weego.type == "attractions") {
                 auditmsg.name = weego.result1.cityitem.attractions;
-            }else if(weego.type == "restaurants"){
+            } else if (weego.type == "restaurants") {
                 auditmsg.name = weego.result1.cityitem.name;
-            }else if(weego.type == "shopareas"){
+            } else if (weego.type == "shopareas") {
                 auditmsg.name = weego.result1.cityitem.area_name;
-            }else{
+            } else {
                 auditmsg.name = weego.result1.cityitem.name;
             }
             auditmsg.type = weego.type;
@@ -1956,8 +2105,8 @@ $(weego.init());
             auditmsg.status = 1;
             if (auditmsg.editorname == auditmsg.auditorname) {
                 alert('编辑和审核不能为同一人');
-            }else {
-                $('#submitaudit').addClass('btn-warning ').text('审核中').attr('disabled','disabled');
+            } else {
+                $('#submitaudit').addClass('btn-warning ').text('审核中').attr('disabled', 'disabled');
                 // $.ajax({
                 //     url: '/savetoauditing',
                 //     method: 'POST',
@@ -1995,69 +2144,73 @@ $(weego.init());
         },
         citypass: function() {
             console.log(weego.result1);
-            var itemname ;
-            if(weego.type == "attractions"){
+            var itemname;
+            if (weego.type == "attractions") {
                 itemname = weego.result1.cityitem.attractions;
-            }else if( weego.type == "restaurants"){
+            } else if (weego.type == "restaurants") {
                 itemname = weego.result1.cityitem.name;
-            }else if(weego.type == "shopareas"){
+            } else if (weego.type == "shopareas") {
                 itemname = weego.result1.cityitem.area_name;
-            }else{
+            } else {
                 itemname = weego.result1.cityitem.name
             }
             var model = {
-                type            : weego.type,
-                _id             : weego.result1.cityitem._id + '',
-                city_name       : weego.result1.cityitem.cityname,
-                name            : itemname,
-                status          : '2',
+                type: weego.type,
+                _id: weego.result1.cityitem._id + '',
+                city_name: weego.result1.cityitem.cityname,
+                name: itemname,
+                status: '2',
                 attractionscount: weego.result1.cityitem.attractionscount,
                 restaurantscount: weego.result1.cityitem.restaurantscount,
-                shopareacount   : weego.result1.cityitem.shopareacount,
-                shoppingscount  : weego.result1.cityitem.shoppingscount,
-                editorname      : weego.result1.audits.editorname,
-                editdate        : weego.result1.audits.editdate,
-                auditorname     : weego.result1.audits.auditorname,
-                auditdate       : new Date().toLocaleString()
+                shopareacount: weego.result1.cityitem.shopareacount,
+                shoppingscount: weego.result1.cityitem.shoppingscount,
+                editorname: weego.result1.audits.editorname,
+                editdate: weego.result1.audits.editdate,
+                auditorname: weego.result1.audits.auditorname,
+                auditdate: new Date().toLocaleString()
             }
             model.auditcomment = $('#auditcomment').val();
-            $('#citypass').attr('disabled','disabled');
+            $('#citypass').attr('disabled', 'disabled');
             $('#cityunpass').remove();
-            $.post('/passthiscityitem/', { model: model } , function(data) {
+            $.post('/passthiscityitem/', {
+                model: model
+            }, function(data) {
 
             })
         },
         cityunpass: function() {
-            var itemname ;
-            if(weego.type == "attractions"){
+            var itemname;
+            if (weego.type == "attractions") {
                 itemname = weego.result1.cityitem.attractions;
-            }else if( weego.type == "restaurants"){
+            } else if (weego.type == "restaurants") {
                 itemname = weego.result1.cityitem.name;
-            }else if(weego.type == "shopareas"){
+            } else if (weego.type == "shopareas") {
                 itemname = weego.result1.cityitem.area_name;
-            }else{
+            } else {
                 itemname = weego.result1.cityitem.name
             }
             var model = {
-                type            : weego.type,
-                city_name       : weego.result1.cityitem.cityname,
-                name            : itemname,
-                status          : '-1',
+                type: weego.type,
+                city_name: weego.result1.cityitem.cityname,
+                name: itemname,
+                status: '-1',
                 attractionscount: weego.result1.cityitem.attractionscount,
                 restaurantscount: weego.result1.cityitem.restaurantscount,
-                shopareacount   : weego.result1.cityitem.shopareacount,
-                shoppingscount  : weego.result1.cityitem.shoppingscount,
-                editorname      : weego.result1.audits.editorname,
-                editdate        : weego.result1.audits.editdate,
-                auditorname     : weego.result1.audits.auditorname,
-                auditdate       : new Date().toLocaleString()
+                shopareacount: weego.result1.cityitem.shopareacount,
+                shoppingscount: weego.result1.cityitem.shoppingscount,
+                editorname: weego.result1.audits.editorname,
+                editdate: weego.result1.audits.editdate,
+                auditorname: weego.result1.audits.auditorname,
+                auditdate: new Date().toLocaleString()
             }
             model.auditcomment = $('#auditcomment').val();
             console.log(model);
-            $('#cityunpass').attr('disabled','disabled');
+            $('#cityunpass').attr('disabled', 'disabled');
             $('#citypass').remove();
 
-            $.post('/passthiscityitem/', { model: model },function(data) {
+            $.post('/passthiscityitem/', {
+                model: model
+            }, function(data) {
 
             })
         }
@@ -2239,7 +2392,7 @@ $(weego.init());
             recommand_center._id = 'center';
 
             var citymodel = {
-                _id     : $('#cityname').attr('data-id'),
+                _id: $('#cityname').attr('data-id'),
                 continents: $("#continents").val(),
                 countryname: $("#country").val(),
                 cityname: $("#cityname").val(),
@@ -2263,10 +2416,12 @@ $(weego.init());
                 longitude: $("#longitude").val(),
                 weoid: $("#weoid").val()
             };
-            $.post('/updatecity',{model: citymodel},function(data){
-                if(data){
+            $.post('/updatecity', {
+                model: citymodel
+            }, function(data) {
+                if (data) {
                     location.reload();
-                }else{
+                } else {
                     alert('更新失败');
                 }
             })
@@ -2295,7 +2450,7 @@ $(weego.init());
     });
     //restaurant and shopping
     weego.EditCityItemView = Backbone.View.extend({
-        tagName : 'div',
+        tagName: 'div',
         render: function(data) {
             console.log(data);
 
@@ -2712,12 +2867,12 @@ $(weego.init());
             }
             var item = {
                 name: $('#name').val(),
-                _id: $('#name').attr('data-value')+'',
+                _id: $('#name').attr('data-value') + '',
                 type: $('#property-type').val(),
                 address: $('#address').val(),
                 tel: $('#tel').val(),
                 city_name: $('#name').attr('cityname'),
-                city_id: $('#name').attr('cityid')+'',
+                city_id: $('#name').attr('cityid') + '',
                 latitude: $('#latitude').val(),
                 longitude: $('#longitude').val(),
                 postal_code: $('#postal_code').val(),
@@ -2739,7 +2894,7 @@ $(weego.init());
                 category: categorys,
                 lifetag: lifetags,
                 open_time: opentimes,
-                
+
                 am: $('#am').prop('checked'),
                 pm: $('#pm').prop('checked'),
                 ev: $('#ev').prop('checked')
@@ -2766,8 +2921,8 @@ $(weego.init());
                 if (!item.is_big) {
                     item.in_big_id = $('#big_select').val();
                 }
-                item.area_id= $('#area_select').val();
-                item.area_name= $('#area_select').find("option:selected").text();
+                item.area_id = $('#area_select').val();
+                item.area_name = $('#area_select').find("option:selected").text();
             }
             if (item.name == '' || item.name == null || item.name == undefined) {
                 alert('名称不能为空！');
@@ -2869,12 +3024,14 @@ $(weego.init());
             //     });
             // }
             console.log(item);
-            $.post('/updatecityitem',{model:item}, function(data){
+            $.post('/updatecityitem', {
+                model: item
+            }, function(data) {
 
             })
         }
     });
-     weego.EditAreaView = Backbone.View.extend({
+    weego.EditAreaView = Backbone.View.extend({
         tagName: 'div',
         render: function(data) {
             console.log(data);
@@ -2886,20 +3043,22 @@ $(weego.init());
         events: {
             'click #save': 'save',
         },
-        save:function(){
+        save: function() {
             console.log('888888888');
             var areamodel = {
-                _id: $('#area_name').attr('data-value')+'',
+                _id: $('#area_name').attr('data-value') + '',
                 area_name: $('#area_name').val(),
                 area_enname: $('#area_enname').val(),
                 area_introduce: $('#area-introduce').val(),
                 address: $('#area-address').val(),
                 latitude: $('#area-latitude').val(),
                 longitude: $('#area-longitude').val(),
-                city_id: $('#area_name').attr('cityid')+''
+                city_id: $('#area_name').attr('cityid') + ''
             }
-            $.post('/updateareaitem',{model: areamodel}, function(data){
-                if(data){
+            $.post('/updateareaitem', {
+                model: areamodel
+            }, function(data) {
+                if (data) {
                     console.log('保存成功');
                 }
             })
@@ -3147,10 +3306,12 @@ $(weego.init());
                 longitude: $("#longitude").val()
             }
             console.log(attractionmodel);
-            $.post('/updateattritem',{model: attractionmodel},function(data){
-                if(data.status === 'success'){
+            $.post('/updateattritem', {
+                model: attractionmodel
+            }, function(data) {
+                if (data.status === 'success') {
                     location.reload();
-                }else{
+                } else {
                     console.log('save attraction failed');
                 }
             })
@@ -3451,7 +3612,7 @@ $(weego.init());
         }
     });
 
-   
+
     weego.AttractionsView = Backbone.View.extend({
         tagName: 'tr',
         render: function() {
@@ -3956,7 +4117,6 @@ $(weego.init());
             }
         });
     }
-
 
     function codeAddress() {
         marker.setMap(null);

@@ -429,6 +429,12 @@
         </ol>
         <div class="citypreview_model">
             <dl class="dl-horizontal">
+                <dt>封面图片</dt>
+                <dd class="cityimages">
+                <img src="http://weegotest.b0.upaiyun.com/city/imgsizeC2/{{city.coverImageName}}">
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
                 <dt>图片</dt>
                 <dd class="cityimages">
                 {{#each city.image}}
@@ -842,6 +848,12 @@
         <div class="model">
             <h4>基本信息</h4>
             <dl class="dl-horizontal">
+                <dt>封面图片</dt>
+                <dd class="cityimages">
+                <img src="http://weegotest.b0.upaiyun.com/restaurant/origin/{{cover_image}}">
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
                 <dt>图片</dt>
                 {{#each image}}
                 <dd class="cityimages">
@@ -1104,10 +1116,16 @@
         <div class="model">
          {{#with shoparea}}
             <dl class="dl-horizontal">
+                <dt>封面图片</dt>
+                <dd class="cityimages">
+                <img src="http://weegotest.b0.upaiyun.com/shoparea/origin/{{cover_image}}">
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
                 <dt>图片</dt>
                 {{#each image}}
                 <dd class="cityimages">
-                <img src="http://weegotest.b0.upaiyun.com/area/origin/{{this}}">
+                <img src="http://weegotest.b0.upaiyun.com/shoparea/origin/{{this}}">
                 </dd>
                 {{/each}}
             </dl>
