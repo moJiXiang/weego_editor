@@ -77,6 +77,47 @@ exports.updateShowFlag = function(_id,show_flag,callback){
 	});
 };
 
+exports.updatemsg = function(one, callback) {
+	var _id = one._id;
+	var comments = [];
+		comments.push(one.comments);
+	Shopping.update({_id: new ObjectID(_id)},{$set:{
+		name: name,
+		city_name: city_name,
+		city_id: city_id,
+		latitude: latitude,
+		longitude: longitude,
+		address: address,
+		postal_code: postal_code,
+		introduce: introduce,
+		tips: tips,
+		tel: tel,
+		category: category,
+		lifetag: lifetag,
+		open_time: open_time,
+		show_flag: show_flag,
+		price_level: price_level,
+		price_desc: price_desc,
+		url: url,
+		website: website,
+		recommand_flag: recommand_flag,
+		recommand_duration: recommand_duration,
+		index_flag: index_flag,
+		local_flag: local_flag,
+		am: am,
+		pm: pm,
+		ev: ev,
+		area_id: area_id,
+		area_name: area_name,
+		is_big: is_big,
+		in_big_id: in_big_id,
+		rating: rating,
+		ranking: ranking,
+		reviews: reviews,
+		comments: comments
+	}},callback)
+}
+
 exports.update = function(one,callback){
 	exports.getShopping(new ObjectID(one._id+''),function(err,shopping){
 		if(shopping){

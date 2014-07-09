@@ -1659,7 +1659,7 @@ $(weego.init());
                     });
                     this.on("removedfile", function(file) {
                         $.ajax({
-                            url: '/delUploadImage/' + _id + '/' + file.name,
+                            url: '/delCoverImage/' + _id + '/' + file.name,
                             success: function(data) {
                                 if (data.status == 'success') {
                                     console.log('删除成功');
@@ -1692,7 +1692,7 @@ $(weego.init());
 
                     this.on("removedfile", function(file) {
                         $.ajax({
-                            url: '/delUploadImage/' + _id + '/' + file.name,
+                            url: '/delBackgroundImage/' + _id + '/' + file.name,
                             success: function(data) {
                                 if (data.status == 'success') {
                                     console.log('删除成功');
@@ -1982,9 +1982,9 @@ $(weego.init());
 
                                 // And optionally show the thumbnail of the file:
                                 if (weego.type == "restaurants") {
-                                    this.emit("thumbnail", mockFile, "http://weegotest.b0.upaiyun.com/restaurants/origin/" + images[i]);
+                                    this.emit("thumbnail", mockFile, "http://weegotest.b0.upaiyun.com/restaurant/origin/" + images[i]);
                                 } else if (weego.type == "shoppings") {
-                                    this.emit("thumbnail", mockFile, "http://weegotest.b0.upaiyun.com/shoppings/origin/" + images[i]);
+                                    this.emit("thumbnail", mockFile, "http://weegotest.b0.upaiyun.com/shopping/origin/" + images[i]);
                                 }
                             };
                         }
@@ -2009,7 +2009,7 @@ $(weego.init());
                         });
                         this.on("removedfile", function(file) {
                             $.ajax({
-                                url: '/delUploadImage/' + _id + '/' + file.name,
+                                url: '/delUploadImageLife/' + _id + '/' + file.name + '/' + type,
                                 success: function(data) {
                                     if (data.status == 'success') {
                                         console.log('删除成功');
@@ -2084,7 +2084,7 @@ $(weego.init());
                         });
                         this.on("removedfile", function(file) {
                             $.ajax({
-                                url: '/delUploadImage/' + _id + '/' + file.name,
+                                url: '/delareaimg/' + _id + '/' + file.name,
                                 success: function(data) {
                                     if (data.status == 'success') {
                                         console.log('删除成功');
@@ -3043,7 +3043,7 @@ $(weego.init());
             $.post('/updatecityitem', {
                 model: item
             }, function(data) {
-
+                location.reload();
             })
         }
     });

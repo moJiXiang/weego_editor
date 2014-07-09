@@ -1254,6 +1254,20 @@
         <div class="model">
         {{#with shopping}}
             <dl class="dl-horizontal">
+                <dt>封面图片</dt>
+                <dd class="cityimages">
+                <img src="http://weegotest.b0.upaiyun.com/shopping/origin/{{cover_image}}">
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>图片</dt>
+                {{#each image}}
+                <dd class="cityimages">
+                <img src="http://weegotest.b0.upaiyun.com/shopping/origin/{{this}}">
+                </dd>
+                {{/each}}
+            </dl>
+            <dl class="dl-horizontal">
               <dt>购物区域</dt>
               <dd>{{area_name}}</dd>
             </dl>
@@ -1710,9 +1724,27 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="attraction_overview">Attractions Overview</label>
+                        <label class="control-label" for="short_introduce">short_introduce</label>
+                        <div class="controls">
+                            <textarea id="short_introduce" style="width:80%;height:60px">{{city.en_info.short_introduce}}</textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="attraction_overview">景点概述</label>
                         <div class="controls">
                             <textarea id="attraction_overview" style="width:80%;height:60px">{{city.attraction_overview}}</textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="attraction_overview">Attractions Overview</label>
+                        <div class="controls">
+                            <textarea id="attraction_overview" style="width:80%;height:60px">{{city.en_info.attraction_overview}}</textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="restaurant_overview">餐馆概述</label>
+                        <div class="controls">
+                            <textarea id="restaurant_overview" style="width:80%;height:60px">{{city.en_info.restaurant_overview}}</textarea>
                         </div>
                     </div>
                     <div class="control-group">
@@ -1722,9 +1754,15 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="shopping_overview">Shoppings Overview</label>
+                        <label class="control-label" for="shopping_overview">购物概述</label>
                         <div class="controls">
                             <textarea id="shopping_overview" style="width:80%;height:60px">{{city.shopping_overview}}</textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="shopping_overview">Shoppings Overview</label>
+                        <div class="controls">
+                            <textarea id="shopping_overview" style="width:80%;height:60px">{{city.en_info.shopping_overview}}</textarea>
                         </div>
                     </div>
                     
