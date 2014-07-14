@@ -130,6 +130,11 @@ var AreaView = Backbone.View.extend({
         var address = $('#area-address').val();
         var latitude = $('#area-latitude').val();
         var longitude = $('#area-longitude').val();
+        var traffic = $('#area-traffic').val();
+        var tips = $('#area-tips').val();
+        var tel = $('#area-tel').val();
+        var website = $('#area-website').val();
+        var opentime = $('#area-opentime').val();
         
         if(city_name=='' || city_name==null || city_name==undefined){
             alert('城市不能为空！');
@@ -146,9 +151,14 @@ var AreaView = Backbone.View.extend({
             area_name: area_name,
             area_enname: area_enname,
             area_introduce: introdouce,
+            traffic: traffic,
+            tips: tips,
             address: address,
             latitude: latitude,
-            longitude: longitude
+            longitude: longitude,
+            tel: tel,
+            website: website,
+            open_time: opentime
         };
         if(this.model == null || this.model.get('_id') == null)
         {

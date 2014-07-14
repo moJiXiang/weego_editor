@@ -531,6 +531,7 @@ exports.saveCity = function (req, res) {
 
     data.subLabel = sub;
     data.random = Math.random();
+    console.log(data);
     cityProvider.insert(data, {safe:true}, function (err, result) {
         if (err) {
             res.send({isSuccess:false, info:err});
@@ -593,6 +594,7 @@ exports.updateCity = function (req, res) {
 
 exports.updateCityNew = function (req, res){
     var one = req.body.model;
+    console.log(one);
     City.updatemsg(one,function(err, result){
         if(err){
             console.log(err);
@@ -630,7 +632,7 @@ exports.updateResShopItem = function (req, res){
         })
     }
     if(type == '2'){
-        Shopping.update(one, function(err, result) {
+        Shopping.updatemsg(one, function(err, result) {
             if (err) {
                 console.log(err)
             } else {
@@ -644,8 +646,7 @@ exports.updateResShopItem = function (req, res){
 
 exports.updateAreaItem = function (req, res){
     var one = req.body.model;
-    console.log(one);
-    Area.update(one, function(err, result) {
+    Area.updatemsg(one, function(err, result) {
         if (err) {
             console.log(err)
         } else {

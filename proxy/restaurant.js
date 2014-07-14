@@ -142,40 +142,44 @@ exports.update = function(one,callback){
 
 exports.updatemsg = function(one, callback) {
 	var _id = one._id;
-	console.log(_id);
+	console.log(one);
 	var comments = [];
 	comments.push(one.comments);
 	Restaurant.update({_id: new ObjectID(_id)},{$set:{
 			name : one.name,
 			city_name : one.city_name,
-			city_id : one.city_id,
+			city_id : new ObjectID(one.city_id),
 			latitude : one.latitude,
 			longitude : one.longitude,
 			address : one.address,
-			postal_code : one.postal_code,
 			introduce : one.introduce,
 			tips : one.tips,
 			tel : one.tel,
-			category : one.category,
-			lifetag : one.lifetag,
-			// open_time : one.open_time,
+			// category : one.category,
+			// lifetag : one.lifetag,
+			open_time : one.open_time,
 			show_flag : one.show_flag,
-			price_level : one.price_level,
-			price_desc : one.price_desc,
+			// price_level : one.price_level,
+			// price_desc : one.price_desc,
 			url : one.url,
 			website : one.website,
 			recommand_flag : one.recommand_flag,
 			recommand_duration : one.recommand_duration,
 			index_flag : one.index_flag,
-			am : one.am,
-			pm : one.pm,
-			ev : one.ev,
+			// am : one.am,
+			// pm : one.pm,
+			// ev : one.ev,
 			rating : one.rating,
 			ranking : one.ranking,
-			// reviews : one.reviews,
-			// comments : comments,
-			// tags : one.tags,
-			// info : one.info,
+			reviews : one.reviews,
+			comments : comments,
+			tags : one.tags,
+			info : one.info,
+			en_info : {
+				introduce : one.en_info.introduce,
+				tips 	  : one.en_info.tips,
+				comments  : one.en_info.comments
+			}
 	}},callback)
 }
 exports.updateAudit = function(one, callback){
@@ -190,12 +194,13 @@ exports.updateAudit = function(one, callback){
 	})
 }
 exports.newAndSave = function(one,callback){
+	console.log(one.city_id);
 	var restaurant = new Restaurant();
 	var comments = [];
 	comments.push(one.comments);
 	restaurant.name = one.name;
 	restaurant.city_name = one.city_name;
-	restaurant.city_id = one.city_id;
+	restaurant.city_id = new ObjectID(one.city_id);
 	restaurant.latitude = one.latitude;
 	restaurant.longitude = one.longitude;
 	restaurant.address = one.address;
@@ -226,10 +231,10 @@ exports.newAndSave = function(one,callback){
 	restaurant.ranking = one.ranking;
 	restaurant.reviews = one.reviews;
 	restaurant.comments = comments;
-	restaurant.tags = one.tags;
+	// restaurant.tags = one.tags;
 	// restaurant.michilin_flag = one.michilin_flag;
 
-	restaurant.info = one.info;
+	// restaurant.info = one.info;
 	restaurant.save(function (err) {
 		callback(err, restaurant);
 	});

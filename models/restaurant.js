@@ -32,6 +32,7 @@ var RestaurantSchema = new Schema({
     area_id           : { type: ObjectId},
     area_name         : { type: String},
     rating            : { type: Number ,default: 3},
+    ranking            : { type: Number ,default: 3},
     rating_service    : { type: Number ,default: 3},
     rating_env        : { type: Number ,default: 3},
     rating_food       : { type: Number ,default: 3},
@@ -69,6 +70,8 @@ var RestaurantSchema = new Schema({
     auditdate          : String,
     en_info: {
         introduce      : String,
+        tips           : String,
+        comments       : String,
         status         : String,
         editorname     : String,
         editdate       : String,

@@ -76,6 +76,13 @@ exports.updatemsg = function(one, callback){
 		pm 					: one.pm,
 		ev 					: one.ev,
 		createFlag 			: '0',
+		en_info : {
+			opentime		: one.en_info.opentime,
+			traffic_info	: one.en_info.traffic_info,
+			short_introduce : one.en_info.short_introduce,
+			introduce 		: one.en_info.introduce,
+			tips 			: one.en_info.tips
+		}
 	}},callback)
 }
 

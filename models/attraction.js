@@ -43,7 +43,14 @@ var AttractionSchema = new Schema({
     editorname         : String,
     editdate           : String,
     auditorname        : String,
-    auditdate          : String
+    auditdate          : String,
+    en_info: {
+        opentime       : String,
+        traffic_info   : String,
+        short_introduce: String,
+        introduce      : String,
+        tips           : String
+    }
 }, {
     collection : 'latestattractions'
 });

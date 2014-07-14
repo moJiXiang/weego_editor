@@ -12,17 +12,27 @@ var AreaSchema = new Schema({
 	city_name: { type: String },
 	area_name: { type: String },
 	area_enname: { type: String },
+  short_introduce : { type: String },
 	area_introduce: {type: String},
 	address: {type: String},
+  open_time: { type: String },
 	latitude: { type: String },
-  	longitude: { type: String },
-  	image : { type: Array },
-  	cover_image: {type : String},
+	longitude: { type: String },
+	image : { type: Array },
+	cover_image: {type : String},
+  traffic : {type : String },
+  tips : { type : String},
+  tel: { type: String },
+  website: { type: String },
 	status             : String,
     editorname         : String,
     editdate           : String,
     auditorname        : String,
     auditdate          : String,
+    en_info 		:{
+    	introduce : String,
+    	address : 	String
+    }
 });
 
 mongoose.model('Area', AreaSchema);

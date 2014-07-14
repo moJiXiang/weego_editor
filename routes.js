@@ -11,6 +11,7 @@ module.exports = function(app) {
 	app.get('/getLabelByPage/:pageLimit/:pageIndex', routes.label.getLabelByPage);
 	app.get('/getLabelByLevel/:num',routes.label.getLabelByLevel);
 	app.get('/getLabelByLabelID/:labelID',routes.label.getLabelByLabelID);
+	app.get('/getLabelByLabId/:id', routes.label.getLabelByLabId);
 	app.get('/getLabelByID/:id',routes.label.getLabelByID);
 	app.get('/attractionsimage/:imageId', routes.attractions.getAttractionsImage);
 	app.get('/delUploadImage/:_id/:imageName', routes.attractions.delUploadImage);
@@ -99,6 +100,8 @@ module.exports = function(app) {
 	app.del('/category/:categoryId', routes.life.removeCategory);
 	app.put('/category/:categoryId', routes.life.updateCategory);
 	app.post('/category', routes.life.addNewCategory);
+	app.post('/addcityitem', routes.life.addNewRestaurant);
+
 	app.get('/categorys/:pageLimit/:pageIndex/:type', routes.life.getCategoryByPage);
 	app.get('/categorys/:pageLimit/:pageIndex', routes.life.getCategoryByPage);
 	app.get('/getCategorysByQuery/:type/:name?',routes.life.getCategorysByQuery);

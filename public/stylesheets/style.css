@@ -298,12 +298,12 @@ pre.editwords{
     border-left: 3px solid #eee;
 }
 .citypreview_model{
-    width: 960px;
+    width: 60%;
 }
 .edithistory{
     position: fixed;
     top: 100px;
-    left: 1120px;
+    right: 0;
     width: 300px;
 }
 .edhis-cn{
@@ -313,6 +313,8 @@ pre.editwords{
     background-color: #fff;
 }
 .edhis-cn dt {
+    float: none;
+    width: 100%;
     background-color: #929292;
     color:#fff;
     text-align:center;
@@ -352,4 +354,11 @@ pre.editwords{
 }
 .dropzone{
     min-height: 128px;
+}
+.tagsbtn{
+    float: left;
+    margin-right: 10px;
+}
+#auditorname{
+    width: 120px;
 }

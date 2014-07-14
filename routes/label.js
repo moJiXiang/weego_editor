@@ -139,6 +139,16 @@ exports.getLabelByLevel = function (req, res) {
          });
      }
  }
+ exports.getLabelByLabId = function (req, res){
+    var id = req.params.id;
+    labelProvider.findOne({_id: new ObjectID(id)}, function(err, result) {
+        if(err){
+            res.send({err: err});
+        } else {
+            res.send(result);
+        }
+    })
+ }
 exports.getLabel = function (req, res) {
     if (req.params.labelID) {
         labelProvider.findOne({_id:new ObjectID(req.params.labelID)}, {}, function (err, result) {

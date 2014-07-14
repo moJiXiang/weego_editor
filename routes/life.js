@@ -355,6 +355,7 @@ exports.addNewRestaurant = function(req, res){
     var restaurant = req.body;
     Restaurant.newAndSave(restaurant,  function (err, result) {
         if (err) {
+            throw err;
             res.send({isSuccess:false, info:err});
         } else {
             res.send({isSuccess:true, _id:result._id,user_id:req.session.user._id});

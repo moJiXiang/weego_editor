@@ -42,7 +42,7 @@ exports.update = function (one, callback) {
 exports.updatemsg = function(one, callback) {
 
 	var city_id = one._id;
-
+	console.log(one);
 	City.update({
 		_id: new ObjectID(city_id)
 	}, {
@@ -55,7 +55,7 @@ exports.updatemsg = function(one, callback) {
 	        countryname         :   one.countryname,
 	        // // countrycode         :   one.countrycode,
 	        recommand_day       :   one.recommand_day,
-	        recommand_indensity :   one.recommand_indensity,
+	        recommand_intensity :   one.recommand_intensity,
 	        recommand_center    :   one.recommand_center,
 	        introduce           :   one.introduce,
 	        short_introduce     :   one.short_introduce,
@@ -71,6 +71,15 @@ exports.updatemsg = function(one, callback) {
 	        latitude            :   one.latitude,
 	        longitude           :   one.longitude,
 	        weoid               :   one.weoid,
+	        en_info 			: {
+	        	short_introduce : one.en_info.short_introduce,
+	        	attraction_overview: one.en_info.attraction_overview,
+	        	restaurant_overview: one.en_info.restaurant_overview,
+	        	shopping_overview: one.en_info.shopping_overview,
+	        	introduce 		: one.en_info.introduce,
+	        	tips 			: one.en_info.tips,
+	        	traffic 		: one.en_info.traffic
+	        }
 		}
 	},{safe: true}, callback)
 

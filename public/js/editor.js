@@ -27,6 +27,7 @@ $(weego.init());
             "allCountries/:countryname": "showCountry",
             "allCountries/:countryname/:cityname": "showCity",
             "allCountries/:countryname/:cityname/:type": "showCityItems",
+            "allCountries/:countryname/:cityname/:type/new": "addNewCityItems",
             "allCountries/:countryname/:cityname/:type/:itemname": "showItem",
             "city/:pageno": "city", //根据页码展示city
             "city/:pageno/:country/:cityname": "city", //根据页码展示city
@@ -257,6 +258,7 @@ $(weego.init());
                     }
                 }
             };
+            console.log($('#CityGrid'));
             $('#CityGrid').datagrid({
                 stretchHeight: false, //forces the datagrid to take up all the height of the containing HTML element. If false, it expands (& contracts) to fit the amount of data it contains.
                 dataSource: new AjaxDataSource({
@@ -403,6 +405,7 @@ $(weego.init());
 
                             // Prepare data to return to Datagrid
                             console.log(response);
+                            // weego.city_id  = response.restaurants[0].city_id;
                             if (type == "restaurants") {
                                 var data = response.restaurants;
                                 console.log(response);
@@ -659,6 +662,17 @@ $(weego.init());
 
                 });
             }
+        },
+        addNewCityItems: function(countryname, cityname, type){
+                var newCityItemView = new weego.NewCityItemView();
+                console.log(weego.city_id);
+                var data = {
+                    countryname: countryname,
+                    cityname: cityname,
+                    type: type,
+                    city_id: weego.city_id
+                }
+                $('#app').html('').append(newCityItemView.render(data).$el);
         },
         showItem: function(countryname, cityname, type, itemname) {
             $.ajax({
@@ -1575,6 +1589,8 @@ $(weego.init());
             var shopareacount = data.results.shopareacount;
             var shoppingscount = data.results.shoppingscount;
             // var masterLabel         = data.results.masterLabel.label;
+            //获得主标签
+            this.getLabelByLabelID(city.masterLabel);
             $(this.el).html(Handlebars.compile($('#city_preview').html())({
                 city: city,
                 currentuser: currentuser,
@@ -1594,6 +1610,26 @@ $(weego.init());
             'click #submitaudit': 'submitaudit',
             'click #citypass': 'citypass',
             'click #cityunpass': 'cityunpass'
+        },
+        getLabelByLabelID: function(id){
+            
+            $.ajax({
+                method: 'GET',
+                url: "/getLabelByLabId/" + id,
+                dataType: "json",
+                success: function(data) {
+                    console.log('=========>'+data)
+                    // response(
+                    //     $.map(
+                    //         data.label, function(item) {
+                    //             return {
+                    //                 label: item.label,
+                    //                 value: item.label,
+                    //                 sublevel_id: item._id
+                    //             }
+                    //         }));
+                }
+            });
         },
         modify: function() {
             var EditCityView = new weego.EditCityView();
@@ -2353,25 +2389,46 @@ $(weego.init());
         showCityLocations: function() {
             // locationCity();
         },
-        addlabel: function() {
+        addlabel: function(e) {
             var $newlabel = $('<div class="control-group label-group"><label class="control-label" for="label">标签</label><div class="controls">' +
                 '<input class="input-xlarge focused labels" id="label" name="label" type="text"><input type="button" value="删除" class="del"></div></div>');
-            $('.label-group').last().after($newlabel);
+            $el = $(e.currentTarget);
+            $el.after($newlabel);
         },
-        addTip: function() {
-            var $newtip = $('<div class="controls tip-control"><input class="input-xlarge focused tipItemTitle"  name="tipItemTitle" data-value="" type="text" id="tipItemTitle">' +
+        addTip: function(e) {
+            $el = $(e.currentTarget);
+            if($el.attr('data-value')){
+                var $newtip = $('<div class="controls tip-control"><input class="input-xlarge focused en_tipItemTitle"  name="tipItemTitle" data-value="" type="text" id="tipItemTitle">' +
+                '<input type="button" value="删除" class="delTip"><textarea class="en_tipItemContent" id="tipItemContent" style="width:80%;height:50px"></textarea></div>');
+            }else{
+                var $newtip = $('<div class="controls tip-control"><input class="input-xlarge focused tipItemTitle"  name="tipItemTitle" data-value="" type="text" id="tipItemTitle">' +
                 '<input type="button" value="删除" class="delTip"><textarea class="tipItemContent" id="tipItemContent" style="width:80%;height:50px"></textarea></div>');
-            $('.tip-control').last().after($newtip);
+            }
+            $el.after($newtip);
         },
-        addTra: function() {
-            var $newtra = $('<div class="controls tra-control"><input class="input-xlarge focused traItemTitle"  name="traItemTitle" data-value="" type="text" >' +
+        addTra: function(e) {
+            $el = $(e.currentTarget);
+            if($el.attr('data-value')){
+                var $newtra = $('<div class="controls tra-control"><input class="input-xlarge focused en_traItemTitle"  name="traItemTitle" data-value="" type="text" >' +
+                '<input type="button" value="删除" class="delTra"><textarea class="en_traItemContent" style="width:80%;height:50px"></textarea></div>');
+            }else{
+                var $newtra = $('<div class="controls tra-control"><input class="input-xlarge focused traItemTitle"  name="traItemTitle" data-value="" type="text" >' +
                 '<input type="button" value="删除" class="delTra"><textarea class="traItemContent" style="width:80%;height:50px"></textarea></div>');
-            $('.tra-control').last().after($newtra);
+
+            }
+            $el.after($newtra);
         },
-        addIntr: function() {
-            var $newintr = $('<div class="controls intr-control"><input class="input-xlarge focused intrItemTitle"  name="intrItemTitle" data-value="" type="text" >' +
+        addIntr: function(e) {
+            $el = $(e.currentTarget);
+            if($el.attr('data-value')){
+                var $newintr = $('<div class="controls intr-control"><input class="input-xlarge focused en_intrItemTitle"  name="intrItemTitle" data-value="" type="text" >' +
+                '<input type="button" value="删除" class="delIntr"><textarea class="en_intrItemContent" style="width:80%;height:50px"></textarea></div>');
+            }else{
+                var $newintr = $('<div class="controls intr-control"><input class="input-xlarge focused intrItemTitle"  name="intrItemTitle" data-value="" type="text" >' +
                 '<input type="button" value="删除" class="delIntr"><textarea class="intrItemContent" style="width:80%;height:50px"></textarea></div>');
-            $('.intr-control').last().after($newintr);
+            }
+            
+            $el.after($newintr);
         },
         save: function() {
             var _this = this;
@@ -2379,7 +2436,7 @@ $(weego.init());
             for (var i = 0; i < $('.labels').length; i++) {
                 array_label.push($('.labels').eq(i).attr('data-value'));
             }
-            console.log(array_label);
+            //获取tips
             var array_tips = [];
             for (var i = 0; i < $('.tipItemTitle').length; i++) {
                 var tipItem = {};
@@ -2387,6 +2444,14 @@ $(weego.init());
                 tipItem.tipItemContent = $('.tipItemContent').eq(i).val();
                 array_tips.push(tipItem);
             }
+            var array_tips_en = [];
+            for (var i = 0; i < $('.en_tipItemTitle').length; i++) {
+                var tipItem = {};
+                tipItem.tipItemTitle = $('.en_tipItemTitle').eq(i).val();
+                tipItem.tipItemContent = $('.en_tipItemContent').eq(i).val();
+                array_tips_en.push(tipItem);
+            }
+            //获取交通
             var array_tra = [];
             for (var i = 0; i < $('.traItemTitle').length; i++) {
                 var traItem = {};
@@ -2394,6 +2459,14 @@ $(weego.init());
                 traItem.traItemContent = $('.traItemContent').eq(i).val();
                 array_tra.push(traItem);
             }
+            var array_tra_en = [];
+            for (var i = 0; i < $('.en_traItemTitle').length; i++) {
+                var traItem = {};
+                traItem.traItemTitle = $('.en_traItemTitle').eq(i).val();
+                traItem.traItemContent = $('.en_traItemContent').eq(i).val();
+                array_tra_en.push(traItem);
+            }
+            //获取简介
             var array_intr = [];
             for (var i = 0; i < $('.intrItemTitle').length; i++) {
                 var intrItem = {};
@@ -2401,6 +2474,14 @@ $(weego.init());
                 intrItem.intrItemContent = $('.intrItemContent').eq(i).val();
                 array_intr.push(intrItem);
             }
+            //获取英文简介
+            var array_intr_en = [];
+            for (var i = 0; i < $('.en_intrItemTitle').length; i++) {
+                var intrItem = {};
+                intrItem.intrItemTitle = $('.en_intrItemTitle').eq(i).val();
+                intrItem.intrItemContent = $('.en_intrItemContent').eq(i).val();
+                array_intr_en.push(intrItem);
+            };
             var recommand_center = {};
             recommand_center.name = $("#recommand_center_name").val();
             recommand_center.latitude = $("#recommand_center_latitude").val();
@@ -2422,7 +2503,7 @@ $(weego.init());
                 tips: array_tips,
                 traffic: array_tra,
                 recommand_day: $("#recommand_day").val(),
-                recommand_indensity: $("#recommand_indensity").val(),
+                recommand_intensity: $("#recommand_intensity").val(),
                 recommand_center: recommand_center,
                 hot_flag: $('input:radio[name="hot_flag"]:checked').val(),
                 show_flag: $('input:radio[name="show_flag"]:checked').val(),
@@ -2430,8 +2511,18 @@ $(weego.init());
                 masterLabel: $("#masterLabel").attr('data-value'),
                 latitude: $("#latitude").val(),
                 longitude: $("#longitude").val(),
-                weoid: $("#weoid").val()
+                weoid: $("#weoid").val(),
+                en_info: {
+                    short_introduce: $("#en_short_introduce").val(),
+                    attraction_overview: $("#en_attraction_overview").val(),
+                    restaurant_overview: $("#en_restaurant_overview").val(),
+                    shopping_overview: $("#en_shopping_overview").val(),
+                    introduce:array_intr_en,
+                    tips: array_tips_en,
+                    traffic: array_tra_en
+                }
             };
+            console.log(citymodel);
             $.post('/updatecity', {
                 model: citymodel
             }, function(data) {
@@ -2508,18 +2599,6 @@ $(weego.init());
                 $el.addClass('active');
             }
         },
-        // render: function() {
-        //     if (weego_user.globalUser.type == 1) {
-        //         this.model.set('_show_flag', true);
-        //     } else {
-        //         this.model.set('_show_flag', false);
-        //     }
-
-        //     this.model.set('user', weego_user.globalUser);
-        //     this.$el.html(this.template(this.model.toJSON()));
-        //     this.initSelect();
-        //     return this;
-        // },
         initSelect: function() {
             var cityid = this.model.get('city_id');
             var in_big_id = this.model.get('in_big_id');
@@ -2610,89 +2689,6 @@ $(weego.init());
             }
 
         },
-        // selectContinent: function() {
-        //     var continentCode = $("#continents_select").val();
-        //     $.ajax({
-        //         url: "/getCountriesByContinent/" + continentCode,
-        //         success: function(data) {
-        //             if (data.status) {
-        //                 console.log(data);
-        //                 var countries = data.countries;
-        //                 var option = '';
-        //                 for (var i = 0; i < countries.length; i++) {
-        //                     var country = countries[i];
-        //                     option += '<option value="' + country.code + '">' + country.cn_name + '</option>';
-        //                 }
-        //                 $('#country_select').html(option);
-        //             } else {
-        //                 alert('数据库异常！');
-        //             }
-        //         }
-
-        //     });
-        // },
-        // selectCountry: function() {
-        //     console.log('selectCountry');
-        //     var countryCode = $("#country_select").val();
-        //     $.ajax({
-        //         url: "/getCityByCountry/" + countryCode,
-        //         success: function(data) {
-        //             if (data.status) {
-        //                 console.log(data);
-        //                 var cities = data.cities;
-        //                 var option = '<option value=""></option>';
-        //                 for (var i = 0; i < cities.length; i++) {
-        //                     var city = cities[i];
-        //                     option += '<option value="' + city._id + '">' + city.cityname + '</option>';
-        //                 }
-        //                 $('#city_select').html(option);
-        //             } else {
-        //                 alert('数据库异常！');
-        //             }
-        //         }
-        //     });
-        // },
-        // selectCity: function() {
-        //     var cityname = $("#city_select").find("option:selected").text();
-        //     var cityid = $("#city_select").val();
-        //     $("#city").val(cityname);
-        //     if (cityid != '') {
-        //         $.ajax({
-        //             url: "/getAreasByCityId/" + cityid,
-        //             success: function(data) {
-        //                 console.log(data);
-        //                 if (data.status) {
-        //                     var areas = data.results;
-        //                     var option = '';
-        //                     for (var i = 0; i < areas.length; i++) {
-        //                         var area = areas[i];
-        //                         option += '<option value="' + area._id + '">' + area.area_name + '</option>';
-        //                     }
-        //                     $('#area_select').html(option);
-        //                 } else {
-        //                     alert('数据库异常！');
-        //                 }
-        //             }
-        //         });
-
-        //         $.ajax({
-        //             url: "/getBigShoppingByCityId/" + cityid,
-        //             success: function(data) {
-        //                 if (data.status) {
-        //                     var bigShoppings = data.results;
-        //                     var option = '';
-        //                     for (var i = 0; i < bigShoppings.length; i++) {
-        //                         var big = bigShoppings[i];
-        //                         option += '<option value="' + big._id + '">' + big.name + '</option>';
-        //                     }
-        //                     $('#big_select').html(option);
-        //                 } else {
-        //                     alert('数据库异常！');
-        //                 }
-        //             }
-        //         });
-        //     }
-        // },
         // selectArea: function() {
         //     var areaname = $("#area_select").find("option:selected").text();
         //     $("#area_name").val(areaname);
@@ -2891,7 +2887,7 @@ $(weego.init());
                 city_id: $('#name').attr('cityid') + '',
                 latitude: $('#latitude').val(),
                 longitude: $('#longitude').val(),
-                postal_code: $('#postal_code').val(),
+                // postal_code: $('#postal_code').val(),
                 introduce: $('#introduce').val(),
                 tips: $('#tips').val(),
                 show_flag: $('#show_flag').prop('checked'),
@@ -2913,7 +2909,12 @@ $(weego.init());
 
                 am: $('#am').prop('checked'),
                 pm: $('#pm').prop('checked'),
-                ev: $('#ev').prop('checked')
+                ev: $('#ev').prop('checked'),
+                en_info: {
+                    introduce   : $('#en_introduce').val(),
+                    tips        : $('#en_tips').val(),
+                    comments    : $('#en_comments').val()
+                }
             };
             if (type == '1') {
                 var info = {
@@ -2956,89 +2957,6 @@ $(weego.init());
                 $('#recommand_duration').focus();
                 return false;
             }
-
-            // if (item.city_id == '' || item.city_id == null || item.city_id == undefined) {
-            //     alert('城市不能为空！');
-            //     $('#city_select').focus();
-            //     return true;
-            // }
-
-            // if (this.model == null || this.model.get('_id') == null) {
-            //     if (type == '1')
-            //         this.model = new RestaurantModel(item);
-            //     else if (type == '2')
-            //         this.model = new ShoppingModel(item);
-            //     else
-            //         this.model = new EntertainmentModel(item);
-            //     this.model.save({}, {
-            //         success: function(model, res) {
-            //             if (res.isSuccess) {
-            //                 var auditingModel = new weego.AuditingModel({
-            //                     city_id: $("#city_select").val(),
-            //                     city_name: $("#city_select").find("option:selected").text(),
-            //                     task_id: $("#task_select").val(),
-            //                     task_name: $("#task_select").find("option:selected").text(),
-            //                     item_id: res._id,
-            //                     editor_id: res.user_id,
-            //                     type: type,
-            //                     log_type: '0',
-            //                     name: $('#name').val()
-            //                 });
-            //                 auditingModel.save(null, {
-            //                     success: function(model, res) {
-            //                         if (!res.isSuccess) {
-            //                             alert('保存信息成功，但auditing保存失败!!!！');
-            //                         } else
-            //                             alert('保存成功');
-            //                         // self.location = '/#lifes/1/'+type; 
-            //                     },
-            //                     error: function() {
-            //                         alert('保存信息成功，但auditing保存失败！');
-            //                     }
-            //                 });
-
-            //             } else {
-            //                 alert('保存失败' + res.info);
-            //             }
-
-            //         }
-            //     });
-            // } else {
-            //     this.model.save(item, {
-            //         success: function(model, res) {
-            //             if (res.isSuccess) {
-            //                 var auditingModel = new weego.AuditingModel({
-            //                     city_id: $("#city_select").val(),
-            //                     city_name: $("#city_select").find("option:selected").text(),
-            //                     task_id: $("#task_select").val(),
-            //                     task_name: $("#task_select").find("option:selected").text(),
-            //                     item_id: res._id,
-            //                     editor_id: res.user_id,
-            //                     type: type,
-            //                     log_type: '0',
-            //                     name: $('#name').val()
-            //                 });
-            //                 auditingModel.save(null, {
-            //                     success: function(model, res) {
-            //                         if (!res.isSuccess) {
-            //                             alert('保存信息成功，但auditing保存失败！');
-            //                         } else
-            //                             alert('修改成功');
-            //                         window.history.back();
-            //                         // self.location = '/#lifes/1/'+type; 
-            //                     },
-            //                     error: function() {
-            //                         alert('保存信息成功，但auditing保存失败！');
-            //                         window.history.back();
-            //                     }
-            //                 });
-            //             } else {
-            //                 alert('修改失败' + res.info);
-            //             }
-
-            //         }
-            //     });
-            // }
             console.log(item);
             $.post('/updatecityitem', {
                 model: item
@@ -3047,6 +2965,408 @@ $(weego.init());
             })
         }
     });
+
+    weego.NewCityItemView = Backbone.View.extend({
+        render: function(data) {
+            console.log(data);
+            $(this.el).html(Handlebars.compile($('#newItemEditView').html())({res: data}));
+            return this;
+        },
+        events: {
+            'change #property-type': 'selectType',
+            // 'change #continents_select': 'selectContinent',
+            // 'change #country_select': 'selectCountry',
+            // 'change #city_select': 'selectCity',
+            // 'change #area_select': 'selectArea',
+            'change #big_select': 'selectBigShopping',
+            'click #is_big': 'checkBig',
+            'click review': 'review',
+            'click #save': 'saveLife',
+            'click #top_save': 'saveLife',
+            'click #cancel': 'back',
+            'click #back': 'back',
+            'focus #addCategoryValue': 'autogetCategory',
+            'click #addCategoryValue': 'autogetCategory',
+            'click #addCategory': 'addCategory',
+            'focus #addLifetagValue': 'autogetLifetag',
+            'click #addLifetag': 'addLifetag',
+            'click #addOpentime': 'addOpentime',
+            'click .li-del': 'delLi',
+            'click #allday': 'selectAllDay',
+            'click .tagsbtn': 'choosetag'
+        },
+        choosetag: function(e) {
+            $el = $(e.currentTarget);
+            var flag = $el.hasClass('active');
+            if (flag) {
+                $el.removeClass('active');
+            } else {
+                $el.addClass('active');
+            }
+        },
+        initSelect: function() {
+            var cityid = this.model.get('city_id');
+            var in_big_id = this.model.get('in_big_id');
+            var is_big = this.model.get('is_big');
+            var area_id = this.model.get('area_id');
+            if (cityid) {
+                $.ajax({
+                    url: "/getAreasByCityId/" + cityid,
+                    success: function(data) {
+                        if (data.status) {
+                            var areas = data.results;
+                            var option = '';
+                            for (var i = 0; i < areas.length; i++) {
+                                var area = areas[i];
+                                var selected = "";
+                                if (area_id && area._id.toString() == (area_id + ''))
+                                    selected = "selected";
+                                option += '<option value="' + area._id + '" ' + selected + '>' + area.name + '</option>';
+                            }
+                            $('#area_select').html(option);
+                        } else {
+                            alert('数据库异常！');
+                        }
+                    }
+                });
+
+                $.ajax({
+                    url: "/getBigShoppingByCityId/" + cityid,
+                    success: function(data) {
+                        if (data.status) {
+                            var bigShoppings = data.results;
+                            var option = '';
+                            for (var i = 0; i < bigShoppings.length; i++) {
+                                var big = bigShoppings[i];
+                                var selected = "";
+                                if (!is_big && in_big_id && big._id.toString() == (in_big_id + ''))
+                                    selected = "selected";
+                                option += '<option value="' + big._id + '" ' + selected + '>' + big.name + '</option>';
+                            }
+                            $('#big_select').html(option);
+                        } else {
+                            alert('数据库异常！');
+                        }
+                    }
+                });
+            }
+
+            // $.ajax({
+            //     url: "/getMyToDoTasks",
+            //     success: function(data) {
+            //         if (data.status) {
+            //             var results = data.results;
+            //             var option = '';
+            //             for (var i = 0; i < results.length; i++) {
+            //                 var one = results[i];
+            //                 option += '<option value="' + one._id + '" >' + one.name + '</option>';
+            //             }
+            //             $('#task_select').html(option);
+            //         } else {
+            //             alert('数据库异常！');
+            //         }
+            //     }
+            // });
+        },
+        selectAllDay: function(e) {
+            e.preventDefault();
+            $('#am').attr('checked', 'checked');
+            $('#pm').attr('checked', 'checked');
+            $('#ev').attr('checked', 'checked');
+        },
+        selectType: function() {
+            var type = $('#property-type').val();
+            if (type == '1') {
+                $('.services').css('display', 'block');
+                $('#big-shopping-show').css('display', 'none');
+                $('#belong-to-shopping-show').css('display', 'none');
+                $('#rating_food_trust_span').css('display', 'block');
+            } else if (type == '2') {
+                $('.services').css('display', 'none');
+                $('#big-shopping-show').css('display', 'block');
+                $('#belong-to-shopping-show').css('display', 'block');
+                $('#rating_food_trust_span').css('display', 'block');
+            } else {
+                $('.services').css('display', 'none');
+                $('#big-shopping-show').css('display', 'none');
+                $('#belong-to-shopping-show').css('display', 'none');
+                $('#rating_food_trust_span').css('display', 'none');
+            }
+
+        },
+        // selectArea: function() {
+        //     var areaname = $("#area_select").find("option:selected").text();
+        //     $("#area_name").val(areaname);
+        // },
+        selectBigShopping: function() {
+            var name = $("#big_select").find("option:selected").text();
+            $("#in_big_name").val(name);
+        },
+
+        checkBig: function() {
+            var is_big = $('#is_big').prop('checked');
+            if (is_big) {
+                $('#belong-to-shopping-show').css('display', 'none');
+            } else {
+                $('#belong-to-shopping-show').css('display', 'block');
+            }
+        },
+        autogetCategory: function(e) {
+            var _this = this;
+            var type = $('#property-type').val();
+            var name = $('#addCategoryValue').val();
+            console.log(type, name);
+            $("#addCategoryValue").autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "/getCategorysByQuery/" + type + "/" + $('#addCategoryValue').val(),
+                        dataType: "json",
+                        data: request,
+                        success: function(data) {
+                            console.log(data);
+                            response(
+                                $.map(
+                                    data.result, function(item) {
+                                        return {
+                                            label: item.name,
+                                            value: item.name,
+                                            _id: item._id
+                                        }
+                                    }));
+                        }
+                    });
+                },
+                select: function(event, ui) {
+                    $("#addCategoryValue").attr('value', ui.item.label);
+                    $("#addCategoryValue").attr('data-value', ui.item._id);
+                }
+            });
+        },
+        addCategory: function() {
+            var itemName = $('#addCategoryValue').val();
+            var itemId = $('#addCategoryValue').attr('data-value');
+            if (itemId && itemName) {
+                var $newitem = $('<li><input class="input-xlarge focused categorys" readonly style="width:100px" name="categorys" ' +
+                    'type="text" value="' + itemName + '" data-value="' + itemId + '"> <input type="button" value="删除" class="li-del"><li>');
+                $('#category-list').last().after($newitem);
+            } else {
+                alert('请不要手动输入！');
+            }
+
+        },
+        addOpentime: function() {
+            var open_day = $('#open-day').val();
+            var open_time_begin = $('#open-time-begin').val();
+            var open_time_end = $('#open-time-end').val();
+            // if(open_time_begin!='allday' && open_time_begin!='close' &&
+            //     open_time_end!='allday' && open_time_end!='close' &&
+            //     open_time_end < open_time_begin){
+            //     alert('请正确选择！');
+            //     return false;
+            // }
+            var open_time = {
+                desc: $('#open-day').find("option:selected").text() + ' ' + this.getOpenTimeDesc(),
+                value: open_day + '-' + open_time_begin + '-' + open_time_end
+            };
+            var $newitem = $('<li><input class="input-xlarge focused opentimes" readonly style="width:150px" name="opentimes" ' +
+                'type="text" value="' + open_time.desc + '" data-value="' + open_time.value + '"> <input type="button" value="删除" class="li-del"><li>');
+            $('#opentime-list').last().after($newitem);
+        },
+        getOpenTimeDesc: function() {
+            var open_time_begin = $('#open-time-begin').val();
+            var open_time_end = $('#open-time-end').val();
+            if (open_time_begin == 'allday' || open_time_end == 'allday')
+                return '全天';
+            else if (open_time_begin == 'close' || open_time_end == 'close')
+                return '关门';
+            else
+                return $('#open-time-begin').find("option:selected").text() + '-' + $('#open-time-end').find("option:selected").text();
+        },
+        autogetLifetag: function(e) {
+            var _this = this;
+            var type = $('#property-type').val();
+            $("#addLifetagValue").autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "/getLifetagsByType/" + type,
+                        dataType: "json",
+                        data: request,
+                        success: function(data) {
+                            response(
+                                $.map(
+                                    data.result, function(item) {
+                                        return {
+                                            label: item.name,
+                                            value: item.name,
+                                            _id: item._id
+                                        }
+                                    }));
+                        }
+                    });
+                },
+                select: function(event, ui) {
+                    $("#addLifetagValue").attr('value', ui.item.label);
+                    $("#addLifetagValue").attr('data-value', ui.item._id);
+                }
+            });
+        },
+        addLifetag: function() {
+            var itemName = $('#addLifetagValue').val();
+            var itemId = $('#addLifetagValue').attr('data-value');
+            if (itemId && itemName) {
+                var $newitem = $('<li><input class="input-xlarge focused lifetags" readonly style="width:100px" name="lifetags" ' +
+                    'type="text" value="' + itemName + '" data-value="' + itemId + '"> <input type="button" value="删除" class="li-del"><li>');
+                $('#lifetag-list').last().after($newitem);
+            } else {
+                alert('请不手动输入！');
+            }
+
+        },
+        review: function() {
+
+        },
+        delLi: function(e) {
+            $(e.target).parent().remove();
+        },
+        back: function(e) {
+            e.preventDefault();
+            window.history.back();
+        },
+        getTextInputValue: function(id) {
+            return this.$el.find('#' + id).val();
+        },
+        saveLife: function(e) {
+            e.preventDefault();
+
+            var type = $('#property-type').val();
+            var categorys = [];
+            for (var i = 0; i < $('.categorys').length; i++) {
+                var item = {};
+                item._id = $('.categorys').eq(i).attr('data-value');
+                item.name = $('.categorys').eq(i).attr('value');
+                categorys.push(item);
+            }
+            var lifetags = [];
+            for (var i = 0; i < $('.lifetags').length; i++) {
+                var item = {};
+                item._id = $('.lifetags').eq(i).attr('data-value');
+                item.name = $('.lifetags').eq(i).attr('value');
+                lifetags.push(item);
+            }
+            var opentimes = [];
+            for (var i = 0; i < $('.opentimes').length; i++) {
+                var item = {};
+                item.value = $('.opentimes').eq(i).attr('data-value');
+                item.desc = $('.opentimes').eq(i).attr('value');
+                opentimes.push(item);
+            }
+            // var local_flag = $('#local_flag').prop('checked'),
+            //     michilin_flag = $('#michilin_flag').prop('checked'),
+            //     best_dinnerchoics = $('#best_dinnerchoics').prop('checked'),
+            //     most_popular = $('#most_popular').prop('checked');
+            // var tags = [];
+            // if(local_flag){
+            //     tags.push('localflag');
+            // }
+            // if(michilin_flag){
+            //     tags.push('michilin');
+            // }
+            // if(best_dinnerchoics){
+            //     tags.push('bestfordinner');
+            // }
+            // if(most_popular){
+            //     tags.push('popular');
+            // }
+            var tagsElements = $('.tagsbtn.active'),
+                tags = [];
+            for (var i = 0; i < tagsElements.length; i++) {
+                tags.push(tagsElements.eq(i).attr('data-value'));
+            }
+            var item = {
+                name: $('#name').val(),
+                type: $('#name').attr('type'),
+                address: $('#address').val(),
+                tel: $('#tel').val(),
+                city_name: $('#name').attr('cityname'),
+                city_id: $('#name').attr('cityid'),
+                latitude: $('#latitude').val(),
+                longitude: $('#longitude').val(),
+                // postal_code: $('#postal_code').val(),
+                introduce: $('#introduce').val(),
+                tips: $('#tips').val(),
+                show_flag: $('#show_flag').prop('checked'),
+                recommand_flag: $('#recommand_flag').prop('checked'),
+                recommand_duration: $('#recommand_duration').val(),
+                index_flag: $('#index_flag').prop('checked'),
+                tags: tags, //排名标签
+                ranking: $('#ranking').val(),
+                rating: $('#rating').val(),
+                reviews: $('#reviews').val(),
+                price_level: $('#price_level').val(),
+                price_desc: $('#price_desc').val(),
+                url: $('#url').val(),
+                website: $('#website').val(),
+                comments: $('#comments').val(),
+                category: categorys,
+                lifetag: lifetags,
+                open_time: opentimes,
+
+                am: $('#am').prop('checked'),
+                pm: $('#pm').prop('checked'),
+                ev: $('#ev').prop('checked'),
+                en_info: {
+                    introduce   : $('#en_introduce').val(),
+                    tips        : $('#en_tips').val(),
+                    comments    : $('#en_comments').val()
+                }
+            };
+            if (type == 'restaurants') {
+                var info = {
+                    wifi: $('#wifi').prop('checked'),
+                    yu_ding: $('#wifi').prop('checked'),
+                    delivery: $('#delivery').prop('checked'),
+                    take_out: $('#take_out').prop('checked'),
+                    card: $('#card').prop('checked'),
+                    g_f_kid: $('#g_f_kid').prop('checked'),
+                    g_f_group: $('#g_f_group').prop('checked'),
+                    out_seat: $('#out_seat').prop('checked'),
+                    tv: $('#tv').prop('checked'),
+                    waiter: $('#waiter').prop('checked'),
+                    g_for: $('#g_for').val(),
+                    noise: $('#noise').val(),
+                    alcohol: $('#alcohol').val(),
+                };
+                item.info = info;
+            } else if (type == 'shoppings') {
+                item.is_big = $('#is_big').prop('checked');
+                if (!item.is_big) {
+                    item.in_big_id = $('#big_select').val();
+                }
+                item.area_id = $('#area_select').val();
+                item.area_name = $('#area_select').find("option:selected").text();
+            }
+            if (item.name == '' || item.name == null || item.name == undefined) {
+                alert('名称不能为空！');
+                $('#name').focus();
+                return false;
+            }
+
+            if (!isInt(item.price_level)) {
+                alert('价格level必须是1,2,3,4,5');
+                $('#price_level').focus();
+                return false;
+            }
+            if (item.recommand_duration != '' && !isInt(item.recommand_duration)) {
+                alert('推荐时间必须是整数！');
+                $('#recommand_duration').focus();
+                return false;
+            }
+            $.post('/addcityitem', item, function(data) {
+                location.reload();
+            })
+        }
+    });
+
     weego.EditAreaView = Backbone.View.extend({
         tagName: 'div',
         render: function(data) {
@@ -3060,7 +3380,6 @@ $(weego.init());
             'click #save': 'save',
         },
         save: function() {
-            console.log('888888888');
             var areamodel = {
                 _id: $('#area_name').attr('data-value') + '',
                 area_name: $('#area_name').val(),
@@ -3069,14 +3388,18 @@ $(weego.init());
                 address: $('#area-address').val(),
                 latitude: $('#area-latitude').val(),
                 longitude: $('#area-longitude').val(),
-                city_id: $('#area_name').attr('cityid') + ''
+                city_id: $('#area_name').attr('cityid') + '',
+                city_name: $('#area_name').attr('cityname'),
+                en_info : {
+                    introduce: $('#en_area-introduce').val(),
+                    address: $('#en_area-address').val()
+                }
             }
+            console.log(areamodel);
             $.post('/updateareaitem', {
                 model: areamodel
             }, function(data) {
-                if (data) {
-                    console.log('保存成功');
-                }
+                location.reload();
             })
         }
     });
@@ -3319,7 +3642,14 @@ $(weego.init());
                 masterLabel: $("#masterLabel").attr('data-value'),
                 subLabel: array_label,
                 latitude: $("#latitude").val(),
-                longitude: $("#longitude").val()
+                longitude: $("#longitude").val(),
+                en_info: {
+                    opentime    : $('#en_opentime').val(),
+                    traffic_info: $('#en_traffic_info').val(),
+                    short_introduce: $('#en_short_introduce').val(),
+                    introduce: $('#en_introduce').val(),
+                    tips : $('#en_tips').val()
+                }
             }
             console.log(attractionmodel);
             $.post('/updateattritem', {

@@ -79,42 +79,43 @@ exports.updateShowFlag = function(_id,show_flag,callback){
 
 exports.updatemsg = function(one, callback) {
 	var _id = one._id;
+	console.log(one._id);
 	var comments = [];
 		comments.push(one.comments);
-	Shopping.update({_id: new ObjectID(_id)},{$set:{
-		name: name,
-		city_name: city_name,
-		city_id: city_id,
-		latitude: latitude,
-		longitude: longitude,
-		address: address,
-		postal_code: postal_code,
-		introduce: introduce,
-		tips: tips,
-		tel: tel,
-		category: category,
-		lifetag: lifetag,
-		open_time: open_time,
-		show_flag: show_flag,
-		price_level: price_level,
-		price_desc: price_desc,
-		url: url,
-		website: website,
-		recommand_flag: recommand_flag,
-		recommand_duration: recommand_duration,
-		index_flag: index_flag,
-		local_flag: local_flag,
-		am: am,
-		pm: pm,
-		ev: ev,
-		area_id: area_id,
-		area_name: area_name,
-		is_big: is_big,
-		in_big_id: in_big_id,
-		rating: rating,
-		ranking: ranking,
-		reviews: reviews,
-		comments: comments
+	Shopping.update({'_id': new ObjectID(_id)},{$set:{
+		name: one.name,
+		city_name: one.city_name,
+		// city_id: one.city_id,
+		latitude: one.latitude,
+		longitude: one.longitude,
+		address: one.address,
+		// postal_code: postal_code,
+		introduce: one.introduce,
+		// tips: one.tips,
+		tel: one.tel,
+		// category: one.category,
+		// lifetag: one.lifetag,
+		// open_time: one.open_time,
+		// show_flag: one.show_flag,
+		// price_level: one.price_level,
+		// price_desc: one.price_desc,
+		// url: one.url,
+		// website: one.website,
+		// recommand_flag: one.recommand_flag,
+		// recommand_duration: one.recommand_duration,
+		// area_id: one.area_id,
+		// area_name: one.area_name,
+		// is_big: one.is_big,
+		// in_big_id: one.in_big_id,
+		// rating: one.rating,
+		// ranking: one.ranking,
+		// reviews: one.reviews,
+		// comments: one.comments,
+		en_info: {
+			introduce: one.en_info.introduce,
+			tips: one.en_info.tips,
+			comments: one.en_info.comments
+		}
 	}},callback)
 }
 
