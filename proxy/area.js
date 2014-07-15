@@ -81,6 +81,7 @@ exports.updatemsg = function(one, callback) {
 			area_introduce :one.area_introduce,
 			city_id: one.city_id,
 			city_name: one.city_name,
+			cover_image: '5327c20da71a2a9415000001.jpg',
 			address :one.address,
 			latitude :one.latitude,
 			longitude :one.longitude,

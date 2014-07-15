@@ -19,7 +19,7 @@ var AreaSchema = new Schema({
 	latitude: { type: String },
 	longitude: { type: String },
 	image : { type: Array },
-	cover_image: {type : String},
+	cover_image: {type : String,default: '5327c20da71a2a9415000001.jpg'},
   traffic : {type : String },
   tips : { type : String},
   tel: { type: String },
