@@ -53,7 +53,7 @@ exports.getaudithistory = function (req, res) {
 	})
 }
 exports.addAuditTask = function (req, res) {
-	var model = req.body.auditmsg;
+	var model = JSON.parse(req.body.auditmsg);
 	var type = req.body.auditmsg.type;
 	var city_name = req.body.auditmsg.city_name;
 	var name = req.body.auditmsg.name;
@@ -95,7 +95,7 @@ exports.addAuditTask = function (req, res) {
 }
 
 exports.updateAuditTask = function (req, res) {
-	var model = req.body.model;
+	var model = JSON.parse(req.body.model);
 	async.auto({
 		auditingupdata : function (cb) {
 			Auditing.update(model, cb);
@@ -109,7 +109,7 @@ exports.updateAuditTask = function (req, res) {
 }
 
 exports.updatecityitemAuditTask = function (req, res) {
-	var model = req.body.model;
+	var model = JSON.parse(req.body.model);
 	async.auto({
 		auditingupdata : function (cb) {
 			Auditing.update(model, cb);

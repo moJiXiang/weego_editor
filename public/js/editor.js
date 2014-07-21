@@ -319,10 +319,10 @@ $(weego.init());
 
                     formatter: function(items) {
                         $.each(items, function(index, item) {
-                            if (item.attractionscount) item.attractionscount = '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/attractions">' + item.attractionscount + '</a>';
-                            if (item.restaurantscount) item.restaurantscount = '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/restaurants">' + item.restaurantscount + '</a>';
-                            if (item.shopareacount) item.shopareacount = '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/shopareas">' + item.shopareacount + '</a>';
-                            if (item.shoppingscount) item.shoppingscount = '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/shoppings">' + item.shoppingscount + '</a>';
+                            item.attractionscount = item.attractionscount ? '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/attractions">' + item.attractionscount + '</a>' : 0 ;
+                            item.restaurantscount= item.restaurantscount ? '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/restaurants">' + item.restaurantscount + '</a>' : 0;
+                            item.shopareacount= item.shopareacount ? '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/shopareas">' + item.shopareacount + '</a>' : 0;
+                            item.shoppingscount= item.shoppingscount ? '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/shoppings">' + item.shoppingscount + '</a>' : 0;
                             item.cityname = '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '">' + item.cityname + '</a>';
                             if (item.status == '0') {
                                 item.status = '<button type="button" class="btn btn-default" disabled="disabled">未审核</button>'
@@ -1767,6 +1767,7 @@ $(weego.init());
             if (auditmsg.editorname == auditmsg.auditorname) {
                 alert('编辑和审核不能为同一人');
             } else {
+                auditmsg = JSON.stringify(auditmsg);
                 $.post('/savetoauditing', {
                     auditmsg: auditmsg
                 }, function(data) {
@@ -1812,6 +1813,7 @@ $(weego.init());
             model.auditcomment = $('#auditcomment').val();
             $('#citypass').attr('disabled', 'disabled');
             $('#cityunpass').remove();
+            model = JSON.stringify(model);
             $.post('/passthiscity/', {
                 model: model
             }, function(data) {
@@ -1836,7 +1838,7 @@ $(weego.init());
             model.auditcomment = $('#auditcomment').val();
             $('#cityunpass').attr('disabled', 'disabled');
             $('#citypass').remove();
-
+            model = JSON.stringify(model);
             $.post('/passthiscity/', {
                 model: model
             }, function(data) {
@@ -2172,6 +2174,7 @@ $(weego.init());
                 //     }
                 // })
                 console.log(auditmsg);
+                auditmsg = JSON.stringify(auditmsg);
                 $.post('/savetoauditing', {
                     auditmsg: auditmsg
                 }, function(data) {
@@ -2228,6 +2231,7 @@ $(weego.init());
             model.auditcomment = $('#auditcomment').val();
             $('#citypass').attr('disabled', 'disabled');
             $('#cityunpass').remove();
+            model = JSON.stringify(model);
             $.post('/passthiscityitem/', {
                 model: model
             }, function(data) {
@@ -2263,7 +2267,7 @@ $(weego.init());
             console.log(model);
             $('#cityunpass').attr('disabled', 'disabled');
             $('#citypass').remove();
-
+            model = JSON.stringify(model);
             $.post('/passthiscityitem/', {
                 model: model
             }, function(data) {
@@ -2532,6 +2536,7 @@ $(weego.init());
                 }
             };
             console.log(citymodel);
+            citymodel = JSON.stringify(citymodel);
             $.post('/updatecity', {
                 model: citymodel
             }, function(data) {
@@ -2886,6 +2891,7 @@ $(weego.init());
             for (var i = 0; i < tagsElements.length; i++) {
                 tags.push(tagsElements.eq(i).attr('data-value'));
             }
+            console.log(tags);
             var item = {
                 name: $('#name').val(),
                 _id: $('#name').attr('data-value') + '',
@@ -2967,6 +2973,8 @@ $(weego.init());
                 return false;
             }
             console.log(item);
+            console.log(typeof item.index_flag);
+            item = JSON.stringify(item);
             $.post('/updatecityitem', {
                 model: item
             }, function(data) {
@@ -3370,6 +3378,7 @@ $(weego.init());
                 $('#recommand_duration').focus();
                 return false;
             }
+            item = JSON.stringify(item);
             $.post('/addcityitem', item, function(data) {
                 location.reload();
             })
@@ -3412,6 +3421,7 @@ $(weego.init());
                 }
             }
             console.log(areamodel);
+            areamodel = JSON.stringify(areamodel);
             $.post('/updateareaitem', {
                 model: areamodel
             }, function(data) {
@@ -3668,6 +3678,7 @@ $(weego.init());
                 }
             }
             console.log(attractionmodel);
+            attractionmodel = JSON.stringify(attractionmodel);
             $.post('/updateattritem', {
                 model: attractionmodel
             }, function(data) {

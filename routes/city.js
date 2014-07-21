@@ -599,7 +599,7 @@ exports.updateCity = function (req, res) {
 };
 
 exports.updateCityNew = function (req, res){
-    var one = req.body.model;
+    var one = JSON.parse(req.body.model);
     // console.log(one);
     City.updatemsg(one,function(err, result){
         if(err){
@@ -612,7 +612,7 @@ exports.updateCityNew = function (req, res){
 }
 
 exports.updateAttrItem = function (req, res){
-    var one = req.body.model;
+    var one = JSON.parse(req.body.model);
     Attractions.updatemsg(one, function(err, result) {
         if (err) {
             console.log(err)
@@ -624,9 +624,10 @@ exports.updateAttrItem = function (req, res){
 }
 
 exports.updateResShopItem = function (req, res){
-    var one = req.body.model;
+    var one = JSON.parse(req.body.model);
+
     var type = one.type;
-    console.log(type);
+    console.log(typeof one.index_flag);
     if(type == '1'){
         Restaurant.updatemsg(one, function(err, result) {
             if (err) {
@@ -651,7 +652,7 @@ exports.updateResShopItem = function (req, res){
 }
 
 exports.updateAreaItem = function (req, res){
-    var one = req.body.model;
+    var one = JSON.parse(req.body.model);
     Area.updatemsg(one, function(err, result) {
         if (err) {
             console.log(err)

@@ -142,38 +142,38 @@ exports.update = function(one,callback){
 
 exports.updatemsg = function(one, callback) {
 	var _id = one._id;
-	console.log(one);
+	console.log(typeof one.index_flag);
 	var comments = [];
 	comments.push(one.comments);
 	Restaurant.update({_id: new ObjectID(_id)},{$set:{
 			name : one.name,
 			city_name : one.city_name,
-			city_id : new ObjectID(one.city_id),
+			// city_id : new ObjectID(one.city_id),
 			latitude : one.latitude,
 			longitude : one.longitude,
 			address : one.address,
 			introduce : one.introduce,
 			tips : one.tips,
 			tel : one.tel,
-			// category : one.category,
-			// lifetag : one.lifetag,
+			tags : one.tags,
+			category : one.category,
+			lifetag : one.lifetag,
 			open_time : one.open_time,
 			show_flag : one.show_flag,
-			// price_level : one.price_level,
-			// price_desc : one.price_desc,
+			price_level : one.price_level,
+			price_desc : one.price_desc,
 			url : one.url,
 			website : one.website,
 			recommand_flag : one.recommand_flag,
 			recommand_duration : one.recommand_duration,
 			index_flag : one.index_flag,
-			// am : one.am,
-			// pm : one.pm,
-			// ev : one.ev,
+			am : one.am,
+			pm : one.pm,
+			ev : one.ev,
 			rating : one.rating,
 			ranking : one.ranking,
 			reviews : one.reviews,
 			comments : comments,
-			tags : one.tags,
 			info : one.info,
 			en_info : {
 				introduce : one.en_info.introduce,
