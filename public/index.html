@@ -610,18 +610,7 @@
                             <a id="editorname">{{audits.editorname}}</a>
                         {{/ifCond}}
                     </dd>
-                    <dd>
-                        <span>英文编辑：</span>
-                        {{#ifCond city.en_info.editorname}}
-                        <a id="editorname">{{city.en_info.editorname}}</a>
-                        {{else}}
-                        <select>
-                            {{#each }}
-                                <option value="{{this}}">
-                            {{/each}}
-                        </select>
-                        {{/ifCond}}
-                    </dd>
+                 
                     <dd>
                         <span>审核人员：</span>
                         {{#if audits.auditorname}}

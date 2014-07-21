@@ -1617,23 +1617,23 @@ $(weego.init());
         },
         getLabelByLabelID: function(id){
             
-            $.ajax({
-                method: 'GET',
-                url: "/getLabelByLabId/" + id,
-                dataType: "json",
-                success: function(data) {
-                    console.log('=========>'+data)
-                    // response(
-                    //     $.map(
-                    //         data.label, function(item) {
-                    //             return {
-                    //                 label: item.label,
-                    //                 value: item.label,
-                    //                 sublevel_id: item._id
-                    //             }
-                    //         }));
-                }
-            });
+            // $.ajax({
+            //     method: 'GET',
+            //     url: "/getLabelByLabId/" + id,
+            //     dataType: "json",
+            //     success: function(data) {
+            //         console.log('=========>'+data)
+            //         // response(
+            //         //     $.map(
+            //         //         data.label, function(item) {
+            //         //             return {
+            //         //                 label: item.label,
+            //         //                 value: item.label,
+            //         //                 sublevel_id: item._id
+            //         //             }
+            //         //         }));
+            //     }
+            // });
         },
         modify: function() {
             var EditCityView = new weego.EditCityView();

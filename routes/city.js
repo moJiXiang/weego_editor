@@ -194,14 +194,13 @@ exports.getCityByName = function (req, res){
                 }
             }, cb);
         },
-        eneditoruser: function(cb) {
-            editUserProvider.find({
-                type: 0,
-                group: 1
-            }, cb);
-        }
+        // eneditoruser: function(cb) {
+        //     editUserProvider.find({
+        //         type: 0,
+        //         group: 1
+        //     }, cb);
+        // }
     }, function(err, result) {
-        console.log(result.eneditoruser);
         if (err) {
             console.log(err);
             res.render('404', err);
