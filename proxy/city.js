@@ -47,7 +47,7 @@ exports.updatemsg = function(one, callback) {
 		_id: new ObjectID(city_id)
 	}, {
 		$set: {
-			continents          :   one.continents,
+			// continents          :   one.continents,
 	        // continentscode      :   one.continentscode,
 	        cityname            :   one.cityname,
 	        cityname_en         :   one.cityname_en,
@@ -81,6 +81,6 @@ exports.updatemsg = function(one, callback) {
 	        	traffic 		: one.en_info.traffic
 	        }
 		}
-	},{safe: true}, callback)
+	},{safe: false, multi: true}, callback)
 
 }

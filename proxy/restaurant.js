@@ -231,7 +231,7 @@ exports.newAndSave = function(one,callback){
 	restaurant.ranking = one.ranking;
 	restaurant.reviews = one.reviews;
 	restaurant.comments = comments;
-	// restaurant.tags = one.tags;
+	restaurant.tags = one.tags;
 	// restaurant.michilin_flag = one.michilin_flag;
 
 	// restaurant.info = one.info;

@@ -10,6 +10,8 @@ var DBRef = require('mongodb').DBRef;
 var EditUserProvider = require("../config/EditUserProvider").EditUserProvider;
 var editUserProvider = new EditUserProvider();
 var ObjectID = require('mongodb').ObjectID;
+var Editor = require('../models').Editor;
+var async = require('async');
 fs = require('fs');
 
 exports.login = function(req,res){
@@ -40,7 +42,9 @@ exports.login = function(req,res){
 
 exports.saveUser = function(req,res){
     var data = req.body;
-    editUserProvider.insert({username:data.username,password:data.password,type:data.type},{safe:true}, function (err, result) {
+    console.log('********************');
+    console.log(data);
+    editUserProvider.insert({username:data.username,password:data.password,type:data.type,group:data.group},{safe:true}, function (err, result) {
         if (err) {
             res.send({isSuccess:false});
             throw err;
@@ -52,7 +56,7 @@ exports.saveUser = function(req,res){
 };
 exports.updateUser = function(req,res){
     var data = req.body;
-    editUserProvider.update({_id:new ObjectID(req.params.userID)},{$set:{password:data.password,type:data.type}},{}, function (err) {
+    editUserProvider.update({_id:new ObjectID(req.params.userID)},{$set:{password:data.password,type:data.type,group:data.group}},{}, function (err) {
         if (err) {
             res.send({isSuccess:false});
             throw err;
@@ -96,3 +100,21 @@ exports.getAllEditor = function(req,res){
     });
 };
 
+exports.showEditors = function(req, res) {
+    res.render('editor');
+}
+exports.getEditors = function(req, res) {
+    async.auto({
+        adminstrator : function(cb) {
+            Editor.getAdmin({type : 0}, cb);
+        },
+        chineseeditors : function(cb) {
+            Editor.listChineseEditors({group: 0, type: 1}, cb);
+        },
+        englisheditors : function(cb) {
+            Editor.listEnglishEditors({group: 1, type: 1}, cb);
+        }
+    }, function(err, result) {
+        res.send(result);
+    })
+}

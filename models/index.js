@@ -22,6 +22,7 @@ require('./path');
 require('./city');
 require('./attraction');
 require('./label');
+require('./edituser');
 
 exports.Category = mongoose.model('Category');
 exports.Entertainment = mongoose.model('Entertainment');
@@ -37,3 +38,4 @@ exports.Path = mongoose.model('Path');
 exports.City = mongoose.model('City');
 exports.Attraction = mongoose.model('Attraction');
 exports.Label = mongoose.model('Label');
+exports.Editor = mongoose.model('Edituser');

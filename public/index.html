@@ -65,6 +65,7 @@
                 <tr>
                     <th>姓名</th>
                     <th>权限</th>
+                    <th>分组</th>
                     <th>修改</th>
                     <th>删除</th>
                 </tr>
@@ -79,6 +80,7 @@
     <script id="userView" type="text/x-handlebars-template">
         <td>{{username}}</td>
         <td>{{type}}</td>
+        <td>{{group}}</td>
         <td><button data-value="{{_id}}" class="modify">修改</button></td>
         <td><button data-value="{{_id}}" class="delete">删除</button></td>
     </script>
@@ -601,14 +603,25 @@
                 <dl>
                     <dt>参与编辑人员</dt>
                     <dd>
-                        <span>编辑人员：</span>
+                        <span>中文编辑：</span>
                         {{#ifCond audits.status '0'}}
                             <a id="editorname">{{currentuser}}</a>
                             {{else}}
                             <a id="editorname">{{audits.editorname}}</a>
                         {{/ifCond}}
                     </dd>
-
+                    <dd>
+                        <span>英文编辑：</span>
+                        {{#ifCond city.en_info.editorname}}
+                        <a id="editorname">{{city.en_info.editorname}}</a>
+                        {{else}}
+                        <select>
+                            {{#each }}
+                                <option value="{{this}}">
+                            {{/each}}
+                        </select>
+                        {{/ifCond}}
+                    </dd>
                     <dd>
                         <span>审核人员：</span>
                         {{#if audits.auditorname}}
@@ -1592,7 +1605,7 @@
                         <div class="datagrid-header-right">
                             <div class="select filter" data-resize="auto">
                                 <button type="button" data-toggle="dropdown" class="btn dropdown-toggle">
-                                    <span class="dropdown-label">全部</span>
+                                    <span class="dropdown-label1">全部</span>
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
@@ -1619,7 +1632,7 @@
                                 </span>
                                 <div class="select grid-pagesize" data-resize="auto">
                                     <button type="button" data-toggle="dropdown" class="btn dropdown-toggle">
-                                        <span class="dropdown-label"></span>
+                                        <span class="dropdown-label1"></span>
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
@@ -1680,7 +1693,7 @@
                         <div class="datagrid-header-right">
                             <div class="select filter" data-resize="auto">
                                 <button type="button" data-toggle="dropdown" class="btn dropdown-toggle">
-                                    <span class="dropdown-label">全部</span>
+                                    <span class="dropdown-label1">全部</span>
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
@@ -1707,7 +1720,7 @@
                                 </span>
                                 <div class="select grid-pagesize" data-resize="auto">
                                     <button type="button" data-toggle="dropdown" class="btn dropdown-toggle">
-                                        <span class="dropdown-label"></span>
+                                        <span class="dropdown-label1"></span>
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
@@ -3501,6 +3514,7 @@
             <a href="#lifetags" class="icomoon_lifetag admin">生活标签</a>
             <a href="#areas" class="icomoon_life admin">城市区域</a>
             <a href="#user/1" class="icomoon_user admin">用户管理</a>
+            <a href="/showeditors" target="_blank" class="icomoon_user admin">新用户管理</a>
             <a href="#label" class="icomoon_label admin">标签</a>
             <a href="CityLabeling.html" target="_blank" class="icomoon_labels admin">标签批量管理</a>
             <a href="#statistics" class="icomoon_user admin">数据统计</a>

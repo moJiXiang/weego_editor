@@ -65,6 +65,13 @@ var AreaView = Backbone.View.extend({
         'change #city_select': 'selectCity',
         'click #save': 'saveArea',
         'click #cancel': 'back',
+        'click .addareatag': 'addareatag'
+    },
+    addareatag : function(e){
+        console.log(' value=""');
+        $el = $(e.currentTarget);
+        var $taginput = '<input type="text" class="areatag">';
+        $el.parent().append($taginput);
     },
     render: function(){
         this.model.set('user',weego_user.globalUser);
@@ -135,7 +142,11 @@ var AreaView = Backbone.View.extend({
         var tel = $('#area-tel').val();
         var website = $('#area-website').val();
         var opentime = $('#area-opentime').val();
-        
+        var areatags = [];
+        for (var i = 0; i < $('.areatag').length; i++) {
+            areatags.push($('.areatag').eq(i).val());
+        };
+        console.log(areatags);
         if(city_name=='' || city_name==null || city_name==undefined){
             alert('城市不能为空！');
             return false;
@@ -158,7 +169,8 @@ var AreaView = Backbone.View.extend({
             longitude: longitude,
             tel: tel,
             website: website,
-            open_time: opentime
+            open_time: opentime,
+            tags: areatags
         };
         if(this.model == null || this.model.get('_id') == null)
         {

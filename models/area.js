@@ -22,6 +22,7 @@ var AreaSchema = new Schema({
 	cover_image: {type : String,default: '5327c20da71a2a9415000001.jpg'},
   traffic : {type : String },
   tips : { type : String},
+  tags : { type : Array},
   tel: { type: String },
   website: { type: String },
 	status             : String,

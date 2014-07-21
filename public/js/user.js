@@ -53,13 +53,17 @@ $(weego_user.init());
 
     weego_user.LoginView = Backbone.View.extend({
         el:'#app',
+        initialize: function(){
+        },
         render:function () {
             var _this = this;
             $('#app').empty();
             var template = Handlebars.compile($("#loginTemplate").html());
             $(template()).appendTo(_this.$el);
+            // $('.cmsNav').css('display', 'block');
             this.delegateEvents(this.events);
             return this;
+
         },
         events:{
             'click #login':'login'
@@ -76,6 +80,7 @@ $(weego_user.init());
                 {
                     success:function (model, res) {
                         if (model.get('login') == true) {
+                            $('.cmsNav').css('display', 'block');
                             weego_user.globalUser = {};
                             weego_user.globalUser.username = model.get('username');
                             weego_user.globalUser._id = model.get('_id');
@@ -860,7 +865,6 @@ $(weego_user.init());
             $('#total-count').html(data.count);
         },
         initMap : function(){
-            console.log($('#vmap').length);
             jQuery('#vmap').vectorMap({
                 map: 'world_en',
                 backgroundColor: '#a5bfdd',
@@ -1369,10 +1373,12 @@ $(weego_user.init());
                 url:'/getUserByPage/' + weego_user.limit + '/' + _index,
                 type:'GET',
                 success:function (data) {
+                    console.log(data);
                     weego_user.count = data.count;
                     if (data && data.user && data.user.length > 0) {
                         _this.collection.reset();
                         _this.render();
+
                         for (var i = 0; i < data.user.length; i++) {
                             _this.collection.add(data.user[i]);
                         }
@@ -1415,7 +1421,8 @@ $(weego_user.init());
             var newUser = new weego_user.UserModel({
                 username:$('#username').val(),
                 password:md5($('#password').val()),
-                type:parseInt($('#type').val())
+                type:parseInt($('#type').val()),
+                group:parseInt($('#group').val())
             });
             newUser.save(null, {
                 success:function (model, res) {
@@ -1450,6 +1457,7 @@ $(weego_user.init());
             var _this  = this;
             this.model.set('password',md5($('#password').val()));
             this.model.set('type',parseInt($('#type').val()));
+            this.model.set('group',parseInt($('#group').val()));
             this.model.save(null, {
                 success:function (model, res) {
                     if (!res.isSuccess) {

@@ -90,16 +90,19 @@ $(weego.init());
         },
         userMain: function(evt) {
             var currentUser = weego_user.globalUser;
-            $('.cmsNav').css('display', '');
+            console.log(currentUser.type);
             if (currentUser.type == 0) {
-                new weego_user.EditorMainView();
-                $('.cmsNav .admin').remove();
-            } else if (currentUser.type == 1) {
+
                 new weego_user.AdminMainView();
+                $('.cmsNav .admin').css('display','block');
+            } else if (currentUser.type == 1) {
+                new weego_user.EditorMainView();
+                $('.cmsNav .admin').css('display','none');
             } else if (currentUser.type == -1) {
                 new weego_user.GuestMainView();
-                $('.cmsNav .admin').remove();
+                $('.cmsNav .admin').css('display','none');
             }
+            // $('.cmsNav').css('display', 'block');
         },
         before: function(route) {
             $('#app').off();
@@ -111,26 +114,27 @@ $(weego.init());
             } else if (route != 'login') {
                 $('.show-nav').fadeIn();
             }
-            if (weego_user.globalUser) {
-                if (weego_user.globalUser.type == 1) {
-                    $('#tab-user').fadeIn();
-                    $('.icomoon_user').css('display', '');
-                    $('.icomoon_labels').css('display', '');
-                    $('.icomoon_user').css('display', '');
-                    $('.icomoon_label').css('display', '');
-                    $('.icomoon_category').css('display', '');
-                    $('.icomoon_lifetag').css('display', '');
-                } else {
-                    $('.icomoon_user').css('display', 'none');
-                    $('.icomoon_labels').css('display', 'none');
-                    $('.icomoon_user').css('display', 'none');
-                    $('.icomoon_label').css('display', 'none');
-                    $('.icomoon_category').css('display', 'none');
-                    $('.icomoon_lifetag').css('display', 'none');
-                }
-            }
+            // if (weego_user.globalUser) {
+            //     if (weego_user.globalUser.type == 1) {
+            //         $('#tab-user').fadeIn();
+            //         $('.icomoon_user').css('display', '');
+            //         $('.icomoon_labels').css('display', '');
+            //         $('.icomoon_user').css('display', '');
+            //         $('.icomoon_label').css('display', '');
+            //         $('.icomoon_category').css('display', '');
+            //         $('.icomoon_lifetag').css('display', '');
+            //     } else {
+            //         $('.icomoon_user').css('display', 'none');
+            //         $('.icomoon_labels').css('display', 'none');
+            //         $('.icomoon_user').css('display', 'none');
+            //         $('.icomoon_label').css('display', 'none');
+            //         $('.icomoon_category').css('display', 'none');
+            //         $('.icomoon_lifetag').css('display', 'none');
+            //     }
+            // }
         },
         logout: function() {
+            $('.cmsNav').css('display', 'none');
             weego_user.loginFlag = false;
             weego_user.globalUser = null;
             $.cookie('user', null);
@@ -142,7 +146,7 @@ $(weego.init());
             new weego_user.LoginView().render();
         },
         list_user: function(pageno) {
-            if (weego_user.globalUser.type == 1) {
+            if (weego_user.globalUser.type == 0 ) {
                 $('#tab-user').siblings().removeClass('active');
                 $('#tab-user').addClass('active');
                 weego_city.currentPage = pageno;
@@ -2294,6 +2298,7 @@ $(weego.init());
         },
         events: {
             'click #save': 'save',
+            'click #cancel': 'cancel',
             'change #cityname': 'showCityLocations',
             'click #addlabel': 'addlabel',
             'click #addTip': 'addTip',
@@ -2430,6 +2435,9 @@ $(weego.init());
             
             $el.after($newintr);
         },
+        cancel: function() {
+            self.location.reload();
+        },
         save: function() {
             var _this = this;
             var array_label = [];
@@ -2482,6 +2490,7 @@ $(weego.init());
                 intrItem.intrItemContent = $('.en_intrItemContent').eq(i).val();
                 array_intr_en.push(intrItem);
             };
+            console.log(array_intr_en);
             var recommand_center = {};
             recommand_center.name = $("#recommand_center_name").val();
             recommand_center.latitude = $("#recommand_center_latitude").val();
@@ -3378,6 +3387,13 @@ $(weego.init());
         },
         events: {
             'click #save': 'save',
+            'click .addareatag': 'addareatag'
+        },
+        addareatag : function(e){
+            console.log(' value=""');
+            $el = $(e.currentTarget);
+            var $taginput = '<input type="button">';
+            $taginput.appendTo($el);
         },
         save: function() {
             var areamodel = {

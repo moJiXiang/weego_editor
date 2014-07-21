@@ -205,6 +205,9 @@ module.exports = function(app) {
 	app.get('/importPathToDBSync',routes.pathImport.importPathToDBSync);
 	app.get('/runFillTaskQueen',routes.pathImport.runFillTaskQueen);
 	app.get('/autoreload',routes.pathImport.autoReloadPage);
+
+	app.get('/showeditors', routes.editUser.showEditors);
+	app.get('/geteditors', routes.editUser.getEditors)
 	
 };
 

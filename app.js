@@ -7,13 +7,18 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , engine = require('ejs-locals');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3003);
+  app.engine('ejs', engine);
+  app.locals({
+    _layoutFile: true
+  })
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.use(express.favicon());

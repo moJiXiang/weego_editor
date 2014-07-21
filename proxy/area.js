@@ -65,6 +65,7 @@ exports.update = function(one,callback){
 			result.tel = one.tel;
 			result.website = one.website;
 			result.open_time = one.open_time;
+			result.tags = one.tags;
 			result.save(function(err){
 				callback(err,result);
 			});
@@ -74,7 +75,7 @@ exports.update = function(one,callback){
 	});
 };
 exports.updatemsg = function(one, callback) {
-	console.log(one.open_time);
+	console.log(one);
 	Area.update({_id: new ObjectID(one._id)},{$set:{
 			area_name :one.area_name,
 			area_enname :one.area_enname,
@@ -91,6 +92,7 @@ exports.updatemsg = function(one, callback) {
 			tel : one.tel,
 			website : one.website,
 			open_time : one.open_time,
+			tags : one.tags,
 			en_info : {
 				introduce: one.en_info.introduce,
 				address: one.en_info.address
@@ -125,6 +127,7 @@ exports.newAndSave = function(one,callback){
 	area.address = one.address;
 	area.tel = one.tel;
 	area.website = one.website;
+	area.tags = one.tags;
 	area.open_time = one.open_time;
 	area.save(function (err) {
 		callback(err, area);

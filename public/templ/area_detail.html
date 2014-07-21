@@ -74,6 +74,13 @@
             </div>
         </div>
         <div class="control-group">
+            <label class="control-label" for="area-address">添加标签</label>
+            {{#each tags}}
+            <input type="text" class="areatag" value="{{this}}">
+            {{/each}}
+            <button type="button" class="btn btn-success addareatag">增加</button>
+        </div>
+        <div class="control-group">
             <label class="control-label" for="area-latitude">纬度</label>
             <div class="controls">
                 <input type="text" id="area-latitude"  value="{{latitude}}">

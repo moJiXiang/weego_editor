@@ -8,6 +8,8 @@
   "dependencies": {
     "express": "3.1.0",
     "jade": "*",
+    "ejs": "*",
+    "ejs-locals": "*",
     "mongodb":"1.1.11",
     "imagemagick":"*",
     "node-markdown": "0.1.0",

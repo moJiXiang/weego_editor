@@ -187,7 +187,7 @@ exports.getCityByName = function (req, res){
         },
         edituser: function(cb) {
             editUserProvider.find({
-                type: 0
+                type: 1
             }, {
                 sort: {
                     'username': -1
@@ -594,7 +594,7 @@ exports.updateCity = function (req, res) {
 
 exports.updateCityNew = function (req, res){
     var one = req.body.model;
-    console.log(one);
+    // console.log(one);
     City.updatemsg(one,function(err, result){
         if(err){
             console.log(err);
