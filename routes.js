@@ -1,4 +1,5 @@
-var routes = require('./routes/routes');
+var routes = require('./routes/routes')
+	models = require('./models');
 
 module.exports = function(app) {
 	app.post('/addlabel', routes.label.saveLabel);
@@ -207,7 +208,83 @@ module.exports = function(app) {
 	app.get('/autoreload',routes.pathImport.autoReloadPage);
 
 	app.get('/showeditors', routes.editUser.showEditors);
-	app.get('/geteditors', routes.editUser.getEditors)
+	app.get('/geteditors', routes.editUser.getEditors);
+
+	var loadUser = function (req, res, next) {
+		//load user object to req.
+		if (!req.session.user) {
+			//not yet login, redirect to login page
+			return;
+		}
+
+		models.User.load(req.session.user, function (err, u) {
+			if (err) {
+				//fail to load user, redirect to login page
+				return;
+			}
+			req.user = u;
+			next();
+		});
+	};
+
+	var authorize = function(req, res, next) {
+		var parts = req.path.split('/'); //['rest', ':entities', ':id']
+		var resource = {
+			type : 'rest',
+			value : req.method + ' /rest/' + parts[2]
+		}
+		req.user.hasPermission(resource, function (err, perm) {
+			if (!perm) {
+				res.send(401, {
+	                status: 401,
+	                type : 'Unauthorized',
+	                message : 'You are not authorized to access ' + resource
+	            });
+	            return;
+			}
+		});
+		next();
+	};
+
+	var guessModel = function () {
+		var map = {};
+		for (var i in models) {
+			map[i] = models[i];
+			map[i+'s'] = models[i];
+			map[i.toLowerCase()] = models[i];
+			map[i.toLowerCase() + 's'] = models[i];
+		}
+		//special case
+		map['cities'] = models.City;
+		map['categories'] = models.Category;
+
+	    return function (req, res, next) {
+	    	var parts = req.path.split('/'); //['rest', ':entities', ':id']
+	    	if (parts.length < 3 || !map[parts[2]]) {
+	    		res.send(400, {
+		            status: 400,
+		            type : 'Bad Request',
+		            message: 'entity name is invalid : ' + parts[2]
+		        });
+		        return;
+	    	}
+	    	req.model = map[parts[2]];
+	    	next();
+	    };
+	};
+
+	// app.all('/rest/*', loadUser, authorize, guessModel());
+	app.all('/rest/*', guessModel());
+
+	app.get(  '/rest/:entities',     routes.rest.getEntities  );
+	app.post( '/rest/:entities',     routes.rest.postEntities );
+	app.del(  '/rest/:entities',     routes.rest.delEntities  );
+	app.put(  '/rest/:entities',     routes.rest.putEntities  );
+
+	app.get(  '/rest/:entities/:id', routes.rest.getEntity  );
+	app.post( '/rest/:entities/:id', routes.rest.postEntity );
+	app.del(  '/rest/:entities/:id', routes.rest.delEntity  );
+	app.put(  '/rest/:entities/:id', routes.rest.putEntity  );
 	
 };
 
