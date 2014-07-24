@@ -201,6 +201,7 @@ var AreaListView = Backbone.View.extend({
     events:{
         'click #area-list-prev-page': 'showPrevPage',
         'click #area-list-next-page': 'showNextPage',
+        'click #search-button' : 'searcharea'
     },
     initialize: function(data){
         var that = this;
@@ -211,11 +212,24 @@ var AreaListView = Backbone.View.extend({
             $('#area-list-page-count').html(Math.floor(that.collection.total/that.collection.pageLimit) + 1);
         });
     },
+    searcharea: function(){
+        var cityname = $('#search-area-cityname').val();
+        var areaname = $('#search-area-name').val();
+        var template = Handlebars.compile($('#area-list-item').html());
+        $('.cmsTable tbody').html('');
+        $.get('/getAreasByCityName/?cityname='+cityname+'&areaname='+areaname, function(data) {
+            _.each(data.results, function(result){
+            var areaListItemView = $(template({area: result}));
+            $('.cmsTable tbody').append(areaListItemView);
+        })
+        })
+    },
     showAreaList: function(collection){
         var that = this;
         this.tbodyPlaceHolder.off();
         this.tbodyPlaceHolder.empty();
         _.each(collection.models, function(model){
+            console.log(model);
             var areaListItemView = new AreaListItemView({model: model});
             areaListItemView.render().$el.appendTo(that.tbodyPlaceHolder);
         })
@@ -273,6 +287,7 @@ var AreaListItemView = Backbone.View.extend({
         'click #manageimg':'manageimg'
 
     },
+
     manageimg: function(e) {
         e.preventDefault();
         var manageImageView = new weego.ManageImageView();

@@ -51,7 +51,7 @@ module.exports = function(app) {
 	app.post('/updateareaitem', routes.city.updateAreaItem);
 	app.get('/getAllCity', routes.city.getAllCity);
 	app.get('/getCountryCities/:countryname', routes.city.getCountryCities);
-	app.get('/getCountryCities/:countryname/:cityname', routes.city.getCityByName);
+	app.get('/getCountryCities/:countryname/:cityid', routes.city.getCityByName);
 	app.get('/getCountryCities/:countryname/:cityname/:type', routes.city.getCityItem);
 	app.get('/getCountryCities/:countryname/:cityname/:type/:itemname', routes.city.showCityItem);
 	// app.get('/getCountryCities/:countryname?', routes.city.getOneCityByName);
@@ -127,7 +127,7 @@ module.exports = function(app) {
 
 	app.get('/areas/:pageLimit/:pageIndex', routes.life.getAreaByPage);
 	app.get('/getAreasByCityId/:cityId',routes.life.getAreasByCityId);
-	app.get('/getAreasByCityName/:cityName',routes.life.getAreasByCityName);
+	app.get('/getAreasByCityName/',routes.life.getAreasByCityName);
 
 	//restaurant
 	app.get('/restaurant/:restaurantId', routes.life.getRestaurant);

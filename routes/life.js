@@ -195,7 +195,13 @@ exports.getAreasByCityId = function(req,res){
     });
 };
 exports.getAreasByCityName = function(req,res){
-    var query = {city_name:req.params.cityName};
+    var query = {};
+    var city_name =  req.query.cityname;
+    var area_name =  req.query.areaname;
+    if(city_name) query.city_name = city_name;
+    if(area_name) query.area_name = area_name;
+    console.log(city_name, area_name)
+    console.log(query);
     Area.getAreasByQuery(query,function(err,areas){
         if(err){
             res.send({status:false,err:err});
