@@ -3,12 +3,13 @@ var geneva = require('../data/life/shopping/geneva_data'); //ID:516a35218902ca19
 var london = require('../data/life/shopping/london_data'); //ID:516a35218902ca1936000005,伦敦
 var losangeles = require('../data/life/shopping/losangeles_data');//ID:516a34f958e3511036000003,洛杉矶
 var newyork = require('../data/life/shopping/newyork_data'); //ID:516a34f958e3511036000001,纽约
-var paris = require('../data/life/shopping/paris_data');//ID:516a350ec221c21236000003,巴黎
+// var paris = require('../data/life/shopping/paris_data');//ID:516a350ec221c21236000003,巴黎
 var roma = require('../data/life/shopping/roma_data');//ID:51d3d238e98bbb566a000001,罗马
 var sanfrancisco = require('../data/life/shopping/sanfrancisco_data');//ID:516a34f958e3511036000002,旧金山
 var singapore = require('../data/life/shopping/singapore_data');//ID:516a3535dac6182136000004,新加坡
 var zurich = require('../data/life/shopping/zurich_data'); //ID:516a35218902ca1936000002,苏黎世
 var venezia = require('../data/life/shopping/venezia_data');//ID:516a3519f8a6461636000001,威尼斯
+var paris = require('../data/life/shopping/paris_shoppings');//ID:52e62f8e4e59f08771000009 Oahu
 
 var newyork_m = require('../data/life/restaurant/michilin/newyorkmichelin_data');
 var barcelona_m = require('../data/life/restaurant/michilin/barcelonamichelin_data');
@@ -31,7 +32,6 @@ var roma_k = require('../data/life/restaurant/full/roma_1000restaurants_data');
 var sanfrancisco_k = require('../data/life/restaurant/full/sanfrancisco_1000restaurants_data');
 var zurich_k = require('../data/life/restaurant/full/zurich_1000restaurants_data.js');
 
-
 var chicago_k = require('../data/life/restaurant/full/chicago_1000restaurants_data.js');
 var madrid_k = require('../data/life/restaurant/full/madrid_1000restaurants_data.js');
 var sydney_k = require('../data/life/restaurant/full/sydney_1000restaurants_data.js');
@@ -48,7 +48,7 @@ var vancouver_k = require('../data/life/restaurant/full/Vancouver_1000restaurant
 var munich_k = require('../data/life/restaurant/full/Munich_1000restaurants_data.js');
 var manchester_k = require('../data/life/restaurant/full/Manchester_10000restaurants_data.js');
 
-
+var oahu = require('../data/life/restaurant/Oahu_restaurants');
 
 
 var CategoryR = require('../data/life/restaurant/category_restaurant');
@@ -61,12 +61,14 @@ var RestaurantModel = require('../models').Restaurant;
 var ShoppingModel = require('../models').Shopping;
 var Category = require('../proxy').Category;
 var Bigtype = require('../proxy').Bigtype;
-var count=0;
+var count = 0;
 var bigs = require('../data/life/big');
 
 function getInitData(){
 	var cityItems = [];
-	cityItems.push({cityname:'曼彻斯特',cityid:'516a352b625d8b1e36000001',items:manchester_k.items});	
+	// cityItems.push({cityname:'曼彻斯特',cityid:'516a352b625d8b1e36000001',items:manchester_k.items});	
+	// cityItems.push({cityname:'欧胡岛',cityid:'52e62f8e4e59f08771000009',items:oahu.items});
+	cityItems.push({cityname:'欧胡岛',cityid:'52e62f8e4e59f08771000009',items:oahu.items});
 	// cityItems.push({cityname:'柏林',cityid:'516a3519f8a6461636000004',items:berlin_k.items});
 	// cityItems.push({cityname:'尼斯',cityid:'516a350fc221c21236000005',items:nice_k.items});
 	// cityItems.push({cityname:'圣地亚哥',cityid:'5308cb32d05b06507f00009b',items:sandiego_k.items});
