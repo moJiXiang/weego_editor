@@ -18,12 +18,20 @@ var AuditingSchema = new Schema({
 	type 			: { type: String },
 	log_type		: { type: String },
 	name 			: { type: String },
-	status			: { type: String },
+	status			: { type: String , default: '0'},
 	editorname		: { type: String },
 	editdate		: { type: String },
 	auditorname		: { type: String },
 	auditdate		: { type: String },
-	auditcomment	: { type: String }
+	auditcomment	: { type: String },
+	en_info			: {
+		status			: { type: String , default: '0'},
+		editorname		: { type: String },
+		editdate		: { type: String },
+		auditorname		: { type: String },
+		auditdate		: { type: String },
+		auditcomment	: { type: String },
+	}
 });
 
 mongoose.model('Auditing', AuditingSchema); 

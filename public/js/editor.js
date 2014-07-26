@@ -25,7 +25,7 @@ $(weego.init());
             // "country":"city_attractions", //
             "allCountries": "showallCountries",
             "allCountries/:countryname": "showCountry",
-            "allCountries/:countryname/:cityname": "showCity",
+            "allCountries/:countryname/:cityid": "showCity",
             "allCountries/:countryname/:cityname/:type": "showCityItems",
             "allCountries/:countryname/:cityname/:type/new": "addNewCityItems",
             "allCountries/:countryname/:cityname/:type/:itemname": "showItem",
@@ -224,7 +224,6 @@ $(weego.init());
 
                             // Prepare data to return to Datagrid
                             var data = response.results.city;
-                            console.log(data);
                             var count = response.results.city.length;
                             var startIndex = options.pageIndex * options.pageSize;
                             var endIndex = startIndex + options.pageSize;
@@ -232,7 +231,6 @@ $(weego.init());
                             var pages = Math.ceil(count / options.pageSize);
                             var page = options.pageIndex + 1;
                             var start = startIndex + 1;
-                            console.log(data);
                             // SORTING is dealt with by the server
                             data = data.slice(startIndex, endIndex);
                             // Allow client code to format the data
@@ -323,7 +321,7 @@ $(weego.init());
                             item.restaurantscount= item.restaurantscount ? '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/restaurants">' + item.restaurantscount + '</a>' : 0;
                             item.shopareacount= item.shopareacount ? '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/shopareas">' + item.shopareacount + '</a>' : 0;
                             item.shoppingscount= item.shoppingscount ? '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '/shoppings">' + item.shoppingscount + '</a>' : 0;
-                            item.cityname = '<a href="#allCountries/' + item.countryname + '/' + item.cityname + '">' + item.cityname + '</a>';
+                            item.cityname = '<a href="#allCountries/' + item.countryname + '/' + item._id + '">' + item.cityname + '</a>';
                             if (item.status == '0') {
                                 item.status = '<button type="button" class="btn btn-default" disabled="disabled">未审核</button>'
                             } else if (item.status == '1') {
@@ -340,15 +338,14 @@ $(weego.init());
             });
 
         },
-        showCity: function(countryname, cityname) {
+        showCity: function(countryname, cityid) {
 
             $.ajax({
-                url: '/getCountryCities/' + countryname + '/' + cityname,
+                url: '/getCountryCities/' + countryname + '/' + cityid,
                 method: 'GET',
                 success: function(data) {
                     console.log(data);
                     var result = data.results;
-                    console.log(weego_city);
                     var cityview = new weego.CityPreView();
                     $('#app').html('').append(cityview.render(data).$el);
                     $("#datepicker").datepicker();
@@ -1584,9 +1581,11 @@ $(weego.init());
         },
         render: function(data) {
             weego.result = data;
+            console.log(data);
             var city = data.results.city;
             var currentuser = data.results.currentuser;
             var edituser = data.results.edituser;
+            var enedituser = data.results.eneditoruser;
             var audits = data.results.audits;
             var attractionscount = data.results.attractionscount;
             var restaurantscount = data.results.restaurantscount;
@@ -1599,6 +1598,7 @@ $(weego.init());
                 city: city,
                 currentuser: currentuser,
                 edituser: edituser,
+                enedituser: enedituser,
                 audits: audits,
                 attractionscount: attractionscount,
                 restaurantscount: restaurantscount,
@@ -1612,8 +1612,11 @@ $(weego.init());
         events: {
             'click #modify': 'modify',
             'click #submitaudit': 'submitaudit',
+            'click #submitenaudit': 'submitenaudit',
             'click #citypass': 'citypass',
-            'click #cityunpass': 'cityunpass'
+            'click #cityunpass': 'cityunpass',
+            'click #encitypass' : 'encitypass',
+            'click #encityunpass' : 'encityunpass'
         },
         getLabelByLabelID: function(id){
             
@@ -1638,6 +1641,7 @@ $(weego.init());
         modify: function() {
             var EditCityView = new weego.EditCityView();
             var _id = weego.result.results.city._id;
+            console.log(weego.result);
             $('#app').html('').append(EditCityView.render(weego.result.results.city).$el);
             var images = weego.result.results.city.image;
             $('#city-dropzone').dropzone({
@@ -1748,72 +1752,122 @@ $(weego.init());
             // });
         },
         submitaudit: function() {
-            var auditmsg = {};
             var currentuser = weego.result.results.currentuser;
-            auditmsg.attractionscount = weego.result.results.attractionscount;
-            auditmsg.restaurantscount = weego.result.results.restaurantscount;
-            auditmsg.shopareacount = weego.result.results.shopareacount;
-            auditmsg.shoppingscount = weego.result.results.shoppingscount;
-            auditmsg.city_name = weego.result.results.city.cityname;
-            auditmsg.item_id = weego.result.results.city._id + '';
-            auditmsg.countryname = weego.result.results.city.countryname;
-            auditmsg.editorname = $('#editorname').text();
-            auditmsg.auditorname = $('#auditorname').find('option:selected').text();
-            auditmsg.editdate = new Date().toLocaleString();
-            auditmsg.auditdate = '';
-            auditmsg.status = 1;
-            auditmsg.type = 'city';
-            console.log(auditmsg);
-            if (auditmsg.editorname == auditmsg.auditorname) {
-                alert('编辑和审核不能为同一人');
-            } else {
-                auditmsg = JSON.stringify(auditmsg);
-                $.post('/savetoauditing', {
-                    auditmsg: auditmsg
-                }, function(data) {
-                    if (data.status == 'success') {
-                        //改变审核按钮的状态
-                        $('#submitaudit').addClass('btn-warning ').text('审核中').attr('disabled', 'disabled');
-                    }
-
-
-
-                    //使用socket.io来给审核者发送信息
-                    // var socket = io.connect();
-                    // var message = auditmsg.city_name;
-                    // socket.emit('audittask', {
-                    //     from    : auditmsg.editorname,
-                    //     to      : auditmsg.auditorname,
-                    //     message : auditmsg.city_name
-                    // });
-                    // socket.on('audittask', function(data){
-                    //     console.log(data);
-                    //     var item  = '<a>'+ message +'</a>';
-                    //     $('#app').append(item);
-                    // })
-                })
+            var auditmsg = {
+                attractionscount : weego.result.results.attractionscount,
+                restaurantscount : weego.result.results.restaurantscount,
+                shopareacount    : weego.result.results.shopareacount,
+                shoppingscount   : weego.result.results.shoppingscount,
+                city_name        : weego.result.results.city.cityname,
+                item_id          : weego.result.results.city._id,
+                countryname      : weego.result.results.city.countryname,
+                editorname       : $('#cn_editor').find('option:selected').text(),
+                auditorname      : $('#auditorname').find('option:selected').text(),
+                editdate         : new Date().toLocaleString(),
+                auditdate        : '',
+                status           : 1,
+                type             : 'city',
+                en_info          : {
+                    
+                }
             };
+            console.log(auditmsg);
+            if(auditmsg.editorname && auditmsg.auditorname){
+            
+                if (auditmsg.editorname == auditmsg.auditorname) {
+                    alert('编辑和审核不能为同一人');
+                    return false;
+                } else {
+                    auditmsg = JSON.stringify(auditmsg);
+                    $.post('/savetoauditing', {
+                        auditmsg: auditmsg
+                    }, function(data) {
+                        if (data.status == 'success') {
+                            //改变审核按钮的状态
+                            $('#submitaudit').addClass('btn-warning ').text('审核中').attr('disabled', 'disabled');
+                        }
 
+
+
+                        //使用socket.io来给审核者发送信息
+                        // var socket = io.connect();
+                        // var message = auditmsg.city_name;
+                        // socket.emit('audittask', {
+                        //     from    : auditmsg.editorname,
+                        //     to      : auditmsg.auditorname,
+                        //     message : auditmsg.city_name
+                        // });
+                        // socket.on('audittask', function(data){
+                        //     console.log(data);
+                        //     var item  = '<a>'+ message +'</a>';
+                        //     $('#app').append(item);
+                        // })
+                    })
+                };
+            }
+
+        },
+        submitenaudit : function() {
+            var currentuser = weego.result.results.currentuser;
+            var auditmsg = {
+                attractionscount : weego.result.results.attractionscount,
+                restaurantscount : weego.result.results.restaurantscount,
+                shopareacount    : weego.result.results.shopareacount,
+                shoppingscount   : weego.result.results.shoppingscount,
+                city_name        : weego.result.results.city.cityname,
+                item_id          : weego.result.results.city._id,
+                countryname      : weego.result.results.city.countryname,
+                // editorname       : $('#cn_editor').find('option:selected').text(),
+                // auditorname      : $('#auditorname').find('option:selected').text(),
+                // editdate         : new Date().toLocaleString(),
+                // auditdate        : '',
+                type             : 'city',
+                en_info          : {
+                    status       : 1,
+                    editorname   : $('#en_editor').find('option:selected').text(),
+                    auditorname  : $('#enauditorname').find('option:selected').text()
+                }
+            };
+            if(auditmsg.en_info.editorname && auditmsg.en_info.auditorname){
+
+                if (auditmsg.en_info.editorname == auditmsg.en_info.auditorname) {
+                    alert('编辑和审核不能为同一人');
+                    return false;
+                } else {
+                    console.log(auditmsg);
+                    auditmsg = JSON.stringify(auditmsg);
+                    $.post('/savetoauditing', {
+                        auditmsg: auditmsg
+                    }, function(data) {
+                        if (data.status == 'success') {
+                            //改变审核按钮的状态
+                            $('#submitenaudit').addClass('btn-warning ').text('审核中').attr('disabled', 'disabled');
+                        }
+                    })
+                };
+            }
         },
         citypass: function() {
             var model = {
-                _id: weego.result.results.city._id + '',
+                item_id: weego.result.results.city._id + '',
                 city_name: weego.result.results.city.cityname,
                 status: '2',
                 type: 'city',
-                attractionscount: weego.result.results.attractionscount,
-                restaurantscount: weego.result.results.restaurantscount,
-                shopareacount: weego.result.results.shopareacount,
-                shoppingscount: weego.result.results.shoppingscount,
-                editorname: weego.result.results.audits.editorname,
-                editdate: weego.result.results.audits.editdate,
-                auditorname: weego.result.results.audits.auditorname,
-                auditdate: new Date().toLocaleString()
+                attractionscount    : weego.result.results.attractionscount,
+                restaurantscount    : weego.result.results.restaurantscount,
+                shopareacount       : weego.result.results.shopareacount,
+                shoppingscount      : weego.result.results.shoppingscount,
+                editorname          : weego.result.results.audits.editorname,
+                editdate            : weego.result.results.audits.editdate,
+                auditorname         : weego.result.results.audits.auditorname,
+                auditdate           : new Date().toLocaleString(),
+                
             }
             model.auditcomment = $('#auditcomment').val();
             $('#citypass').attr('disabled', 'disabled');
             $('#cityunpass').remove();
             model = JSON.stringify(model);
+            console.log(model);
             $.post('/passthiscity/', {
                 model: model
             }, function(data) {
@@ -1822,7 +1876,7 @@ $(weego.init());
         },
         cityunpass: function() {
             var model = {
-                _id: weego.result.results.city._id + '',
+                item_id: weego.result.results.city._id + '',
                 city_name: weego.result.results.city.cityname,
                 status: '-1',
                 type: 'city',
@@ -1833,11 +1887,41 @@ $(weego.init());
                 editorname: weego.result.results.audits.editorname,
                 editdate: weego.result.results.audits.editdate,
                 auditorname: weego.result.results.audits.auditorname,
-                auditdate: new Date().toLocaleString()
+                auditdate: new Date().toLocaleString(),
+                
             }
             model.auditcomment = $('#auditcomment').val();
             $('#cityunpass').attr('disabled', 'disabled');
             $('#citypass').remove();
+            model = JSON.stringify(model);
+            $.post('/passthiscity/', {
+                model: model
+            }, function(data) {
+
+            })
+        },
+        encitypass : function() {
+            var model = {
+                item_id: weego.result.results.city._id,
+                en_info: {
+                    status : '2',
+                }
+            }
+            console.log(model);
+            model = JSON.stringify(model);
+            $.post('/passthiscity/', {
+                model: model
+            }, function(data) {
+
+            })
+        },
+        encityunpass : function() {
+            var model = {
+                item_id: weego.result.results.city._id,
+                en_info : {
+                    status : '-1'
+                }
+            }
             model = JSON.stringify(model);
             $.post('/passthiscity/', {
                 model: model

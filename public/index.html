@@ -598,25 +598,103 @@
                     </dd>
                 </dl>
             </div>
-
             <div class="bs-example">
                 <dl>
-                    <dt>参与编辑人员</dt>
+                    <dt>英文编辑</dt>
+                    <dd>
+                        <span>英文编辑：</span>
+                        {{#if audits.en_info.status}}
+                            {{#ifCond audits.en_info.status '0'}}
+                                <select style="width: 100px;" id="en_editor">
+                                    <option></option>
+                                    {{#each enedituser}}
+                                        <option>{{this.username}}</option>
+                                    {{/each}}
+                                </select>
+                                {{else}}
+                                <a id="editorname">{{audits.en_info.editorname}}</a>
+                            {{/ifCond}}
+                        {{else}}
+                            <select style="width: 100px;" id="en_editor">
+                                <option></option>
+                                {{#each enedituser}}
+                                    <option>{{this.username}}</option>
+                                {{/each}}
+                            </select>
+                        {{/if}}
+                    </dd>
+                    <dd>
+                        <span>英文审核：</span>
+                        {{#if audits.en_info.auditorname}}
+                        {{audits.en_info.auditorname}}
+                        {{else}}
+                            <select id="enauditorname" style="width:100px">
+                                <option></option>
+                                {{#each enedituser}}
+                                <option value = ''>{{this.username}}</option>
+                                {{/each}}
+                            </select>
+                        {{/if}}
+                    </dd>
+                    <dd>
+                        <span>审核建议：</span>
+                        {{#ifCond currentuser audits.auditorname}}
+                        <textarea id="enauditcomment" ></textarea>
+                        {{else}}
+                        {{audits.en_info.auditcomment}}
+                        {{/ifCond}}
+                    </dd>
+                    <div class="highlight">
+                    {{#ifCond  currentuser audits.en_info.auditorname}}
+                            <button type="button" class="btn btn-success" id="encitypass">通过</button>
+                            <button type="button" class="btn btn-danger" id="encityunpass">未通过</button>
+                        {{else}}
+                            {{#if audits.en_info.status}}
+                                {{#ifCond audits.en_info.status '-1'}}
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="submitenaudit" disabled="disabled">审核未通过</button>
+                                {{/ifCond}}
+
+                                {{#ifCond audits.en_info.status '2'}}
+                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" id="submitenaudit" disabled="disabled">审核通过</button>
+                                {{/ifCond}}
+
+                                {{#ifCond audits.en_info.status '1'}}
+                                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" id="submitenaudit" disabled="disabled">审核中</button>
+                                {{/ifCond}}
+                                {{#ifCond audits.en_info.status '0'}}
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="submitenaudit">提交审核</button>
+                                {{/ifCond}}
+                            {{else}}
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="submitenaudit">提交审核</button>
+                            {{/if}}
+                    {{/ifCond}}
+                    </div>
+                </dl>
+            </div>
+            <div class="bs-example">
+                <dl>
+                    <dt>中文编辑</dt>
                     <dd>
                         <span>中文编辑：</span>
                         {{#ifCond audits.status '0'}}
-                            <a id="editorname">{{currentuser}}</a>
+                            <select style="width: 100px;" id="cn_editor">
+                                <option></option>
+                                {{#each edituser}}
+                                    <option>{{this.username}}</option>
+                                {{/each}}
+                            </select>
                             {{else}}
                             <a id="editorname">{{audits.editorname}}</a>
                         {{/ifCond}}
                     </dd>
-                 
+                    
                     <dd>
-                        <span>审核人员：</span>
+                        <span>中文审核：</span>
                         {{#if audits.auditorname}}
                         {{audits.auditorname}}
                         {{else}}
                             <select id="auditorname">
+                                <option></option>
                                 {{#each edituser}}
                                 <option value = ''>{{this.username}}</option>
                                 {{/each}}
@@ -3441,7 +3519,7 @@
                 城市：<input type="text" id="search-area-cityname" value="{{search_cityname}}"> 
             </span>
             <span>
-                名称：<input type="text" id="search-area-name" value="{{search_areaname}}"> 
+                购物区域：<input type="text" id="search-area-name" value="{{search_areaname}}"> 
             </span>
             <span>
                 <button id="search-button" >查询</button>
@@ -3461,6 +3539,17 @@
             </table>
         </div>
 
+    </script>
+
+    <script id="area-list-item" type="text/x-handlebars-template">
+        <tr>
+        <td>{{area.city_name}}</td>
+        <td>{{area.area_name}}</td>
+        <td>{{area.area_enname}}</td>
+        <td><a id="area-list-item-edit" class="btn" href="#area/{{area._id}}">编辑</a></td>
+        <td><button id="area-list-item-remove" class="btn btn-danger">删除</button></td>
+        <td><button data-value="{{area._id}}" id="manageimg">图片管理</button></td>
+        </tr>
     </script>
     <script id="area-list-item-view" type="text/x-handlebars-template">
         <td>{{city_name}}</td>

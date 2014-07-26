@@ -12,3 +12,4 @@ exports.Path = require('./path');
 exports.City = require('./city');
 exports.Attractions = require('./attractions');
 exports.Label = require('./label');
+exports.EditUser = require('./edituser');

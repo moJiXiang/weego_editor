@@ -1,27 +1,17 @@
 var models     =   require('../models');
 var City 	   =   models.City;
-var ObjectID = require('mongodb').ObjectID;
+
+exports.findCity = function (query, callback) {
+	City.findOne(query, callback);
+}
 
 exports.update = function (one, callback) {
+	console.log(one);
 	var cityname = one.city_name;
 	var city_id = one.item_id;
-	console.log(city_id);
-	// City.findOne({cityname: cityname}, function (err, result) {
-	// 	if (result.status) {
 
-	// 		result.attractionscount = one.attractionscount;
-	// 		result.restaurantscount = one.restaurantscount;
-	// 		result.shopareacount 	= one.shopareacount;
-	// 		result.shoppingscount	= one.shoppingscount;
-	// 		result.status 			= one.status;
-	// 		result.editorname		= one.editorname;
-	// 		result.editdate			= one.editdate;
-	// 		result.auditorname		= one.auditorname;
-	// 		result.auditdate		= one.auditdate;
-	// 		result.save();
-	// 	}else{
 	City.update({
-		_id: new ObjectID(city_id)
+		_id: city_id
 	}, {
 		$set: {
 			attractionscount: one.attractionscount,
@@ -33,10 +23,11 @@ exports.update = function (one, callback) {
 			editdate: one.editdate,
 			auditorname: one.auditorname,
 			auditdate: one.auditdate,
+			en_info : {
+				status : one.en_info.status
+			}
 		}
 	}, callback)
-	// 	}
-	// });
 }
 
 exports.updatemsg = function(one, callback) {
@@ -44,7 +35,7 @@ exports.updatemsg = function(one, callback) {
 	var city_id = one._id;
 	console.log(one);
 	City.update({
-		_id: new ObjectID(city_id)
+		_id: city_id
 	}, {
 		$set: {
 			// continents          :   one.continents,

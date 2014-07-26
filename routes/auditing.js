@@ -5,7 +5,6 @@ var Restaurant  = require('../proxy').Restaurant;
 var Area 		= require('../proxy').Area;
 var Shopping 	= require('../proxy').Shopping;
 var async 		= require('async');
-var ObjectID = require('mongodb').ObjectID;
 
 exports.getedithistory = function (req, res) {
 	var query = {
@@ -61,13 +60,14 @@ exports.addAuditTask = function (req, res) {
 	console.log(typeof item_id,item_id);
 	async.auto({
 		audits : function (cb) {
-			Auditing.findAuditingByQuery({item_id:new ObjectID(item_id+'')},cb);
+			Auditing.findAuditingByQuery({item_id:item_id},cb);
 		},
 		newandsaveaudit : ['audits',function (cb, result) {
-			if(result.audits != null){
-				Auditing.update(model, cb);
-			}else{
+			console.log(result);
+			if(result.audits){
 				Auditing.newAndSave(model,cb);
+			}else{
+				Auditing.update(model, cb);
 			}
 		}],
 		cityitemupdate : function (cb) {
@@ -96,6 +96,7 @@ exports.addAuditTask = function (req, res) {
 
 exports.updateAuditTask = function (req, res) {
 	var model = JSON.parse(req.body.model);
+	console.log('===================>')
 	async.auto({
 		auditingupdata : function (cb) {
 			Auditing.update(model, cb);
