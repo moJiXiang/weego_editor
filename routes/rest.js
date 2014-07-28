@@ -14,6 +14,14 @@ exports.getEntities = function (req, res) {
     var model = req.model;
 
     var c = JSON.parse(JSON.stringify(req.query));//clone
+    if (c.criteria) {
+        try {
+            c.criteria = JSON.parse(c.criteria);
+        }catch (e) {
+            res.send(400, {status: 400, type: 'Bad Request', message : 'Fail to parse parameter criteria'});
+            return;
+        }
+    }
     var cmd = c.cmd = req.query.cmd || 'find';
 
     var cb = function (err, items) {
