@@ -2,29 +2,42 @@
 var models = require('../models'),
     async  = require('async');
 
+var isMethodInternal = function () {
+    var internals = ['find', 'count'];
+    return function (m) {
+        return internals.indexOf(m) > -1;
+    }
+}
+
 exports.getEntities = function (req, res) {
 
     var model = req.model;
 
-    var c = {};
-    for (var i in req.query) 
-        c[i] = req.query[i];
+    var c = JSON.parse(JSON.stringify(req.query));//clone
+    var cmd = c.cmd = req.query.cmd || 'find';
 
-    c.cmd = c.cmd || 'find';
-    c.offset = c.offset || 0;
-    c.limit = c.limit || 20;
+    var cb = function (err, items) {
+        if (err) {
+            res.send(500, {
+                status: 500,
+                type : 'Internal Server Error',
+                message : '' + err
+            });
+        } else {
+            res.send(200, {result : items});
+        }
+    };
 
-    model[c.cmd](c, function (err, items) {
-            if (err) {
-                res.send(500, {
-                    status: 500,
-                    type : 'Internal Server Error',
-                    message : '' + err
-                });
-            } else {
-                res.send(200, {result : items});
-            }
-        });
+    if (cmd == 'find') {
+        model.find(c.criteria || {})
+            .skip(c.offset || 0)
+            .limit(c.limit || 20)
+            .exec(cb);
+    } else if (cmd == 'count') {
+        model.count(c.criteria).exec(cb);
+    } else {
+        model[cmd](c, cb);
+    }
 }
 
 exports.postEntities = function (req, res) {  //create a new entity
