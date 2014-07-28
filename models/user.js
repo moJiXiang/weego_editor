@@ -9,7 +9,7 @@ var UserSchema = new Schema({
     password : String,
     status   : {type : Number, default : 1}, // 1:active, 2:frozen, 3:deleted
     roles    : Array,  //value set : meta{type:'role'}
-    users    : Array
+    groups   : Array
 
 }, {
     collection : 'cmsUsers'
