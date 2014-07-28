@@ -6,16 +6,15 @@ exports.getEntities = function (req, res) {
 
     var model = req.model;
 
-    var c = {
-        criteria : {},
-        offset : req.query.offset || 0,
-        limit  : req.query.limit || 20
-    }
+    var c = {};
+    for (var i in req.query) 
+        c[i] = req.query[i];
 
-    model.find(c.criteria)
-        .limit(c.limit)
-        .skip(c.offset)
-        .exec(function (err, items) {
+    c.cmd = c.cmd || 'find';
+    c.offset = c.offset || 0;
+    c.limit = c.limit || 20;
+
+    model[c.cmd](c, function (err, items) {
             if (err) {
                 res.send(500, {
                     status: 500,
@@ -23,7 +22,7 @@ exports.getEntities = function (req, res) {
                     message : '' + err
                 });
             } else {
-                res.send(200, {items : items, offset: c.offset, limit: c.limit});
+                res.send(200, {result : items});
             }
         });
 }
@@ -40,7 +39,7 @@ exports.postEntities = function (req, res) {  //create a new entity
                 message : '' + err
             });
         } else {
-            res.send(201, {item : item});
+            res.send(201, {result : item});
         }
     });
 }
@@ -73,7 +72,7 @@ exports.getEntity = function (req, res) {
         } else if (!item) {
             res.send(404, {status: 404, type: 'Not Found', message : 'entity not found : ' + req.query.id});
         } else {
-            res.send(200, item);
+            res.send(200, {result: item});
         }
     });
 }
@@ -94,7 +93,7 @@ exports.delEntity = function (req, res) {
         if (err) {
             res.send(500, {status:500, type : 'Internal Server Error', message: 'Fail to delete entity ' + req.params.id});
         } else {
-            res.send(200, item);
+            res.send(200, {result: item});
         }
     });
 }
@@ -107,7 +106,7 @@ exports.putEntity = function (req, res) {
         if (err) {
             res.send(500, {status:500, type : 'Internal Server Error', message: 'Fail to delete entity ' + req.params.id});
         } else {
-            res.send(200, item);
+            res.send(200, {result: item});
         }
     });
 }

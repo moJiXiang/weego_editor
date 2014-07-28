@@ -15,4 +15,29 @@ var LabelSchema = new Schema({
 	collection  : 'label' 
 });
 
+LabelSchema.statics = {
+
+    list: function (opt, cb) {
+        var that = this;
+        var c = opt.criteria || {};
+        if (opt.city) {
+            mongoose.model('City').findOne({_id:opt.city}, function(err, city) {
+                var ids = city.subLabel;
+                // c.level='2';
+                c._id = {$in: ids};
+                that.find(c)
+                    .skip(c.offset || 0)
+                    .limit(c.limit || 20)
+                    .exec(cb);
+            });
+        } else {
+            that.find(c)
+                    .skip(c.offset || 0)
+                    .limit(c.limit || 20)
+                    .exec(cb);
+        }
+        
+    }
+}
+
 mongoose.model('Label', LabelSchema);
