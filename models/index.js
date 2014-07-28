@@ -1,5 +1,43 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    fs     = require('fs');
 
+
+var cap = function (string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+var walk = function (options, cb) {
+  var opt = options || {},
+    path = opt.path;
+
+  if (!path) throw new Error("path is a mandatory parameter");
+
+
+  var files = fs.readdirSync(path).filter(function (file) {
+    var excluded = opt.excludes && opt.excludes.some(function (ptn) {
+      if (ptn instanceof RegExp) {
+        return ptn.test(file);
+      } else {
+        return file == ptn;
+      }
+    });
+    if (excluded) return false;
+
+    var stat = fs.statSync(path + '/' + file);
+
+    if (opt.isFile) {
+      if (!stat.isFile()) return false;
+    }
+    if (opt.isDirectory) {
+      if (!stat.isDirectory()) return false;
+    }
+    return true;
+  });
+  
+  files.map(cb);
+}
+
+// TODO  why ?
 mongoose.connect(global.db, function (err) {
   if (err) {
     console.error('connect to %s error: ', global.db, err.message);
@@ -7,35 +45,12 @@ mongoose.connect(global.db, function (err) {
   }
 });
 
-// models
-require('./category');
-require('./lifetag');
-require('./restaurant');
-require('./shopping');
-require('./entertainment');
-require('./bigtype');
-require('./area');
-require('./task');
-require('./taskquestion');
-require('./auditing');
-require('./path');
-require('./city');
-require('./attraction');
-require('./label');
-require('./edituser');
 
-exports.Category = mongoose.model('Category');
-exports.Entertainment = mongoose.model('Entertainment');
-exports.Lifetag = mongoose.model('Lifetag');
-exports.Restaurant = mongoose.model('Restaurant');
-exports.Shopping = mongoose.model('Shopping');
-exports.Bigtype = mongoose.model('Bigtype');
-exports.Area = mongoose.model('Area');
-exports.Task = mongoose.model('Task');
-exports.Taskquestion = mongoose.model('Taskquestion');
-exports.Auditing = mongoose.model('Auditing');
-exports.Path = mongoose.model('Path');
-exports.City = mongoose.model('City');
-exports.Attraction = mongoose.model('Attraction');
-exports.Label = mongoose.model('Label');
-exports.Editor = mongoose.model('Edituser');
+walk({path : __dirname, excludes : ['index.js'], isFile : true}, function (file) {
+    
+    var m   = file.replace(/\.js/, ''),
+        mn  =  cap(m);
+    
+    require('./' + m);
+    exports[mn] = mongoose.model(mn);
+});
