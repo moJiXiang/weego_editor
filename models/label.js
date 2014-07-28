@@ -19,28 +19,35 @@ LabelSchema.statics = {
 
     list: function (opt, cb) {
         var that = this;
-        var c = opt.criteria || {};
-        if (opt.city) {
-            mongoose.model('City').findOne({_id:opt.city}, function(err, city) {
-                var ids = city.subLabel;
-                if (!ids || ids.length <1) {
-                    cb(null, []);
-                    return;
-                }
-                // c.level='2';
-                c._id = {$in: ids};
-                that.find(c)
-                    .skip(c.offset || 0)
-                    .limit(c.limit || 20)
-                    .exec(cb);
-            });
-        } else {
-            that.find(c)
-                    .skip(c.offset || 0)
-                    .limit(c.limit || 20)
-                    .exec(cb);
+        if (opt.level) {
+            opt.criteria.level = opt.level;
         }
-        
+        that.find(opt.criteria)
+            .skip(opt.offset || 0)
+            .limit(opt.limit || 20)
+            .exec(cb);
+    },
+
+    listByName : function (opt, cb) {
+
+        opt.criteria = opt.criteria || {};
+        opt.criteria.label = {$regex : opt.name};
+        this.list(opt, cb);
+    },
+
+    listByCity : function (opt, cb) {
+        var that = this;
+
+        mongoose.model('City').findOne({_id: opt.city}, function(err, city) {
+            if (!city || !city.subLabel || city.subLabel.length <1) { // no sublabel found
+                cb(null, []);
+                return;
+            }
+            var ids = city.subLabel;
+            opt.criteria = opt.criteria || {};
+            opt.criteria._id = {$in : ids};
+            that.list(opt, cb);
+        });
     }
 }
 
