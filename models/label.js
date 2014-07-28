@@ -23,6 +23,10 @@ LabelSchema.statics = {
         if (opt.city) {
             mongoose.model('City').findOne({_id:opt.city}, function(err, city) {
                 var ids = city.subLabel;
+                if (!ids || ids.length <1) {
+                    cb(null, []);
+                    return;
+                }
                 // c.level='2';
                 c._id = {$in: ids};
                 that.find(c)
