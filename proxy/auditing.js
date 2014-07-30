@@ -11,23 +11,11 @@ exports.findAuditingByQuery = function(query,callback){
 };
 
 exports.getAuditingsByLimit = function (skip,pageLimit,query, callback) {
-  Auditing.find(query, [], {sort: [['status', 'asc'],['create_at', 'desc']],skip:skip, limit:pageLimit}, function (err, auditings) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,auditings);
-		}
-	});
-};
+  Auditing.find(query).sort({'status': 'asc', 'create_at': 'desc'}).skip(skip).limit(pageLimit).exec(callback);
+}
 
 exports.getAuditingsByQuery = function (query, callback) {
-  Auditing.find(query, [], {sort: [['status', 'asc'],['create_at', 'desc']]}, function (err, auditings) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,auditings);
-		}
-	});
+  Auditing.find(query).sort({'status': 'asc', 'create_at': 'desc'}).exec(callback);
 };
 
 exports.count = function (query,callback) {

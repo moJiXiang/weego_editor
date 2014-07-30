@@ -62,7 +62,7 @@ function findSpotByIdAndType(id,type,callback){
 }
 
 exports.getPathsByQuery = function(query,callback){
-	Path.find(query, [], {sort: [['b_id', 'desc']]}, callback);
+	Path.find(query).sort({'b_id': 'desc'}).exec(callback);
 };
 
 //查找两个点的path

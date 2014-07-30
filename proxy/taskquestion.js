@@ -8,23 +8,14 @@ exports.getTaskquestion = function (id, callback) {
 };
 
 exports.getTaskquestionsByLimit = function (skip,pageLimit,query, callback) {
-  Taskquestion.find(query, [], {sort: [['is_closed','asc'],['create_at', 'desc']],skip:skip, limit:pageLimit}, function (err, taskquestions) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,taskquestions);
-		}
-	});
+	Taskquestion.find(query).sort({'is_closed': 'asc','create_at': 'desc'})
+		.skip(skip).limit(pageLimit)
+		.exec(callback);
 };
 
 exports.getTaskquestionsByQuery = function (query, callback) {
-  Taskquestion.find(query, [], {sort: [['is_closed','asc'],['create_at', 'desc']]}, function (err, taskquestions) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,taskquestions);
-		}
-	});
+	Taskquestion.find(query).sort({'is_closed': 'asc','create_at': 'desc'})
+		.exec(callback);
 };
 
 exports.count = function (query,callback) {

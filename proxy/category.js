@@ -12,33 +12,15 @@ exports.getCategoryByEnName = function (en_name, callback) {
 };
 
 exports.getCategorysByTypeLimit = function (type,skip,pageLimit, callback) {
-  Category.find({type: type}, [], {sort: [['name', 'desc']],skip:skip, limit:pageLimit}, function (err, categorys) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,categorys);
-		}
-	});
+  Category.find({type: type}).sort({'name': 'desc'}).skip(skip).limit(pageLimit).exec(callback)
 };
 
 exports.getCategorysByType = function(type,callback){
-	Category.find({type: type}, [], {sort: [['name', 'desc']]}, function (err, categorys) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,categorys);
-		}
-	});
+  Category.find({type: type}).sort({'name': 'desc'}).exec(callback)
 };
 
 exports.getCategorysByQuery = function(query,callback){
-	Category.find(query, [], {sort: [['name', 'desc']]}, function (err, categorys) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,categorys);
-		}
-	});
+	Category.find(query).sort({'name': 'desc'}).exec(callback)
 };
 
 exports.count = function (type, callback) {

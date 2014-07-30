@@ -8,23 +8,11 @@ exports.getLifetag = function (id, callback) {
 };
 
 exports.getLifetagsByTypeLimit = function (type,skip,pageLimit, callback) {
-  Lifetag.find({type: type}, [], {sort: [['name', 'desc']],skip:skip, limit:pageLimit}, function (err, lifetags) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,lifetags);
-		}
-	});
+  Lifetag.find({type: type}).sort({'name': 'desc'}).skip(skip).limit(pageLimit).exec(callback);
 };
 
 exports.getLifetagsByType = function(type,callback){
-	Lifetag.find({type: type}, [], {sort: [['name', 'desc']]}, function (err, lifetags) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,lifetags);
-		}
-	});
+	Lifetag.find({type: type}).sort({'name': 'desc'}).exec(callback);
 };
 
 exports.count = function (type, callback) {
