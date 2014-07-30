@@ -9,23 +9,14 @@ exports.getTask = function (id, callback) {
 };
 
 exports.getTasksByLimit = function (skip,pageLimit,query, callback) {
-  Task.find(query, [], {sort: [['status','asc'],['create_at', 'desc']],skip:skip, limit:pageLimit}, function (err, tasks) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,tasks);
-		}
-	});
+	Task.find(query).sort({'status': 'asc', 'create_at': 'desc'})
+		.skip(skip).limit(pageLimit)
+		.exec(callback);
 };
 
 exports.getTasksByQuery = function (query, callback) {
-  Task.find(query, [], {sort: [['status','asc'],['create_at', 'desc']]}, function (err, tasks) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,tasks);
-		}
-	});
+	Task.find(query).sort({'status': 'asc', 'create_at': 'desc'})
+		.exec(callback);
 };
 
 exports.count = function (query,callback) {

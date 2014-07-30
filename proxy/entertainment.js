@@ -8,13 +8,9 @@ exports.getEntertainment = function (id, callback) {
 };
 
 exports.getEntertainments = function (skip,pageLimit,query, callback) {
-  Entertainment.find(query, [], {sort: [['city_name', 'asc'],['index_flag','desc'],['show_flag','desc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, entertainments) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,entertainments);
-		}
-	});
+  Entertainment.find(query)
+  	.sort('city_name', 'asc').sort({'index_flag': 'desc', 'show_flag': 'desc'})
+  	.skip(skip).limit(pageLimit).exec(callback);
 };
 
 

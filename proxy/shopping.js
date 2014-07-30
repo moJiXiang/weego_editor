@@ -36,28 +36,20 @@ exports.getFullShopping = function(id,callback){
 };
 
 exports.getShoppings = function (skip,pageLimit,query, callback) {
-	console.log(query);
-  Shopping.find(query, [], {sort: [['city_name', 'asc'],['index_flag','desc'],['show_flag','desc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, shoppings) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,shoppings);
-		}
-	});
+	Shopping.find(query)
+		.sort({'city_name':'asc', 'index_flag':'desc', 'show_flag':'desc', 'ranking':'asc'})
+		.skip(skip).limit(pageLimit)
+		.exec(callback);
 };
 
 exports.getShoppingsByQuery = function(query,callback){
-	Shopping.find(query, [], {sort: [['city_name', 'asc'],['index_flag','desc'],['show_flag','desc'],['ranking', 'asc']]}, function (err, shoppings) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,shoppings);
-		}
-	});
+	Shopping.find(query)
+		.sort({'city_name':'asc', 'index_flag':'desc', 'show_flag':'desc', 'ranking':'asc'})
+		.exec(callback);
 };
 
 exports.getShoppingsByOptions = function(query,options,callback){
-	Shopping.find(query,[],options,callback);
+	Shopping.find(query,null,options,callback);
 };
 
 exports.count = function (query,callback) {

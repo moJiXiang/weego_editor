@@ -20,13 +20,10 @@ exports.getRestaurantByName = function(query,callback){
 };
 
 exports.getRestaurants = function (skip,pageLimit,query, callback) {
-  Restaurant.find(query,[], {sort: [['city_name', 'asc'],['index_flag','desc'],['show_flag','desc'],['ranking', 'asc']],skip:skip, limit:pageLimit}, function (err, restaurants) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,restaurants);
-		}
-	});
+  Restaurant.find(query)
+  	.sort({'city_name': 'asc', 'index_flag': 'desc', 'show_flag': 'desc', 'ranking': 'desc'})
+  	.skip(skip).limit(pageLimit)
+  	.exec(callback);
 };
 
 var isIn = function(id,big){
@@ -72,7 +69,7 @@ exports.getRestaurantsByQuery = function(id,callback){
 };
 
 exports.getRestaurantsByOptions = function(query,options,callback){
-	Restaurant.find(query,[],options,callback);
+	Restaurant.find(query,null,options,callback);
 };
 
 exports.count = function (query,callback) {

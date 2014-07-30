@@ -8,23 +8,11 @@ exports.getBigtype = function (id, callback) {
 };
 
 exports.getBigtypesByType = function(type,callback){
-	Bigtype.find({type: type}, [], {sort: [['name', 'desc']]}, function (err, bigtypes) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,bigtypes);
-		}
-	});
+	Bigtype.find({type: type}).sort({'name':'desc'}).exec(callback);
 };
 
 exports.getBigtypesByQuery = function(query,callback){
-	Bigtype.find(query, [], {sort: [['name', 'desc']]}, function (err, bigtypes) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,bigtypes);
-		}
-	});
+	Bigtype.find(query).sort({'name':'desc'}).exec(callback);
 };
 
 exports.count = function (type, callback) {

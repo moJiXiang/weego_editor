@@ -8,26 +8,14 @@ exports.getArea = function (id, callback) {
 };
 
 exports.getAreasByQuery = function(query,callback){
-	Area.find(query, [], {sort: [['name', 'desc']]}, function (err, areas) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,areas);
-		}
-	});
+	Area.find(query).sort({'name': 'desc'}).exec(callback);
 };
 
 exports.getAreasByName = function(query, callback){
 	Area.findOne(query,callback);
 }
 exports.getAreasByLimit = function (skip,pageLimit, callback) {
-  Area.find({}, [], {sort: [['name', 'desc']],skip:skip, limit:pageLimit}, function (err, areas) {
-		if(err)
-			callback(err);
-		else{
-			callback(null,areas);
-		}
-	});
+	Area.find(query).sort({'name': 'desc'}).skip(skip).limit(pageLimit).exec(callback);
 };
 
 exports.count = function (query, callback) {
