@@ -5,34 +5,39 @@ var ObjectId = Schema.ObjectId;
  //申请审核条目。
  //type: city, attraction, restaurant, shoparea, shopping
  //log_type : 0,新建，1修改。
- //status: 0，尚未递交审核，1，审核中，2，审核通过，-1，审核不通过。
+ //status: 0，尚未递交审核(编辑状态)，1，审核中，2，审核通过，-1，审核不通过。
 
+/**
+ * [AuditingSchema description]
+ * @type {Schema}
+ */
 var AuditingSchema = new Schema({
-	city_id			: { type: ObjectId ,index: true },
-	countryname 	: { type: String },
-	city_name		: { type: String },
-	task_id			: { type: ObjectId ,index: true },
-	task_name		: { type: String },
-	editor_id		: { type: ObjectId ,index: true },
 	item_id			: { type: ObjectId },
 	type 			: { type: String },
-	log_type		: { type: String },
 	name 			: { type: String },
-	status			: { type: String , default: '0'},
+	status			: { type: Number },
+	en				: { type: Boolean },
+	editorid		: { type: ObjectId },
 	editorname		: { type: String },
-	editdate		: { type: String },
+	editdate		: { type: Date, default: Date.now },
+	auditorid		: { type: ObjectId },
 	auditorname		: { type: String },
-	auditdate		: { type: String },
-	auditcomment	: { type: String },
-	en_info			: {
-		status			: { type: String , default: '0'},
-		editorname		: { type: String },
-		editdate		: { type: String },
-		auditorname		: { type: String },
-		auditdate		: { type: String },
-		auditcomment	: { type: String },
-	}
+	auditdate		: { type: Date, default: Date.now },
+	auditcomment	: [{ 
+		field		: { type: String },
+		comment 	: { type: String },
+		createdAt 	: { type: Date, default: Date.now }
+	}]
 });
+
+AuditingSchema.statics = {
+
+	getAuditByItemid : function (opt, cb) {
+
+		this.find({item_id: opt.item_id}, cb);
+
+	}
+}
 
 mongoose.model('Auditing', AuditingSchema); 
  
