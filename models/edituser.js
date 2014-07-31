@@ -28,10 +28,10 @@ var ObjectId = Schema.ObjectId;
  		this.find(opt, cb);
  	},
  	listChineseEditors : function (opt, cb) {
- 		this.find(opt, cb);
+ 		this.find({group: opt.group, type: opt.type}, cb);
  	},
  	listEnglishEditors : function (opt, cb) {
- 		this.find(opt, cb);
+ 		this.find({group: opt.group, type: opt.type}, cb);
  	}
 
  }
