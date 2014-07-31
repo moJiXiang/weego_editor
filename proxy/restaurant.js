@@ -216,7 +216,7 @@ exports.newAndSave = function(one,callback){
 	restaurant.recommand_flag = one.recommand_flag;
 	restaurant.recommand_duration = one.recommand_duration;
 	restaurant.index_flag = one.index_flag;
-	// restaurant.local_flag = one.local_flag;
+	restaurant.local_flag = one.local_flag;
 	restaurant.am = one.am;
 	restaurant.pm = one.pm;
 	restaurant.ev = one.ev;
@@ -229,9 +229,9 @@ exports.newAndSave = function(one,callback){
 	restaurant.reviews = one.reviews;
 	restaurant.comments = comments;
 	restaurant.tags = one.tags;
-	// restaurant.michilin_flag = one.michilin_flag;
+	restaurant.michilin_flag = one.michilin_flag;
 
-	// restaurant.info = one.info;
+	restaurant.info = one.info;
 	restaurant.save(function (err) {
 		callback(err, restaurant);
 	});

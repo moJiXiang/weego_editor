@@ -48,6 +48,20 @@ LabelSchema.statics = {
             opt.criteria._id = {$in : ids};
             that.list(opt, cb);
         });
+    },
+
+    listByAttraction : function(opt, cb) {
+        var that = this;
+        mongoose.model('Attraction').findOne({_id: opt.attraction}, function(err, attraction) {
+            if (!attraction || !attraction.subLabel || attraction.subLabel.length <1) { // no sublabel found
+                cb(null, []);
+                return;
+            }
+            var ids = attraction.subLabel;
+            opt.criteria = opt.criteria || {};
+            opt.criteria._id = {$in : ids};
+            that.list(opt, cb);
+        })
     }
 }
 

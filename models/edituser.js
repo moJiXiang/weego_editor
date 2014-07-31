@@ -14,6 +14,8 @@ var ObjectId = Schema.ObjectId;
  	password	: { type: String },
  	type		: { type: Number },
  	group		: { type: Number }
+ },{
+ 	collection: 'editUser'
  });
 
  EdituserSchema.statics = {
