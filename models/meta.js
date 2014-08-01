@@ -3,8 +3,10 @@ var mongoose = require('mongoose'),
     ObjectId = Schema.ObjectId;
  
 var MetaSchema = new Schema({
-    type : String,
+    type  : String,
     value : String,
+    name  : String,
+    pos   : Number //could be useful for ordering
 
 }, {
     collection : 'meta'

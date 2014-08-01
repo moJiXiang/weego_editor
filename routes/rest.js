@@ -52,7 +52,7 @@ exports.postEntities = function (req, res) {  //create a new entity
     
     var model = req.model;
 
-    model.save(req.body.item, function (err, item) {
+    model.create(req.body, function (err, item) {
         if (err) {
             res.send(500, {
                 status: 500,
@@ -125,7 +125,7 @@ exports.putEntity = function (req, res) {
 
     model.findByIdAndUpdate(req.params.id, req.body, function (err, item) {
         if (err) {
-            res.send(500, {status:500, type : 'Internal Server Error', message: 'Fail to delete entity ' + req.params.id});
+            res.send(500, {status:500, type : 'Internal Server Error', message: 'Fail to update entity ' + req.params.id});
         } else {
             res.send(200, {result: item});
         }
