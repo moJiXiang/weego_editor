@@ -80,6 +80,10 @@ AttractionSchema.statics = {
             .skip(opt.offset || 0)
             .limit(opt.limit || global.recommendLimit || 10)
             .exec(cb);
+    },
+
+    queryByName : function (opt, cb) {
+        this.find({attractions: {$regex: opt.criteria.value, $options: 'i'}}, cb);
     }
 };
 

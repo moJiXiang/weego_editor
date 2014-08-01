@@ -36,4 +36,18 @@ var AreaSchema = new Schema({
     }
 });
 
+AreaSchema.statics = {
+  /**
+     * queryByName use $regex
+     * @param  {ObjectI}   opt 
+     * @param  {Function} cb  
+     * @return {array}    
+     */
+    queryByName : function (opt, cb) {
+        this.find({area_name: {$regex: opt.criteria.value, $options: 'i'}})
+            .skip(opt.offset || 0)
+            .limit(opt.limit || 20)
+            .exec(cb);
+    }
+}
 mongoose.model('Area', AreaSchema);

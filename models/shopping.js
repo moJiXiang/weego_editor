@@ -23,7 +23,7 @@ var ShoppingSchema = new Schema({
     show_flag      : { type: Boolean, default: false },
     create_at      : { type: Date, default: Date.now },
     recommand_flag : { type: Boolean, default:false },
-    // local_flag     : { type: Boolean, default:false },
+    local_flag     : { type: Boolean, default:false },
     ranking        : { type: String },
     area_id        : { type: ObjectId },
     area_name      : { type: String },
@@ -75,6 +75,19 @@ ShoppingSchema.statics = {
         this.find(criteria)
             .skip(opt.offset || 0)
             .limit(opt.limit || global.recommendLimit || 10)
+            .exec(cb);
+    },
+
+    /**
+     * queryByName use $regex
+     * @param  {ObjectI}   opt 
+     * @param  {Function} cb  
+     * @return {array}    
+     */
+    queryByName : function (opt, cb) {
+        this.find({name: {$regex: opt.criteria.value, $options: 'i'}})
+            .skip(opt.offset || 0)
+            .limit(opt.limit || 20)
             .exec(cb);
     }
 };

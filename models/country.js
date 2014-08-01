@@ -12,4 +12,10 @@ var CountrySchema = new Schema({
     collection : 'countries'
 });
 
+CountrySchema.statics = {
+	queryByName : function (opt, cb) {
+        this.find({name: {$regex: opt.criteria.value, $options: 'i'}}, cb);
+    }
+}
+
 mongoose.model('Country', CountrySchema);
