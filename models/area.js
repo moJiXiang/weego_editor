@@ -8,32 +8,38 @@ var ObjectId = Schema.ObjectId;
  //游玩 种类，游泳池、SPA水疗馆、歌舞厅、KTV、桌球房、保龄球馆、棋牌室、网球场
  //type 1:餐馆，2：购物，3：游玩。
 var AreaSchema = new Schema({
-	city_id: { type: ObjectId ,index: true },
-	city_name: { type: String },
-	area_name: { type: String },
-	area_enname: { type: String },
-  short_introduce : { type: String },
-	area_introduce: {type: String},
-	address: {type: String},
-  open_time: { type: String },
-	latitude: { type: String },
-	longitude: { type: String },
-	image : { type: Array },
-	cover_image: {type : String,default: '5327c20da71a2a9415000001.jpg'},
-  traffic : {type : String },
-  tips : { type : String},
-  tags : { type : Array},
-  tel: { type: String },
-  website: { type: String },
-	status             : String,
-    editorname         : String,
-    editdate           : String,
-    auditorname        : String,
-    auditdate          : String,
-    en_info 		:{
-    	introduce : String,
-    	address : 	String
-    }
+    city_id            : { type: ObjectId ,index: true },
+    city_name          : { type: String },
+    area_name          : { type: String },
+    area_enname        : { type: String },
+    short_introduce    : { type: String },
+    area_introduce     : { type: String},
+    address            : { type: String},
+    open_time          : { type: String },
+    latitude           : { type: String },
+    longitude          : { type: String },
+    image              : { type: Array },
+    cover_image        : { type: String,default: '5327c20da71a2a9415000001.jpg'},
+    traffic            : { type: String },
+    tips               : { type: String},
+    tags               : { type: Array},
+    tel                : { type: String },
+    website            : { type: String },
+    status             : { type: String },
+    en_info 		       : {
+    	introduce        : { type: String },
+    	address          : { type: String }
+    },                               
+    recommend_duration : { type: String }
 });
+
+AreaSchema.queryMap = {
+    /*name : function (q, value, done) {
+        q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
+        done();//don't forget this callback
+    }*/
+}
+
+AreaSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
 
 mongoose.model('Area', AreaSchema);

@@ -7,9 +7,19 @@ var CountrySchema = new Schema({
 	cn_name   : { type: String },
 	name  	  : { type: String },
 	code 	  : { type: String },
+    color     : { type: String }, // don't really know what it means, copied from weego project
 	phonecode : { type: String }
 },{
     collection : 'countries'
 });
+
+CountrySchema.queryMap = {
+    /*name : function (q, value, done) {
+        q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
+        done();//don't forget this callback
+    }*/
+}
+
+CountrySchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
 
 mongoose.model('Country', CountrySchema);

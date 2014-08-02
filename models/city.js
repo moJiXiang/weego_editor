@@ -11,7 +11,7 @@ var CitySchema = new Schema({
     countryname         : String,
     coverImageName      : String,
     createFlag          : String,
-    created             : Number,
+    created             : { type : Date, default : Date.now},
     hot_flag            : String,
     image               : Array,
     imgFlag             : Boolean,
@@ -49,14 +49,6 @@ var CitySchema = new Schema({
     attraction_overview : String, // overview of attractions in city
     weoid               : String, //yahoo weather api ID
     status              : String,
-    attractionscount    : String,
-    restaurantscount    : String,
-    shopareacount       : String,
-    shoppingscount      : String,
-    editorname          : String,
-    editdate            : String,
-    auditorname         : String,
-    auditdate           : String,
     en_info: {
         short_introduce: String,
         attraction_overview: String,
@@ -74,11 +66,6 @@ var CitySchema = new Schema({
             traItemTitle    : String,
             traItemContent  : String
         }],
-        status         : String,
-        editorname     : String,
-        editdate       : String,
-        auditorname    : String,
-        auditdate      : String
     }
 
 }, {
@@ -107,5 +94,18 @@ CitySchema.methods = {
 
 
 }
+
+CitySchema.queryMap = {
+    /*name : function (q, value, done) {
+        q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
+        done();//don't forget this callback
+    }*/
+    name : function (q, value, done) {
+        q.where('name', {$regex: value, $options: 'i'});
+        done();
+    }
+}
+
+CitySchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
 
 mongoose.model('City', CitySchema);

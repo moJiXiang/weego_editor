@@ -24,10 +24,6 @@ var RestaurantSchema = new Schema({
     create_at         : { type: Date, default: Date.now },
     recommand_flag    : { type: Boolean, default:false },
     recommand_duration: { type: String },
-    // local_flag        : { type: Boolean, default:false },
-    // best_dinnerchoics : { type: Boolean },
-    // michilin_flag     : { type: Boolean },
-    // most_popular      : { type: Boolean },
     ranking           : { type: Number },
     area_id           : { type: ObjectId},
     area_name         : { type: String},
@@ -64,19 +60,10 @@ var RestaurantSchema = new Schema({
         waiter        : { type: Boolean,default:false}
     },
     status             : String,
-    editorname         : String,
-    editdate           : String,
-    auditorname        : String,
-    auditdate          : String,
     en_info: {
         introduce      : String,
         tips           : String,
         comments       : String,
-        status         : String,
-        editorname     : String,
-        editdate       : String,
-        auditorname    : String,
-        auditdate      : String
     }
 });
 
@@ -180,6 +167,19 @@ RestaurantSchema.methods = {
         that.save(cb);
     }
 };
+
+RestaurantSchema.queryMap = {
+    /*name : function (q, value, done) {
+        q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
+        done();//don't forget this callback
+    }*/
+    tags : function (q, value, done) {
+        q.in('tags', value.split(','));
+        done();
+    }
+}
+
+RestaurantSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
 
 mongoose.model('Restaurant', RestaurantSchema);
 

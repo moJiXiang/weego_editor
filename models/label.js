@@ -5,7 +5,6 @@ var ObjectId = Schema.ObjectId;
 //城市标签，主标签masterlabel，子标签，sublabel
 
 var LabelSchema = new Schema({
-	_id			: ObjectId,
 	classname 	: String,
 	createFlag 	: String,
 	label 		: String,
@@ -64,5 +63,14 @@ LabelSchema.statics = {
         })
     }
 }
+
+LabelSchema.queryMap = {
+    /*name : function (q, value, done) {
+        q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
+        done();//don't forget this callback
+    }*/
+}
+
+LabelSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
 
 mongoose.model('Label', LabelSchema);

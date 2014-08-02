@@ -24,59 +24,45 @@ var ShoppingSchema = new Schema({
     create_at      : { type: Date, default: Date.now },
     recommand_flag : { type: Boolean, default:false },
     // local_flag     : { type: Boolean, default:false },
-    ranking        : { type: String },
+    ranking        : { type: Number },
     area_id        : { type: ObjectId },
     area_name      : { type: String },
     is_big         : { type: Boolean, default:false },
     in_big_id      : { type: ObjectId },
     in_big_name    : { type: String },
-    rating         : { type: String  },
-    rating_service : { type: String  },
-    rating_env     : { type: String  },
-    rating_trust   : { type: String  },
-    score          : { type: String  },
-    reviews        : { type: String  },
+    rating         : { type: Number ,default: 3 },
+    rating_service : { type: Number ,default: 3 },
+    rating_env     : { type: Number ,default: 3 },
+    rating_trust   : { type: Number ,default: 3 },
+    score          : { type: Number ,default: 60 },
+    reviews        : { type: Number ,default: 0 },
     comments       : { type: Array },
-    price_level    : { type: String },
+    price_level    : { type: Number },
     price_desc     : { type: String },
     url            : { type: String },
     status         : { type: String },
-    editorname     : { type: String },
-    editdate       : { type: String },
-    auditorname    : { type: String },
-    auditdate      : { type: String },
     en_info        : {
         introduce      : String,
         tips           : String,
-        comments       : String
+        comments       : Array
     }
 });
 
 ShoppingSchema.statics = {
 
-    /**
-     * find recommended Shoppings.
-     * ```
-     * Shopping.listRecommends(function (err, arr) {});
-     *     
-     * Shopping.listRecommends({limit : 5, offset : 2}, function (err, arr) {});
-     * ```
-     * @param {Function} cb - callback (err, result)
-     * @param {Any} opt - optional options
-     */
-    listRecommends : function (opt, cb) {
-        var criteria = {show_flag: true};
-            // order    = {coverImageId: 1, coverImageExtention: 1}; //TODO order recommends by what ?
-
-        if (!cb && opt instanceof Function) {
-            cb = opt;
-        }
-
-        this.find(criteria)
-            .skip(opt.offset || 0)
-            .limit(opt.limit || global.recommendLimit || 10)
-            .exec(cb);
-    }
 };
+
+ShoppingSchema.queryMap = {
+    /*name : function (q, value, done) {
+        q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
+        done();//don't forget this callback
+    }*/
+    q : function (q, value, done) {
+        q.where('name').regex(value);
+        done();
+    }
+}
+
+ShoppingSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
 
 mongoose.model('Shopping', ShoppingSchema);

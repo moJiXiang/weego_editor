@@ -3,6 +3,8 @@ var mongoose = require('mongoose'),
     ObjectId = Schema.ObjectId,
     crypto   = require('crypto');
 
+//ATTENTION !!!!
+//THIS IS CMS USER, NOT WEBSITE USER, SO IS DIFFERENT AS DEFINED IN PROJECT WEEGO
 //CMS user , it is different from website user
 var UserSchema = new Schema({
     username : String,
@@ -63,5 +65,14 @@ UserSchema.methods = {
         return this.password == md5sum(clearText);
     }
 };
+
+UserSchema.queryMap = {
+    /*name : function (q, value, done) {
+        q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
+        done();//don't forget this callback
+    }*/
+}
+
+UserSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
 
 mongoose.model('User', UserSchema);

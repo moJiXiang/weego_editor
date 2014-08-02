@@ -6,9 +6,18 @@ var Schema = mongoose.Schema;
  //游玩 种类，游泳池、SPA水疗馆、歌舞厅、KTV、桌球房、保龄球馆、棋牌室、网球场
  //type 1:餐馆，2：购物，3：游玩。
 var CategorySchema = new Schema({
-  type: { type: String },
-  name: { type: String },
-  en_name: { type: String }
+    type: { type: String },
+    name: { type: String },
+    en_name: { type: String }
 });
+
+CategorySchema.queryMap = {
+    /*name : function (q, value, done) {
+        q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
+        done();//don't forget this callback
+    }*/
+}
+
+CategorySchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
 
 mongoose.model('Category', CategorySchema);

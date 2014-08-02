@@ -39,11 +39,8 @@ var AttractionSchema = new Schema({
     yelp_rating        : Number,
     yelp_review_count  : Number,
     yelp_update_time   : Number,
+    type               : { type: String,default:'0'}
     status             : String,
-    editorname         : String,
-    editdate           : String,
-    auditorname        : String,
-    auditdate          : String,
     en_info: {
         opentime       : String,
         traffic_info   : String,
@@ -58,29 +55,26 @@ var AttractionSchema = new Schema({
 /**@namespace*/
 AttractionSchema.statics = {
 
-    /**
-     * find recommended Attractions.
-     * ```
-     * Attraction.listRecommends(function (err, arr) {});
-     *     
-     * Attraction.listRecommends({limit : 5, offset : 2}, function (err, arr) {});
-     * ```
-     * @param {Function} cb - callback (err, result)
-     * @param {Any} opt - optional options
-     */
-    listRecommends : function (opt, cb) {
-        var criteria = {createFlag: '0', show_flag: '1'};
-            // order    = {attractions: 1, coverImageId: 1, coverImageExtention: 1}; //TODO order recommends by what ?
 
-        if (!cb && opt instanceof Function) {
-            cb = opt;
-        }
-
-        this.find(criteria)
-            .skip(opt.offset || 0)
-            .limit(opt.limit || global.recommendLimit || 10)
-            .exec(cb);
-    }
 };
+
+AttractionSchema.queryMap = {
+    /*name : function (q, value, done) {
+        q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
+        done();//don't forget this callback
+    }*/
+    tag : function (q, value, done) {
+        var tags = value.split(',').join(' ');
+        mongoose.model('Label').find({label: {$in : tags}}, function (err, labels) {
+            if (err) return done(err);
+            if (labels) {
+                var ids = labels.map(function(i) {return i._id;});
+                q.in('masterLabel', ids);
+                return done();
+            }
+            return done();
+        });
+    }
+}
 
 mongoose.model('Attraction', AttractionSchema);
