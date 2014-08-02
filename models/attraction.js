@@ -39,7 +39,7 @@ var AttractionSchema = new Schema({
     yelp_rating        : Number,
     yelp_review_count  : Number,
     yelp_update_time   : Number,
-    type               : { type: String,default:'0'}
+    type               : { type: String,default:'0'},
     status             : String,
     en_info: {
         opentime       : String,
@@ -74,6 +74,11 @@ AttractionSchema.queryMap = {
             }
             return done();
         });
+    },
+
+    name : function (q, value, done) {
+        q.where({attractions : {$regex: value, $options: 'i'}});
+        done();
     }
 }
 

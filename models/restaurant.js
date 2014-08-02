@@ -135,6 +135,19 @@ RestaurantSchema.statics = {
     load : function (id, cb) {
         this.findOne({_id : id})
             .exec(cb);
+    },
+
+    /**
+     * queryByName use $regex
+     * @param  {ObjectI}   opt 
+     * @param  {Function} cb  
+     * @return {array}    
+     */
+    queryByName : function (opt, cb) {
+        this.find({name: {$regex: opt.criteria.value, $options: 'i'}})
+            .skip(opt.offset || 0)
+            .limit(opt.limit || 20)
+            .exec(cb);
     }
 };
 

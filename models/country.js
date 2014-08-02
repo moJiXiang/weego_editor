@@ -18,6 +18,10 @@ CountrySchema.queryMap = {
         q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
         done();//don't forget this callback
     }*/
+    name : function (q, value, done) {
+        q.where({name : {$regex: value, $options: 'i'}});
+        done();
+    }
 }
 
 CountrySchema.plugin(require('../lib/mongoosePlugin').queryPlugin);

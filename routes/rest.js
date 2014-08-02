@@ -9,42 +9,49 @@ var isMethodInternal = function () {
     }
 }
 
+var listEntities = function (model, req, res, opt2) {
+
+    if (!model) {
+        return res.send(400, {status: 400, type : 'Bad Request', message: 'entity name is invalid'});
+    }
+
+    var opt = opt2 || req.query; // take the opportunity to enhance opt
+    console.log(opt);
+
+    model.query(opt, function (err, items) {
+        if (err) {
+            console.error(err);
+            return res.send(500, {status: 500, type : 'Internal Server Error', message : '' + err });
+        }
+        res.send(200, {result: items});
+    });
+}
+
 exports.getEntities = function (req, res) {
 
     var model = req.model;
 
-    var c = JSON.parse(JSON.stringify(req.query));//clone
-    if (c.criteria) {
+    var opt = JSON.parse(JSON.stringify(req.query));//clone
+    if (opt.criteria) {
         try {
-            c.criteria = JSON.parse(c.criteria);
+            opt.criteria = JSON.parse(opt.criteria);
         }catch (e) {
             res.send(400, {status: 400, type: 'Bad Request', message : 'Fail to parse parameter criteria'});
             return;
         }
     }
-    var cmd = c.cmd = req.query.cmd || 'find';
 
-    var cb = function (err, items) {
-        if (err) {
-            res.send(500, {
-                status: 500,
-                type : 'Internal Server Error',
-                message : '' + err
-            });
-        } else {
-            res.send(200, {result : items});
-        }
-    };
-
-    if (cmd == 'find') {
-        model.find(c.criteria || {})
-            .skip(c.offset || 0)
-            .limit(c.limit || 20)
-            .exec(cb);
-    } else if (cmd == 'count') {
-        model.count(c.criteria).exec(cb);
+    if (opt.cmd) {
+        var cmd = opt.cmd;
+        delete opt.cmd; //not required to be passed to method
+        model[cmd](opt, function (err, items) {
+            if (err) {
+                return res.send(500, {status: 500, type : 'Internal Server Error', message : '' + err });
+            } 
+            return res.send(200, {result : items});
+        });
     } else {
-        model[cmd](c, cb);
+        listEntities(req.model, req, res);
     }
 }
 

@@ -33,11 +33,30 @@ var AreaSchema = new Schema({
     recommend_duration : { type: String }
 });
 
+AreaSchema.statics = {
+    /**
+     * queryByName use $regex
+     * @param  {ObjectI}   opt 
+     * @param  {Function} cb  
+     * @return {array}    
+     */
+    queryByName : function (opt, cb) {
+        this.find({area_name: {$regex: opt.criteria.value, $options: 'i'}})
+            .skip(opt.offset || 0)
+            .limit(opt.limit || 20)
+            .exec(cb);
+    }
+}
+
 AreaSchema.queryMap = {
     /*name : function (q, value, done) {
         q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
         done();//don't forget this callback
     }*/
+    name : function (q, value, done) {
+        q.where('area_name', {$regex : value, $options: 'i'});
+        done();
+    }
 }
 
 AreaSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);

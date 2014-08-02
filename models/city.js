@@ -77,6 +77,9 @@ CitySchema.statics = {
     load : function (id, cb) {
         this.findOne({_id: id})
             .exec(cb);
+    },
+    queryByName : function (opt, cb) {
+        this.find({cityname_py: {$regex: opt.criteria.value}}, cb);
     }
 }
 
@@ -90,9 +93,7 @@ CitySchema.methods = {
     listRestaurants : function (opt, cb) {
         opt.city_id = this.city_id;
         mongoose.model('Restaurant').listByCity(opt, cb);
-    },
-
-
+    }
 }
 
 CitySchema.queryMap = {
