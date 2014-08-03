@@ -19,8 +19,11 @@ CountrySchema.queryMap = {
         done();//don't forget this callback
     }*/
     name : function (q, value, done) {
-        console.log("lskjdfl" + value);
         q.where({name : {$regex: value, $options: 'i'}});
+        done();
+    },
+    cn_name : function (q, value, done) {
+        q.where({cn_name : {$regex: value}});
         done();
     }
 }
