@@ -27,4 +27,13 @@ PermSchema.methods = {
 
 }
 
+PermSchema.queryMap = {
+    /*name : function (q, value, done) {
+        q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
+        done();//don't forget this callback
+    }*/
+}
+
+PermSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
+
 mongoose.model('Perm', PermSchema);

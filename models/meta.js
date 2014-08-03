@@ -24,4 +24,13 @@ MetaSchema.methods = {
 
 }
 
+MetaSchema.queryMap = {
+    /*name : function (q, value, done) {
+        q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
+        done();//don't forget this callback
+    }*/
+}
+
+MetaSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
+
 mongoose.model('Meta', MetaSchema);

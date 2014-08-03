@@ -82,4 +82,6 @@ AttractionSchema.queryMap = {
     }
 }
 
+AttractionSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
+
 mongoose.model('Attraction', AttractionSchema);

@@ -39,5 +39,7 @@ AuditingSchema.statics = {
 	}
 }
 
+AuditingSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
+
 mongoose.model('Auditing', AuditingSchema); 
  
