@@ -102,6 +102,9 @@ CitySchema.queryMap = {
         done();//don't forget this callback
     }*/
     cityname_py : function (q, value, done) {
+        console.log(q);
+        console.log('________________________________');
+        console.log(value);
         q.where('cityname_py', {$regex: value, $options: 'i'});
         done();
     }

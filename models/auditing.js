@@ -39,12 +39,26 @@ AuditingSchema.statics = {
 	}
 }
 
+
+
 AuditingSchema.queryMap = {
-    getAuditings : function (q, value, done) {
-        q.where('cityids');
-        done();
-    }
+	items: function(q, value, done) { //value : "id123,id384747d" 	
+		console.log(q);
+		console.log('value');
+		console.log(value);
+
+		var items = value.split(',');
+		q.where({
+			item_id: {
+				$in: items
+			}
+		});
+		done();
+	}
 }
+    
+    
+
 
 AuditingSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
 
