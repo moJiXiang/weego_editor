@@ -39,6 +39,13 @@ AuditingSchema.statics = {
 	}
 }
 
+AuditingSchema.queryMap = {
+    getAuditings : function (q, value, done) {
+        q.where('cityids');
+        done();
+    }
+}
+
 AuditingSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
 
 mongoose.model('Auditing', AuditingSchema); 
