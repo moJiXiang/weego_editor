@@ -39,6 +39,15 @@ AuditingSchema.statics = {
 	}
 }
 
+AuditingSchema.queryMap = {
+
+	items : function (q, value, done) { //value : "id123,id384747d"
+		var items = value.split(',');
+		q.where({item_id : {$in: items}});
+		done();
+	}
+}
+
 AuditingSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
 
 mongoose.model('Auditing', AuditingSchema); 

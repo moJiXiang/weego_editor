@@ -1,4 +1,6 @@
 var routes = require('./routes/routes')
+	passport = require('passport'),
+	LocalStrategy = require('passport-local').Strategy,
 	models = require('./models');
 
 module.exports = function(app) {
@@ -73,7 +75,7 @@ module.exports = function(app) {
 	app.get('/cityCoverimage/:imageId', routes.city.getCityCoverImage);
 	app.get('/cityBackimage/:imageId', routes.city.getCitBackImage);
 
-	app.post('/login',routes.editUser.login);
+	// app.post('/login',routes.editUser.login);
 
 	app.post('/user',routes.editUser.saveUser);
 	app.put('/user/:userID',routes.editUser.updateUser);
@@ -210,21 +212,28 @@ module.exports = function(app) {
 	app.get('/showeditors', routes.editUser.showEditors);
 	app.get('/geteditors', routes.editUser.getEditors);
 
+	passport.use(new LocalStrategy(function(username, password, done) {
+		models.User.findOne({username: username}, function (err, user) {
+			if (err) return done(err);
+			if (!user) {
+				return done(null, false, { message: 'Incorrect username.' });
+			}
+			if (!user.checkPassword(password)) {
+				return done(null, false, { message: 'Incorrect password.' });
+			}
+			return done(null, user);
+		});
+	}));
+
 	var loadUser = function (req, res, next) {
 		//load user object to req.
 		if (!req.session.user) {
 			//not yet login, redirect to login page
-			return;
+			return res.send(401, {status: 401, type: 'Unauthorized', message: 'authentication required'});
 		}
 
-		models.User.load(req.session.user, function (err, u) {
-			if (err) {
-				//fail to load user, redirect to login page
-				return;
-			}
-			req.user = u;
-			next();
-		});
+		req.user = req.session.user;
+		next();
 	};
 
 	var authorize = function(req, res, next) {
@@ -273,6 +282,20 @@ module.exports = function(app) {
 	    };
 	};
 
+	app.get('/login', function (req, res) {
+		if (req.session.user) {
+			return res.send({message: "You have already login, " + req.session.user.username});
+		}
+		res.send({message: 'You need use ajax post to this url to do authentication'});
+	});
+
+	// app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), function (req, res) {
+	app.post('/login', passport.authenticate('local', {assignProperty: 'user'}), function (req, res) {
+		//process req.user
+		req.session.user = req.user;
+		res.send(200, {m: 'succes -- TBD'});
+	});
+
 	// app.all('/rest/*', loadUser, authorize, guessModel());
 	app.all('/rest/*', guessModel());
 
@@ -288,4 +311,4 @@ module.exports = function(app) {
 	
 };
 
-routes.lifeImport.initCategoryData();
+// routes.lifeImport.initCategoryData();

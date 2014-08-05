@@ -35,6 +35,20 @@ UserSchema.statics = {
     load : function (id, cb) {
         this.findOne({_id: id})
             .exec(cb);
+    },
+
+    createUser : function (opt, cb) {
+        var model = this;
+        model.findOne({username: opt.username}, function (err, exist) {
+            if (err) cb(err);
+            if (exist) {
+                return cb (new Error('User Already Exist : ' + opt.username), exist);
+            }
+            if (! status in opt) {
+                opt.status = 1;
+            }
+            model.save(opt, cb);
+        });
     }
 };
 
