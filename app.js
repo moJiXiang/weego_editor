@@ -11,7 +11,6 @@ var express = require('express')
   , engine = require('ejs-locals');
 var app = express();
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3003);
@@ -25,9 +24,9 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.cookieParser('weego'));
-  app.use(express.cookieSession({'cookie':{maxAge:31557600000}}));
-  app.use(express.session({ secret: "weego_editor" }));
+  app.use(express.cookieParser('to be changed'));
+  // app.use(express.cookieSession({key: 'sid', secret: 'to be changed'}));
+  app.use(express.session({ secret: "to be changed" , key: 'sid'}));
   app.use(function(req, res, next){
       res.locals.session = req.session;
       next();
@@ -43,20 +42,6 @@ app.configure('development', function(){
 //label
 routes(app);
 
-io.on('connection', function(socket){
-  socket.on('audittask', function(data) {
-    // we tell the client to execute 'new message'
-    var clients = io.socket.clients();
-    clients.forEach(function(client) {
-      if(client.name == data.to){
-        client.emit('audittask', data);
-      }
-    })
-    // socket.broadcast.emit('audittask', {
-    //   message: data
-    // });
-  });
-});
 
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

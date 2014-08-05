@@ -16,14 +16,12 @@ var listEntities = function (model, req, res, opt2) {
     }
 
     var opt = opt2 || req.query; // take the opportunity to enhance opt
-    // console.log(opt);
 
     model.query(opt, function (err, items) {
         if (err) {
             console.error(err);
             return res.send(500, {status: 500, type : 'Internal Server Error', message : '' + err });
         }
-        // console.log(items);
         res.send(200, {result: items});
     });
 }

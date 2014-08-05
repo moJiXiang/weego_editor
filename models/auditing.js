@@ -37,11 +37,9 @@ AuditingSchema.statics = {
 	}
 }
 
-
-
 AuditingSchema.queryMap = {
-	items: function(q, value, done) { //value : "id123,id384747d" 	
 
+	items : function (q, value, done) { //value : "id123,id384747d"
 		var items = value.split(',');
 		// items = items.map(function(item) {
 		// 	return new ObjectId(item);
@@ -54,9 +52,6 @@ AuditingSchema.queryMap = {
 		done();
 	}
 }
-    
-    
-
 
 AuditingSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
 
