@@ -288,6 +288,12 @@ module.exports = function(app) {
 		}
 		res.send({message: 'You need use ajax post to this url to do authentication'});
 	});
+	app.get('/logout', function (req, res) {
+		req.session.destroy(function (err) {
+			if (err) return req.send(500, {status: 500, type: 'Internal Server Error', message: 'Fail to remove session :' + err});
+			return req.send(200);
+		});
+	});
 
 	// app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), function (req, res) {
 	app.post('/login', passport.authenticate('local', {assignProperty: 'user'}), function (req, res) {
