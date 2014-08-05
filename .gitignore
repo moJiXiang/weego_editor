@@ -17,3 +17,5 @@ npm-debug.log
 node_modules
 config/Config.js
 bower_components
+
+workdir
