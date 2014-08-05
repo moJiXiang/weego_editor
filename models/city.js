@@ -101,11 +101,23 @@ CitySchema.queryMap = {
         q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
         done();//don't forget this callback
     }*/
-    cityname_py : function (q, value, done) {
-        console.log(q);
-        console.log('________________________________');
-        console.log(value);
+    citiespy : function (q, value, done) {
+
         q.where('cityname_py', {$regex: value, $options: 'i'});
+        done();
+    },
+
+    citiesbycountry: function(q, value, done) {
+        q.where({
+            'countryname': {
+                $regex: value
+            }
+        });
+        done();
+    },
+
+    getCitiesByCountrycode: function(q, value, done) {
+        q.where({'countrycode': value});
         done();
     }
 }
