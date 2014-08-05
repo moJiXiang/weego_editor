@@ -293,11 +293,12 @@ module.exports = function(app) {
 	app.post('/login', passport.authenticate('local', {assignProperty: 'user'}), function (req, res) {
 		//process req.user
 		req.session.user = req.user;
-		res.send(200, {m: 'succes -- TBD'});
+		res.redirect('/');
+		// res.send(200, {m: 'succes -- TBD'});
 	});
 
 	// app.all('/rest/*', loadUser, authorize, guessModel());
-	app.all('/rest/*', guessModel());
+	app.all('/rest/*', loadUser, guessModel());
 
 	app.get(  '/rest/:entities',     routes.rest.getEntities  );
 	app.post( '/rest/:entities',     routes.rest.postEntities );
