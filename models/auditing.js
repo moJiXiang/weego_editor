@@ -2,18 +2,16 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
  
- //申请审核条目。
- //type: city, attraction, restaurant, shoparea, shopping
  //log_type : 0,新建，1修改。
- //status: 0，尚未递交审核(编辑状态)，1，审核中，2，审核通过，-1，审核不通过。
 
 /**
- * [AuditingSchema description]
- * @type {Schema}
+ * 申请审核条目。
+ * @type: city: 4, attraction: 0, restaurant: 1, shopping: 2, shoparea: 3
+ * status: 0，尚未递交审核(编辑状态)，1，审核中，2，审核通过，-1，审核不通过。
  */
 var AuditingSchema = new Schema({
 	item_id			: { type: ObjectId },
-	type 			: { type: String },
+	type 			: { type: Number },
 	name 			: { type: String },
 	status			: { type: Number },
 	en				: { type: Boolean },
@@ -43,11 +41,11 @@ AuditingSchema.statics = {
 
 AuditingSchema.queryMap = {
 	items: function(q, value, done) { //value : "id123,id384747d" 	
-		console.log(q);
-		console.log('value');
-		console.log(value);
 
 		var items = value.split(',');
+		// items = items.map(function(item) {
+		// 	return new ObjectId(item);
+		// })
 		q.where({
 			item_id: {
 				$in: items

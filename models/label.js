@@ -65,10 +65,14 @@ LabelSchema.statics = {
 }
 
 LabelSchema.queryMap = {
-    /*name : function (q, value, done) {
-        q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
+    getLabelById : function (q, value, done) {
+        q.where({
+            _id: value,
+            level: "2"
+        });
         done();//don't forget this callback
-    }*/
+    }
+
 }
 
 LabelSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);
