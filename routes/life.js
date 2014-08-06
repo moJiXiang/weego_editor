@@ -581,23 +581,49 @@ exports.postLifeImage = function(req,res){
     }
 };
 
-exports.uploadAreaImg = function(req, res) {
-    var _id = req.headers._id;
-    var tmp_path = req.files.file.path;
-    var filename  = req.files.file.name;
-    var target_path = global.imgpathSO + filename;
-    //移动文件
-    console.log(tmp_path + ", " + target_path);
-    fs.rename(tmp_path, target_path, function(err){
-        if(err) throw err;
+// exports.uploadAreaImg = function(req, res) {
+//     var _id = req.headers._id;
+//     var tmp_path = req.files.file.path;
+//     var filename  = req.files.file.name;
+//     var target_path = global.imgpathSO + filename;
+//     //移动文件
+//     console.log(tmp_path + ", " + target_path);
+//     fs.rename(tmp_path, target_path, function(err){
+//         if(err) throw err;
 
-        upyunClient.upAreaToYun(filename, function(err, data) {
-            if(err) throw err;
-            Area.pushImg(_id, filename, function(err, result) {
-                if(err) throw err;
-                res.end();
+//         upyunClient.upAreaToYun(filename, function(err, data) {
+//             if(err) throw err;
+//             Area.pushImg(_id, filename, function(err, result) {
+//                 if(err) throw err;
+//                 res.end();
+//             })
+//         });
+//     })
+// }
+
+exports.uploadAreaImg = function(req, res) {
+    console.log('****************************');
+    console.log(req.files.formData);
+    var areaid = req.headers.areaid;
+    var filename = validPic(req.files.file.type);
+    var tmp_path = req.files.file.path;
+    var target_path = global.imgpathSO + filename;
+    fs.rename(tmp_path, target_path, function(err, result) {
+        if (err) {
+            res.send({status: '500', message: 'can not rename this file!'});
+        }
+
+        upyunClient.upAreaToYun(filename, function(err, result) {
+            if (err) {
+                res.send({status: '500', message: 'can not upload file to upyunClient!'});
+            }
+            Area.pushImg(areaid, filename, function(err, result) {
+                if (err) {
+                    res.send({status: '500', message: 'can not push new image into the database!'});
+                }
+                res.send({status: '200', message: 'upload image success!'});
             })
-        });
+        })
     })
 }
 

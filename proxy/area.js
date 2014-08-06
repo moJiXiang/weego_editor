@@ -22,8 +22,8 @@ exports.count = function (query, callback) {
   Area.count(query, callback);
 };
 
-exports.pushImg = function(_id, filename, callback) {
-	Area.update({_id: _id},{$addToSet:{image:filename}},callback);
+exports.pushImg = function(areaid, filename, callback) {
+	Area.update({_id: areaid},{$addToSet:{image:filename}},callback);
 };
 
 exports.pullImg = function(_id, filename, callback) {
