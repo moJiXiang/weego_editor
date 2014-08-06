@@ -7,7 +7,7 @@ var ShoppingSchema = new Schema({
     name           : { type: String },
     type           : { type: String, default:'2'},
     city_name      : { type: String },
-    city_id        : { type: ObjectId, index: true },
+    city_id        : { type: ObjectId, index: true, required: true }, //auditing records requires this property not empty
     latitude       : { type: String },
     longitude      : { type: String },
     address        : { type: String },

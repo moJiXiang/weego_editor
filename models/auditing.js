@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var ObjectId = Schema.ObjectId;
+var mongoose = require('mongoose'),
+	Schema = mongoose.Schema,
+	log    = require('winston'),
+	ObjectId = Schema.ObjectId;
  
  //log_type : 0,新建，1修改。
 
@@ -11,6 +12,7 @@ var ObjectId = Schema.ObjectId;
  */
 var AuditingSchema = new Schema({
 	item_id			: { type: ObjectId },
+	item_city       : { type: ObjectId }, //null if type=4
 	type 			: { type: Number },
 	name 			: { type: String },
 	status			: { type: Number },
@@ -34,6 +36,65 @@ AuditingSchema.statics = {
 
 		this.find({item_id: opt.item_id}, cb);
 
+	},
+
+	onObjectRemoved : function (doc, type) { //target object removed
+		log.info('TODO : %s removed, should remove related auditings as well', doc._id);
+	},
+
+	onObjectCreated : function (doc, type) { //target object removed
+		this.create({item_id: doc._id, type: type, en: true, status: 0}, {item_id: doc._id, type: type, en: false, status: 0}, function (err, a, b) {
+			if (err) {
+				log.error('fail to create auditing records for %s:%s', type, doc._id);
+			} else {
+				log.info('auditing records created for %s:%s : en=%s, zh=%s', type, doc._id, a._id, b_id);
+			}
+		});
+	}
+}
+
+AuditingSchema.methods = {
+
+	comment : function (opt, cb) {
+		this.auditcomment.push(opt);
+		this.save(cb);
+	},
+
+	triggerTaskUpdate : function () {
+		mongoose.model('Task').updateAllCounts({city_id: that.item_city, en: that.en, type: that.type}, function (err, docs) {
+			//background operations, no need to cb here
+			if (err) {
+				log.error('Update Tasks failed : %s', err);
+			} else {
+				log.info('Update %s Tasks success', docs.length);
+			}
+		});
+	},
+
+	updateStatus : function (opt, cb) {
+		var that = this;
+		that.status = opt.status;
+		that.save(function (err, doc) {
+			if (err) return cb(err);
+			that.triggerTaskUpdate();
+			cb(null, doc);
+		});
+	},
+
+	submit  : function (opt, cb) { //submit for auditing/review
+		var cb = cb ? cb : opt;
+		this.updateStatus({status: 1}, cb);
+	},
+
+	approve : function (opt, cb) { //pass the review/audit
+		//1. set status, 2. update item status
+		var cb = cb ? cb : opt;
+		this.updateStatus({status: 2}, cb);
+	},
+
+	fail : function (opt, cb) { //fail the review/audit
+		var cb = cb ? cb : opt;
+		this.updateStatus({status: -1}, cb);
 	}
 }
 

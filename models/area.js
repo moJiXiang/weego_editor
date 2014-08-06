@@ -8,7 +8,7 @@ var ObjectId = Schema.ObjectId;
  //游玩 种类，游泳池、SPA水疗馆、歌舞厅、KTV、桌球房、保龄球馆、棋牌室、网球场
  //type 1:餐馆，2：购物，3：游玩。
 var AreaSchema = new Schema({
-    city_id            : { type: ObjectId ,index: true },
+    city_id            : { type: ObjectId ,index: true, required: true }, //auditing records requires this property not empty
     city_name          : { type: String },
     area_name          : { type: String },
     area_enname        : { type: String },

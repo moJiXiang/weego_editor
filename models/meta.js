@@ -6,7 +6,8 @@ var MetaSchema = new Schema({
     type  : String,
     value : String,
     name  : String,
-    pos   : Number //could be useful for ordering
+    pos   : Number, //could be useful for ordering
+    roles : Array  //optional property to restrict access to some records
 
 }, {
     collection : 'meta'
@@ -29,6 +30,17 @@ MetaSchema.queryMap = {
         q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
         done();//don't forget this callback
     }*/
+    roles : function (q, value, done) {
+        var arr = value instanceof Array ? value : value.split(',');
+        
+        var or = {$or: [
+            {roles: {$exists: false}}, 
+            {roles: {$size: 0}}, 
+            {roles: {$elemMatch: {$in: arr}}}
+        ]};
+        q.where(or);
+        done();
+    }
 }
 
 MetaSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);

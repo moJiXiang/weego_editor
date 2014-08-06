@@ -7,7 +7,7 @@ var RestaurantSchema = new Schema({
     name              : { type: String },
     type              : { type: String,default:'1'},
     city_name         : { type: String },
-    city_id           : { type: ObjectId ,index: true },
+    city_id           : { type: ObjectId ,index: true, require: true },  //auditing records requires this property not empty
     latitude          : { type: String },
     longitude         : { type: String },
     address           : { type: String },

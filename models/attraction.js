@@ -1,6 +1,7 @@
 
 var mongoose = require('mongoose'),
     Schema   = mongoose.Schema,
+    log      = require('winston'),
     ObjectId = Schema.ObjectId;
  
 var AttractionSchema = new Schema({
@@ -11,7 +12,7 @@ var AttractionSchema = new Schema({
     attractions        : String,
     attractions_en     : String,
     checkFlag          : String,
-    cityid             : String,
+    cityid             : { type: String, required: true }, //auditing records requires this property not empty
     cityname           : String,
     coverImageName     : String,
     createFlag         : String,  // who create it ?   0 : administrator(weego) , 1 : editor
@@ -50,6 +51,17 @@ var AttractionSchema = new Schema({
     }
 }, {
     collection : 'latestattractions'
+});
+
+AttractionSchema.post('save', function (doc) {
+    if (doc.isNew) {
+        log.info('new doc saved, now create corresponding auditing instances');
+        mongoose.model('Auditing').onObjectCreated(doc, 0);
+    }
+});
+
+AttractionSchema.post('remove', function (doc) {
+    mongoose.model('Auditing').onObjectRemoved(doc, 0);
 });
 
 /**@namespace*/
