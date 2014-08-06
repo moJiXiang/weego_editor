@@ -291,15 +291,23 @@ module.exports = function(app) {
 	app.get('/logout', function (req, res) {
 		req.session.destroy(function (err) {
 			if (err) return req.send(500, {status: 500, type: 'Internal Server Error', message: 'Fail to remove session :' + err});
-			return req.send(200);
+			return res.send(200);
 		});
 	});
 
 	// app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), function (req, res) {
 	app.post('/login', passport.authenticate('local', {assignProperty: 'user'}), function (req, res) {
 		//process req.user
-		req.session.user = req.user;
-		res.redirect('/');
+		console.log(req);
+		console.log(req.user);
+		if(req.user.status == 1){
+			req.session.user = req.user;
+			res.redirect('/');
+		} else if(req.user.status == 2){
+			res.redirect('/logon.html?reson=frezon');
+		} else {
+			res.send({message: '帐户已被删除！'});
+		}
 		// res.send(200, {m: 'succes -- TBD'});
 	});
 
