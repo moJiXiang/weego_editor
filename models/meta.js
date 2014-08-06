@@ -32,7 +32,23 @@ MetaSchema.queryMap = {
     }*/
     roles : function (q, value, done) {
         var arr = value instanceof Array ? value : value.split(',');
-        
+
+        var or = {$or: [
+            {roles: {$exists: false}}, 
+            {roles: {$size: 0}}, 
+            {roles: {$elemMatch: {$in: arr}}}
+        ]};
+        q.where(or);
+        done();
+    },
+
+    //this is a very special mapping
+    //value doesn't come from client request but from server session object
+    //value is come from req.session.user
+    currentUser : function (q, value, done) { 
+
+        var arr = value.roles || ['Everyone'];
+
         var or = {$or: [
             {roles: {$exists: false}}, 
             {roles: {$size: 0}}, 

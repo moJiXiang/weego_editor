@@ -50,7 +50,8 @@ exports.getEntities = function (req, res) {
             return res.send(200, {result : items});
         });
     } else {
-        listEntities(req.model, req, res);
+        opt.currentUser = req.user;//inject user, do filter by user in query map
+        listEntities(req.model, req, res, opt);
     }
 }
 
