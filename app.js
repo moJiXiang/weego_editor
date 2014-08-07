@@ -25,7 +25,7 @@ app.configure(function(){
     app.use(express.cookieParser('to be changed'));
     app.use(express.session({ secret: "to be changed" , key: 'sid'}));
     app.use(app.router);
-    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.static(path.join(__dirname, 'webapp/dist')));
 });
 
 app.configure('development', function(){
