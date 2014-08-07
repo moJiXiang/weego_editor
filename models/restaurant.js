@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
     Schema   = mongoose.Schema,
+    log      = require('winston'),
     ObjectId = Schema.ObjectId;
  
  //餐馆
@@ -65,6 +66,17 @@ var RestaurantSchema = new Schema({
         tips           : String,
         comments       : String,
     }
+});
+
+RestaurantSchema.post('save', function (doc) {
+    if (doc.isNew) {
+        log.info('new doc saved, now create corresponding auditing instances');
+        mongoose.model('Auditing').onObjectCreated(doc, 1);
+    }
+});
+
+RestaurantSchema.post('remove', function (doc) {
+    mongoose.model('Auditing').onObjectRemoved(doc, 1);
 });
 
 /**

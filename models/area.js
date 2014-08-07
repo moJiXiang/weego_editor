@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var ObjectId = Schema.ObjectId;
+var mongoose = require('mongoose'),
+    Schema   = mongoose.Schema,
+    log      = require('winston'),
+    ObjectId = Schema.ObjectId;
  
  //大类
  //餐馆 非洲菜，美洲菜等。
@@ -31,6 +32,17 @@ var AreaSchema = new Schema({
     	address          : { type: String }
     },                               
     recommend_duration : { type: String }
+});
+
+AreaSchema.post('save', function (doc) {
+    if (doc.isNew) {
+        log.info('new doc saved, now create corresponding auditing instances');
+        mongoose.model('Auditing').onObjectCreated(doc, 3);
+    }
+});
+
+AreaSchema.post('remove', function (doc) {
+    mongoose.model('Auditing').onObjectRemoved(doc, 3);
 });
 
 AreaSchema.statics = {
