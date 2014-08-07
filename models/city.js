@@ -8,7 +8,9 @@ var CitySchema = new Schema({
     cityname_en         : String,
     cityname_py         : String,
     continents          : String,
+    continentscode      : String,
     countryname         : String,
+    countrycode         : String,
     coverImageName      : String,
     createFlag          : String,
     created             : { type : Date, default : Date.now},
@@ -36,8 +38,6 @@ var CitySchema = new Schema({
         traItemTitle    : String,
         traItemContent  : String
     }],                      
-    continentscode      : String,
-    countrycode         : String,
     recommand_center    : {
         name            : String,
         latitude        : String,
