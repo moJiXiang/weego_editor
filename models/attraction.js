@@ -67,8 +67,10 @@ AttractionSchema.post('remove', function (doc) {
 
 /**@namespace*/
 AttractionSchema.statics = {
-
-
+    pushImg : function (opt, cb) {
+        var attraction = opt.attraction;
+        this.findOne({_id: attraction}, cb);
+    }
 };
 
 AttractionSchema.queryMap = {

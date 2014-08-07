@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 require('../config/Config');
+var mongoose = require('mongoose');
 var AttractionsProvider = require("../config/AttractionsProvider").AttractionsProvider;
 var attractionsProvider = new AttractionsProvider();
 var BinaryProvider = require("../config/BinaryProvider.js").BinaryProvider;
@@ -219,72 +220,88 @@ exports.getAttractionsImage = function (req, res) {
         res.end();
     }
 };
-exports.postimage = function (req, res) {
-    var target_upload_name;
+exports.postimage = function(req, res) {
     // console.log(req.files.file.path);
     // console.log(req.files.file.type);
     // console.log(req.body._id);
-    var _id = req.body._id || req.headers._id;
-    if(req.files.file && _id){
-        var id = new ObjectID();
-        var tmp_upload = req.files.file;
-        var tmp_upload_path = tmp_upload.path;
-        var tmp_upload_type = tmp_upload.type;
-        target_upload_name = validPic(tmp_upload_type);
-        var target_upload_path = global.imgpathAO + target_upload_name;
-        var filePathA1 = global.imgpathA1 + target_upload_name;
-        var filePathA2 = global.imgpathA2 + target_upload_name;
-        var filePathA3 = global.imgpathA3 + target_upload_name;
-        var filePathA4 = global.imgpathA4 + target_upload_name;
-        var filePathA5 = global.imgpathA5 + target_upload_name;
-        console.log(tmp_upload_path,target_upload_path);
-        makeImageFile(req, tmp_upload_path, target_upload_path, filePathA1, filePathA2, filePathA3,filePathA4,filePathA5, function () {
-            upyunClient.upAttractionToYun(target_upload_name,function(err,data){
-                if(err) throw err;
-                attractionsProvider.update({_id:new ObjectID(_id)}, {$push:{ 'image':target_upload_name}}, {safe:true}, function (err) {
-                    if (err) {
-                        throw err;
-                    } else {
-                        res.setHeader("Content-Type", "application/json");
-                        res.json(target_upload_name);
-                        res.end();
-                    }
-                });
-            });
-        });
-    } else {
-        res.end();
-    }
-    //原来的方法如下
-    // if (req.files.upload && req.body._id) {
-    //     var id = new ObjectID();
-    //     var tmp_upload = req.files.upload;
-    //     var tmp_upload_path = tmp_upload.path;
-    //     var tmp_upload_type = tmp_upload.type;
-    //     target_upload_name = validPic(tmp_upload_type);
-    //     var target_upload_path = global.imgpathAO + target_upload_name;
-    //     var filePathA1 = global.imgpathA1 + target_upload_name;
-    //     var filePathA2 = global.imgpathA2 + target_upload_name;
-    //     var filePathA3 = global.imgpathA3 + target_upload_name;
-    //     var filePathA4 = global.imgpathA4 + target_upload_name;
-    //     var filePathA5 = global.imgpathA5 + target_upload_name;
-    //     makeImageFile(req, tmp_upload_path, target_upload_path, filePathA1, filePathA2, filePathA3,filePathA4,filePathA5, function () {
-    //         upyunClient.upAttractionToYun(target_upload_name,function(err,data){
-    //             if(err) throw err;
-    //             attractionsProvider.update({_id:new ObjectID(req.body._id)}, {$push:{ 'image':target_upload_name}}, {safe:true}, function (err) {
-    //                 if (err) {
-    //                     throw err;
-    //                 } else {
-    //                     res.setHeader("Content-Type", "application/json");
-    //                     res.json(target_upload_name);
-    //                     res.end();
-    //                 }
-    //             });
+    // var _id = req.body._id || req.headers._id;
+    var attractionid = req.headers.attractionid;
+    var filename = validPic(req.files.file.type);
+    var tmp_path = req.files.file.path;
+    var target_path = global.imgpathAO + filename;
+    var filePathA1 = global.imgpathA1 + filename;
+    var filePathA2 = global.imgpathA2 + filename;
+    var filePathA3 = global.imgpathA3 + filename;
+    var filePathA4 = global.imgpathA4 + filename;
+    var filePathA5 = global.imgpathA5 + filename;
+    makeImageFile(req, tmp_path, target_path, filePathA1, filePathA2, filePathA3, filePathA4, filePathA5, function(err, result) {
+        if (err) {
+            return res.send(500, {status: '500', message: 'can not rename this file!'});
+        }
+        upyunClient.upAttractionToYun(filename, function(err, result) {
+            if (err) {
+                res.send(500, {status: '500', message: 'can not upload file to upyunClient!'});
+            }
+            // mongoose.model('Attraction').update({_id: attractionid},{$push: {'image': filename}}, function(err, result) {
+            //     if(err) {
+            //         res.send(500,{status: '500', message: 'can not push new image into the database!'});
+            //     } else {
+            //         res.send(200, {status: '200', message: 'upload image success!'})
+            //     }
+            // })
+            mongoose.model('Attraction').pushImg({attraction: attractionid}, function(err, result) {
+                if (err) {
+                    res.send({status: '500', message: 'can not find this city!'});
+                } else {
+                    result.image.push(filename);
+                    result.save(function(err, result) {
+                        if (err) {
+                            res.send({status: '500', message: 'can not push new image into the database!'});
+                        }
+                        res.send({status: '200', message: 'upload image success!'});
+                    })
+                }
+            })
+        })
+
+    })
+
+
+
+    // var id = new ObjectID();
+    // var tmp_upload = req.files.file;
+    // var tmp_upload_path = tmp_upload.path;
+    // var tmp_upload_type = tmp_upload.type;
+    // target_upload_name = validPic(tmp_upload_type);
+    // var target_upload_path = global.imgpathAO + target_upload_name;
+    // var filePathA1 = global.imgpathA1 + target_upload_name;
+    // var filePathA2 = global.imgpathA2 + target_upload_name;
+    // var filePathA3 = global.imgpathA3 + target_upload_name;
+    // var filePathA4 = global.imgpathA4 + target_upload_name;
+    // var filePathA5 = global.imgpathA5 + target_upload_name;
+    // console.log(tmp_upload_path, target_upload_path);
+    // makeImageFile(req, tmp_upload_path, target_upload_path, filePathA1, filePathA2, filePathA3, filePathA4, filePathA5, function() {
+    //     upyunClient.upAttractionToYun(target_upload_name, function(err, data) {
+    //         if (err) throw err;
+    //         attractionsProvider.update({
+    //             _id: new ObjectID(_id)
+    //         }, {
+    //             $push: {
+    //                 'image': target_upload_name
+    //             }
+    //         }, {
+    //             safe: true
+    //         }, function(err) {
+    //             if (err) {
+    //                 throw err;
+    //             } else {
+    //                 res.setHeader("Content-Type", "application/json");
+    //                 res.json(target_upload_name);
+    //                 res.end();
+    //             }
     //         });
     //     });
-    // } else {
-    //     res.end();
-    // }
+    // });
 };
 
 function makeImageFile(req, tmp_path, target_path, target_path_A1, target_path_A2,target_path_A3, target_path_A4, target_path_A5, callback) {
@@ -314,11 +331,7 @@ function makeImageFile(req, tmp_path, target_path, target_path_A1, target_path_A
         });
     });
 };
-function validPic(type) {
-    var suffix = type.split('/')[1];
-    var _id = new ObjectID();
-    return  _id + '.' + suffix;
-}
+
 
 exports.delUploadImage = function (req, res) {
     var imageName = req.params.imageName;
@@ -461,8 +474,10 @@ exports.updateAttractions = function (req, res) {
 };
 
 exports.upload = function (req, res) {
-    var attractions_id = req.headers.attractionid;
-    var imageName = validPic(req.headers.type);
+    var attractions_id = req.query.attractions_id;
+    var imageID = new ObjectID();
+    var fileExtention = req.headers['x-file-name'].split(".").pop();
+    var imageName = imageID + '.' + fileExtention;
     var filePath = global.imgpathAO + imageName;
     var fileStream = fs.createWriteStream(filePath);
     var filePathA1 = global.imgpathA1 + imageName;
@@ -518,7 +533,30 @@ exports.upload = function (req, res) {
 
     });
 };
+// exports.upload = function (req, res) {
+//     var attractionid = req.headers.attractionid;
+//     var filename = validPic(req.files.file.type);
+//     var tmp_path = req.files.file.path;
+//     var target_path = global.imgpathO + filename;
+//     fs.rename(tmp_path, target_path, function(err, result) {
+//         if (err) {
+//             res.send({status: '500', message: 'can not rename this file!'});
+//         }
 
+//         upyunClient.upAreaToYun(filename, function(err, result) {
+//             if (err) {
+//                 res.send({status: '500', message: 'can not upload file to upyunClient!'});
+//             }
+//             Area.pushImg(areaid, filename, function(err, result) {
+//                 if (err) {
+//                     res.send({status: '500', message: 'can not push new image into the database!'});
+//                 }
+//                 res.send({status: '200', message: 'upload image success!'});
+//             })
+//         })
+//     })
+
+// }
 exports.getAttractionsByLabelID = function (req, res) {
    attractionsProvider.find({masterLabel:req.params.labelID,cityname:req.params.cityName}, {}, function (err, result) {
         if (err) {

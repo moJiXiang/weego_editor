@@ -876,7 +876,6 @@ exports.setCityCoverImg = function(req, res) {
 //     }
 // };
 exports.upload = function(req, res) {
-    var type = req.headers.type;
     var cityid = req.headers.cityid;
 
     var filename = validPic(req.files.file.type);
@@ -1010,7 +1009,6 @@ exports.delCoverImage = function(req, res) {
 //     }
 // };
 exports.upload_background_img = function(req, res) {
-    var type = req.headers.type;
     var cityid = req.headers.cityid;
 
     var filename = validPic(req.files.file.type);

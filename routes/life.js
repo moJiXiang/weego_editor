@@ -591,7 +591,7 @@ exports.postLifeImage = function (req, res) {
         if (err) {
             res.send({status: '500', message: 'can not rename this file!'});
         }
-        upyunClient.upLifeToYun(type, tmp_path, target_path, function(err, result) {
+        upyunClient.upLifeToYun(type, filename, function(err, result) {
             if (err) {
                 res.send({status: '500', message: 'can not upload file to upyunClient!'});
             }

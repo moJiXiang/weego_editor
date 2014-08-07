@@ -19,7 +19,6 @@ module.exports = function(app) {
 	app.get('/attractionsimage/:imageId', routes.attractions.getAttractionsImage);
 	app.get('/delUploadImage/:_id/:imageName', routes.attractions.delUploadImage);
 	app.get('/setCoverImg/:_id/:imageName', routes.attractions.setCoverImg);
-	app.post('/postimage', routes.attractions.postimage);
 	//attractions
 	app.post('/attractions', routes.attractions.saveAttractions);
 	app.get('/attractions/:attractionsID', routes.attractions.getAttractions);
@@ -36,6 +35,7 @@ module.exports = function(app) {
 	app.get('/checkattractions/:attractionsID', routes.attractions.getAttractions);
 	app.put('/checkattractions/:attractionsID',routes.attractions.checkattractions);
 	app.post('/attractionpic/upload',routes.attractions.upload);
+	app.post('/postimage', routes.attractions.postimage);
 
 	app.post('/addMasterLabelToAttractions',routes.attractions.addMasterLabelToAttractions);
 	app.post('/addSubLabelToAttractions',routes.attractions.addSubLabelToAttractions);
