@@ -1,8 +1,9 @@
-global.mongodbHost = '192.168.1.118';
+global.mongodbHost = '192.168.1.104';
 global.mongodbPort = 27017;
 global.mongodbDB = 'travel1';//travel
 global.listenerPort = 3003;
-global.db = 'mongodb://192.168.1.118/travel1',
+//global.db = 'mongodb://192.168.1.118/travel1',
+global.db = 'mongodb://192.168.1.104/travel1',
 //global.imgasizeMiddle = "572x176";
 //global.imgasizeSmall = "266x176";
 //global.imgasizeBig = "572x508";
@@ -125,3 +126,19 @@ global.lifepathGO = '/entertainment/origin/';
 
 //global.imIdentifyPath = "C:/Program Files/ImageMagick-6.8.7-Q16/identify";
 //global.imConvertPath = "C:/Program Files/ImageMagick-6.8.7-Q16/convert";
+
+var path = require('path'),
+    fs   = require('fs');
+
+var conf = {
+
+    //app global workdir
+    workdir : path.join(__dirname, '../workdir'),
+
+    //port number
+    port    : 3003
+}
+
+for (var i in conf) {
+    Object.defineProperty(exports, i, {value: conf[i], writable: false});
+}
