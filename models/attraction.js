@@ -32,6 +32,7 @@ var AttractionSchema = new Schema({
     recommand_duration : String,
     recommand_flag     : String,  // 1 : recommended as 'hot' , 0 : else
     short_introduce    : String,
+    index_flag         : String,
     show_flag          : Number,  //whethere it is visible to end user
     subLabel           : Array,
     telno              : String,

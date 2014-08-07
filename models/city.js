@@ -93,6 +93,10 @@ CitySchema.methods = {
     listRestaurants : function (opt, cb) {
         opt.city_id = this.city_id;
         mongoose.model('Restaurant').listByCity(opt, cb);
+    },
+    pushImage : function (opt, cb) {
+        var city = opt.city;
+        this.findOne({_id: city}, cb);
     }
 }
 

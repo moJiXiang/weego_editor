@@ -461,10 +461,8 @@ exports.updateAttractions = function (req, res) {
 };
 
 exports.upload = function (req, res) {
-    var attractions_id = req.query.attractions_id;
-    var imageID = new ObjectID();
-    var fileExtention = req.headers['x-file-name'].split(".").pop();
-    var imageName = imageID + '.' + fileExtention;
+    var attractions_id = req.headers.attractionid;
+    var imageName = validPic(req.headers.type);
     var filePath = global.imgpathAO + imageName;
     var fileStream = fs.createWriteStream(filePath);
     var filePathA1 = global.imgpathA1 + imageName;
@@ -577,4 +575,8 @@ exports.publishAttraction = function(_id,callback){
         else callback(null,new_one);
     });
 };
-
+function validPic(type) {
+    var suffix = type.split('/')[1];
+    var _id = new ObjectID();
+    return  _id + '.' + suffix;
+}

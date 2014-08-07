@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 require('../config/Config');
+var mongoose = require('mongoose');
 var CityProvider = require("../config/CityProvider").CityProvider;
 var cityProvider = new CityProvider();
 var ObjectID = require('mongodb').ObjectID;
@@ -828,53 +829,88 @@ exports.setCityCoverImg = function(req, res) {
     // });
 };
 //上传封面图片
+// exports.upload = function(req, res) {
+//     var target_upload_name;
+//     var _id = req.body._id || req.headers._id;
+//     var file = req.files.upload || req.files.file;
+//     if (file && _id) {
+//         var id = new ObjectID();
+//         var tmp_upload = file;
+//         var tmp_upload_path = tmp_upload.path;
+//         var tmp_upload_type = tmp_upload.type;
+//         target_upload_name = validPic(tmp_upload_type);
+//         var target_upload_path = global.imgpathCO + target_upload_name;
+//         var filePathC2 = global.imgpathC2 + target_upload_name;
+//         var filePathC3 = global.imgpathC3 + target_upload_name;
+//         console.log(tmp_upload_path, target_upload_path);
+//         changeImageSize(req, tmp_upload_path, target_upload_path, filePathC2, filePathC3, function(err) {
+//             if (err) {
+//                 console.log("fail : " + err);
+//             }
+//             upyunClient.upCityToYun(target_upload_name, function(err, data) {
+//                 if (err) {
+//                     console.log("Fail to upload to upyun" + err);
+//                     throw err;
+//                 };
+//                 cityProvider.update({
+//                     _id: new ObjectID(_id)
+//                 }, {
+//                     $push: {
+//                         'image': target_upload_name
+//                     }
+//                 }, {
+//                     safe: true
+//                 }, function(err) {
+//                     if (err) {
+//                         throw err;
+//                     } else {
+//                         res.setHeader("Content-Type", "application/json");
+//                         res.json(target_upload_name);
+//                         res.end();
+//                     }
+//                 });
+//             });
+//         });
+//     } else {
+//         res.end();
+//     }
+// };
 exports.upload = function(req, res) {
-    var target_upload_name;
-    var _id = req.body._id || req.headers._id;
-    var file = req.files.upload || req.files.file;
-    if (file && _id) {
-        var id = new ObjectID();
-        var tmp_upload = file;
-        var tmp_upload_path = tmp_upload.path;
-        var tmp_upload_type = tmp_upload.type;
-        target_upload_name = validPic(tmp_upload_type);
-        var target_upload_path = global.imgpathCO + target_upload_name;
-        var filePathC2 = global.imgpathC2 + target_upload_name;
-        var filePathC3 = global.imgpathC3 + target_upload_name;
-        console.log(tmp_upload_path, target_upload_path);
-        changeImageSize(req, tmp_upload_path, target_upload_path, filePathC2, filePathC3, function(err) {
-            if (err) {
-                console.log("fail : " + err);
-            }
-            upyunClient.upCityToYun(target_upload_name, function(err, data) {
-                if (err) {
-                    console.log("Fail to upload to upyun" + err);
-                    throw err;
-                };
-                cityProvider.update({
-                    _id: new ObjectID(_id)
-                }, {
-                    $push: {
-                        'image': target_upload_name
-                    }
-                }, {
-                    safe: true
-                }, function(err) {
-                    if (err) {
-                        throw err;
-                    } else {
-                        res.setHeader("Content-Type", "application/json");
-                        res.json(target_upload_name);
-                        res.end();
-                    }
-                });
-            });
-        });
-    } else {
-        res.end();
-    }
-};
+    var type = req.headers.type;
+    var cityid = req.headers.cityid;
 
+    var filename = validPic(req.files.file.type);
+    var tmp_path = req.files.file.path;
+    var target_path = global.imgpathCO + filename;
+    var filePathC2 = global.imgpathC2 + filename;
+    var filePathC3 = global.imgpathC3 + filename;
+
+    changeImageSize(req, tmp_path, target_path, filePathC2, filePathC3, function(err, result) {
+        if (err) {
+            res.send({status: '500', message: 'can not rename this file!'});
+        }
+        upyunClient.upCityToYun(filename, function(err, result) {
+            if (err) {
+                res.send({status: '500', message: 'can not upload file to upyunClient!'});
+            }
+            mongoose.model('City').pushImage({city: cityid}, function(err, result) {
+                if (err) {
+                    res.send({status: '500', message: 'can not find this city!'});
+                } else {
+                    result.image.push(filename);
+                    result.save(function(err, result) {
+                        if (err) {
+                            res.send({status: '500', message: 'can not push new image into the database!'});
+                        }
+                        res.send({status: '200', message: 'upload image success!'});
+                    })
+                }
+            })
+        })
+
+    })
+
+}
 function changeImageSize(req, tmp_path, target_path, target_path_middle, target_path_small, callback) {
     fs.rename(tmp_path, target_path, function(err) {
         if (err) {
@@ -937,42 +973,77 @@ exports.delCoverImage = function(req, res) {
 };
 
 //上传前台页面城市背景大图
+// exports.upload_background_img = function(req, res) {
+//     var target_upload_name;
+//     var _id = req.body._id || req.headers._id;
+//     var file = req.files.upload || req.files.file;
+//     if (file && _id) {
+//         var tmp_upload = file;
+//         var tmp_upload_path = tmp_upload.path;
+//         var tmp_upload_type = tmp_upload.type;
+//         target_upload_name = validPic(tmp_upload_type);
+//         var target_upload_path = global.imgpathC1 + target_upload_name;
+//         console.log(target_upload_path);
+//         makeImageFile(tmp_upload_path, target_upload_path, function() {
+//             upyunClient.upCityBgToYun(target_upload_name, function(err, data) {
+//                 cityProvider.update({
+//                     _id: new ObjectID(_id)
+//                 }, {
+//                     $push: {
+//                         'backgroundimage': target_upload_name
+//                     }
+//                 }, {
+//                     safe: true
+//                 }, function(err) {
+//                     if (err) {
+//                         throw err;
+//                     } else {
+//                         res.setHeader("Content-Type", "application/json");
+//                         res.json(target_upload_name);
+//                         res.end();
+//                     }
+//                 });
+//             });
+//         });
+//     } else {
+//         res.end();
+//     }
+// };
 exports.upload_background_img = function(req, res) {
-    var target_upload_name;
-    var _id = req.body._id || req.headers._id;
-    var file = req.files.upload || req.files.file;
-    if (file && _id) {
-        var tmp_upload = file;
-        var tmp_upload_path = tmp_upload.path;
-        var tmp_upload_type = tmp_upload.type;
-        target_upload_name = validPic(tmp_upload_type);
-        var target_upload_path = global.imgpathC1 + target_upload_name;
-        console.log(target_upload_path);
-        makeImageFile(tmp_upload_path, target_upload_path, function() {
-            upyunClient.upCityBgToYun(target_upload_name, function(err, data) {
-                cityProvider.update({
-                    _id: new ObjectID(_id)
-                }, {
-                    $push: {
-                        'backgroundimage': target_upload_name
-                    }
-                }, {
-                    safe: true
-                }, function(err) {
-                    if (err) {
-                        throw err;
-                    } else {
-                        res.setHeader("Content-Type", "application/json");
-                        res.json(target_upload_name);
-                        res.end();
-                    }
-                });
-            });
-        });
-    } else {
-        res.end();
-    }
-};
+    var type = req.headers.type;
+    var cityid = req.headers.cityid;
+
+    var filename = validPic(req.files.file.type);
+    var tmp_path = req.files.file.path;
+    var target_path = global.imgpathC1 + filename;
+
+    makeImageFile(tmp_path, target_path, function(err, result) {
+        if (err) {
+            res.send({status: '500', message: 'can not rename this file!'});
+        }
+        upyunClient.upCityBgToYun(filename, function(err, result) {
+            if (err) {
+                res.send({status: '500', message: 'can not upload file to upyunClient!'});
+            }
+            mongoose.model('City').pushImage({city: cityid}, function(err, result) {
+                if (err) {
+                    res.send({status: '500', message: 'can not find this city!'});
+                } else {
+                    result.backgroundimage.push(filename);
+                    result.save(function(err, result) {
+                        if (err) {
+                            res.send({status: '500', message: 'can not push new image into the database!'});
+                        }
+                        res.send({status: '200', message: 'upload image success!'});
+                    })
+                }
+            })
+        })
+
+    })
+
+}
+
 //删除背景图片
 exports.delBackgroundImage = function(req, res) {
     var imageName = req.params.imageName;

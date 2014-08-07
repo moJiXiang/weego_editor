@@ -35,7 +35,7 @@ module.exports = function(app) {
 	app.get('/getAllUserCreateAttractionsByPage/:pageLimit/:pageIndex/:name?', routes.attractions.getAllUserCreateAttractionsByPage);
 	app.get('/checkattractions/:attractionsID', routes.attractions.getAttractions);
 	app.put('/checkattractions/:attractionsID',routes.attractions.checkattractions);
-	app.post('/upload',routes.attractions.upload);
+	app.post('/attractionpic/upload',routes.attractions.upload);
 
 	app.post('/addMasterLabelToAttractions',routes.attractions.addMasterLabelToAttractions);
 	app.post('/addSubLabelToAttractions',routes.attractions.addSubLabelToAttractions);
