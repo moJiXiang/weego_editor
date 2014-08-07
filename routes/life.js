@@ -549,38 +549,61 @@ exports.publishEntertainment = function(_id,callback){
 
 //-----------------------------------image-----------------------------------------
 
-exports.postLifeImage = function(req,res){
-    var type = req.body._type || req.headers.type;
-    console.log(req.files,req.headers);
-    var _id = req.body._id || req.headers._id;
-    if(req.files.file && _id){
-        var id = new ObjectID();
-        var tmp_upload = req.files.file;
-        var tmp_upload_path = tmp_upload.path;
-        //新的图片上传插件需要的接口
-        var tmp_upload_type = tmp_upload.type;
-        var target_upload_name = validPic(tmp_upload_type);
-        var target_upload_path = getPathByType(type) + target_upload_name;
-        // var target_upload_path = './public/images/' + target_upload_name;
-        makeImageFile(req, tmp_upload_path, target_upload_path, function () {
-            upyunClient.upLifeToYun(type,target_upload_name,function(err,data){
-                if(err) throw err;
-                pushImg(_id,type,target_upload_name,function(err,result){
-                    if (err) {
-                        throw err;
-                    } else {
-                        res.setHeader("Content-Type", "application/json");
-                        res.json(target_upload_name);
-                        res.end();
-                    }
-                });
-            });
-        });
-    } else {
-        res.end();
-    }
-};
+// exports.postLifeImage = function(req,res){
+//     var type = req.body._type || req.headers.type;
+//     console.log(req.files,req.headers);
+//     var _id = req.body._id || req.headers._id;
+//     if(req.files.file && _id){
+//         var id = new ObjectID();
+//         var tmp_upload = req.files.file;
+//         var tmp_upload_path = tmp_upload.path;
+//         //新的图片上传插件需要的接口
+//         var tmp_upload_type = tmp_upload.type;
+//         var target_upload_name = validPic(tmp_upload_type);
+//         var target_upload_path = getPathByType(type) + target_upload_name;
+//         // var target_upload_path = './public/images/' + target_upload_name;
+//         makeImageFile(req, tmp_upload_path, target_upload_path, function () {
+//             upyunClient.upLifeToYun(type,target_upload_name,function(err,data){
+//                 if(err) throw err;
+//                 pushImg(_id,type,target_upload_name,function(err,result){
+//                     if (err) {
+//                         throw err;
+//                     } else {
+//                         res.setHeader("Content-Type", "application/json");
+//                         res.json(target_upload_name);
+//                         res.end();
+//                     }
+//                 });
+//             });
+//         });
+//     } else {
+//         res.end();
+//     }
+// };
+exports.postLifeImage = function (req, res) {
+    var type = req.headers.type;
+    var resshopid = req.headers.resshopid;
 
+    var filename = validPic(req.files.file.type);
+    var tmp_path = req.files.file.path;
+    var target_path = getPathByType(type) + filename;
+    fs.rename(tmp_path, target_path, function(err, result) {
+        if (err) {
+            res.send({status: '500', message: 'can not rename this file!'});
+        }
+        upyunClient.upLifeToYun(type, tmp_path, target_path, function(err, result) {
+            if (err) {
+                res.send({status: '500', message: 'can not upload file to upyunClient!'});
+            }
+            pushImg(resshopid, type, filename, function(err, result) {
+                if (err) {
+                    res.send({status: '500', message: 'can not push new image into the database!'});
+                }
+                res.send({status: '200', message: 'upload image success!'});
+            })
+        })
+    })
+}
 // exports.uploadAreaImg = function(req, res) {
 //     var _id = req.headers._id;
 //     var tmp_path = req.files.file.path;
@@ -602,8 +625,6 @@ exports.postLifeImage = function(req,res){
 // }
 
 exports.uploadAreaImg = function(req, res) {
-    console.log('****************************');
-    console.log(req.files.formData);
     var areaid = req.headers.areaid;
     var filename = validPic(req.files.file.type);
     var tmp_path = req.files.file.path;
@@ -632,13 +653,14 @@ exports.delAreaImg = function(req, res) {
     var imageName = req.params.imageName;
     var target_path = global.imgpathSO + imageName;
     fs.unlink(target_path, function(err){
-        if(err) throw err;
-        Area.pullImg(id, filename, function(err, result) {
-            if(err) throw err;
-            upyunClient.delAreaFromYun(imageName, function(err, data) {
-                if(err) throw err
-                    res.send({status:'success'});
-            })
+        if(err){
+            res.send({status: '500', message: 'can not push new image into the database!'});
+        }
+        upyunClient.delAreaFromYun(imageName, function(err, data) {
+            if(err){
+                res.send({status: '500', message: 'can not upload file to upyunClient!'});
+            }
+            res.send({status:'success'});
         })
     })
 }

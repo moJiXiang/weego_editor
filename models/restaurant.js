@@ -25,7 +25,6 @@ var RestaurantSchema = new Schema({
     create_at         : { type: Date, default: Date.now },
     recommand_flag    : { type: Boolean, default:false },
     recommand_duration: { type: String },
-    ranking           : { type: Number },
     area_id           : { type: ObjectId},
     area_name         : { type: String},
     rating            : { type: Number ,default: 3},
