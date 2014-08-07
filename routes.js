@@ -225,15 +225,17 @@ module.exports = function(app) {
 		});
 	}));
 
-	var loadUser = function (req, res, next) {
+	var ensureUser = function (req, res, next) {
 		//load user object to req.
 		if (!req.session.user) {
 			//not yet login, redirect to login page
 			return res.send(401, {status: 401, type: 'Unauthorized', message: 'authentication required'});
 		}
-
-		req.user = req.session.user;
-		next();
+		models.User.findById(req.session.user._id, function (err, u) {
+			if (err) return res.send(500, err);
+			req.user = u;
+			next();
+		});
 	};
 
 	var authorize = function(req, res, next) {
@@ -298,8 +300,6 @@ module.exports = function(app) {
 	// app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), function (req, res) {
 	app.post('/login', passport.authenticate('local', {assignProperty: 'user'}), function (req, res) {
 		//process req.user
-		console.log(req);
-		console.log(req.user);
 		if(req.user.status == 1){
 			req.session.user = req.user;
 			res.redirect('/');
@@ -311,8 +311,11 @@ module.exports = function(app) {
 		// res.send(200, {m: 'succes -- TBD'});
 	});
 
-	// app.all('/rest/*', loadUser, authorize, guessModel());
-	app.all('/rest/*', loadUser, guessModel());
+	app.all('/u/*', ensureUser);
+	app.get('/u/tasks', routes.u.tasks);
+
+	// app.all('/rest/*', ensureUser, authorize, guessModel());
+	app.all('/rest/*', ensureUser, guessModel());
 
 	app.get(  '/rest/:entities',     routes.rest.getEntities  );
 	app.post( '/rest/:entities',     routes.rest.postEntities );

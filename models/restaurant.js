@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
     Schema   = mongoose.Schema,
+    log      = require('winston'),
     ObjectId = Schema.ObjectId;
  
  //餐馆
@@ -7,7 +8,7 @@ var RestaurantSchema = new Schema({
     name              : { type: String },
     type              : { type: String,default:'1'},
     city_name         : { type: String },
-    city_id           : { type: ObjectId ,index: true },
+    city_id           : { type: ObjectId ,index: true, require: true },  //auditing records requires this property not empty
     latitude          : { type: String },
     longitude         : { type: String },
     address           : { type: String },
@@ -64,6 +65,17 @@ var RestaurantSchema = new Schema({
         tips           : String,
         comments       : String,
     }
+});
+
+RestaurantSchema.post('save', function (doc) {
+    if (doc.isNew) {
+        log.info('new doc saved, now create corresponding auditing instances');
+        mongoose.model('Auditing').onObjectCreated(doc, 1);
+    }
+});
+
+RestaurantSchema.post('remove', function (doc) {
+    mongoose.model('Auditing').onObjectRemoved(doc, 1);
 });
 
 /**

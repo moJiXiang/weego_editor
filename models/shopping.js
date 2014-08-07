@@ -1,13 +1,14 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var ObjectId = Schema.ObjectId;
+var mongoose = require('mongoose'),
+    Schema   = mongoose.Schema,
+    log      = require('winston'),
+    ObjectId = Schema.ObjectId;
  
  //购物
 var ShoppingSchema = new Schema({
     name           : { type: String },
     type           : { type: String, default:'2'},
     city_name      : { type: String },
-    city_id        : { type: ObjectId, index: true },
+    city_id        : { type: ObjectId, index: true, required: true }, //auditing records requires this property not empty
     latitude       : { type: String },
     longitude      : { type: String },
     address        : { type: String },
@@ -46,6 +47,17 @@ var ShoppingSchema = new Schema({
         tips           : String,
         comments       : Array
     }
+});
+
+ShoppingSchema.post('save', function (doc) {
+    if (doc.isNew) {
+        log.info('new doc saved, now create corresponding auditing instances');
+        mongoose.model('Auditing').onObjectCreated(doc, 2);
+    }
+});
+
+ShoppingSchema.post('remove', function (doc) {
+    mongoose.model('Auditing').onObjectRemoved(doc, 2);
 });
 
 ShoppingSchema.statics = {

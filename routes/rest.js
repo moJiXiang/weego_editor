@@ -50,7 +50,8 @@ exports.getEntities = function (req, res) {
             return res.send(200, {result : items});
         });
     } else {
-        listEntities(req.model, req, res);
+        opt.currentUser = req.user;//inject user, do filter by user in query map
+        listEntities(req.model, req, res, opt);
     }
 }
 
@@ -75,7 +76,7 @@ exports.delEntities = function (req, res) {
     
     var model = req.model;
 
-    res.send(500, {status:500, type : 'Internal Server Error', message: 'Not yet implemented'});
+    res.send(405, {status:500, type : 'Method Not Allowed', message: 'Not yet implemented'});
 }
 
 exports.putEntities = function (req, res) {  
@@ -97,7 +98,7 @@ exports.getEntity = function (req, res) {
                 message : '' + err
             });
         } else if (!item) {
-            res.send(404, {status: 404, type: 'Not Found', message : 'entity not found : ' + req.query.id});
+            res.send(404, {status: 404, type: 'Not Found', message : 'entity not found : ' + req.params.id});
         } else {
             res.send(200, {result: item});
         }
@@ -108,7 +109,21 @@ exports.postEntity = function (req, res) {
     
     var model = req.model;
 
-    res.send(500, {status:500, type : 'Internal Server Error', message: 'Not yet implemented'});
+    var cmd = req.query.cmd;
+
+    model.findById(req.params.id, function (err, ent) {
+
+        if (err) return res.send(500, {status:500, type : 'Internal Server Error', message: '' + err});
+
+        if (!ent) return res.send(404, {status: 404, type: 'Not Found', message : 'entity not found : ' + req.params.id});
+
+        if (! cmd in ent || typeof(ent[cmd]) != 'function') return res.send(400, {status: 400, type: ' Bad Request', message: 'Not a command : ' + cmd});
+
+        ent[cmd](req.body, function (err, result) {
+            if (err) return res.send(500, {status:500, type : 'Internal Server Error', message: '' + err});
+            res.send(200, {result: result});
+        });
+    });
 }
 
 exports.delEntity = function (req, res) {  
