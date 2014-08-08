@@ -26,7 +26,7 @@ CountrySchema.queryMap = {
         q.where({cn_name : {$regex: value}});
         done();
     },
-    getCountriesByContient : function (q, value, done) {
+    getCountriesByContinent : function (q, value, done) {
         console.log(value);
         q.where({continent: value});
         done();
