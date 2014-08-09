@@ -85,6 +85,12 @@ UserSchema.queryMap = {
         q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
         done();//don't forget this callback
     }*/
+    roles : function (q, value, done) {
+        var arr = value.split(',')
+        var condition = {roles:{$elemMatch : {$in : arr}}};
+        q.where(condition);
+        done();
+    }
 }
 
 UserSchema.plugin(require('../lib/mongoosePlugin').queryPlugin);

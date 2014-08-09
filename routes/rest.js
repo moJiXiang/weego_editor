@@ -143,9 +143,11 @@ exports.delEntity = function (req, res) {
 exports.putEntity = function (req, res) {  
     
     var model = req.model;
-
+    console.log(req.body);
+    delete req.body._id;
     model.findByIdAndUpdate(req.params.id, req.body, function (err, item) {
         if (err) {
+            console.log(err);
             res.send(500, {status:500, type : 'Internal Server Error', message: 'Fail to update entity ' + req.params.id});
         } else {
             res.send(200, {result: item});

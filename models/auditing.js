@@ -8,11 +8,11 @@ var mongoose = require('mongoose'),
 /**
  * 申请审核条目。
  * @type: city: 4, attraction: 0, restaurant: 1, shopping: 2, shoparea: 3
- * status: 0，尚未递交审核(编辑状态)，1，审核中，2，审核通过，-1，审核不通过。
+ * status: 1，审核中，2，审核通过，-1，审核不通过。
  */
 var AuditingSchema = new Schema({
 	item_id			: { type: ObjectId },
-	item_city       : { type: ObjectId }, //null if type=4
+	item_city       : { type: ObjectId }, //null if type=4, city's
 	type 			: { type: Number },
 	name 			: { type: String },
 	status			: { type: Number },

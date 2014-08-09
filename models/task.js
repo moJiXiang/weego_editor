@@ -6,11 +6,12 @@ var mongoose = require('mongoose'),
 
 /**
  * task model
- * @type: city: 4, attraction: 0, restaurant: 1, shopping: 2, shoparea: 3
+ * @type:  attraction: 0, restaurant: 1, shopping: 2, shoparea: 3, city: 4,
  * city_id : id of city, 
  */
 var TaskSchema = new Schema({
 	city_id          : { type: ObjectId ,index: true },
+    city_name        : { type: String },
 	type 			 : { type: Number },
 	minnum 			 : { type: Number }, //expected No. of items to be completed.
 	editor_id 		 : { type: ObjectId ,index: true },

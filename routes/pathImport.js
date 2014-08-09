@@ -5,7 +5,7 @@ var EventProxy = require('eventproxy');
 var Path = require('../proxy/path');
 var ObjectID = require('mongodb').ObjectID;
 var PathsModel = require('../models').Path;
-var sleep = require('sleep');
+//var sleep = require('sleep');
 
 
 var https = require('https');
