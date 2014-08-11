@@ -200,6 +200,10 @@ RestaurantSchema.queryMap = {
     tags : function (q, value, done) {
         q.in('tags', value.split(','));
         done();
+    },
+    city_name : function (q, value, done) {
+        q.where({'city_name': value});
+        done();
     }
 }
 
