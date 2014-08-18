@@ -66,6 +66,7 @@ TaskSchema.methods = {
                 Auditing.count({item_city: that.city_id, type: that.type, en: that.en, status: 1}, done);
             }
         }, function (err, result) {
+            console.log(result);
             log.profile('counter');
             if (err) return cb(err);
             that.counts = result;

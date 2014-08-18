@@ -72,6 +72,10 @@ ShoppingSchema.queryMap = {
     q : function (q, value, done) {
         q.where('name').regex(value);
         done();
+    },
+    city_name : function (q, value, done) {
+        q.where({'city_name': {$regex : value}});
+        done();
     }
 }
 

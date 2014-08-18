@@ -61,6 +61,7 @@ AuditingSchema.methods = {
 	},
 
 	triggerTaskUpdate : function () {
+		var that = this;
 		mongoose.model('Task').updateAllCounts({city_id: that.item_city, en: that.en, type: that.type}, function (err, docs) {
 			//background operations, no need to cb here
 			if (err) {
@@ -73,6 +74,12 @@ AuditingSchema.methods = {
 
 	updateStatus : function (opt, cb) {
 		var that = this;
+		if(opt.editorname) that.editorname = opt.editorname;
+		if(opt.editorid) that.editorid = opt.editorid;
+		if(opt.auditorname) that.auditorname = opt.auditorname;
+		if(opt.auditorid) that.auditorid = opt.auditorid;
+		if(opt.editdate) that.editdate = opt.editdate;
+		if(opt.auditdate) that.auditdate = opt.auditdate;
 		that.status = opt.status;
 		that.save(function (err, doc) {
 			if (err) return cb(err);
@@ -82,13 +89,17 @@ AuditingSchema.methods = {
 	},
 
 	submit  : function (opt, cb) { //submit for auditing/review
+		console.log(opt);
 		var cb = cb ? cb : opt;
-		this.updateStatus({status: 1}, cb);
+		opt.editdate = new Date();
+		opt.status = 1;
+		this.updateStatus(opt , cb);
 	},
 
 	approve : function (opt, cb) { //pass the review/audit
 		//1. set status, 2. update item status
 		var cb = cb ? cb : opt;
+		opt.auditdate = new Date();
 		this.updateStatus({status: 2}, cb);
 	},
 
