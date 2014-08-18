@@ -202,7 +202,7 @@ RestaurantSchema.queryMap = {
         done();
     },
     city_name : function (q, value, done) {
-        q.where({'city_name': value});
+        q.where({'city_name': {$regex : value}});
         done();
     }
 }

@@ -44,6 +44,7 @@ var CitySchema = new Schema({
         longitude       : String,
         _id             : String
     },
+    city_overview       : String,
     restaurant_overview : String, // overview of restaurants in city
     shopping_overview   : String, // overview of shoppings in city
     attraction_overview : String, // overview of attractions in city
@@ -51,6 +52,7 @@ var CitySchema = new Schema({
     status              : String,
     en_info: {
         short_introduce: String,
+        city_overview : String,
         attraction_overview: String,
         restaurant_overview: String,
         shopping_overview: String,

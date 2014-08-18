@@ -28,8 +28,11 @@ var AreaSchema = new Schema({
     website            : { type: String },
     status             : { type: String },
     en_info 		       : {
+        open_time        : { type: String  },
     	introduce        : { type: String },
-    	address          : { type: String }
+    	address          : { type: String },
+        traffic          : { type: String },
+        tips             : { type: String }
     },                               
     recommend_duration : { type: String }
 });
@@ -65,6 +68,10 @@ AreaSchema.queryMap = {
         q.or([{cityname: {$regex: value}}, {cityname_en: {$regex: value}}]);
         done();//don't forget this callback
     }*/
+    city_name : function (q, value, done) {
+        q.where('city_name', {$regex : value, $options: 'i'});
+        done();
+    },
     name : function (q, value, done) {
         q.where('area_name', {$regex : value, $options: 'i'});
         done();

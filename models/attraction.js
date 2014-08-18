@@ -44,11 +44,12 @@ var AttractionSchema = new Schema({
     type               : { type: String,default:'0'},
     status             : String,
     en_info: {
+        price          : String,
         opentime       : String,
         traffic_info   : String,
         short_introduce: String,
         introduce      : String,
-        tips           : String
+        tips           : String,
     }
 }, {
     collection : 'latestattractions'
@@ -93,6 +94,11 @@ AttractionSchema.queryMap = {
 
     name : function (q, value, done) {
         q.where({attractions : {$regex: value, $options: 'i'}});
+        done();
+    },
+
+    cityname : function(q, value, done) {
+        q.where({cityname : {$regex: value, $options: 'i'}});
         done();
     }
 }
