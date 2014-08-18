@@ -7,6 +7,9 @@ var Shopping = require('../proxy').Shopping;
 var Entertainment = require('../proxy').Entertainment;
 var upyunClient = require('./upyun/upyunClient');
 var Util = require('./util');
+var fs = require('fs');
+var gm = require('gm')
+,   imageMagick = gm.subClass({ imageMagick: true });
 
 exports.getCategory = function(req,res){
 	Category.getCategory(new ObjectID(req.params.categoryId+''), function (err, result) {
@@ -587,22 +590,45 @@ exports.postLifeImage = function (req, res) {
     var filename = validPic(req.files.file.type);
     var tmp_path = req.files.file.path;
     var target_path = getPathByType(type) + filename;
-    fs.rename(tmp_path, target_path, function(err, result) {
-        if (err) {
-            res.send({status: '500', message: 'can not rename this file!'});
-        }
-        upyunClient.upLifeToYun(type, filename, function(err, result) {
-            if (err) {
-                res.send({status: '500', message: 'can not upload file to upyunClient!'});
+     imageMagick(tmp_path)
+        .resize(640,425, '!')
+        .autoOrient()
+        .write(target_path, function (err) {
+            if(err) {
+                res.end();
             }
-            pushImg(resshopid, type, filename, function(err, result) {
+            fs.unlink(tmp_path, function() {
+                return res.end('3');
+            });
+            upyunClient.upLifeToYun(type, filename, function(err, result) {
                 if (err) {
-                    res.send({status: '500', message: 'can not push new image into the database!'});
+                    res.send({status: '500', message: 'can not upload file to upyunClient!'});
                 }
-                res.send({status: '200', message: 'upload image success!'});
+                pushImg(resshopid, type, filename, function(err, result) {
+                    if (err) {
+                        res.send({status: '500', message: 'can not push new image into the database!'});
+                    }
+                    res.send({status: '200', message: 'upload image success!'});
+                })
             })
         })
-    })
+    // fs.rename(tmp_path, target_path, function(err, result) {
+
+    //     if (err) {
+    //         res.send({status: '500', message: 'can not rename this file!'});
+    //     }
+    //     upyunClient.upLifeToYun(type, filename, function(err, result) {
+    //         if (err) {
+    //             res.send({status: '500', message: 'can not upload file to upyunClient!'});
+    //         }
+    //         pushImg(resshopid, type, filename, function(err, result) {
+    //             if (err) {
+    //                 res.send({status: '500', message: 'can not push new image into the database!'});
+    //             }
+    //             res.send({status: '200', message: 'upload image success!'});
+    //         })
+    //     })
+    // })
 }
 // exports.uploadAreaImg = function(req, res) {
 //     var _id = req.headers._id;
