@@ -593,7 +593,7 @@ exports.postLifeImage = function (req, res) {
     console.log('tmp_path', tmp_path);
     console.log('target_path', target_path);
      imageMagick(tmp_path)
-        .resize(640,425, '!')
+        .crop(100,100, 0,0)
         .autoOrient()
         .write(target_path, function (err) {
             if(err) {
