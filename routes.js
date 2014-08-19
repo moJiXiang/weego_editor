@@ -310,7 +310,6 @@ module.exports = function(app) {
 		}
 		// res.send(200, {m: 'succes -- TBD'});
 	});
-
 	app.all('/u/*', ensureUser);
 	app.get('/u/tasks', routes.u.tasks);
 

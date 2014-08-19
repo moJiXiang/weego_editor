@@ -15,6 +15,7 @@ var AreaSchema = new Schema({
     area_enname        : { type: String },
     short_introduce    : { type: String },
     area_introduce     : { type: String},
+    recommand_duration : { type: String },
     address            : { type: String},
     open_time          : { type: String },
     latitude           : { type: String },
@@ -26,15 +27,14 @@ var AreaSchema = new Schema({
     tags               : { type: Array},
     tel                : { type: String },
     website            : { type: String },
-    status             : { type: String },
-    en_info 		       : {
+    show_flag          : { type: Number },
+    en_info                : {
         open_time        : { type: String  },
-    	introduce        : { type: String },
-    	address          : { type: String },
+        introduce        : { type: String },
+        address          : { type: String },
         traffic          : { type: String },
         tips             : { type: String }
-    },                               
-    recommend_duration : { type: String }
+    }                            
 });
 
 AreaSchema.post('save', function (doc) {
