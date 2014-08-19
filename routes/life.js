@@ -590,6 +590,8 @@ exports.postLifeImage = function (req, res) {
     var filename = validPic(req.files.file.type);
     var tmp_path = req.files.file.path;
     var target_path = getPathByType(type) + filename;
+    console.log('tmp_path', tmp_path);
+    console.log('target_path', target_path);
      imageMagick(tmp_path)
         .resize(640,425, '!')
         .autoOrient()
@@ -597,9 +599,6 @@ exports.postLifeImage = function (req, res) {
             if(err) {
                 res.end();
             }
-            fs.unlink(tmp_path, function() {
-                return res.end('3');
-            });
             upyunClient.upLifeToYun(type, filename, function(err, result) {
                 if (err) {
                     res.send({status: '500', message: 'can not upload file to upyunClient!'});
@@ -608,7 +607,9 @@ exports.postLifeImage = function (req, res) {
                     if (err) {
                         res.send({status: '500', message: 'can not push new image into the database!'});
                     }
-                    res.send({status: '200', message: 'upload image success!'});
+                    fs.unlink(tmp_path, function() {
+                        res.send({status: '200', message: 'upload image success!'});
+                    });
                 })
             })
         })
