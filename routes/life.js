@@ -598,39 +598,41 @@ exports.postLifeImage = function (req, res) {
             cropheight = size.width < size.height ? size.width * Math.ceil(425/640) : size.height;
             startx = size.width > size.height ? Math.ceil((size.width - cropwidth) / 2) : 0;
             starty = size.width > size.height ? Math.ceil((size.height - cropheight)/2) : 0;
+
+            imageMagick(tmp_path)
+                .crop(cropwidth, cropheight, startx, starty)
+                .resize(640, 425, "!")
+                .autoOrient()
+                .write(target_path, function(err) {
+                    if (err) {
+                        res.end();
+                    }
+                    upyunClient.upLifeToYun(type, filename, function(err, result) {
+                        if (err) {
+                            res.send({
+                                status: '500',
+                                message: 'can not upload file to upyunClient!'
+                            });
+                        }
+                        pushImg(resshopid, type, filename, function(err, result) {
+                            if (err) {
+                                res.send({
+                                    status: '500',
+                                    message: 'can not push new image into the database!'
+                                });
+                            }
+                            fs.unlink(tmp_path, function() {
+                                res.send({
+                                    status: '200',
+                                    message: 'upload image success!'
+                                });
+                            });
+                        })
+                    })
+                })
         })
 
-    imageMagick(tmp_path)
-        .crop(cropwidth, cropheight, startx, starty)
-        .resize(640, 425, "!")
-        .autoOrient()
-        .write(target_path, function(err) {
-            if (err) {
-                res.end();
-            }
-            upyunClient.upLifeToYun(type, filename, function(err, result) {
-                if (err) {
-                    res.send({
-                        status: '500',
-                        message: 'can not upload file to upyunClient!'
-                    });
-                }
-                pushImg(resshopid, type, filename, function(err, result) {
-                    if (err) {
-                        res.send({
-                            status: '500',
-                            message: 'can not push new image into the database!'
-                        });
-                    }
-                    fs.unlink(tmp_path, function() {
-                        res.send({
-                            status: '200',
-                            message: 'upload image success!'
-                        });
-                    });
-                })
-            })
-        })
+    
 }
 // exports.uploadAreaImg = function(req, res) {
 //     var _id = req.headers._id;
@@ -664,27 +666,28 @@ exports.uploadAreaImg = function(req, res) {
             cropheight = size.width < size.height ? size.width * Math.ceil(425/640) : size.height;
             startx = size.width > size.height ? Math.ceil((size.width - cropwidth) / 2) : 0;
             starty = size.width > size.height ? Math.ceil((size.height - cropheight)/2) : 0;
-        })
-    imageMagick(tmp_path)
-        .crop(cropwidth, cropheight, startx, starty)
-        .resize(640, 425, "!")
-        .autoOrient()
-        .write(target_path, function(err) {
-            if (err) {
-                res.end();
-            }
-
-            upyunClient.upAreaToYun(filename, function(err, result) {
-                if (err) {
-                    res.send({status: '500', message: 'can not upload file to upyunClient!'});
-                }
-                Area.pushImg(areaid, filename, function(err, result) {
+            
+            imageMagick(tmp_path)
+                .crop(cropwidth, cropheight, startx, starty)
+                .resize(640, 425, "!")
+                .autoOrient()
+                .write(target_path, function(err) {
                     if (err) {
-                        res.send({status: '500', message: 'can not push new image into the database!'});
+                        res.end();
                     }
-                    res.send({status: '200', message: 'upload image success!'});
+
+                    upyunClient.upAreaToYun(filename, function(err, result) {
+                        if (err) {
+                            res.send({status: '500', message: 'can not upload file to upyunClient!'});
+                        }
+                        Area.pushImg(areaid, filename, function(err, result) {
+                            if (err) {
+                                res.send({status: '500', message: 'can not push new image into the database!'});
+                            }
+                            res.send({status: '200', message: 'upload image success!'});
+                        })
+                    })
                 })
-            })
         })
 }
 
