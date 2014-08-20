@@ -590,9 +590,11 @@ exports.postLifeImage = function (req, res) {
     var filename = validPic(req.files.file.type);
     var tmp_path = req.files.file.path;
     var target_path = getPathByType(type) + filename;
-    
+
+
     imageMagick(tmp_path)
-        .crop(100, 100, 0, 0)
+        .resize(640, 425, "!")
+        // .crop(100, 100, 0, 0)
         .autoOrient()
         .write(target_path, function(err) {
             if (err) {
