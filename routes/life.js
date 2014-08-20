@@ -594,10 +594,10 @@ exports.postLifeImage = function (req, res) {
     var cropwidth, cropheight, startx, starty;
     imageMagick(tmp_path)
         .size(function(err, size) {
-            cropwidth = size.width >= size.height ? size.height * Math.ceil(640/425) : size.width;
-            cropheight = size.width < size.height ? size.width * Math.ceil(425/640) : size.height;
-            startx = size.width >= size.height ? Math.ceil((size.width - cropwidth) / 2) : 0;
-            starty = size.width < size.height ? Math.ceil((size.height - cropheight)/2) : 0;
+            cropwidth = size.width >= size.height ? Math.round(size.height * (640/425)) : size.width;
+            cropheight = size.width < size.height ? Math.round(size.width * (425/640)) : size.height;
+            startx = size.width >= size.height ? Math.round((size.width - cropwidth) / 2) : 0;
+            starty = size.width < size.height ? Math.round((size.height - cropheight)/2) : 0;
 
             imageMagick(tmp_path)
                 .crop(cropwidth, cropheight, startx, starty)
@@ -662,10 +662,10 @@ exports.uploadAreaImg = function(req, res) {
     var cropwidth, cropheight, startx, starty;
     imageMagick(tmp_path)
         .size(function(err, size) {
-            cropwidth = size.width >= size.height ? size.height * Math.ceil(640/425) : size.width;
-            cropheight = size.width < size.height ? size.width * Math.ceil(425/640) : size.height;
-            startx = size.width >= size.height ? Math.ceil((size.width - cropwidth) / 2) : 0;
-            starty = size.width < size.height ? Math.ceil((size.height - cropheight)/2) : 0;
+            cropwidth = size.width >= size.height ? Math.round(size.height * (640/425)) : size.width;
+            cropheight = size.width < size.height ? Math.round(size.width * (425/640)) : size.height;
+            startx = size.width >= size.height ? Math.round((size.width - cropwidth) / 2) : 0;
+            starty = size.width < size.height ? Math.round((size.height - cropheight)/2) : 0;
 
             imageMagick(tmp_path)
                 .crop(cropwidth, cropheight, startx, starty)
