@@ -591,10 +591,18 @@ exports.postLifeImage = function (req, res) {
     var tmp_path = req.files.file.path;
     var target_path = getPathByType(type) + filename;
 
+    var cropwidth, cropheight, startx, starty;
+    imageMagick(tmp_path)
+        .size(function(err, size) {
+            cropwidth = size.width > size.height ? size.height * Math.ceil(640/425) : size.width;
+            cropheight = size.width < size.height ? size.width * Math.ceil(425/640) : size.height;
+            startx = size.width > size.height ? Math.ceil((size.width - cropwidth) / 2) : 0;
+            starty = size.width > size.height ? Math.ceil((size.height - cropheight)/2) : 0;
+        })
 
     imageMagick(tmp_path)
+        .crop(cropwidth, cropheight, startx, starty)
         .resize(640, 425, "!")
-        // .crop(100, 100, 0, 0)
         .autoOrient()
         .write(target_path, function(err) {
             if (err) {
@@ -649,15 +657,23 @@ exports.uploadAreaImg = function(req, res) {
     var filename = validPic(req.files.file.type);
     var tmp_path = req.files.file.path;
     var target_path = global.imgpathSO + filename;
+    var cropwidth, cropheight, startx, starty;
     imageMagick(tmp_path)
+        .size(function(err, size) {
+            cropwidth = size.width > size.height ? size.height * Math.ceil(640/425) : size.width;
+            cropheight = size.width < size.height ? size.width * Math.ceil(425/640) : size.height;
+            startx = size.width > size.height ? Math.ceil((size.width - cropwidth) / 2) : 0;
+            starty = size.width > size.height ? Math.ceil((size.height - cropheight)/2) : 0;
+        })
+    imageMagick(tmp_path)
+        .crop(cropwidth, cropheight, startx, starty)
         .resize(640, 425, "!")
-        // .crop(100, 100, 0, 0)
         .autoOrient()
         .write(target_path, function(err) {
             if (err) {
                 res.end();
             }
-            
+
             upyunClient.upAreaToYun(filename, function(err, result) {
                 if (err) {
                     res.send({status: '500', message: 'can not upload file to upyunClient!'});
