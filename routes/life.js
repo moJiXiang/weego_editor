@@ -649,23 +649,27 @@ exports.uploadAreaImg = function(req, res) {
     var filename = validPic(req.files.file.type);
     var tmp_path = req.files.file.path;
     var target_path = global.imgpathSO + filename;
-    fs.rename(tmp_path, target_path, function(err, result) {
-        if (err) {
-            res.send({status: '500', message: 'can not rename this file!'});
-        }
-
-        upyunClient.upAreaToYun(filename, function(err, result) {
+    imageMagick(tmp_path)
+        .resize(640, 425, "!")
+        // .crop(100, 100, 0, 0)
+        .autoOrient()
+        .write(target_path, function(err) {
             if (err) {
-                res.send({status: '500', message: 'can not upload file to upyunClient!'});
+                res.end();
             }
-            Area.pushImg(areaid, filename, function(err, result) {
+            
+            upyunClient.upAreaToYun(filename, function(err, result) {
                 if (err) {
-                    res.send({status: '500', message: 'can not push new image into the database!'});
+                    res.send({status: '500', message: 'can not upload file to upyunClient!'});
                 }
-                res.send({status: '200', message: 'upload image success!'});
+                Area.pushImg(areaid, filename, function(err, result) {
+                    if (err) {
+                        res.send({status: '500', message: 'can not push new image into the database!'});
+                    }
+                    res.send({status: '200', message: 'upload image success!'});
+                })
             })
         })
-    })
 }
 
 exports.delAreaImg = function(req, res) {
