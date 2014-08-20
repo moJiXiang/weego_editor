@@ -591,36 +591,36 @@ exports.postLifeImage = function (req, res) {
     var tmp_path = req.files.file.path;
     var target_path = getPathByType(type) + filename;
     
-    // imageMagick(tmp_path)
-    //     .crop(100, 100, 0, 0)
-    //     .autoOrient()
-    //     .write(target_path, function(err) {
-    //         if (err) {
-    //             res.end();
-    //         }
-    //         upyunClient.upLifeToYun(type, filename, function(err, result) {
-    //             if (err) {
-    //                 res.send({
-    //                     status: '500',
-    //                     message: 'can not upload file to upyunClient!'
-    //                 });
-    //             }
-    //             pushImg(resshopid, type, filename, function(err, result) {
-    //                 if (err) {
-    //                     res.send({
-    //                         status: '500',
-    //                         message: 'can not push new image into the database!'
-    //                     });
-    //                 }
-    //                 fs.unlink(tmp_path, function() {
-    //                     res.send({
-    //                         status: '200',
-    //                         message: 'upload image success!'
-    //                     });
-    //                 });
-    //             })
-    //         })
-    //     })
+    imageMagick(tmp_path)
+        .crop(100, 100, 0, 0)
+        .autoOrient()
+        .write(target_path, function(err) {
+            if (err) {
+                res.end();
+            }
+            upyunClient.upLifeToYun(type, filename, function(err, result) {
+                if (err) {
+                    res.send({
+                        status: '500',
+                        message: 'can not upload file to upyunClient!'
+                    });
+                }
+                pushImg(resshopid, type, filename, function(err, result) {
+                    if (err) {
+                        res.send({
+                            status: '500',
+                            message: 'can not push new image into the database!'
+                        });
+                    }
+                    fs.unlink(tmp_path, function() {
+                        res.send({
+                            status: '200',
+                            message: 'upload image success!'
+                        });
+                    });
+                })
+            })
+        })
 }
 // exports.uploadAreaImg = function(req, res) {
 //     var _id = req.headers._id;
