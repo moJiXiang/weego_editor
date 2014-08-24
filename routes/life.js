@@ -776,7 +776,14 @@ function pushImg(_id,type,target_upload_name,callback){
     if(type=='1'){
         Restaurant.getRestaurant(new ObjectID(_id),function(err,result){
             if(result){
+                var item = {
+                    "img" : target_upload_name,
+                    "url" : ''
+                }
+
                 result.image.push(target_upload_name);
+                result.image_url.push(item);
+
                 result.save(function(err){
                     callback(err,result);
                 });
