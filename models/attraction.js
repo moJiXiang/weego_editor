@@ -20,6 +20,7 @@ var AttractionSchema = new Schema({
     created            : {type : Date, default : Date.now},
     dayornight         : String,
     image              : Array,
+    image_url          : Array,
     imgFlag            : Boolean,
     introduce          : String,
     latitude           : String,

@@ -16,6 +16,7 @@ var CitySchema = new Schema({
     created             : { type : Date, default : Date.now},
     hot_flag            : String,
     image               : Array,
+    image_url           : Array,
     imgFlag             : Boolean,
     introduce           : [{
         intrItemTitle   : String, 

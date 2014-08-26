@@ -794,7 +794,12 @@ function pushImg(_id,type,target_upload_name,callback){
     }else if(type=='2'){
         Shopping.getShopping(new ObjectID(_id),function(err,result){
             if(result){
+                var item = {
+                    "img" : target_upload_name,
+                    "url" : ''
+                }
                 result.image.push(target_upload_name);
+                result.image_url.push(item);
                 result.save(function(err){
                     callback(err,result);
                 });
@@ -821,6 +826,7 @@ function pullImg (_id,type,target_upload_name,callback){
         Restaurant.getRestaurant(new ObjectID(_id),function(err,result){
             if(result){
                 result.image.pull(target_upload_name);
+                
                 result.save(function(err){
                     callback(err,result);
                 });
