@@ -7,6 +7,9 @@ var Shopping = require('../proxy').Shopping;
 var Entertainment = require('../proxy').Entertainment;
 var upyunClient = require('./upyun/upyunClient');
 var Util = require('./util');
+var fs = require('fs');
+var gm = require('gm')
+,   imageMagick = gm.subClass({ imageMagick: true });
 
 exports.getCategory = function(req,res){
 	Category.getCategory(new ObjectID(req.params.categoryId+''), function (err, result) {
@@ -587,22 +590,49 @@ exports.postLifeImage = function (req, res) {
     var filename = validPic(req.files.file.type);
     var tmp_path = req.files.file.path;
     var target_path = getPathByType(type) + filename;
-    fs.rename(tmp_path, target_path, function(err, result) {
-        if (err) {
-            res.send({status: '500', message: 'can not rename this file!'});
-        }
-        upyunClient.upLifeToYun(type, filename, function(err, result) {
-            if (err) {
-                res.send({status: '500', message: 'can not upload file to upyunClient!'});
-            }
-            pushImg(resshopid, type, filename, function(err, result) {
-                if (err) {
-                    res.send({status: '500', message: 'can not push new image into the database!'});
-                }
-                res.send({status: '200', message: 'upload image success!'});
-            })
+
+    var cropwidth, cropheight, startx, starty;
+    imageMagick(tmp_path)
+        .size(function(err, size) {
+            cropwidth = size.width >= size.height ? Math.round(size.height * (640/425)) : size.width;
+            cropheight = size.width < size.height ? Math.round(size.width * (425/640)) : size.height;
+            startx = size.width >= size.height ? Math.round((size.width - cropwidth) / 2) : 0;
+            starty = size.width < size.height ? Math.round((size.height - cropheight)/2) : 0;
+
+            imageMagick(tmp_path)
+                .crop(cropwidth, cropheight, startx, starty)
+                .resize(640, 425, "!")
+                .autoOrient()
+                .write(target_path, function(err) {
+                    if (err) {
+                        res.end();
+                    }
+                    upyunClient.upLifeToYun(type, filename, function(err, result) {
+                        if (err) {
+                            res.send({
+                                status: '500',
+                                message: 'can not upload file to upyunClient!'
+                            });
+                        }
+                        pushImg(resshopid, type, filename, function(err, result) {
+                            if (err) {
+                                res.send({
+                                    status: '500',
+                                    message: 'can not push new image into the database!'
+                                });
+                            }
+                            fs.unlink(tmp_path, function() {
+                                res.send({
+                                    status: '200',
+                                    message: 'upload image success!'
+                                });
+                            });
+                        })
+                    })
+                })
         })
-    })
+
+    
 }
 // exports.uploadAreaImg = function(req, res) {
 //     var _id = req.headers._id;
@@ -629,23 +659,36 @@ exports.uploadAreaImg = function(req, res) {
     var filename = validPic(req.files.file.type);
     var tmp_path = req.files.file.path;
     var target_path = global.imgpathSO + filename;
-    fs.rename(tmp_path, target_path, function(err, result) {
-        if (err) {
-            res.send({status: '500', message: 'can not rename this file!'});
-        }
+    var cropwidth, cropheight, startx, starty;
+    imageMagick(tmp_path)
+        .size(function(err, size) {
+            cropwidth = size.width >= size.height ? Math.round(size.height * (640/425)) : size.width;
+            cropheight = size.width < size.height ? Math.round(size.width * (425/640)) : size.height;
+            startx = size.width >= size.height ? Math.round((size.width - cropwidth) / 2) : 0;
+            starty = size.width < size.height ? Math.round((size.height - cropheight)/2) : 0;
 
-        upyunClient.upAreaToYun(filename, function(err, result) {
-            if (err) {
-                res.send({status: '500', message: 'can not upload file to upyunClient!'});
-            }
-            Area.pushImg(areaid, filename, function(err, result) {
-                if (err) {
-                    res.send({status: '500', message: 'can not push new image into the database!'});
-                }
-                res.send({status: '200', message: 'upload image success!'});
-            })
+            imageMagick(tmp_path)
+                .crop(cropwidth, cropheight, startx, starty)
+                .resize(640, 425, "!")
+                .autoOrient()
+                .write(target_path, function(err) {
+                    if (err) {
+                        res.end();
+                    }
+
+                    upyunClient.upAreaToYun(filename, function(err, result) {
+                        if (err) {
+                            res.send({status: '500', message: 'can not upload file to upyunClient!'});
+                        }
+                        Area.pushImg(areaid, filename, function(err, result) {
+                            if (err) {
+                                res.send({status: '500', message: 'can not push new image into the database!'});
+                            }
+                            res.send({status: '200', message: 'upload image success!'});
+                        })
+                    })
+                })
         })
-    })
 }
 
 exports.delAreaImg = function(req, res) {
@@ -734,6 +777,7 @@ function pushImg(_id,type,target_upload_name,callback){
         Restaurant.getRestaurant(new ObjectID(_id),function(err,result){
             if(result){
                 result.image.push(target_upload_name);
+
                 result.save(function(err){
                     callback(err,result);
                 });
@@ -744,6 +788,7 @@ function pushImg(_id,type,target_upload_name,callback){
     }else if(type=='2'){
         Shopping.getShopping(new ObjectID(_id),function(err,result){
             if(result){
+                
                 result.image.push(target_upload_name);
                 result.save(function(err){
                     callback(err,result);
@@ -771,6 +816,7 @@ function pullImg (_id,type,target_upload_name,callback){
         Restaurant.getRestaurant(new ObjectID(_id),function(err,result){
             if(result){
                 result.image.pull(target_upload_name);
+                
                 result.save(function(err){
                     callback(err,result);
                 });

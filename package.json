@@ -20,7 +20,8 @@
     "passport": "0.2.x",
     "winston": "0.7.3",
     "express-winston" : "0.2.6",
-    "async": "*"
+    "async": "*",
+    "gm": "1.16.0"
   },
   
   "devDependencies" : {

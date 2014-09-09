@@ -21,6 +21,7 @@ var AreaSchema = new Schema({
     latitude           : { type: String },
     longitude          : { type: String },
     image              : { type: Array },
+    image_url          : { type: Array },
     cover_image        : { type: String },
     traffic            : { type: String },
     tips               : { type: String},

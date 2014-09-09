@@ -20,6 +20,7 @@ var RestaurantSchema = new Schema({
     tags              : { type: Array , default: []}, // 4 available tags : 'michilin', 'bestfordinner', 'popular', 'localflag'.   e.g.  ['michilin', 'popular']
     open_time         : { type: Array },
     image             : { type: Array },
+    image_url         : { type: Array },
     cover_image       : { type: String },
     show_flag         : { type: Boolean,default:false},
     create_at         : { type: Date, default: Date.now },
