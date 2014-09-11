@@ -236,26 +236,23 @@ exports.postimage = function(req, res) {
     var filePathA5 = global.imgpathA5 + filename;
     makeImageFile(req, tmp_path, target_path, filePathA1, filePathA2, filePathA3, filePathA4, filePathA5, function(err, result) {
         if (err) {
+            console.log(err);
             return res.send(500, {status: '500', message: 'can not rename this file!'});
         }
         upyunClient.upAttractionToYun(filename, function(err, result) {
             if (err) {
                 res.send(500, {status: '500', message: 'can not upload file to upyunClient!'});
             }
-            // mongoose.model('Attraction').update({_id: attractionid},{$push: {'image': filename}}, function(err, result) {
-            //     if(err) {
-            //         res.send(500,{status: '500', message: 'can not push new image into the database!'});
-            //     } else {
-            //         res.send(200, {status: '200', message: 'upload image success!'})
-            //     }
-            // })
             mongoose.model('Attraction').pushImg({attraction: attractionid}, function(err, result) {
                 if (err) {
+                    console.log(err);
                     res.send({status: '500', message: 'can not find this city!'});
                 } else {
                     result.image.push(filename);
                     result.save(function(err, result) {
                         if (err) {
+                            console.log('ccccccccccc');
+                             console.log(err);
                             res.send({status: '500', message: 'can not push new image into the database!'});
                         }
                         res.send({status: '200', message: 'upload image success!'});

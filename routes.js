@@ -303,6 +303,7 @@ module.exports = function(app) {
 		if(req.user.status == 1){
 			req.session.user = req.user;
 			res.redirect('/');
+			// res.render('index', { user: req.user});
 		} else if(req.user.status == 2){
 			res.redirect('/logon.html?reson=frezon');
 		} else {

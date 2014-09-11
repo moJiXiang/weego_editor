@@ -99,7 +99,7 @@ AttractionSchema.queryMap = {
     },
 
     cityname : function(q, value, done) {
-        q.where({cityname : {$regex: value, $options: 'i'}});
+        q.where({cityname : value});
         done();
     }
 }
