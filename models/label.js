@@ -8,6 +8,7 @@ var LabelSchema = new Schema({
 	classname 	: String,
 	createFlag 	: String,
 	label 		: String,
+    label_en    : String,
 	level 		: String,
 	subLabel 	: Array
 },{

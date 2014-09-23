@@ -27,6 +27,11 @@ var AttractionSchema = new Schema({
     likecount          : Number,
     longitude          : String,
     masterLabel        : String,
+    masterLabelNew     : {
+        _id            : ObjectId,
+        label          : String,
+        label_en       : String
+    },
     opentime           : String,
     price              : String,
     random             : String,  // ? ? ? ?
@@ -36,6 +41,7 @@ var AttractionSchema = new Schema({
     index_flag         : String,
     show_flag          : Number,  //whethere it is visible to end user
     subLabel           : Array,
+    subLabelNew        : Array,
     telno              : String,
     website            : String,
     traffic_info       : String,
