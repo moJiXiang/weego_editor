@@ -13,6 +13,7 @@ var AttractionSchema = new Schema({
     attractions_en     : String,
     checkFlag          : String,
     cityid             : ObjectId,
+    city_id            : {type: ObjectId, index: true}, // add new 'city_id' for ios app
     // cityid             : { type: String, required: true }, //auditing records requires this property not empty
     cityname           : String,
     coverImageName     : String,
