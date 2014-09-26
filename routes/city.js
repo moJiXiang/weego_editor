@@ -1060,6 +1060,7 @@ exports.upload_imgforapp = function(req, res) {
                 if (err) {
                     res.send({status: '500', message: 'can not find this city!'});
                 } else {
+                    console.log("filename========>"+filename)
                     result.imgforapp = filename;
                     result.save(function(err, result) {
                         if (err) {
