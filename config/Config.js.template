@@ -1,9 +1,9 @@
-global.mongodbHost = '192.168.1.104';
+global.mongodbHost = 'localhost';
 global.mongodbPort = 27017;
 global.mongodbDB = 'travel1';//travel
 global.listenerPort = 3003;
 //global.db = 'mongodb://192.168.1.118/travel1',
-global.db = 'mongodb://192.168.1.104/travel1',
+global.db = 'mongodb://localhost/travel1',
 //global.imgasizeMiddle = "572x176";
 //global.imgasizeSmall = "266x176";
 //global.imgasizeBig = "572x508";
@@ -68,6 +68,7 @@ global.attpathA5 = '/attractions/imgsizeA5/';
  global.imgpathC1 = '/srv/weego/city/imgsizeC1/';
  global.imgpathC2 = '/srv/weego/city/imgsizeC2/';
  global.imgpathC3 = '/srv/weego/city/imgsizeC3/';
+ global.imgpathC4 = '/srv/weego/city/citypathforApp/';
 //global.imgpathCO = 'c:/weego/city/origin/';
 //global.imgpathC1 = 'c:/weego/city/imgsizeC1/';
 //global.imgpathC2 = 'c:/weego/city/imgsizeC2/';
@@ -77,6 +78,7 @@ global.citypathCO = '/city/origin/';
 global.citypathC1 = '/city/imgsizeC1/';
 global.citypathC2 = '/city/imgsizeC2/';
 global.citypathC3 = '/city/imgsizeC3/';
+global.citypathC4 = '/city/citypathforApp/';
 
 //global.imgpathDO = '/srv/weego/hotels/imgpathDO/';//生产：
 global.imgpathDO = '/srv/weego/hotels/imgpathDO/';//生产：

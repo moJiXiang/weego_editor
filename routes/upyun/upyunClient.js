@@ -195,7 +195,7 @@ exports.upImgforAppToYun = function(fileName,callback){
 	var src_path_name1 = global.imgpathC4 + fileName;
 	var target_path_name1 = global.citypathC4 + fileName;
 	upToYun(src_path_name1,target_path_name1,function(err,data0){
-		if(err) throw err;
+		if(err) console.log('fail to upImgforAppToYun, error is ' + err);
 		callback(null,data0);
 	});
 };
