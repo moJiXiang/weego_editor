@@ -194,8 +194,6 @@ exports.upCityBgToYun = function(fileName,callback){
 exports.upImgforAppToYun = function(fileName,callback){
 	var src_path_name1 = global.imgpathC4 + fileName;
 	var target_path_name1 = global.citypathC4 + fileName;
-	console.log("src_path_name1" + src_path_name1)
-	console.log("target_path_name1" + target_path_name1)
 	
 	upToYun(src_path_name1,target_path_name1,function(err,data0){
 		if(err) console.log('fail to upImgforAppToYun, error is ' + err);
