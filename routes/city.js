@@ -1042,6 +1042,7 @@ exports.upload_background_img = function(req, res) {
 
 }
 exports.upload_imgforapp = function(req, res) {
+    console.log('upload_imgforapp')
     var cityid = req.headers.cityid;
 
     var filename = validPic(req.files.file.type);
