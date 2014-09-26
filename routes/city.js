@@ -1041,7 +1041,39 @@ exports.upload_background_img = function(req, res) {
     })
 
 }
+exports.upload_imgforapp = function(req, res) {
+    var cityid = req.headers.cityid;
 
+    var filename = validPic(req.files.file.type);
+    var tmp_path = req.files.file.path;
+    var target_path = global.imgpathC4 + filename;
+
+    makeImageFile(tmp_path, target_path, function(err, result) {
+        if (err) {
+            res.send({status: '500', message: 'can not rename this file!'});
+        }
+        upyunClient.upImgforAppToYun(filename, function(err, result) {
+            if (err) {
+                res.send({status: '500', message: 'can not upload file to upyunClient!'});
+            }
+            mongoose.model('City').pushImage({city: cityid}, function(err, result) {
+                if (err) {
+                    res.send({status: '500', message: 'can not find this city!'});
+                } else {
+                    result.imgforapp = filename;
+                    result.save(function(err, result) {
+                        if (err) {
+                            res.send({status: '500', message: 'can not push new image into the database!'});
+                        }
+                        res.send({status: '200', message: 'upload image success!'});
+                    })
+                }
+            })
+        })
+
+    })
+
+}
 //删除背景图片
 exports.delBackgroundImage = function(req, res) {
     var imageName = req.params.imageName;

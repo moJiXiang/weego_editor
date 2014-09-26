@@ -12,6 +12,7 @@ var CitySchema = new Schema({
     countryname         : String,
     countrycode         : String,
     coverImageName      : String,
+    imgforapp           : String,
     createFlag          : String,
     created             : { type : Date, default : Date.now},
     hot_flag            : String,

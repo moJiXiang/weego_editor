@@ -71,6 +71,7 @@ module.exports = function(app) {
 	app.get('/delCoverImage/:_id/:imageName',routes.city.delCoverImage);
 
 	app.post('/citypic/upload_background_img',routes.city.upload_background_img);
+	app.post('/citypic/upload_imgforapp',routes.city.upload_imgforapp);
 	app.get('/delBackgroundImage/:_id/:imageName',routes.city.delBackgroundImage);
 	app.get('/cityCoverimage/:imageId', routes.city.getCityCoverImage);
 	app.get('/cityBackimage/:imageId', routes.city.getCitBackImage);

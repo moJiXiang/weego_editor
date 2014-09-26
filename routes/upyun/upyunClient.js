@@ -191,6 +191,15 @@ exports.upCityBgToYun = function(fileName,callback){
 	});
 };
 //citypathC1
+exports.upImgforAppToYun = function(fileName,callback){
+	var src_path_name1 = global.imgpathC4 + fileName;
+	var target_path_name1 = global.citypathC4 + fileName;
+	upToYun(src_path_name1,target_path_name1,function(err,data0){
+		if(err) throw err;
+		callback(null,data0);
+	});
+};
+//citypathC1
 exports.delCityBgFromYun = function(fileName,callback){
 	var target_path_name1 = global.citypathC1 + fileName;
 	delFromYun(target_path_name1, function(err,data0){
