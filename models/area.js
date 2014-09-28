@@ -30,8 +30,8 @@ var AreaSchema = new Schema({
     website            : { type: String },
     show_flag          : { type: Number },
     en_info                : {
-        open_time        : { type: String  },
-        tags               : { type: Array},
+        open_time        : { type: String },
+        tags             : { type: Array  },
         introduce        : { type: String },
         address          : { type: String },
         traffic          : { type: String },
