@@ -53,6 +53,8 @@ var CitySchema = new Schema({
     weoid               : String, //yahoo weather api ID
     status              : String,
     en_info: {
+        continents : String,
+        countryname: String,
         short_introduce: String,
         city_overview : String,
         attraction_overview: String,
