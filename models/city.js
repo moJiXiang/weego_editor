@@ -73,6 +73,7 @@ var CitySchema = new Schema({
     }
 
 }, {
+    versionKey: false,
     collection : 'latestcity'
 });
 
