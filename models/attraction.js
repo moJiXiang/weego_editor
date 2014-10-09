@@ -47,6 +47,7 @@ var AttractionSchema = new Schema({
     telno              : String,
     website            : String,
     traffic_info       : String,
+    tips               : String,
     yelp_rating        : Number,
     yelp_review_count  : Number,
     yelp_update_time   : Number,

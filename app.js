@@ -6,11 +6,12 @@
 var express = require('express'),
     http = require('http')
     path = require('path'),
-    conf = require('./config/Config.js')
+    conf = require('./config/Config.js'),
+    mongoose = require('mongoose'),
     winston = require('winston'),
     // expressWinston = require('express-winston'), //should make use of it
     log = winston;
-
+var admin = require('node-django-admin');
 //init logging
 winston.add(winston.transports.File, { filename: conf.workdir + '/app.log' });
 
@@ -24,6 +25,8 @@ app.configure(function(){
     app.use(express.methodOverride());
     app.use(express.cookieParser('to be changed'));
     app.use(express.session({ secret: "to be changed" , key: 'sid'}));
+    // Bootstrap admin site
+    admin.config(app, mongoose, '/admin');
     app.use(app.router);
     app.use(express.static(path.join(__dirname, 'webapp/dist')));
 });
@@ -31,6 +34,7 @@ app.configure(function(){
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
+
 
 require('./routes')(app);
 
