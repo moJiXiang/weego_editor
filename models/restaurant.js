@@ -40,6 +40,7 @@ var RestaurantSchema = new Schema({
     price_desc        : { type: String ,default: '一般'},
     website           : { type: String },
     url               : { type: String },
+    brief_introduce   : String,
     tips              : { type: String },  // another summary/description of restaurant
     index_flag        : { type: Boolean },
     am                : { type: Boolean },
@@ -62,6 +63,7 @@ var RestaurantSchema = new Schema({
     },
     status             : String,
     en_info: {
+        brief_introduce: String,
         introduce      : String,
         tips           : String,
         comments       : String,
