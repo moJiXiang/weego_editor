@@ -681,8 +681,8 @@ exports.uploadAreaImg = function(req, res) {
                     imageMagick(tmp_path)
                         .crop(cropwidth_ios, cropheight_ios, startx, starty)
                         .resize(640, 480, '!')
-                        write(ios_target, function(err) {
-                            
+                        .write(ios_target, function(err) {
+
                             upyunClient.upAreaToYun(filename, function(err, result) {
                                 if (err) {
                                     res.send({
