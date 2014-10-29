@@ -93,7 +93,8 @@ exports.upAttractionToYun = function(fileName,callback){
 	var target_path_name4 = global.attpathA4 + fileName;
 	var src_path_name5 = global.imgpathA5 + fileName;
 	var target_path_name5 = global.attpathA5 + fileName;
-	var ios_path = global.attpathIos + fileName;
+	var src_ios = global.imgpathAIos + fileName;
+	var ios_path = global.attpathAIos + fileName;
 
 	upToYun(src_path_name0,target_path_name0,function(err,data0){
 		if(err) throw err;
@@ -107,7 +108,7 @@ exports.upAttractionToYun = function(fileName,callback){
 						if(err) throw err;
 						upToYun(src_path_name5,target_path_name5,function(err,data5){
 							if(err) throw err;
-							upToYun(src_path_name5, ios_path, function(err, data6) {
+							upToYun(src_ios, ios_path, function(err, data6) {
 								if(err) throw err;
 								callback(null, data6);
 							});

@@ -482,6 +482,7 @@ exports.upload = function (req, res) {
     var filePathA3 = global.imgpathA3 + imageName;
     var filePathA4 = global.imgpathA4 + imageName;
     var filePathA5 = global.imgpathA5 + imageName;
+    var filePathIos = global.imgpathAIos + imageName;
     req.pipe(fileStream);
     req.on('end', function () {
 
@@ -500,7 +501,9 @@ exports.upload = function (req, res) {
         im.crop({srcPath:filePath,dstPath:filePathA5,width:global.imgasizeA5.width,height:global.imgasizeA5.height,quality:1,gravity:'Center'},function (err, metadata) {
             if (err) throw err;
         });
-
+        im.crop({srcPath:filePath,dstPath:filePathIos,width:global.imgsizeAIos.width,height:global.imgsizeAIos.height,quality:1,gravity:'Center'},function (err, metadata) {
+            if (err) throw err;
+        });
         attractionsProvider.findOne({_id:new ObjectID(attractions_id), 'coverImageId':null}, {}, function (err, result) {
             if (err) {
                 throw err;
