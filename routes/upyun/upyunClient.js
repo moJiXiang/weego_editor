@@ -239,13 +239,13 @@ exports.delLifeFromYun = function(type,fileName,callback){
 exports.upAreaToYun = function(fileName, callback){
 	var src_path = global.imgpathSO + fileName;
 	var target_path = global.lifepathAO + fileName;
-	// var ios_src_path = 
+	var ios_src_path = global.imgpathSIos + fileName;
 	var ios_path = global.lifepathIosAo + fileName;
 	upToYun(src_path, target_path, function(err, result){
 		if(err){
 			res.status(500).send({error: 'Internet Error!'});
 		};
-		upToYun(src_path, ios_path, function(err, data) {
+		upToYun(ios_src_path, ios_path, function(err, data) {
 			if(err){
 				res.status(500).send({error: 'Internet Error!'});
 			};

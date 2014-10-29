@@ -659,11 +659,14 @@ exports.uploadAreaImg = function(req, res) {
     var filename = validPic(req.files.file.type);
     var tmp_path = req.files.file.path;
     var target_path = global.imgpathSO + filename;
+    var ios_target = global.imgpathSIos + filename;
     var cropwidth, cropheight, startx, starty;
     imageMagick(tmp_path)
         .size(function(err, size) {
             cropwidth = size.width >= size.height ? Math.round(size.height * (640 / 425)) : size.width;
             cropheight = size.width < size.height ? Math.round(size.width * (425 / 640)) : size.height;
+            cropwidth_ios = size.width >= size.height ? Math.round(size.height * (640 / 480)) : size.width;
+            cropheight_ios = size.width < size.height ? Math.round(size.width * (480 / 640)) : size.height;
             startx = size.width >= size.height ? Math.round((size.width - cropwidth) / 2) : 0;
             starty = size.width < size.height ? Math.round((size.height - cropheight) / 2) : 0;
 
@@ -675,27 +678,32 @@ exports.uploadAreaImg = function(req, res) {
                     if (err) {
                         res.end();
                     }
-
-                    upyunClient.upAreaToYun(filename, function(err, result) {
-                        if (err) {
-                            res.send({
-                                status: '500',
-                                message: 'can not upload file to upyunClient!'
-                            });
-                        }
-                        Area.pushImg(areaid, filename, function(err, result) {
-                            if (err) {
-                                res.send({
-                                    status: '500',
-                                    message: 'can not push new image into the database!'
-                                });
-                            }
-                            res.send({
-                                status: '200',
-                                message: 'upload image success!'
-                            });
+                    imageMagick(tmp_path)
+                        .crop(cropwidth_ios, cropheight_ios, startx, starty)
+                        .resize(640, 480, '!')
+                        write(ios_target, function(err) {
+                            
+                            upyunClient.upAreaToYun(filename, function(err, result) {
+                                if (err) {
+                                    res.send({
+                                        status: '500',
+                                        message: 'can not upload file to upyunClient!'
+                                    });
+                                }
+                                Area.pushImg(areaid, filename, function(err, result) {
+                                    if (err) {
+                                        res.send({
+                                            status: '500',
+                                            message: 'can not push new image into the database!'
+                                        });
+                                    }
+                                    res.send({
+                                        status: '200',
+                                        message: 'upload image success!'
+                                    });
+                                })
+                            })
                         })
-                    })
                 })
         })
 }
