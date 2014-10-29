@@ -154,7 +154,7 @@ exports.upCityToYun = function(fileName,callback){
 	var target_path_name2 = global.citypathC2 + fileName;
 	var src_path_name3 = global.imgpathC3 + fileName;
 	var target_path_name3 = global.citypathC3 + fileName;
-	var src_ios_name = global.citypathIos + fileName;
+	var src_ios_name = global.imgpathCIos + fileName;
 	var ios_path = global.citypathIos + fileName;
 
 	upToYun(src_path_name0,target_path_name0,function(err,data0){
