@@ -240,7 +240,7 @@ exports.upAreaToYun = function(fileName, callback){
 	var src_path = global.imgpathSO + fileName;
 	var target_path = global.lifepathAO + fileName;
 	var ios_src_path = global.imgpathSIos + fileName;
-	var ios_path = global.lifepathIosAo + fileName;
+	var ios_path = global.lifepathIosAO + fileName;
 	upToYun(src_path, target_path, function(err, result){
 		if(err){
 			callback(err)
