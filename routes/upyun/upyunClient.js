@@ -243,11 +243,11 @@ exports.upAreaToYun = function(fileName, callback){
 	var ios_path = global.lifepathIosAo + fileName;
 	upToYun(src_path, target_path, function(err, result){
 		if(err){
-			res.status(500).send({error: 'Internet Error!'});
+			callback(err)
 		};
 		upToYun(ios_src_path, ios_path, function(err, data) {
 			if(err){
-				res.status(500).send({error: 'Internet Error!'});
+				callback(err)
 			};
 			callback(null, data);
 		})
