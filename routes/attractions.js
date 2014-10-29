@@ -234,7 +234,8 @@ exports.postimage = function(req, res) {
     var filePathA3 = global.imgpathA3 + filename;
     var filePathA4 = global.imgpathA4 + filename;
     var filePathA5 = global.imgpathA5 + filename;
-    makeImageFile(req, tmp_path, target_path, filePathA1, filePathA2, filePathA3, filePathA4, filePathA5, function(err, result) {
+    var filePathAIos = global.imgpathAIos + filename;
+    makeImageFile(req, tmp_path, target_path, filePathA1, filePathA2, filePathA3, filePathA4, filePathA5, filePathAIos, function(err, result) {
         if (err) {
             console.log(err);
             return res.send(500, {status: '500', message: 'can not rename this file!'});
@@ -301,7 +302,7 @@ exports.postimage = function(req, res) {
     // });
 };
 
-function makeImageFile(req, tmp_path, target_path, target_path_A1, target_path_A2,target_path_A3, target_path_A4, target_path_A5, callback) {
+function makeImageFile(req, tmp_path, target_path, target_path_A1, target_path_A2,target_path_A3, target_path_A4, target_path_A5, target_ios, callback) {
     fs.rename(tmp_path, target_path, function (err) {
         if (err) {
             throw err;
@@ -319,7 +320,10 @@ function makeImageFile(req, tmp_path, target_path, target_path_A1, target_path_A
                             if (err) throw err;
                             im.crop({srcPath:target_path,dstPath:target_path_A5,width:global.imgsizeA5.width,height:global.imgsizeA5.height,quality:1,gravity:'Center'}, function (err, metadata) {
                                 if (err) throw err;
-                                process.nextTick(callback);
+                                im.crop({srcPath:target_path,dstPath:target_ios,width:global.imgsizeAIos.width,height:global.imgsizeAIos.height,quality:1,gravity:'Center'}, function (err, metadata) {
+                                    if(err) throw err;
+                                    process.nextTick(callback);
+                                });
                             });
                         });
                     });
