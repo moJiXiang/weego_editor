@@ -662,10 +662,10 @@ exports.uploadAreaImg = function(req, res) {
     var cropwidth, cropheight, startx, starty;
     imageMagick(tmp_path)
         .size(function(err, size) {
-            cropwidth = size.width >= size.height ? Math.round(size.height * (640/425)) : size.width;
-            cropheight = size.width < size.height ? Math.round(size.width * (425/640)) : size.height;
+            cropwidth = size.width >= size.height ? Math.round(size.height * (640 / 425)) : size.width;
+            cropheight = size.width < size.height ? Math.round(size.width * (425 / 640)) : size.height;
             startx = size.width >= size.height ? Math.round((size.width - cropwidth) / 2) : 0;
-            starty = size.width < size.height ? Math.round((size.height - cropheight)/2) : 0;
+            starty = size.width < size.height ? Math.round((size.height - cropheight) / 2) : 0;
 
             imageMagick(tmp_path)
                 .crop(cropwidth, cropheight, startx, starty)
@@ -678,13 +678,22 @@ exports.uploadAreaImg = function(req, res) {
 
                     upyunClient.upAreaToYun(filename, function(err, result) {
                         if (err) {
-                            res.send({status: '500', message: 'can not upload file to upyunClient!'});
+                            res.send({
+                                status: '500',
+                                message: 'can not upload file to upyunClient!'
+                            });
                         }
                         Area.pushImg(areaid, filename, function(err, result) {
                             if (err) {
-                                res.send({status: '500', message: 'can not push new image into the database!'});
+                                res.send({
+                                    status: '500',
+                                    message: 'can not push new image into the database!'
+                                });
                             }
-                            res.send({status: '200', message: 'upload image success!'});
+                            res.send({
+                                status: '200',
+                                message: 'upload image success!'
+                            });
                         })
                     })
                 })
