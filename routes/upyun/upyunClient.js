@@ -219,11 +219,15 @@ exports.delCityBgFromYun = function(fileName,callback){
 exports.upLifeToYun = function(type,fileName,callback){
 	var src_path_name0 = getSrcPathByType(type) + fileName;
 	var target_path_name0 = getTargetPathByType(type) + fileName;
+	var ios_src = getIosSrcPathByType(type) + fileName;
 	var ios_path = getIosPathByType(type) + fileName;
 
 	upToYun(src_path_name0,target_path_name0,function(err,data0){
 		if(err) throw err;
-		callback(null,data0);
+		upToYun(ios_src,ios_path,function(err,data0){
+			if(err) throw err;
+			callback(null,data0);
+		}
 	});
 };
 
@@ -270,6 +274,12 @@ function getSrcPathByType (type){
         return global.imgpathFO;
     else
         return global.imgpathGO;
+}
+function getIosSrcPathByType(type) {
+	 if(type=='1')
+        return global.imgpathEIos;
+    else if(type=='2')
+        return global.imgpathFIos;
 }
 function getTargetPathByType (type){
     if(type=='1')
