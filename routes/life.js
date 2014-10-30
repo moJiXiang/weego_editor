@@ -606,16 +606,16 @@ exports.postLifeImage = function (req, res) {
                 .crop(cropwidth, cropheight, startx, starty)
                 .resize(640, 425, "!")
                 .autoOrient()
-                .write(ios_target, function(err) {
+                .write(target_path, function(err) {
                     if (err) {
                         res.end();
                     }
 
             imageMagick(tmp_path)
-                .crop(cropwidth, cropheight, startx, starty)
-                .resize(640, 425, "!")
+                .crop(cropwidth_ios, cropheight_ios, startx, starty)
+                .resize(640, 480, "!")
                 .autoOrient()
-                .write(target_path, function(err) {
+                .write(ios_target, function(err) {
                     if (err) {
                         res.end();
                     }
