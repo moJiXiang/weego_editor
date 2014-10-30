@@ -227,7 +227,7 @@ exports.upLifeToYun = function(type,fileName,callback){
 		upToYun(ios_src,ios_path,function(err,data0){
 			if(err) throw err;
 			callback(null,data0);
-		}
+		});
 	});
 };
 
