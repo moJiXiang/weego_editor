@@ -590,12 +590,15 @@ exports.postLifeImage = function (req, res) {
     var filename = validPic(req.files.file.type);
     var tmp_path = req.files.file.path;
     var target_path = getPathByType(type) + filename;
+    var ios_target = getIosPathByType(type) + filename;
 
-    var cropwidth, cropheight, startx, starty;
+    var cropwidth, cropheight, cropwidth_ios, cropheight_ios, startx, starty;
     imageMagick(tmp_path)
         .size(function(err, size) {
             cropwidth = size.width >= size.height ? Math.round(size.height * (640/425)) : size.width;
             cropheight = size.width < size.height ? Math.round(size.width * (425/640)) : size.height;
+            cropwidth_ios = size.width >= size.height ? Math.round(size.height * (640 / 480)) : size.width;
+            cropheight_ios = size.width < size.height ? Math.round(size.width * (480 / 640)) : size.height;
             startx = size.width >= size.height ? Math.round((size.width - cropwidth) / 2) : 0;
             starty = size.width < size.height ? Math.round((size.height - cropheight)/2) : 0;
 
@@ -604,6 +607,15 @@ exports.postLifeImage = function (req, res) {
                 .resize(640, 425, "!")
                 .autoOrient()
                 .write(target_path, function(err) {
+                    if (err) {
+                        res.end();
+                    }
+
+            imageMagick(tmp_path)
+                .crop(cropwidth_ios, cropheight_ios, startx, starty)
+                .resize(640, 480, "!")
+                .autoOrient()
+                .write(ios_target, function(err) {
                     if (err) {
                         res.end();
                     }
@@ -629,6 +641,7 @@ exports.postLifeImage = function (req, res) {
                             });
                         })
                     })
+                });
                 })
         })
 
@@ -659,13 +672,16 @@ exports.uploadAreaImg = function(req, res) {
     var filename = validPic(req.files.file.type);
     var tmp_path = req.files.file.path;
     var target_path = global.imgpathSO + filename;
-    var cropwidth, cropheight, startx, starty;
+    var ios_target = global.imgpathSIos + filename;
+    var cropwidth, cropheight, cropwidth_ios, cropheight_ios, startx, starty;
     imageMagick(tmp_path)
         .size(function(err, size) {
-            cropwidth = size.width >= size.height ? Math.round(size.height * (640/425)) : size.width;
-            cropheight = size.width < size.height ? Math.round(size.width * (425/640)) : size.height;
+            cropwidth = size.width >= size.height ? Math.round(size.height * (640 / 425)) : size.width;
+            cropheight = size.width < size.height ? Math.round(size.width * (425 / 640)) : size.height;
+            cropwidth_ios = size.width >= size.height ? Math.round(size.height * (640 / 480)) : size.width;
+            cropheight_ios = size.width < size.height ? Math.round(size.width * (480 / 640)) : size.height;
             startx = size.width >= size.height ? Math.round((size.width - cropwidth) / 2) : 0;
-            starty = size.width < size.height ? Math.round((size.height - cropheight)/2) : 0;
+            starty = size.width < size.height ? Math.round((size.height - cropheight) / 2) : 0;
 
             imageMagick(tmp_path)
                 .crop(cropwidth, cropheight, startx, starty)
@@ -675,18 +691,32 @@ exports.uploadAreaImg = function(req, res) {
                     if (err) {
                         res.end();
                     }
+                    imageMagick(tmp_path)
+                        .crop(cropwidth_ios, cropheight_ios, startx, starty)
+                        .resize(640, 480, '!')
+                        .write(ios_target, function(err) {
 
-                    upyunClient.upAreaToYun(filename, function(err, result) {
-                        if (err) {
-                            res.send({status: '500', message: 'can not upload file to upyunClient!'});
-                        }
-                        Area.pushImg(areaid, filename, function(err, result) {
-                            if (err) {
-                                res.send({status: '500', message: 'can not push new image into the database!'});
-                            }
-                            res.send({status: '200', message: 'upload image success!'});
+                            upyunClient.upAreaToYun(filename, function(err, result) {
+                                if (err) {
+                                    res.send({
+                                        status: '500',
+                                        message: 'can not upload file to upyunClient!'
+                                    });
+                                }
+                                Area.pushImg(areaid, filename, function(err, result) {
+                                    if (err) {
+                                        res.send({
+                                            status: '500',
+                                            message: 'can not push new image into the database!'
+                                        });
+                                    }
+                                    res.send({
+                                        status: '200',
+                                        message: 'upload image success!'
+                                    });
+                                })
+                            })
                         })
-                    })
                 })
         })
 }
@@ -770,6 +800,13 @@ function getPathByType (type){
         return global.imgpathFO;
     else
         return global.imgpathGO;
+}
+
+function getIosPathByType(type){
+    if(type=='1')
+        return global.imgpathEIos;
+    else if(type=='2')
+        return global.imgpathFIos;
 }
 
 function pushImg(_id,type,target_upload_name,callback){

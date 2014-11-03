@@ -93,9 +93,9 @@ exports.upAttractionToYun = function(fileName,callback){
 	var target_path_name4 = global.attpathA4 + fileName;
 	var src_path_name5 = global.imgpathA5 + fileName;
 	var target_path_name5 = global.attpathA5 + fileName;
-	console.log(src_path_name0);
-	console.log(target_path_name0);
-	
+	var src_ios = global.imgpathAIos + fileName;
+	var ios_path = global.attpathAIos + fileName;
+
 	upToYun(src_path_name0,target_path_name0,function(err,data0){
 		if(err) throw err;
 		upToYun(src_path_name1,target_path_name1,function(err,data1){
@@ -108,7 +108,10 @@ exports.upAttractionToYun = function(fileName,callback){
 						if(err) throw err;
 						upToYun(src_path_name5,target_path_name5,function(err,data5){
 							if(err) throw err;
-							callback(null,data5);
+							upToYun(src_ios, ios_path, function(err, data6) {
+								if(err) throw err;
+								callback(null, data6);
+							});
 						});
 					});
 				});
@@ -152,14 +155,18 @@ exports.upCityToYun = function(fileName,callback){
 	var target_path_name2 = global.citypathC2 + fileName;
 	var src_path_name3 = global.imgpathC3 + fileName;
 	var target_path_name3 = global.citypathC3 + fileName;
-	
+	var src_ios_name = global.imgpathCIos + fileName;
+	var ios_path = global.citypathIos + fileName;
+
 	upToYun(src_path_name0,target_path_name0,function(err,data0){
 		if(err) throw err;
 		upToYun(src_path_name2,target_path_name2,function(err,data1){
 			if(err) throw err;
 			upToYun(src_path_name3,target_path_name3,function(err,data2){
 				if(err) throw err;
-				callback(null,data2);
+				upToYun(src_ios_name, ios_path, function(err, data3) {
+					callback(null,data2);
+				})
 			});
 		});
 	});
@@ -212,11 +219,15 @@ exports.delCityBgFromYun = function(fileName,callback){
 exports.upLifeToYun = function(type,fileName,callback){
 	var src_path_name0 = getSrcPathByType(type) + fileName;
 	var target_path_name0 = getTargetPathByType(type) + fileName;
-	
+	var ios_src = getIosSrcPathByType(type) + fileName;
+	var ios_path = getIosPathByType(type) + fileName;
+
 	upToYun(src_path_name0,target_path_name0,function(err,data0){
 		if(err) throw err;
-		console.log(err);
-		callback(null,data0);
+		upToYun(ios_src,ios_path,function(err,data0){
+			if(err) throw err;
+			callback(null,data0);
+		});
 	});
 };
 
@@ -232,9 +243,18 @@ exports.delLifeFromYun = function(type,fileName,callback){
 exports.upAreaToYun = function(fileName, callback){
 	var src_path = global.imgpathSO + fileName;
 	var target_path = global.lifepathAO + fileName;
-	upToYun(src_path, target_path, function(err, data0){
-		if(err) throw err;
-		callback(null, data0);
+	var ios_src_path = global.imgpathSIos + fileName;
+	var ios_path = global.lifepathIosAO + fileName;
+	upToYun(src_path, target_path, function(err, result){
+		if(err){
+			callback(err)
+		};
+		upToYun(ios_src_path, ios_path, function(err, data) {
+			if(err){
+				callback(err)
+			};
+			callback(null, data);
+		})
 	})
 }
 
@@ -255,6 +275,12 @@ function getSrcPathByType (type){
     else
         return global.imgpathGO;
 }
+function getIosSrcPathByType(type) {
+	 if(type=='1')
+        return global.imgpathEIos;
+    else if(type=='2')
+        return global.imgpathFIos;
+}
 function getTargetPathByType (type){
     if(type=='1')
         return global.lifepathEO;
@@ -262,4 +288,12 @@ function getTargetPathByType (type){
         return global.lifepathFO;
     else
         return global.lifepathGO;
+}
+
+function getIosPathByType(type) {
+	if(type == '1') {
+		return global.lifepathIosEO;
+	} else if(type == '2') {
+		return global.lifepathIosFO;
+	}
 }

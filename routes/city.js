@@ -883,8 +883,9 @@ exports.upload = function(req, res) {
     var target_path = global.imgpathCO + filename;
     var filePathC2 = global.imgpathC2 + filename;
     var filePathC3 = global.imgpathC3 + filename;
+    var filePathCIos = global.imgpathCIos + filename;
 
-    changeImageSize(req, tmp_path, target_path, filePathC2, filePathC3, function(err, result) {
+    changeImageSize(req, tmp_path, target_path, filePathC2, filePathC3, filePathCIos, function(err, result) {
         if (err) {
             res.send({status: '500', message: 'can not rename this file!'});
         }
@@ -910,7 +911,7 @@ exports.upload = function(req, res) {
     })
 
 }
-function changeImageSize(req, tmp_path, target_path, target_path_middle, target_path_small, callback) {
+function changeImageSize(req, tmp_path, target_path, target_path_middle, target_path_small, target_ios, callback) {
     fs.rename(tmp_path, target_path, function(err) {
         if (err) {
             throw err;
@@ -936,7 +937,17 @@ function changeImageSize(req, tmp_path, target_path, target_path_middle, target_
             }, function(err, metadata) {
                 console.log("2:" + err);
                 if (err) throw err;
-                process.nextTick(callback);
+                im.crop({
+                    srcPath: target_path,
+                    dstPath: target_ios,
+                    width: global.imgsizeCIos.width,
+                    height: global.imgsizeCIos.height,
+                    quality: 1,
+                    gravity: 'Center'
+                }, function(err, metadata) {
+                    if (err) throw err;
+                    process.nextTick(callback);
+                });
             });
         });
     });
