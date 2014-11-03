@@ -42,6 +42,7 @@ var CitySchema = new Schema({
     }],                      
     recommand_center    : {
         name            : String,
+        name_en         : String,
         latitude        : String,
         longitude       : String,
         _id             : String

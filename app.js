@@ -11,7 +11,6 @@ var express = require('express'),
     winston = require('winston'),
     // expressWinston = require('express-winston'), //should make use of it
     log = winston;
-var admin = require('node-django-admin');
 //init logging
 winston.add(winston.transports.File, { filename: conf.workdir + '/app.log' });
 
@@ -26,7 +25,6 @@ app.configure(function(){
     app.use(express.cookieParser('to be changed'));
     app.use(express.session({ secret: "to be changed" , key: 'sid'}));
     // Bootstrap admin site
-    admin.config(app, mongoose, '/admin');
     app.use(app.router);
     app.use(express.static(path.join(__dirname, 'webapp/dist')));
 });
